@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="teamMatchSQL">
+
+	<typeAlias alias="teamMatch" type="teamMatch.teamMatchVO"/>
+	
+		<!-- 리절트 맵 정의 -->
+		<resultMap id="teamMatchRes" class="teamMatch">
+			<result property="game_no" column="game_no"/>
+			<result property="team_id" column="team_id"/>
+			<result property="game_day" column="game_day"/>
+			<result property="game_type" column="game_type"/>
+			<result property="stadium" column="stadium"/>
+			<result property="fee" column="fee"/>
+			<result property="game_area" column="game_area"/>
+			<result property="uniform_color" column="uniform_color"/>
+			<result property="content" column="content"/>
+		</resultMap>
+		
+		<!-- 공통으로 사용할 select 절 정의 -->
+		<sql id="select-all">
+			select * from teamMatch
+		</sql>
+		
+		<!-- 공통으로 사용할 where-no절 정의 -->
+		<sql id="where-no">
+			where no = #no#
+		</sql>
+		
+		<!-- select 쿼리문 정의 -->
+		<select id="selectAll" resultMap="boardRes">
+			<include refid="select-all"/>
+			order by ref desc, re_step asc
+		</select>
+		
+		<select id="selectSearch" resultMap="boardRes" parameterClass="java.util.HashMap">
+			<include refid="select-all"/>
+			where $param1$ like #param2# order by ref desc, re_step asc
+		</select>
+		
+		<select id="selectOne" resultMap="boardRes" parameterClass="int">
+			<include refid="select-all"/>
+			<include refid="where-no"/>
+		</select>
+		
+		<select id="selectLastNo" resultClass="board">
+			select max(no) as no from Sboard_hh
+		</select>
+		
+		<select id="selectPassword" resultMap="boardRes" parameterClass="board">
+			<include refid="select-all"/>
+			<include refid="where-no"/>
+			and password=#password#
+		</select>
+		
+		<!-- insert 쿼리문 정의 -->
+		<insert id="insertBoard" parameterClass="board">
+			insert into Sboard_hh (no,subject,name,password,content,regdate,ref,re_step,re_level) values (sboard_hh_no_seq.NEXTVAL,#subject#,#name#,#password#,#content#,#regdate#,sboard_hh_no_seq.CURRVAL,#re_step#,#re_level#)
+		</insert>
+		
+		<insert id="insertBoardReply" parameterClass="board">
+			insert into Sboard_hh (no,subject,name,password,content,regdate,ref,re_step,re_level) values (sboard_hh_no_seq.NEXTVAL,#subject#,#name#,#password#,#content#,#regdate#,#ref#,#re_step#,#re_level#)
+		</insert>
+		
+		<!-- update 쿼리문 정의 -->
+		<update id="updateBoard" parameterClass="board">
+			update sboard_hh set subject=#subject#, name=#name#,password=#password#,content=#content#
+			<include refid="where-no"/>
+		</update>
+		
+		<update id="updateFile" parameterClass="board">
+			update sboard_hh set file_orgname=#file_orgname#,file_savename=#file_savename#
+			<include refid="where-no"/>		
+		</update>
+		
+		<update id="updateReadHit" parameterClass="board">
+			update sboard_hh set readhit=readhit+1
+			<include refid="where-no"/>
+		</update>
+		
+		<update id="updateReplyStep" parameterClass="board">
+			update sboard_hh set re_step=re_step+1 where ref=#ref# and re_step>#re_step#
+		</update>
+		
+		<!-- delete 쿼리문 정의 -->
+		<delete id="deleteBoard" parameterClass="board">
+			delete from sboard_hh
+			<include refid="where-no"/>
+		</delete>
+</sqlMap>
