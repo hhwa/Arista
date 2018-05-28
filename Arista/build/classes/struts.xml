@@ -19,7 +19,11 @@
 		</global-exception-mappings>
 	 	-->
 	 	<!-- 게시판 리스트 액션 -->
-	 	<action name="listAction" class="board.listAction">
+	 	<action name="QNAList" class="qna.QNAAction">
+	 	  <result>/QNA/QNAList.jsp</result>
+	 	</action>
+	 	
+<!-- 	 	<action name="listAction" class="board.listAction">
 		 	<result>/board/boardList.jsp</result>
 		 </action>
 		 
@@ -33,12 +37,12 @@
 		 	</result>
 		 </action>
 		 
-		 <!-- 게시판 상세보기 액션 -->
+		 게시판 상세보기 액션
 		 <action name="viewAction" class="board.viewAction">
 		 	<result>/board/boardView.jsp</result>
 		 </action>
 		 
-		 <!-- 파일 다운로드 액션 -->
+		 파일 다운로드 액션
 		 <action name="fileDownloadAction" class="board.viewAction" method="download">
 		 	<result name="success" type="stream">
                 <param name="contentType">binary/octet-stream</param>
@@ -49,7 +53,7 @@
       	   </result>
 		 </action>
 		 
-		 <!-- 비밀번호 체크 액션 -->
+		 비밀번호 체크 액션
 		 <action name="checkForm" class="board.viewAction" method="checkForm">
 		 	<result>/board/checkPassword.jsp</result>
 		 </action>
@@ -59,7 +63,7 @@
 		 	<result>/board/checkSuccess.jsp</result>
 		 </action>
 		 
-		 <!-- 게시판 수정 액션 -->
+		 게시판 수정 액션
 		 <action name="modifyForm" class="board.viewAction">
 		 	<result type="chain">writeForm</result>
 		 </action>
@@ -71,7 +75,7 @@
 		 	<result type="chain">listAction</result>
 		 </action>
 		 
-		 <!-- 게시판 답변 액션 -->
+		 게시판 답변 액션
 		 <action name="replyForm" class="board.writeAction" method="reply">
 		 	<result type="chain">writeForm</result>
 		 </action>
@@ -79,6 +83,8 @@
 		 	<result type="redirect-action">
 		 		<param name="actionName">listAction</param>
 		 	</result>
-		 </action>
+		 </action> -->
+		 
+		 
 	</package>
 </struts>

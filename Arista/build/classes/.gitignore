@@ -11,3 +11,5 @@
 /struts.xml
 /team/
 /teamMatch/
+/customer/
+/pagingAction.class
