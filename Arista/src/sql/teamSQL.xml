@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="teamSQL">
+
+	<typeAlias alias="team" type="team.teamVO"/>
+	
+		<!-- 리절트 맵 정의 -->
+		<resultMap id="teamRes" class="team">
+			<result property="team_no" column="team_no"/>
+			<result property="team_id" column="team_id"/>
+			<result property="team_area" column="team_area"/>
+			<result property="team_fieldtype" column="team_fieldtype"/>
+			<result property="team_age" column="team_age"/>
+			<result property="team_skill" column="team_skill"/>
+			<result property="team_count" column="team_count"/>
+			<result property="team_intro" column="team_intro"/>
+			<result property="team_regdate" column="team_regdate"/>
+		</resultMap>
+		
+		<!-- 공통으로 사용할 select 절 정의 -->
+		<sql id="select-all">
+			select * from team
+		</sql>
+		
+		<!-- 공통으로 사용할 where-no절 정의 -->
+		<sql id="where-no">
+			where team_no = #team_no#
+		</sql>
+		
+		<!-- select 쿼리문 정의 -->
+		
+		<!-- team 목록 -->
+		<select id="teamList" resultMap="teamRes">
+			<include refid="select-all"/>
+			order by team_no desc;
+		</select>
+		
+		<!-- team 검색 -->
+		<select id="teamSearch" resultMap="teamRes" parameterClass="java.util.HashMap">
+			<include refid="select-all"/>
+			where $param1$ like #param2# order by team_no desc;
+		</select>
+		
+		<!-- team 상세보기 -->
+		<select id="teamView" resultMap="teamRes" parameterClass="int">
+			<include refid="select-all"/>
+			<include refid="where-no"/>
+		</select>
+		
+		<!-- insert 쿼리문 정의 -->
+		
+		<!-- team 추가 -->
+		<insert id="insertTeam" parameterClass="team">
+			insert into team (team_no,team_id,team_area,team_fieldtype,team_age,team_skill,team_count,team_intro,team_regdate) values (team_no_seq.NEXTVAL,#team_id#,#team_area#,#team_fieldtype#,#team_age#,#team_skill#,#team_count#,#team_intro#,#team_regdate#)
+		</insert>
+		
+		<!-- update 쿼리문 정의 -->
+		
+		<!-- team 수정 -->
+		<update id="updateTeam" parameterClass="team">
+			update team set team_id=#team_id#,team_area=#team_area#,team_fieldtype=#team_fieldtype#,team_age=#team_age#,team_skill=#team_skill#,team_count=#team_count#,team_intro=#team_intro#
+			<include refid="where-no"/>
+		</update>
+		
+		<!-- delete 쿼리문 정의 -->
+		<delete id="deleteTeam" parameterClass="team">
+			delete from team
+			<include refid="where-no"/>
+		</delete>
+</sqlMap>
