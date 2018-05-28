@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="qnaSQL">
+
+	<typeAlias alias="qna" type="qna.qnaVO"/>
+	
+		<!-- 리절트 맵 정의 -->
+		<resultMap id="qnaRes" class="qna">
+			<result property="qna_no" column="qna_no"/>
+			<result property="qna_id" column="qna_id"/>
+			<result property="qna_password" column="qna_password"/>
+			<result property="qna_subject" column="qna_subject"/>
+			<result property="qna_content" column="qna_content"/>
+			<result property="qna_regdate" column="qna_regdate"/>
+			<result property="ref" column="ref"/>
+			<result property="re_step" column="re_step"/>
+			<result property="re_level" column="re_level"/>
+			<result property="readhit" column="readhit"/>
+		</resultMap>
+		
+		<!-- 공통으로 사용할 select 절 정의 -->
+		<sql id="select-all">
+			select * from qna
+		</sql>
+		
+		<!-- 공통으로 사용할 where-no절 정의 -->
+		<sql id="where-no">
+			where qna_no=#qna_no#
+		</sql>
+		
+		<!-- select 쿼리문 정의 -->
+		
+		<!-- qna목록 -->
+		<select id="qnaList" resultMap="qnaRes">
+			<include refid="select-all"/>
+			order by ref desc, re_step asc
+		</select>
+		
+		<!-- qna검색 -->
+		<select id="qnaSearch" resultMap="qnaRes" parameterClass="java.util.HashMap">
+			<include refid="select-all"/>
+			where $param1$ like #param2# order by ref desc, re_step asc
+		</select>
+		
+		<select id="qnaView" resultMap="qnaRes" parameterClass="int">
+			<include refid="select-all"/>
+			<include refid="where-no"/>
+		</select>
+		
+		<select id="selectLastNo" resultClass="board">
+			select max(no) as no from qna
+		</select>
+		
+		<select id="selectPassword" resultMap="qnaRes" parameterClass="qna">
+			<include refid="select-all"/>
+			<include refid="where-no"/>
+			and qna_password=#qna_password#
+		</select>
+		
+		<!-- insert 쿼리문 정의 -->
+		
+		<!-- qna 쓰기 -->
+		<insert id="insertQNA" parameterClass="qna">
+			insert into qna (qna_no,qna_id,qna_password,qna_subject,qna_content,qna_regdate,ref,re_step,re_level) values (qna_no_seq.NEXTVAL,#qna_id#,#qna_password#,#qna_subject#,#qna_content#,#qna_regdate#,qna_no_seq.CURRVAL,#re_step#,#re_level#)
+		</insert>
+		
+		<!-- qna 답변 -->
+		<insert id="insertQNAReply" parameterClass="qna">
+			insert into qna (qna_no,qna_id,qna_password,qna_subject,qna_content,qna_regdate,ref,re_step,re_level) values (qna_no_seq.NEXTVAL,#qna_id#,#qna_password#,#qna_subject#,#qna_content#,#qna_regdate#,#ref#,#re_step#,#re_level#)
+		</insert>
+		
+		<!-- update 쿼리문 정의 -->
+		
+		<!-- qna 수정 -->
+		<update id="updateQNA" parameterClass="qna">
+			update qna set qna_subject=#qna_subject#,qna_password=#qna_password#,qna_content=#qna_content#
+			<include refid="where-no"/>
+		</update>
+		
+		<!-- 조회수 -->
+		<update id="updateReadHit" parameterClass="qna">
+			update qna set readhit=readhit+1
+			<include refid="where-no"/>
+		</update>
+		
+		<update id="updateReplyStep" parameterClass="qna">
+			update qna set re_step=re_step+1 where ref=#ref# and re_step>#re_step#
+		</update>
+		
+		<!-- delete 쿼리문 정의 -->
+		
+		<!-- qna 삭제 -->
+		<delete id="deleteQNA" parameterClass="qna">
+			delete from qna
+			<include refid="where-no"/>
+		</delete>
+</sqlMap>
