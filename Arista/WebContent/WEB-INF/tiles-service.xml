@@ -5,7 +5,7 @@
 
 <tiles-definitions>
 
-	<definition name="main" template="/template/layout.jsp">
+	<definition name="main" template="/template/layout_main.jsp">
 		<put-attribute name="title" value="OFF THE BALL - main"/>
 		<put-attribute name="header" value="/template/header.jsp"/>
 		<put-attribute name="body" value="/main/main.jsp"/>
