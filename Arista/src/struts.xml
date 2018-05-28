@@ -7,7 +7,7 @@
 	<!-- 용량제한 100MB로 설정 -->
 	<constant name="struts.multipart.maxSize" value="104857600"/>
 	
-	<package name="board" extends="struts-default">
+	<package name="team" extends="struts-default">
 	
 		<!-- 글로벌 예외 처리 화면 설정 -->
 		<!-- 
@@ -18,7 +18,14 @@
 			<exception-mapping result="error" exception="java.lang.Exception"/>
 		</global-exception-mappings>
 	 	-->
-	 	<!-- 게시판 리스트 액션 -->
+	 	
+	 	<!-- 팀 목록 액션 -->
+	 	<action name="listAction" class="team.listAction">
+	 		<result>/team/teamList.jsp</result>
+	 	</action>
+	 	
+	 	
+	 	<!-- 
 	 	<action name="listAction" class="board.listAction">
 		 	<result>/board/boardList.jsp</result>
 		 </action>
@@ -33,12 +40,12 @@
 		 	</result>
 		 </action>
 		 
-		 <!-- 게시판 상세보기 액션 -->
+		 게시판 상세보기 액션
 		 <action name="viewAction" class="board.viewAction">
 		 	<result>/board/boardView.jsp</result>
 		 </action>
 		 
-		 <!-- 파일 다운로드 액션 -->
+		 파일 다운로드 액션
 		 <action name="fileDownloadAction" class="board.viewAction" method="download">
 		 	<result name="success" type="stream">
                 <param name="contentType">binary/octet-stream</param>
@@ -49,7 +56,7 @@
       	   </result>
 		 </action>
 		 
-		 <!-- 비밀번호 체크 액션 -->
+		 비밀번호 체크 액션
 		 <action name="checkForm" class="board.viewAction" method="checkForm">
 		 	<result>/board/checkPassword.jsp</result>
 		 </action>
@@ -59,7 +66,7 @@
 		 	<result>/board/checkSuccess.jsp</result>
 		 </action>
 		 
-		 <!-- 게시판 수정 액션 -->
+		 게시판 수정 액션
 		 <action name="modifyForm" class="board.viewAction">
 		 	<result type="chain">writeForm</result>
 		 </action>
@@ -71,7 +78,7 @@
 		 	<result type="chain">listAction</result>
 		 </action>
 		 
-		 <!-- 게시판 답변 액션 -->
+		 게시판 답변 액션
 		 <action name="replyForm" class="board.writeAction" method="reply">
 		 	<result type="chain">writeForm</result>
 		 </action>
@@ -79,6 +86,6 @@
 		 	<result type="redirect-action">
 		 		<param name="actionName">listAction</param>
 		 	</result>
-		 </action>
+		 </action> -->
 	</package>
 </struts>
