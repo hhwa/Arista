@@ -23,7 +23,6 @@
 	 	</dataSource>
 	 </transactionManager>
 	 
-	 <settings useStatementNamespaces="true"/>
 	 <sqlMap resource="/sql/faqSQL.xml"/>
 	 <sqlMap resource="/sql/matchStateSQL.xml"/>
 	 <sqlMap resource="/sql/memSQL.xml"/>
