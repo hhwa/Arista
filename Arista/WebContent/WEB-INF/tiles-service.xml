@@ -5,11 +5,11 @@
 
 <tiles-definitions>
 
-	<definition name="main" template="/layout/layout.jsp">
-		<put-attribute name="title" value="Off The Match" />
-		<put-attribute name="header" value="/layout/header.jsp" />
-		<put-attribute name="body" value="/layout/content.jsp" />
-		<put-attribute name="footer" value="/layout/footer.jsp" />
+	<definition name="main" template="/template/layout_main.jsp">
+		<put-attribute name="title" value="OFF THE BALL - main"/>
+		<put-attribute name="header" value="/template/header.jsp"/>
+		<put-attribute name="body" value="/main/main.jsp"/>
+		<put-attribute name="footer" value="/template/footer.jsp"/>
 	</definition>
 	
 	<definition name="mypage" template="/template/layout.jsp" extends="main">

@@ -20,12 +20,12 @@ footer a:hover {
     text-decoration: none;
 }
 </style>
-<script>
+<!-- <script>
 $(document).ready(function(){
     // Initialize Tooltip
     $('[data-toggle="tooltip"]').tooltip(); 
 })
-</script>
+</script> -->
 </head>
 <body>
 <footer class="text-center">
