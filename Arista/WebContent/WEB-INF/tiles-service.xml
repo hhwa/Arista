@@ -5,6 +5,7 @@
 
 <tiles-definitions>
 
+<<<<<<< HEAD
 	<!-- layout tiles Á¤ÀÇ -->
 	<definition name="main" template="/layout/layout.jsp">
 		<put-attribute name="title" value="Off The Match" />
@@ -25,6 +26,22 @@
 		<put-attribute name="menu" value="/tiles/template/menu_help.jsp" />
 		<put-attribute name="body" value="/tiles/help/help_home.jsp" />
 		<put-attribute name="footer" value="/tiles/template/footer_help.jsp" />
+=======
+	<definition name="main" template="/template/layout_main.jsp">
+		<put-attribute name="title" value="OFF THE BALL - main"/>
+		<put-attribute name="header" value="/template/header.jsp"/>
+		<put-attribute name="body" value="/main/main.jsp"/>
+		<put-attribute name="footer" value="/template/footer.jsp"/>
+>>>>>>> 1e9d1dbe594a3ba3066a52e2a08b117c66e1aa3e
 	</definition>
+	
+	<definition name="mypage" template="/template/layout.jsp" extends="main">
+		<put-attribute name="title" value="OFF THE BALL - myPage"/>
+		<put-attribute name="menu" value="/template/menu.jsp"/>
+		<put-attribute name="body" value="/mypage/mypage.jsp"/>
+	</definition>
+	
+	
+	
 
 </tiles-definitions>
