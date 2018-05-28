@@ -40,7 +40,7 @@ $(document).ready(function(){
 	<a href="#"> 이메일무단수집거부 </a> &nbsp;
 	
  <p><span class="glyphicon glyphicon-copyright-mark"></span>&nbsp;Copyrightⓒ 2017 Off The Match. All rights reserved. e-mail : hyunhwa91@naver.com</p>
- <p><a href="#" onclick="return false;" data-toggle="tooltip" title="park & moon"><img src="/Match/layout/image/footer_logo.png" width="10%"/></a></p>
+ <p><a href="#" onclick="return false;" data-toggle="tooltip" title="park & moon"><img src="/Arista/template/image/footer_logo.png" width="10%"/></a></p>
 </footer>
 </body>
 </html>
