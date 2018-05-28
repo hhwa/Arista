@@ -18,7 +18,5 @@
 		<put-attribute name="body" value="/mypage/mypage.jsp"/>
 	</definition>
 	
-	
-	
 
 </tiles-definitions>
