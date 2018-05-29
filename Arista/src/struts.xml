@@ -24,6 +24,16 @@
 	 		<result>/team/teamList.jsp</result>
 	 	</action>
 	 	
+	 	<action name="writeForm" class="team.writeAction" method="form">
+	 		<result>/team/makeTeam.jsp</result>
+	 	</action>
+	 	
+	 	<action name="writeAction" class="team.writeAction">
+	 		<result type="redirect-action">
+	 			<param name="actionName">listAction</param>
+	 		</result>
+	 	</action>
+	 	
 	 	
 	 	<!-- 
 	 	<action name="listAction" class="board.listAction">

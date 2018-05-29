@@ -6,17 +6,18 @@ import java.util.Date;
 public class teamVO {
 	
 	private int team_no;
-	private String team_id;
-	private String team_area;
-	private String team_type;
-	private String team_fieldtype;
-	private int team_age;
-	private String team_skill;
-	private int team_count;
-	private String team_intro;
+	private String team_id; //팀명
+	private String team_area; //지역
+	private String team_type; //소속유형
+	private String team_fieldtype; //축구/풋살
+	private int team_age; //연령
+	private String team_skill; //실력
+	private int team_count; //인원 수
+	private String team_intro; //소개
 	private String file_savname;
 	private String file_orgname;
 	private Date team_regdate;
+	
 	public int getTeam_no() {
 		return team_no;
 	}
