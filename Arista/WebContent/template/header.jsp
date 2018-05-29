@@ -7,6 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-헤더
+
+<table border="1" width=250>
+<td>마이페이지</td>
+<td> ㄴㄴ
+</table>
+
+
 </body>
 </html>
