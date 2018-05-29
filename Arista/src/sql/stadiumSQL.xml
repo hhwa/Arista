@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+
 <sqlMap namespace="stadiumSQL">
 
 	<typeAlias alias="stadium" type="stadium.stadiumVO"/>
@@ -40,7 +41,7 @@
 		<!-- stadium 검색 -->
 		<select id="stadiumSearch" resultMap="stadiumRes" parameterClass="java.util.HashMap">
 			<include refid="select-all"/>
-			where $param1$ like #param2# order by ref desc, re_step asc
+			where $param1$ like #param2# 
 		</select>
 		
 		<!-- stadium 상세보기 -->
@@ -64,12 +65,19 @@
 		
 		<!-- stadium 수정 -->
 		<update id="updateStadium" parameterClass="stadium">
-			update stadium set stadium_name=#stadium_name#,stadium_intro=#stadium_intro#,stadium_tel=#stadium_tel#,stadium_zipcode=#stadium_zipcode#,stadium_addr=#stadium_addr#,stadium_day=#stadium_day#,stadium_time=#stadium_time#
+			update stadium set stadium_name=#stadium_name#,
+			                   stadium_intro=#stadium_intro#,
+			                   stadium_tel=#stadium_tel#,
+			                   stadium_zipcode=#stadium_zipcode#,
+			                   stadium_addr=#stadium_addr#,
+			                   stadium_day=#stadium_day#,
+			                   stadium_time=#stadium_time#
 			<include refid="where-no"/>
 		</update>
 		
 		<update id="updateFile" parameterClass="stadium">
-			update stadium set stadium_main_img_org=#stadium_main_img_org#,stadium_main_img_save=#stadium_main_img_save#
+			update stadium set stadium_main_img_org=#stadium_main_img_org#,
+			                   stadium_main_img_save=#stadium_main_img_save#
 			<include refid="where-no"/>		
 		</update>
 		
