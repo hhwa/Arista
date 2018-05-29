@@ -27,9 +27,9 @@ public class writeAction extends ActionSupport {
 	private String team_area;
 	private String team_type;
 	private String team_fieldtype;
-	private int team_age;
+	private String team_age;
 	private String team_skill;
-	private int team_count;
+	private String team_count;
 	private String team_intro;
 	private String file_savname;
 	private String file_orgname;
@@ -38,7 +38,7 @@ public class writeAction extends ActionSupport {
 	private File upload; //파일 객체
 	private String uploadContentType; //컨텐츠 타입
 	private String uploadFileName; //파일 이름
-	private String fileUploadPath = "C:\\Users\\user1\\Desktop\\off the ball\\upload\\"; //업로드 경로.
+	private String fileUploadPath = "C:\\Users\\DD\\Desktop\\off the ball\\upload\\"; //업로드 경로.
 	
 	
 	public writeAction() throws IOException {
@@ -145,10 +145,11 @@ public class writeAction extends ActionSupport {
 	public void setTeam_fieldtype(String team_fieldtype) {
 		this.team_fieldtype = team_fieldtype;
 	}
-	public int getTeam_age() {
+
+	public String getTeam_age() {
 		return team_age;
 	}
-	public void setTeam_age(int team_age) {
+	public void setTeam_age(String team_age) {
 		this.team_age = team_age;
 	}
 	public String getTeam_skill() {
@@ -157,10 +158,11 @@ public class writeAction extends ActionSupport {
 	public void setTeam_skill(String team_skill) {
 		this.team_skill = team_skill;
 	}
-	public int getTeam_count() {
+
+	public String getTeam_count() {
 		return team_count;
 	}
-	public void setTeam_count(int team_count) {
+	public void setTeam_count(String team_count) {
 		this.team_count = team_count;
 	}
 	public String getTeam_intro() {

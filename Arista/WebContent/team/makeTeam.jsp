@@ -148,7 +148,17 @@
          		<option>ÇÏ</option>
          	</select>
           </td>
-        </tr>            
+        </tr>   
+        
+          <tr bgcolor="#777777">
+          <td height="1" colspan="2"></td>
+        </tr>
+		<tr>
+          <td width="100" bgcolor="#F4F4F4"><font color="#FF0000">*</font>  ÆÀ ÀÎ¿ø</td>
+          <td width="500" bgcolor="#FFFFFF">
+            <s:textfield name="team_count" theme="simple" value="%{resultClass.team_count}" cssStyle="width:370px" maxlength="50"/>
+          </td>
+        </tr>         
         							
         <tr bgcolor="#777777">
           <td height="1" colspan="2"></td>

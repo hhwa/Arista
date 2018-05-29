@@ -10,9 +10,9 @@ public class teamVO {
 	private String team_area; //지역
 	private String team_type; //소속유형
 	private String team_fieldtype; //축구/풋살
-	private int team_age; //연령
+	private String team_age; //연령
 	private String team_skill; //실력
-	private int team_count; //인원 수
+	private String team_count; //인원 수
 	private String team_intro; //소개
 	private String file_savname;
 	private String file_orgname;
@@ -49,10 +49,11 @@ public class teamVO {
 	public void setTeam_fieldtype(String team_fieldtype) {
 		this.team_fieldtype = team_fieldtype;
 	}
-	public int getTeam_age() {
+
+	public String getTeam_age() {
 		return team_age;
 	}
-	public void setTeam_age(int team_age) {
+	public void setTeam_age(String team_age) {
 		this.team_age = team_age;
 	}
 	public String getTeam_skill() {
@@ -61,10 +62,11 @@ public class teamVO {
 	public void setTeam_skill(String team_skill) {
 		this.team_skill = team_skill;
 	}
-	public int getTeam_count() {
+
+	public String getTeam_count() {
 		return team_count;
 	}
-	public void setTeam_count(int team_count) {
+	public void setTeam_count(String team_count) {
 		this.team_count = team_count;
 	}
 	public String getTeam_intro() {
