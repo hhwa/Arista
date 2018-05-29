@@ -25,5 +25,19 @@
 	 	<action name="mypage" class="mypage.mypageAction" method="layout">
 	 		<result type="tiles">mypage</result>
 	 	</action>
+	
+	<!-- footer 약관 -->
+		<action name="privacy" class="footer.footerAction" method="layout">
+	 		<result type="tiles">privacy</result>
+	 	</action>
+	 	<action name="promiss" class="footer.footerAction" method="layout">
+	 		<result type="tiles">promiss</result>
+	 	</action>
+	 	<action name="emailx" class="footer.footerAction" method="layout">
+	 		<result type="tiles">emailx</result>
+	 	</action>
+	 	
+	 	
+	 	
 	</package>
 </struts>
