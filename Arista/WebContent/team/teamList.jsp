@@ -22,7 +22,7 @@
 	      <tr align="center" bgcolor="#F3F3F3">
       		<td width="70"><strong>번호</strong></td>
 			<td width="70"><strong>팀명</strong></td>
-        	<td width="380"><strong>상세보기</strong></td>
+        	<td width="380"><strong>팀 정보</strong></td>
        		
          </tr>
 <tr bgcolor="#777777">
