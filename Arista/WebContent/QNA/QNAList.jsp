@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<table border="0" cellspacing="0" cellpadding="0">
+<table width="600" border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td align="center"><h2>QNA</h2></td>
   </tr>
@@ -20,7 +20,7 @@
   </tr>
 </table>
 
-<table width="700" border="1" cellspacing="0" cellpadding="0">
+<table width="600" border="1" cellspacing="0" cellpadding="0">
   <tr align="center">
     <td width="50">번호</td>
     <td width="350">제목</td>
@@ -46,7 +46,7 @@
   <td align="left">&nbsp;
   <s:if test="re_level != 0">
     <c:forEach var="i" begin="${re_level }" end="0">&nsp;</c:forEach>ㄴ></s:if>
-  <s:a href="%{viewURL"><s:property value="subject" /></s:a></td>
+  <s:a href="%{viewURL}"><s:property value="subject" /></s:a></td>
   <td align="center"><s:property value="name" /></td>
   <td align="center"><s:property value="regdate" /></td>
   <td><s:property value="readhit" /></td>
@@ -66,7 +66,7 @@
 </s:if>
 </table>
 
-<table width="700" border="0" cellspacing="0" cellpadding="0">
+<table width="600" border="0" cellspacing="0" cellpadding="0">
 <tr align="center">
   <td colspan="5"><s:property value="pagingHtml" escape="false" /></td>
 </tr>
@@ -75,7 +75,7 @@
 
 <tr align="right">
   <td colspan="5">
-  <input type="button" value="글쓰기" class="inputb" onClick="javascript:location.href='writeForm.action?currentPage=<s:property value="currentPage" />';">
+  <input type="button" value="글쓰기" onClick="javascript:location.href='QNAWrite.action?currentPage=<s:property value="currentPage" />';">
   </td>
 </tr>
 
@@ -88,7 +88,7 @@
         <option value="2">내용</option>
       </select>
       <s:textfield name="search" theme="simple" value="" cssStyle="width:120px" maxlength="20"/>
-      <input name="submit" type="submit" value="검색" class="inputb">
+      <input name="submit" type="submit" value="검색">
     </form>
   </td>
 </tr>

@@ -5,7 +5,7 @@
 
 <tiles-definitions>
 
-	<definition name="help.home" template="/tiles/template/layout_help.jsp">
+	<definition name="QNAList" template="/tiles/template/layout_help.jsp">
 		<put-attribute name="title" value="도움말 홈"/>
 		<put-attribute name="header" value="/tiles/template/header_help.jsp"/>
 		<put-attribute name="menu" value="/tiles/template/menu_help.jsp"/>

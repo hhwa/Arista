@@ -18,12 +18,26 @@
 			<exception-mapping result="error" exception="java.lang.Exception"/>
 		</global-exception-mappings>
 	 	-->
-	 	<!-- 게시판 리스트 액션 -->
+	 	
+	 	<!-- QNA -->
 	 	<action name="QNAList" class="qna.QNAAction">
-	 	  <result>/QNA/QNAList.jsp</result>
+	 		<result>/QNA/QNAList.jsp</result>
 	 	</action>
 	 	
-<!-- 	 	<action name="listAction" class="board.listAction">
+	 	<action name="QNAWrite" class="qna.QNAAction" method="form">
+	 		<result>/QNA/QNAWrite.jsp</result>
+	 	</action>
+	 	
+	 	<action name="QNAWrites" class="qna.QNAAction" method="write">
+	 	  <result type="redirect-action">
+	 	    <param name="actionName">qna.QNAAction</param>
+	 	  </result>
+	 	</action>
+
+	 	
+	 	
+	 	<!-- 
+	 	<action name="listAction" class="board.listAction">
 		 	<result>/board/boardList.jsp</result>
 		 </action>
 		 
@@ -84,7 +98,5 @@
 		 		<param name="actionName">listAction</param>
 		 	</result>
 		 </action> -->
-		 
-		 
 	</package>
 </struts>
