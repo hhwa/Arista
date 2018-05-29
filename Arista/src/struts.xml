@@ -26,59 +26,7 @@
 	 		<result type="tiles">mypage</result>
 	 	</action>
 	</package>
-	
-<!-- 회원가입  -->	
-	<package name="member" extends="struts-default,tiles-default">
-	
-	<interceptors>
-		<interceptor name="LoginCheckInter" class="mem.LoginCheckInterceptor"></interceptor>
-	</interceptors>
-	
-	<action name="MemberJoinAction" class="mem.MemberJoinAction">
-		<result>/member/main.jsp</result>
-	</action>
-	
-	<action name="memberIdCheck" class="mem.MemberJoinAction" method="idcheck">
-		<result>/join/idCheck.jsp</result>	
-	</action>
-	
-	<action name="memberNickCheck" class="mem.MemberJoinAction" method="nickcheck">
-		<result>/join/nickCheck.jsp</result>	
-	</action>
-	
-	<action name="memberEmailCheck" class="mem.MemberJoinAction" method="emailcheck">
-		<result>/join/emailCheck.jsp</result>	
-	</action>
-	
-	<action name="joinForm" class="mem.MemberJoinAction" method="joinform">
-		<result>/join/JoinForm.jsp</result>
-	</action>
-	
+	<include file="struts2-member.xml"/>
 
-<!-- 로그인  -->	
-	<action name="loginPro" class="mem.loginAction">
-		<result>/login/loginResult.jsp</result>
-	</action>	
-
-<!-- 아이디 찾기 -->	
-	<action name="findIDForm" class="mem.loginAction" method="findidform">
-		<result>/login/findIDForm.jsp</result>
-	</action>
-
-	<action name="findIDPro" class="mem.loginAction" method="findId">
-		<result>/login/findIDresult.jsp</result>
-	</action>	
-
-<!-- 비밀번호 찾기 -->	
-	<action name="findPWForm" class="mem.loginAction" method="findpwform">
-		<result>/login/findPWForm.jsp</result>
-	</action>
-
-	<action name="findPWPro" class="mem.loginAction" method="findPw">
-		<result>/login/findPWresult.jsp</result>
-	</action>	
-	</package>
-	
-<!-- 회원가입 끝 -->	
 	
 </struts>

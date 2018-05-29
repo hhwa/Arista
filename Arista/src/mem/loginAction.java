@@ -72,7 +72,7 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 		if(memberResult == null) {
 			loginchk = 1;
 		}
-		if(memberResult == null) {
+		if(memberResult != null) {
 		sessionMap.put("memberResult", memberResult);
 		}		
 		return SUCCESS;
@@ -92,8 +92,8 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 	}
 	
 
-	public String loginout() {
-		
+	public String logout() {
+		sessionMap.remove("memberResult");
 		return SUCCESS;
 	}
 	
