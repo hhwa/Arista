@@ -30,6 +30,10 @@
 <!-- 회원가입  -->	
 	<package name="member" extends="struts-default,tiles-default">
 	
+	<interceptors>
+		<interceptor name="LoginCheckInter" class="mem.LoginCheckInterceptor"></interceptor>
+	</interceptors>
+	
 	<action name="MemberJoinAction" class="mem.MemberJoinAction">
 		<result>/member/main.jsp</result>
 	</action>

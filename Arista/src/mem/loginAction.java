@@ -10,11 +10,16 @@ import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 
-import java.util.*;
+import java.util.Calendar;
+
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
+
 import java.io.Reader;
 import java.io.IOException;
 
-public class loginAction extends ActionSupport implements Preparable, ModelDriven<memVO> {
+public class loginAction extends ActionSupport implements Preparable, ModelDriven<memVO>, SessionAware{
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
@@ -36,6 +41,9 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 	private memVO memberResult;
 	
 	private int loginchk =0;
+	
+	private Map<String, memVO> sessionMap;
+	
 	
 	public loginAction() throws IOException {
 		// TODO Auto-generated constructor stub
@@ -64,9 +72,13 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 		if(memberResult == null) {
 			loginchk = 1;
 		}
-		
+		if(memberResult == null) {
+		sessionMap.put("memberResult", memberResult);
+		}		
 		return SUCCESS;
 	}
+
+
 	
 	public String joinform() {
 		
@@ -264,8 +276,20 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 	public void setMemberResult(memVO memberResult) {
 		this.memberResult = memberResult;
 	}
+
+	@Override
+	public void setSession(Map session) {
+		this.sessionMap = session;
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Map getSessionMap() {
+		return sessionMap;
+	}
+
 	
-	
+
 	
 	
 }
