@@ -81,6 +81,8 @@ public class memberAction extends ActionSupport implements Preparable, ModelDriv
 		memberResult = (memVO)sqlMapper.queryForObject("memSQL.memListView", memberParam);
 		
 		if(memberResult.getProf_image_save() != null) {
+			System.out.println();
+			
 			profpath = ServletActionContext.getServletContext().getRealPath("/upload");
 			
 		}

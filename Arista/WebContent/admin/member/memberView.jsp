@@ -34,7 +34,11 @@
 	<td>프로필사진 원본명:&nbsp;<s:property value="memberResult.prof_image_org"/></td>
 	<td>프로필사진 저장명:&nbsp;<s:property value="memberResult.prof_image_save"/></td>
 	</tr>
-	
+	<tr>
+	<td>프로필이미지
+	<img src="/Arista/profUpload/file_test1.jpg">
+	</td>
+	</tr>
 	
 </table>			
 </body>
