@@ -1,7 +1,7 @@
 img.matchBtn {
 	width: 100px;
 	height: 100px;
-	position: relative;
+	margin: auto;
 	left:300px;
 	top:50px;
 }

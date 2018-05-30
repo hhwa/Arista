@@ -1,5 +1,7 @@
 package teamMatch;
 
-public class teamMatchAction {
+import com.opensymphony.xwork2.ActionSupport;
+
+public class teamMatchAction extends ActionSupport{
 
 }

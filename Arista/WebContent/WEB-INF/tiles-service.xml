@@ -5,6 +5,7 @@
 
 <tiles-definitions>
 
+<!-- 메인페이지 -->
 	<definition name="main" template="/template/layout_main.jsp">
 		<put-attribute name="title" value="OFF THE BALL - Main"/>
 		<put-attribute name="header" value="/template/header.jsp"/>
@@ -12,30 +13,36 @@
 		<put-attribute name="footer" value="/template/footer.jsp"/>
 	</definition>
 
+<!-- 마이페이지 -->
 	<definition name="mypage" template="/template/layout.jsp" extends="main">
 		<put-attribute name="title" value="OFF THE BALL - MyPage"/>
 		<put-attribute name="menu" value="/template/menu.jsp"/>
 		<put-attribute name="body" value="/mypage/mypage.jsp"/>
 	</definition>
 	
+<!-- 매치선택 -->
 	<definition name="selectMatch" template="/template/layout.jsp" extends="main">
 		<put-attribute name="title" value="OFF THE BALL - SoloMatch"/>
+		<put-attribute name="header" value="/template/header.jsp"/>
 		<put-attribute name="menu" value="/template/menu.jsp"/>
 		<put-attribute name="body" value="/match/selectMatch.jsp"/>
 	</definition>
 	
+<!-- 솔로매치 목록(신청) -->
 	<definition name="SoloList" template="/template/layout.jsp" extends="selectMatch">
 		<put-attribute name="title" value="OFF THE BALL - SoloList"/>
 		<put-attribute name="menu" value="/template/menu.jsp"/>
 		<put-attribute name="body" value="/match/selectSoloMatch.jsp"/>
 	</definition>
 	
+<!-- 솔로매치 생성 -->
 	<definition name="CreateSoloMatchForm" template="/template/layout.jsp" extends="selectMatch">
 		<put-attribute name="title" value="OFF THE BALL - CreateMatch"/>
 		<put-attribute name="menu" value="/template/menu.jsp"/>
 		<put-attribute name="body" value="/admin/match/CreateSoloMatch.jsp"/>
 	</definition>
 	
+<!-- 개인정보처리방침 -->
 	<definition name="PrivacyView" template="/template/layout_main.jsp" extends="main">
       <put-attribute name="title" value="OFF THE BALL - Privacy"/>
       <put-attribute name="body" value="/footer/PrivacyView.jsp"/>

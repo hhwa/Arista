@@ -118,7 +118,5 @@
 	</tr>
 </table>
 </div>
-<a href="selectMatch.action"><img class="matchBtn" src="/Arista/main/1.jpg"/></a>
-<a href="mypage.action"><img class="matchBtn" src="/Arista/main/2.jpg"/></a>
 </body>
 </html>
