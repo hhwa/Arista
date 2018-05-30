@@ -28,6 +28,9 @@ function validation(){
 	}else if(frm.game_area.value==""){
 		alert("경기 지역을 입력해주세요.");
 		return false;
+	}else if(frm.uniform_color.value==""){
+		alert("내용을 입력해주세요.");
+		return false;
 	}else if(frm.content.value==""){
 		alert("내용을 입력해주세요.");
 		return false;
@@ -39,16 +42,17 @@ function validation(){
 </script>
 </head>
 <body>
+<div style="margin:auto;">
 <table width="600" border="0" cellspacing="0" cellpadding="2" align="center">
 	<tr>
-		<td align="center"><h2>Solo Match</h2></td>
+		<td align="center"><h2>Team Match</h2></td>
 	</tr>
 </table>
 <s:if test="resultClass == NULL">
-	<form action="CreateSoloMatch.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
+	<form action="CreateTeamMatch.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
 </s:if>
 <s:else>
-	<form action="modifySoloMatch.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
+	<form action="modifyTeamMatch.action" method="post" enctype="multipart/form-data" onsubmit="return validation();">
 		<s:hidden name="game_no" value="%{resultClass.game_no}" />
 		<s:hidden name="currentPage" value="%{currentPage}" />
 </s:else>
@@ -114,20 +118,21 @@ function validation(){
          	<td height="1" colspan="2"></td>	
        	</tr>
        	
-       	<tr>
-        	<td width="100" bgcolor="#F4F4F4"><font color="#FF0000">*</font>  경기 최대 인원</td>
-         	<td width="500" bgcolor="#FFFFFF">
-           	<s:textfield name="people_max" theme="simple" value="%{resultClass.people_max}" cssStyle="width:370px" maxlength="50"/>
-         	</td>
-       	</tr>
-       	<tr bgcolor="#777777">
-         	<td height="1" colspan="2"></td>	
-       	</tr>	
-	       
 		<tr>
         	<td width="100" bgcolor="#F4F4F4"><font color="#FF0000">*</font>  비용</td>
          	<td width="500" bgcolor="#FFFFFF">
            	<s:textfield name="fee" theme="simple" value="%{resultClass.fee}" cssStyle="width:370px" maxlength="50"/>
+         	</td>
+       	</tr>
+       	
+       	<tr bgcolor="#777777">
+         	<td height="1" colspan="2"></td>	
+       	</tr>
+       	
+       	<tr>
+        	<td width="100" bgcolor="#F4F4F4"><font color="#FF0000">*</font>  유니폼 색상</td>
+         	<td width="500" bgcolor="#FFFFFF">
+           	<s:textfield name="uniform_color" theme="simple" value="%{resultClass.uniform_color}" cssStyle="width:370px" maxlength="50"/>
          	</td>
        	</tr>
        	
@@ -145,7 +150,6 @@ function validation(){
        	<tr bgcolor="#777777">
         	<td height="1" colspan="2"></td>
        	</tr>
-	    
 	       
        	<tr>
          	<td height="10" colspan="2"></td>
@@ -153,10 +157,11 @@ function validation(){
         <tr>
          	<td align="right" colspan="2">
 	         	<input name="submit" type="submit" value="작성완료" class="inputb">
-           		<input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='SoloList.action?currentPage=<s:property value="currentPage" />'">
+           		<input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='TeamList.action?currentPage=<s:property value="currentPage" />'">
         	</td>
        	</tr>
     </table>
     </form>
+</div>
 </body>
 </html>

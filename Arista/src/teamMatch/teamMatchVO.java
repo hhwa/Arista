@@ -11,6 +11,7 @@ public class teamMatchVO {
 	private String game_area;		//경기지역
 	private String uniform_color;	//유니폼색상
 	private String content;			//내용
+	private String match_type;		//매치타입(팀)
 	
 	public int getGame_no() {
 		return game_no;
@@ -66,4 +67,11 @@ public class teamMatchVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	public String getMatch_type() {
+		return match_type;
+	}
+	public void setMatch_type(String match_type) {
+		this.match_type = match_type;
+	}
+	
 }
