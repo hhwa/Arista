@@ -11,14 +11,18 @@
 <!-- 회원가입  -->	
 	<package name="member" extends="struts-default,tiles-default">
 	
+	
 	<interceptors>
 		<interceptor name="LoginCheckInter" class="mem.LoginCheckInterceptor"></interceptor>
 		<interceptor-stack name="stack-with-login">
   		<interceptor-ref name="LoginCheckInter"/>
   		<interceptor-ref name="defaultStack"/>
- 	</interceptor-stack>
-	
+ 		</interceptor-stack>
 	</interceptors>
+	
+		<global-results>
+	 		<result name="gologin">/login/loginForm.jsp</result>
+	 	</global-results>
 	
 	<action name="MemberJoinAction" class="mem.MemberJoinAction">
 		<result>/member/main.jsp</result>
@@ -40,11 +44,23 @@
 		<result>/join/JoinForm.jsp</result>
 	</action>
 	
+	
+	
 
-<!-- 로그인  -->	
+<!-- 로그인&로그아웃  -->	
+	<action name="loginForm" class="mem.loginAction" method="loginForm">
+		<result>/login/loginForm.jsp</result>
+	</action>
+
 	<action name="loginPro" class="mem.loginAction">
 		<result>/login/loginResult.jsp</result>
-	</action>	
+	</action>
+	
+	<action name="logout" class="mem.loginAction" method="logout">
+		<result>/login/loginForm.jsp</result>
+	</action>
+	
+	
 
 <!-- 아이디 찾기 -->	
 	<action name="findIDForm" class="mem.loginAction" method="findidform">
@@ -62,8 +78,21 @@
 
 	<action name="findPWPro" class="mem.loginAction" method="findPw">
 		<result>/login/findPWresult.jsp</result>
-	</action>	
+	</action>
+	
+<!-- 회원관리 -->	
+	<action name="adminMemList" class="admin.memberAction" method="memberList">
+		<result>/admin/member/memberList.jsp</result>
+	</action>
+	
+	<action name="adminMemView" class="admin.memberAction" method="memberView">
+		<result>/admin/member/memberView.jsp</result>
+	</action>
+	
 	</package>
 	
 <!-- 회원가입 끝 -->	
+
+
+
 	</struts>

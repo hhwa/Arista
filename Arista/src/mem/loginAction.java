@@ -42,7 +42,7 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 	
 	private int loginchk =0;
 	
-	private Map<String, memVO> sessionMap;
+	private Map<String, String> sessionMap;
 	
 	
 	public loginAction() throws IOException {
@@ -73,7 +73,7 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 			loginchk = 1;
 		}
 		if(memberResult != null) {
-		sessionMap.put("memberResult", memberResult);
+		sessionMap.put("m_id", memberResult.getM_id());
 		}		
 		return SUCCESS;
 	}
@@ -93,7 +93,7 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 	
 
 	public String logout() {
-		sessionMap.remove("memberResult");
+		sessionMap.remove("m_id");
 		return SUCCESS;
 	}
 	
@@ -112,6 +112,11 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 	
 
 	public String findpwform() {
+		
+		return SUCCESS;
+	}
+	
+public String test() {
 		
 		return SUCCESS;
 	}

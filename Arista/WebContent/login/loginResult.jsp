@@ -15,5 +15,9 @@
 <h2><s:property value="m_id"/></h2>´Ô È¯¿µÇÕ´Ï´Ù.
 </s:elseif>
 
+
+<a href="logout.action">·Î±×¾Æ¿ô</a>
+
+
 </body>
 </html>

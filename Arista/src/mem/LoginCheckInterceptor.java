@@ -12,10 +12,12 @@ public class LoginCheckInterceptor extends AbstractInterceptor{
 	public String intercept(ActionInvocation invocation) throws Exception {
 		// TODO Auto-generated method stub
 		Map<String, Object> session = invocation.getInvocationContext().getSession();		
-		memVO memvo = (memVO)session.get("memberResult");
 		
-		if(memvo == null) {
-			return "login";
+		//memVO memvo = (memVO)session.get("memberResult");
+		String m_id = (String)session.get("m_id");
+		
+		if(m_id == null) {
+			return "gologin";
 		}
 		
 		

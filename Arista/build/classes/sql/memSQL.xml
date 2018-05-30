@@ -68,12 +68,21 @@
 		</select>
 		
 		
-		<!-- 회원 목록 -->
-	<!-- 	<select id="memList" resultMap="memRes">
+		
+		<!-- 관리자 - 회원 목록 -->
+		<select id="memList" resultMap="memRes">
 			<include refid="select-all"/>
 			order by m_joindate desc
 		</select>
-		 -->
+		
+		<!-- 관리자 - 회원 상세  -->
+		<select id="memListView" resultMap="memRes" parameterClass="mem">
+		<include refid="select-all"/>
+		<include refid="where-id"/>
+		</select>
+		
+	
+		
 		<!-- 회원검색 -->
 		<!-- <select id="memSearch" resultMap="memRes" parameterClass="java.util.HashMap">
 			<include refid="select-all"/>
