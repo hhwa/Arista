@@ -98,7 +98,6 @@ public class QNAAction extends ActionSupport {
 		resultClass = (qnaVO) sqlMapper.queryForObject("selectOne", getQna_no());
 		resultClass.setQna_subject("[re]" + resultClass.getQna_subject());
 		resultClass.setQna_password("");
-		resultClass.setQna_id("");
 		resultClass.setQna_content("");
 
 		return SUCCESS;
@@ -128,9 +127,9 @@ public class QNAAction extends ActionSupport {
 		paramClass.setQna_regdate(today.getTime());
 		
 		if(ref == 0)
-			sqlMapper.insert("insertQNA", paramClass);
+			sqlMapper.insert("qnaSQL.insertQNA", paramClass);
 		else
-			sqlMapper.insert("insertQNAReply", paramClass);
+			sqlMapper.insert("qnaSQL.insertQNAReply", paramClass);
 
 		
 		return SUCCESS;

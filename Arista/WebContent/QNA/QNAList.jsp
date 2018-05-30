@@ -88,7 +88,7 @@
         <option value="2">내용</option>
       </select>
       <s:textfield name="search" theme="simple" value="" cssStyle="width:120px" maxlength="20"/>
-      <input name="submit" type="submit" value="검색">
+      <input name="submit" type="submit" value="검색" class="inputb">
     </form>
   </td>
 </tr>

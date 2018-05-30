@@ -28,9 +28,9 @@
 	 		<result>/QNA/QNAWrite.jsp</result>
 	 	</action>
 	 	
-	 	<action name="QNAWrites" class="qna.QNAAction" method="write">
+	 	<action name="QNAWriteAction" class="qna.QNAAction" method="write">
 	 	  <result type="redirect-action">
-	 	    <param name="actionName">qna.QNAAction</param>
+	 	    <param name="actionName">QNAList</param>
 	 	  </result>
 	 	</action>
 

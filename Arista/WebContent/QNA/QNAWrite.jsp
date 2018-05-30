@@ -38,6 +38,7 @@ function validation(){
   <tr>
     <td height="30"></td>
   </tr>
+
 </table>
 
   <s:if test="reply">
@@ -48,13 +49,13 @@ function validation(){
   </s:if>
   
   <s:elseif test="resultClass == NULL">
-    <form action="QNAAction.action" method="form" enctype="multipart/form-data" 
+    <form action="QNAWriteAction.action" method="post" enctype="multipart/form-data" 
     onsubmit="return validation();">
   </s:elseif>
 
   <s:else>
     <form action="modifyAction.action" method="post" enctype="multipart/form-data">
-    <s:hidden name="no" value="%{resultClass.no}" />
+    <s:hidden name="qna_no" value="%{resultClass.qna_no}" />
     <s:hidden name="currentPage" value="%{currentPage}"/>
   </s:else>
     
@@ -62,7 +63,7 @@ function validation(){
     <tr>
       <td width="100">제목</td>
       <td width="500">
-        <s:textfield name="subject" theme="simple" value="%{resultClass.subject}"
+        <s:textfield name="qna_subject" theme="simple" value="%{resultClass.qna_subject}"
         cssStyle="width:370px" maxlength="50"/>
       </td>
     </tr>
@@ -70,7 +71,7 @@ function validation(){
     <tr>
       <td>이름</td>
       <td>
-        <s:textfield name="name" theme="simple" value="%{resultClass.name}"
+        <s:textfield name="qna_id" theme="simple" value="%{resultClass.qna_id}"
          maxlength="20"/>
       </td>
     </tr>
@@ -78,14 +79,14 @@ function validation(){
     <tr>
       <td>비밀번호</td>
       <td>
-        <s:textfield name="password" theme="simple" value="%{resultClass.password}" maxlength="20"/>
+        <s:textfield name="qna_password" theme="simple" value="%{resultClass.qna_password}" maxlength="20"/>
       </td>
     </tr>
 
     <tr>
       <td>내용</td>
       <td>
-        <s:textarea name="content" theme="simple" value="%{resultClass.content}" cols="50" rows="10"/>
+        <s:textarea name="qna_content" theme="simple" value="%{resultClass.qna_content}" cols="50" rows="10"/>
       </td>
     </tr>
   </table>
