@@ -19,12 +19,16 @@ public class listAction extends ActionSupport{
 	
 	private List<teamVO> list = new ArrayList<teamVO>();
 	
+	private String searchKeyword;
+	private int searchNum;
+	
 	private int currentPage = 1;
 	private int totalCount;
 	private int blockCount = 5;
 	private int blockPage = 5;
 	private String pagingHtml;
 	private pagingAction page;
+	private int num = 0;
 	
 	public listAction() throws IOException {
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
@@ -33,11 +37,15 @@ public class listAction extends ActionSupport{
 	}
 	public String execute() throws Exception {
 		
-		list = sqlMapper.queryForList("teamSQL.teamList");
+		if(getSearchKeyword() != null)
+		{
+			return search();
+		}
+		
+		list = sqlMapper.queryForList("teamSQL.selectAll");
 		
 		totalCount = list.size();
-		
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage);
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, num, "");
 		pagingHtml = page.getPagingHtml().toString();
 		
 		int lastCount = totalCount;
@@ -46,9 +54,30 @@ public class listAction extends ActionSupport{
 			lastCount = page.getEndCount() + 1;
 		
 		list = list.subList(page.getStartCount(), lastCount);
-		
 		return SUCCESS;
 	}
+public String search() throws Exception {
+		
+		//searchKeyword = new String(searchKeyword.getBytes("iso-8859-1"),"euc-kr") ;
+		//System.out.println(searchKeyword);
+		//System.out.println(searchNum);
+		if(searchNum == 0){
+			list = sqlMapper.queryForList("teamSQL.teamSearch", "%"+getSearchKeyword()+"%");
+		}
+		
+		totalCount = list.size();
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, searchNum, getSearchKeyword());
+		pagingHtml = page.getPagingHtml().toString();
+		
+		int lastCount = totalCount;
+		
+		if(page.getEndCount() < totalCount)
+			lastCount = page.getEndCount() + 1;
+		
+		list = list.subList(page.getStartCount(), lastCount);
+		return SUCCESS;
+	}
+
 	public static Reader getReader() {
 		return reader;
 	}
@@ -102,6 +131,25 @@ public class listAction extends ActionSupport{
 	}
 	public void setPage(pagingAction page) {
 		this.page = page;
+	}
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+
+	public int getSearchNum() {
+		return searchNum;
+	}
+	public void setSearchNum(int searchNum) {
+		this.searchNum = searchNum;
+	}
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
 	}
 	
 

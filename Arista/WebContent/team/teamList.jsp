@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<%@ taglib prefix="s" uri="/struts-tags" %>    
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import = "java.util.HashMap" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -66,7 +68,19 @@
 	      <tr align="center">
     		<td colspan="5"><s:property value="pagingHtml"  escape="false" /></td>
     	      </tr>
-    	
+    	<tr align="center">
+		<td colspan="5">
+			<form>
+				<select name="searchNum" >
+					<option value="0">팀명</option>
+					<option value="1">제목</option>
+					<option value="2">내용</option>
+				</select>
+				<s:textfield name="searchKeyword" theme="simple" value="" cssStyle="width:120px" maxlength="20" />
+				<input name="submit" type="submit" value="검색" class="inputb">
+			</form>
+		</td>
+	</tr>
 	</table>
 </body>
 </html>

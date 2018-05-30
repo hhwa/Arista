@@ -19,9 +19,19 @@
   			<td height="20"></td>
   		</tr>
   	</table>
-		
-<table width="600" border="0" cellspacing="0" cellpadding="0">
-      
+  	
+  <%-- 	<table class="type01">
+   	<tr>
+        <th scope="row">팀명</th>
+        <td>&nbsp;&nbsp;<s:property value="resultClass.team_id" /></td>
+    </tr>
+    <tr>
+    	<th scope="row">지역</th>
+        <td>&nbsp;&nbsp;<s:property value="resultClass.team_area" /></td>
+    </tr>
+	</table> --%>
+<table width="600" border="0" cellspacing="0" cellpadding="0">     
+     
      <tr bgcolor="#777777">
         <td height="1" colspan="2"></td>
       </tr>
