@@ -31,6 +31,11 @@
 		
 		<!-- select 쿼리문 정의 -->
 		
+		<!--  회원 정보 -->
+		<select id = "selectOneMember" resultClass="mem">
+		<include refid="select-all"/>
+		<include refid="where-id"/>
+		</select>
 		<!-- 회원 목록 -->
 		<select id="memList" resultMap="memRes">
 			<include refid="select-all"/>

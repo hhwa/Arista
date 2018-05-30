@@ -18,6 +18,12 @@
 		<put-attribute name="menu" value="/template/menu.jsp"/>
 		<put-attribute name="body" value="/mypage/mypage.jsp"/>
 	</definition>
+	<!-- 마이페이지 상세보기 -->
+	<definition name="myInfoView" template="/template/layout.jsp" extends="main">
+		<put-attribute name="title" value="OFF THE BALL -myInfoView"/>
+		<put-attribute name="menu" value="/template/menu.jsp"/>
+		<put-attribute name="body" value="/mypage/mypage.jsp"/>
+	</definition>
 	<!-- footer -->
 	<definition name="privacy" template="/template/layout_main.jsp" extends="main">
 		<put-attribute name="title" value="OFF THE BALL - privacy"/>

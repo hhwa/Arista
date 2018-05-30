@@ -40,6 +40,7 @@ $(document).ready(function(){
 </head>
 <body>
 <footer class="text-center">
+<br>
 	<a class="up-arrow" href="#" data-toggle="tooltip" title="맨 위로">
 		<span class="glyphicon glyphicon-chevron-up"></span>
 	</a>
@@ -51,7 +52,7 @@ $(document).ready(function(){
 	<a href="emailx.action"> 이메일무단수집거부 </a> &nbsp;
 	
  <p><span class="glyphicon glyphicon-copyright-mark"></span>&nbsp;Copyrightⓒ 2017 Off The Match. All rights reserved. e-mail : hyunhwa91@naver.com</p>
- <p><a href="#" onclick="return false;" data-toggle="tooltip" title="bboya & huna"><img src="/Arista/template/image/footer_logo.png" width="10%"/></a></p>
+ <p><a href="#" onclick="return false;" data-toggle="tooltip" title="bboya & huna"><img src="/Arista/template/image/footer_logo.png" width="10%"/></a></p><br>
 </footer>
 </body>
 </html>

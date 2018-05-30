@@ -37,6 +37,10 @@
 	 		<result type="tiles">emailx</result>
 	 	</action>
 	 	
+	 	<!-- 마이페이지 상세보기 -->
+	 	<action name="myInfoView" class="mypage.mypageAction" method="view" >
+	 		<result type="tiles">myInfoView</result>
+	 	</action>
 	 	
 	 	
 	</package>

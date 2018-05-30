@@ -1,12 +1,73 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<style>
+#menu_back{
+width:150px;
+height:8px;
+
+}
+#menu_list{
+width:120px;
+height:8px;
+}
+</style>
+
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>Insert title here</title>
+<title>menu</title>
 </head>
 <body>
-메뉴입니다
+<br><br><br>
+
+	<table id="menu_back" align="center">
+		<td align="center"><h4><b>마이페이지</b></h4>
+	</table>
+	
+	<table id="menu_list" align="center">
+		<tr><td align="left">내 정보</td></tr>
+		<tr><td align="left">팀 검색<td></tr>
+		<tr><td align="left">내가 쓴 매치글</td></tr>
+		<tr><td align="left">내가 신청한 매치글</td></tr>
+	</table><br><br>
+	
+	<table id="menu_back" align="center">
+		<td align="center"><h4><b>매치</b></h4>
+	</table>
+	
+	<table id="menu_list" align="center">
+		<tr><td align="left">팀 매치</td></tr>
+		<tr><td align="left">솔로 매치<td></tr>
+	</table><br><br>
+	
+		<table id="menu_back" align="center">
+		<td align="center"><h4><b>팀</b></h4>
+	</table>
+	
+	<table id="menu_list" align="center">
+		<tr><td align="left">마이팀</td></tr>
+		<tr><td align="left">팀 정보<td></tr>
+	</table><br><br>
+	
+		<table id="menu_back" align="center">
+		<td align="center"><h4><b>경기장</b></h4>
+	</table>
+	
+	<table id="menu_list" align="center">
+		<tr><td align="left">경기장 정보</td></tr>
+	</table><br><br>
+
+	<table id="menu_back" align="center">
+		<td align="center"><h4><b>고객센터</b></h4>
+	</table>
+	
+	<table id="menu_list" align="center">
+		<tr><td align="left">공지사항</td></tr>
+		<tr><td align="left">Q&A<td></tr>
+		<tr><td align="left">FAQ<td></tr>
+	</table><br><br>
+
 </body>
 </html>
