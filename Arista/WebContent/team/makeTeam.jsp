@@ -31,6 +31,14 @@
 				alert("실력을 선택해 주세요.");
 				return false;
 			}
+			else if(frm.team_age.value == ""){
+				alert("연령대를 입력해주세요.");
+				return false;
+			}
+			else if(frm.team_intro.value == ""){
+				alert("간략한 소개를 부탁 드립니다.");
+				return false;
+			}
 			return true;
 		}
 	</SCRIPT>	
@@ -43,7 +51,7 @@
 	</table>
 	
 		<s:if test="resultClass == NULL">
-			<form action="writeAction.acion" method="post" enctype="multipart/form-data" onsubmit="return validation();"/>
+			<form action="writeAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();"/>
 		</s:if>
 		
 		<s:else>
@@ -180,8 +188,8 @@
             <s:file name="upload" theme="simple"/>
             
             <s:if test="resultClass.file_orgname != NULL">
-		&nbsp; * <s:property value="resultClass.file_orgname" /> 파일이 등록되어 있습니다. 다시 업로드하면 기존의 파일은 삭제됩니다.
-	</s:if>
+				&nbsp; * <s:property value="resultClass.file_orgname" /> 파일이 등록되어 있습니다. 다시 업로드하면 기존의 파일은 삭제됩니다.
+		</s:if>
 						
           </td>
         </tr>
@@ -197,7 +205,7 @@
         <tr>
           <td align="right" colspan="2">
           	<input name="submit" type="submit" value="작성완료" class="inputb">
-            <input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='teamlistAction.action?currentPage=<s:property value="currentPage" />'">
+            <input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='listAction.action?currentPage=<s:property value="currentPage" />'">
           </td>
         </tr>
 

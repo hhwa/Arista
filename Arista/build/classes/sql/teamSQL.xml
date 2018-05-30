@@ -30,8 +30,14 @@
 		</sql>
 		
 		<!-- select 쿼리문 정의 -->
+		<select id="selectOne" resultMap="teamRes" parameterClass="int">
+			<include refid="select-all" />
+			<include refid="where-no" />      
+		</select>
 		
-		
+		<select id="selectLastNo" resultClass="team">
+			SELECT max(team_no) as team_no FROM TEAM 
+		</select>
 		<!-- team 목록 -->
 		<select id="teamList" resultMap="teamRes">
 			<include refid="select-all"/>
@@ -54,11 +60,15 @@
 		
 		<!-- team 추가 -->
 		<insert id="insertTeam" parameterClass="team">
-			insert into team (team_no,team_id,team_area,team_fieldtype,team_age,team_skill,team_count,team_intro,team_regdate) values (team_no_seq.NEXTVAL,#team_id#,#team_area#,#team_fieldtype#,#team_age#,#team_skill#,#team_count#,#team_intro#,#team_regdate#)
+			insert into team (team_no,team_id,team_area,team_type,team_fieldtype,team_age,team_skill,team_count,team_intro,team_regdate) values (team_no_seq.NEXTVAL,#team_id#,#team_area#,#team_type#,#team_fieldtype#,#team_age#,#team_skill#,#team_count#,#team_intro#,#team_regdate#)
 		</insert>
 		
 		<!-- update 쿼리문 정의 -->
-		
+		<update id="updateFile" parameterClass="team">
+    			UPDATE TEAM SET FILE_ORGNAME = #file_orgname#
+    		    		,FILE_SAVNAME = #file_savname#
+			<include refid="where-no" />
+   		 </update>
 		<!-- team 수정 -->
 		<update id="updateTeam" parameterClass="team">
 			update team set team_id=#team_id#,team_area=#team_area#,team_fieldtype=#team_fieldtype#,team_age=#team_age#,team_skill=#team_skill#,team_count=#team_count#,team_intro=#team_intro#

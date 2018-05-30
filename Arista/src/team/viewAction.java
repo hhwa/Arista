@@ -25,7 +25,7 @@ public class viewAction extends ActionSupport {
 	
 	private int team_no;
 	
-	private String fileUploadPath = "C:\\Users\\DD\\Desktop\\off the ball\\upload\\";
+	private String fileUploadPath = "C:\\Users\\user1\\Desktop\\offtheball\\upload\\";
 	
 	private InputStream inputStream;
 	private String contentDisposition;
@@ -42,7 +42,7 @@ public class viewAction extends ActionSupport {
 	public String execute() throws Exception {
 
 		// 해당 번호의 글을 가져온다.
-		resultClass = (teamVO) sqlMapper.queryForObject("selectOne", getTeam_no());
+		resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.selectOne", getTeam_no());
 
 		return SUCCESS;
 	}
@@ -50,7 +50,7 @@ public class viewAction extends ActionSupport {
 		public String download() throws Exception {
 
 			// 해당 번호의 파일 정보를 가져온다.
-			resultClass = (teamVO) sqlMapper.queryForObject("selectOne", getTeam_no());
+			resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.selectOne", getTeam_no());
 
 			// 파일 경로와 파일명을 file 객체에 넣는다.
 			File fileInfo = new File(fileUploadPath + resultClass.getFile_savname());

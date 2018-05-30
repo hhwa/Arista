@@ -32,5 +32,5 @@
 	 <sqlMap resource="sql/soloMatchSQL.xml"/>
 	 <sqlMap resource="sql/stadiumSQL.xml"/>
 	 <sqlMap resource="sql/teamMatchSQL.xml"/> -->
-	 <sqlMap resource="sql/teamSQL.xml"/>
+	 <sqlMap resource="/sql/teamSQL.xml"/>
 </sqlMapConfig>

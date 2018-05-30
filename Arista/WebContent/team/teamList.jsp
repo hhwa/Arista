@@ -22,8 +22,8 @@
 	      <tr align="center" bgcolor="#F3F3F3">
       		<td width="70"><strong>¹øÈ£</strong></td>
 			<td width="70"><strong>ÆÀ¸í</strong></td>
-        	<td width="380"><strong>ÆÀ Á¤º¸</strong></td>
-       		
+        	<td width="390"><strong>ÆÀ ¼Ò°³</strong></td>
+       		<td width="70"><strong>½ÅÃ»</strong></td>
          </tr>
 <tr bgcolor="#777777">
         		<td height="1" colspan="5"></td>
@@ -32,8 +32,8 @@
 	      <s:iterator value="list" status="stat">
 
 		<s:url id="viewURL" action="viewAction" >
-			<s:param name="no">
-				<s:property value="no" />
+			<s:param name="team_no">
+				<s:property value="team_no" />
 			</s:param>
 			<s:param name="currentPage">
 				<s:property value="currentPage" />
@@ -41,11 +41,10 @@
 		</s:url>
 			
      	      <tr bgcolor="#FFFFFF"  align="center">
-        		<td><s:property value="no" /></td>
-        		<td align="left"> &nbsp;<s:a href="%{viewURL}"><s:property value="subject" /></s:a></td>
-        		<td align="center"><s:property value="name" /></td>
-		<td align="center"><s:property value="regdate" /></td>
-        		<td><s:property value="readhit" /></td>
+        		<td><s:property value="team_no" /></td>
+        		<td align="center"> &nbsp;<s:a href="%{viewURL}"><s:property value="team_id" /></s:a></td>
+        		<td align="center"><s:property value="team_intro" /></td>
+				<td><input name="submit" type="submit" value="½ÅÃ»" class="inputb"></td> 
       	      </tr>
       	      <tr bgcolor="#777777">
         		<td height="1" colspan="5"></td>

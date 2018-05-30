@@ -50,6 +50,14 @@
         	 </result>
 		</action>
 	 	
+	 	<!-- 게시판 수정 액션. -->
+		<action name="modifyForm" class="team.viewAction">
+			<result type="chain">writeForm</result>
+		</action>
+		
+		<action name="modifyAction" class="team.modifyAction">
+			<result type="chain">viewAction</result>
+		</action>
 	 	
 	 	<!-- 
 	 	<action name="listAction" class="board.listAction">
