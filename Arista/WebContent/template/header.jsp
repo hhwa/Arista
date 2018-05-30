@@ -8,5 +8,6 @@
 </head>
 <body>
 헤더
+<a href="main.action">메인으로</a>
 </body>
 </html>
