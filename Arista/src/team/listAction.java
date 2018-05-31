@@ -25,7 +25,7 @@ public class listAction extends ActionSupport{
 	private int currentPage = 1;
 	private int totalCount;
 	private int blockCount = 5;
-	private int blockPage = 5;
+	private int blockPage = 2;
 	private String pagingHtml;
 	private pagingAction page;
 	private int num = 0;
@@ -42,7 +42,7 @@ public class listAction extends ActionSupport{
 			return search();
 		}
 		
-		list = sqlMapper.queryForList("teamSQL.selectAll");
+		list = sqlMapper.queryForList("teamSQL.teamList");
 		
 		totalCount = list.size();
 		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, num, "");
