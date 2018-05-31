@@ -1,10 +1,7 @@
 package matchState;
 
 public class matchStateVO {
-<<<<<<< HEAD
 
-=======
->>>>>>> ad955afeae001fe4f530c53ce8fb632d01fc83ad
 	
 	private int match_no; 			//매치번호
 	private int game_no;  			//게임번호
