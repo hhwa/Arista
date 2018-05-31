@@ -28,8 +28,8 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	private File Upload;
 	private String uploadContentType;
 	private String uploadFileName;
-//	private String fileUploadPath = "C:\\Users\\user1\\git\\Arista\\Arista\\WebContent\\profUpload\\";
-	private String fileUploadPath = "C:\\Users\\user1\\Desktop\\upload\\";
+	private String fileUploadPath = "C:\\Users\\user1\\git\\Arista\\Arista\\WebContent\\profUpload\\";
+	//private String fileUploadPath = "C:\\Users\\user1\\Desktop\\upload\\";
 	
 	//회원가입 속성
 	private String m_id;
@@ -74,7 +74,7 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	}
 	
 	public String execute() throws Exception {
-		memberParam.setM_admin_yn(genUser);
+		memberParam.setAdmin_yn(genUser);
 		memberParam.setM_joindate(m_joindate.getTime());
 		sqlMapper.insert("memSQL.insertMem", memberParam);
 //memberSQL.insertmember
@@ -336,12 +336,7 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	public void setM_joindate(Calendar m_joindate) {
 		this.m_joindate = m_joindate;
 	}
-	public int getM_admin_yn() {
-		return admin_yn;
-	}
-	public void setM_admin_yn(int m_admin_yn) {
-		this.admin_yn = m_admin_yn;
-	}
+
 	public int getGenUser() {
 		return genUser;
 	}

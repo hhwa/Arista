@@ -11,7 +11,7 @@
 
 function setid()
  {
-	opener.document.userinput.m_ID.value="<s:property value='m_id'/>";
+	opener.document.userinput.m_id.value="<s:property value='m_id'/>";
  	self.close();
 
 

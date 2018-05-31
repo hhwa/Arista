@@ -8,7 +8,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>회원가입</title>
-<link href="style.css" rel="stylesheet" type="text/css">
 <script language="javaScript">
 	function checkIt(){
 		var useinput = eval("document.userinput");
@@ -262,7 +261,7 @@
 			<td colspan="2" align="center">
 				<input type="submit" name="confirm" value="등 록" onclick="return checkIt()">
 				<input type="reset" name="reset" value="다시 입력">
-				<input type="button" value="취소" onclick="javascript:window.location='main.jsp'">
+				<input type="button" value="취소" onclick="javascript:window.location='loginForm.jsp'">
 			</td>
 		</tr>			
 	</table>
