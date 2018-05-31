@@ -51,6 +51,7 @@ public class modifyAction extends ActionSupport {
 		paramClass = new teamVO();
 		resultClass = new teamVO();
 		
+		paramClass.setTeam_no(getTeam_no());
 		paramClass.setTeam_id(getTeam_id());
 		paramClass.setTeam_area(getTeam_area());
 		paramClass.setTeam_type(getTeam_type());
@@ -60,7 +61,6 @@ public class modifyAction extends ActionSupport {
 		paramClass.setTeam_count(getTeam_count());
 		paramClass.setTeam_intro(getTeam_intro());
 		
-		System.out.println(getTeam_intro());
 		sqlMapper.update("teamSQL.updateTeam", paramClass);
 		
 		// 수정할 파일이 업로드 되었다면 파일을 업로드하고 DB의 file 항목을 수정함.

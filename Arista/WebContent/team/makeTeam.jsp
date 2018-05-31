@@ -51,11 +51,11 @@
 	</table>
 	
 		<s:if test="resultClass == NULL">
-			<form action="writeAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();"/>
+			<form action="teamwriteAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();"/>
 		</s:if>
 		
 		<s:else>
-			<form action="modifyAction.action" method="post" enctype="multpart/form-data"/>
+			<form action="teammodifyAction.action" method="post" enctype="multpart/form-data"/>
 			<s:hidden name="team_no" value="%{resultClass.team_no}"/>
 			<s:hidden name="currentPage" value="%{resultClass.currentPage}"/>
 			<s:hidden name="old_file" value="%{resultClass.file_savname}"/>
@@ -81,7 +81,7 @@
         </tr>
 		<tr>
           <td width="100" bgcolor="#F4F4F4"><font color="#FF0000">*</font>  지역</td>
-          <td width="500" bgcolor="#FFFFFF">
+          <td width="500" bgcolor="#FFFFFF">         
           	<select name="team_area">
      	    	<option selected="selected">선택</option> 
 				<option>서울</option>
@@ -205,7 +205,7 @@
         <tr>
           <td align="right" colspan="2">
           	<input name="submit" type="submit" value="작성완료" class="inputb">
-            <input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='listAction.action?currentPage=<s:property value="currentPage" />'">
+            <input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='teamlistAction.action?currentPage=<s:property value="currentPage" />'">
           </td>
         </tr>
 

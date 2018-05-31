@@ -95,11 +95,11 @@
 	 	
 	 	<!-- 팀 수정 액션. -->
 		<action name="teammodifyForm" class="team.viewAction">
-			<result type="chain">writeForm</result>
+			<result type="chain">teamwriteForm</result>
 		</action>
 		
 		<action name="teammodifyAction" class="team.modifyAction">
-			<result type="chain">viewAction</result>
+			<result type="chain">teamviewAction</result>
 		</action>
 	 </package>
 
