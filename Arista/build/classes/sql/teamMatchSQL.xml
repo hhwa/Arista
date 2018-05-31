@@ -15,6 +15,7 @@
 			<result property="game_area" column="game_area"/>
 			<result property="uniform_color" column="uniform_color"/>
 			<result property="content" column="content"/>
+			<result property="match_type" column="match_type"/>
 		</resultMap>
 		
 		<!-- 공통으로 사용할 select 절 정의 -->
@@ -24,67 +25,51 @@
 		
 		<!-- 공통으로 사용할 where-no절 정의 -->
 		<sql id="where-no">
-			where no = #no#
+			where game_no = #game_no#
 		</sql>
 		
 		<!-- select 쿼리문 정의 -->
-		<select id="selectAll" resultMap="boardRes">
+		
+		<!-- 팀매치 목록 -->
+		<select id="teamMatchList" resultMap="teamMatchRes">
 			<include refid="select-all"/>
-			order by ref desc, re_step asc
+			order by game_no
 		</select>
 		
-		<select id="selectSearch" resultMap="boardRes" parameterClass="java.util.HashMap">
+		<!-- 팀매치 검색 -->
+		<select id="teamMatchSearch" resultMap="teamMatchRes" parameterClass="java.util.HashMap">
 			<include refid="select-all"/>
-			where $param1$ like #param2# order by ref desc, re_step asc
+			where $param1$ like #param2# order by game_no
 		</select>
 		
-		<select id="selectOne" resultMap="boardRes" parameterClass="int">
-			<include refid="select-all"/>
-			<include refid="where-no"/>
-		</select>
-		
-		<select id="selectLastNo" resultClass="board">
-			select max(no) as no from Sboard_hh
-		</select>
-		
-		<select id="selectPassword" resultMap="boardRes" parameterClass="board">
+		<!-- 팀매치 상세보기 -->
+		<select id="teamMatchView" resultMap="teamMatchRes" parameterClass="int">
 			<include refid="select-all"/>
 			<include refid="where-no"/>
-			and password=#password#
+		</select>
+		
+		<select id="selectLastNo" resultClass="teamMatch">
+			select max(game_no) as game_no from teamMatch
 		</select>
 		
 		<!-- insert 쿼리문 정의 -->
-		<insert id="insertBoard" parameterClass="board">
-			insert into Sboard_hh (no,subject,name,password,content,regdate,ref,re_step,re_level) values (sboard_hh_no_seq.NEXTVAL,#subject#,#name#,#password#,#content#,#regdate#,sboard_hh_no_seq.CURRVAL,#re_step#,#re_level#)
-		</insert>
-		
-		<insert id="insertBoardReply" parameterClass="board">
-			insert into Sboard_hh (no,subject,name,password,content,regdate,ref,re_step,re_level) values (sboard_hh_no_seq.NEXTVAL,#subject#,#name#,#password#,#content#,#regdate#,#ref#,#re_step#,#re_level#)
+		<!-- 팀매치생성 -->
+		<insert id="insertTeamMatch" parameterClass="teamMatch">
+			insert into teamMatch (game_no,team_id,game_day,game_type,match_type,stadium,fee,game_area,uniform_color,content) values (teammatch_no_seq.NEXTVAL,#team_id#,#game_day#,#game_type#,#match_type#,#stadium#,#fee#,#game_area#,#uniform_color#,#content#)
 		</insert>
 		
 		<!-- update 쿼리문 정의 -->
-		<update id="updateBoard" parameterClass="board">
-			update sboard_hh set subject=#subject#, name=#name#,password=#password#,content=#content#
+		
+		<!-- 팀매치 수정 -->
+		<update id="updateTeamMatch" parameterClass="teamMatch">
+			update teamMatch set game_day=#game_day#,game_type=#game_type#,stadium=#stadium#,fee=#fee#,game_area=#game_area#,uniform_color=#uniform_color#,content=#content#
 			<include refid="where-no"/>
-		</update>
-		
-		<update id="updateFile" parameterClass="board">
-			update sboard_hh set file_orgname=#file_orgname#,file_savename=#file_savename#
-			<include refid="where-no"/>		
-		</update>
-		
-		<update id="updateReadHit" parameterClass="board">
-			update sboard_hh set readhit=readhit+1
-			<include refid="where-no"/>
-		</update>
-		
-		<update id="updateReplyStep" parameterClass="board">
-			update sboard_hh set re_step=re_step+1 where ref=#ref# and re_step>#re_step#
 		</update>
 		
 		<!-- delete 쿼리문 정의 -->
-		<delete id="deleteBoard" parameterClass="board">
-			delete from sboard_hh
+		<!-- 팀매치 삭제 -->
+		<delete id="deleteTeamMatch" parameterClass="teamMatch">
+			delete from teamMatch
 			<include refid="where-no"/>
 		</delete>
 </sqlMap>

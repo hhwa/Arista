@@ -8,10 +8,9 @@
 		<resultMap id="matchStateRes" class="matchState">
 			<result property="match_no" column="match_no"/>
 			<result property="game_no" column="game_no"/>
-			<result property="play_type" column="play_type"/>
+			<result property="match_type" column="match_type"/>
 			<result property="team_id" column="team_id"/>
 			<result property="team2_id" column="team2_id"/>
-			<result property="mem_id" column="mem_id"/>
 			<result property="game_day" column="game_day"/>
 			<result property="game_type" column="game_type"/>
 			<result property="stadium" column="stadium"/>
@@ -19,6 +18,8 @@
 			<result property="game_area" column="game_area"/>
 			<result property="uniform_color" column="uniform_color"/>
 			<result property="content" column="content"/>
+			<result property="people_max" column="people_max"/>
+			<result property="people_count" column="people_count"/>
 		</resultMap>
 		
 		<!-- 공통으로 사용할 select 절 정의 -->
@@ -28,67 +29,71 @@
 		
 		<!-- 공통으로 사용할 where-no절 정의 -->
 		<sql id="where-no">
-			where no = #no#
+			where match_no = #match_no#
 		</sql>
 		
-		<!-- select 쿼리문 정의 -->
-		<select id="selectAll" resultMap="boardRes">
+	<!-- select 쿼리문 정의 -->
+		
+		<!-- 매치목록 -->
+		<select id="matchList" resultMap="matchStateRes">
 			<include refid="select-all"/>
-			order by ref desc, re_step asc
+			order by match_no desc
 		</select>
 		
-		<select id="selectSearch" resultMap="boardRes" parameterClass="java.util.HashMap">
+		<!-- 매치검색 -->
+		<select id="matchSearch" resultMap="matchStateRes" parameterClass="java.util.HashMap">
 			<include refid="select-all"/>
-			where $param1$ like #param2# order by ref desc, re_step asc
+			where $param1$ like #param2# order by match_no desc
 		</select>
 		
-		<select id="selectOne" resultMap="boardRes" parameterClass="int">
-			<include refid="select-all"/>
-			<include refid="where-no"/>
-		</select>
-		
-		<select id="selectLastNo" resultClass="board">
-			select max(no) as no from Sboard_hh
-		</select>
-		
-		<select id="selectPassword" resultMap="boardRes" parameterClass="board">
+		<!-- 매치상세보기 -->
+		<select id="matchView" resultMap="matchStateRes" parameterClass="int">
 			<include refid="select-all"/>
 			<include refid="where-no"/>
-			and password=#password#
 		</select>
 		
-		<!-- insert 쿼리문 정의 -->
-		<insert id="insertBoard" parameterClass="board">
-			insert into Sboard_hh (no,subject,name,password,content,regdate,ref,re_step,re_level) values (sboard_hh_no_seq.NEXTVAL,#subject#,#name#,#password#,#content#,#regdate#,sboard_hh_no_seq.CURRVAL,#re_step#,#re_level#)
+		<select id="matchTypeView" resultMap="matchStateRes" parameterClass="matchState">
+			<include refid="select-all"/>
+			where game_type=#game_type# and game_no=#game_no#
+		</select>
+		
+	<!-- insert 쿼리문 정의 -->
+		
+		<!-- 매치 정보입력 -->
+		<insert id="insertMatch" parameterClass="matchState">
+			insert into matchState (match_no,game_no,match_type,team_id,game_day,game_type,stadium,fee,game_area,uniform_color,content,people_max,people_count) values (matchstate_no_seq.NEXTVAL,#game_no#,#match_type#,#team_id#,#game_day#,#game_type#,#stadium#,#fee#,#game_area#,#uniform_color#,#content#,#people_max#,#people_count#)
 		</insert>
 		
-		<insert id="insertBoardReply" parameterClass="board">
-			insert into Sboard_hh (no,subject,name,password,content,regdate,ref,re_step,re_level) values (sboard_hh_no_seq.NEXTVAL,#subject#,#name#,#password#,#content#,#regdate#,#ref#,#re_step#,#re_level#)
-		</insert>
+	<!-- update 쿼리문 정의 -->
 		
-		<!-- update 쿼리문 정의 -->
-		<update id="updateBoard" parameterClass="board">
-			update sboard_hh set subject=#subject#, name=#name#,password=#password#,content=#content#
+		<!-- 매치 타입 설정 -->
+		<update id="updateMatchType" parameterClass="matchState">
+			update matchState set match_type=#match_type#
+			<include refid="where-no"/>
+		</update>
+		<!-- 매치 상대팀 설정 -->
+		<update id="MatchUp" parameterClass="matchState">
+			update matchState set team2_id=#team2_id#
 			<include refid="where-no"/>
 		</update>
 		
-		<update id="updateFile" parameterClass="board">
-			update sboard_hh set file_orgname=#file_orgname#,file_savename=#file_savename#
-			<include refid="where-no"/>		
-		</update>
-		
-		<update id="updateReadHit" parameterClass="board">
-			update sboard_hh set readhit=readhit+1
+		<!-- 매치정보 수정 -->
+		<update id="updateMatch" parameterClass="matchState">
+			update matchState set game_day=#game_day#,game_type=#game_type#,stadium=#stadium#,fee=#fee#,game_area=#game_area#,uniform_color=#uniform_color#,content=#content#,people_max=#people_max#,people_count=#people_count#
 			<include refid="where-no"/>
 		</update>
 		
-		<update id="updateReplyStep" parameterClass="board">
-			update sboard_hh set re_step=re_step+1 where ref=#ref# and re_step>#re_step#
+		<!-- 개인매치 신청인원수 -->
+		<update id="soloCount" parameterClass="int">
+			update matchState set people_count=people_count+1
+			<include refid="where-no"/>
 		</update>
 		
-		<!-- delete 쿼리문 정의 -->
-		<delete id="deleteBoard" parameterClass="board">
-			delete from sboard_hh
+	<!-- delete 쿼리문 정의 -->
+		
+		<!-- 매치삭제 -->
+		<delete id="deleteMatch" parameterClass="matchState">
+			delete from matchState
 			<include refid="where-no"/>
 		</delete>
 </sqlMap>

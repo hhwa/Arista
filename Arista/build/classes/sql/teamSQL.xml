@@ -52,7 +52,7 @@
 		<!-- team 검색 -->
 		<select id="teamSearch" resultMap="teamRes" parameterClass="string">
 			<include refid="select-all"/>
-			 WHERE subject like #searchKeyword# ORDER BY team_no DESC
+			 WHERE team_id like #searchKeyword# ORDER BY team_no DESC
 		</select>
 		
 		<!-- team 상세보기 -->

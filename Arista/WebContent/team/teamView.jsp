@@ -32,6 +32,12 @@
 	</table> --%>
 <table width="600" border="0" cellspacing="0" cellpadding="0">     
      
+    <%--  <tr>
+     	<td>
+     		<img src="<%= request.getContextPath() %>/teamimg/레알.jpg"/>
+     	</td>
+     </tr> --%>
+     
      <tr bgcolor="#777777">
         <td height="1" colspan="2"></td>
       </tr>
@@ -127,9 +133,9 @@
 				</s:param>
 	        </s:url>
 				
-	<input name="list" type="button" value="수정" class="inputb" onClick="javascript:location.href='teamView.action?team_no=<s:property value="resultClass.team_no" />&currentPage=<s:property value="currentPage" />','modify')">
+	<input name="list" type="button" value="수정" class="inputb" onClick="javascript:location.href='modifyForm.action?team_no=<s:property value="team_no"/>&currentPage=<s:property value="currentPage"/>'">
 					
-	<input name="list" type="button" value="삭제" class="inputb" onClick="javascript:open_win_noresizable('checkForm.action?no=<s:property value="resultClass.no" />&currentPage=<s:property value="currentPage" />','delete')">
+	<input name="list" type="button" value="삭제" class="inputb" onClick="javascript:location.href='deleteForm.action?team_no=<s:property value="team_no"/>&currentPage=<s:property value="currentPage"/>'">
 
 	<input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='listAction.action?currentPage=<s:property value="currentPage" />'">
 
