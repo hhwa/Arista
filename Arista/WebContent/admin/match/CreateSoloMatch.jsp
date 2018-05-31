@@ -39,7 +39,7 @@ function validation(){
 </script>
 </head>
 <body>
-<table width="600" border="0" cellspacing="0" cellpadding="2">
+<table width="600" border="0" cellspacing="0" cellpadding="2" align="center">
 	<tr>
 		<td align="center"><h2>Solo Match</h2></td>
 	</tr>
@@ -52,7 +52,7 @@ function validation(){
 		<s:hidden name="game_no" value="%{resultClass.game_no}" />
 		<s:hidden name="currentPage" value="%{currentPage}" />
 </s:else>
-	<table width="600" border="0" cellspacing="0" cellpadding="0">
+	<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
 		<tr>
 			<td align="right" colspan="2"><font color="#FF0000">*</font>는 필수 입력사항입니다.</td>
 		</tr>

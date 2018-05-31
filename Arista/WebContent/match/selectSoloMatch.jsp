@@ -21,7 +21,7 @@
 	<table align="center">
 
 	<tr align="center" bgcolor="#F3F3F3">
-			<td width="80"><strong>매치종류</strong></td>
+			<td width="80"><strong>경기번호</strong></td>
 			<td width="80"><strong>경기종류</strong></td>
 			<td width="110"><strong>경기일</strong></td>
 			<td width="160"><strong>경기장</strong></td>
@@ -37,7 +37,7 @@
 	</tr>
 	
 	<s:iterator value="list" status="stat">
-		<s:url id="viewURL" action="matchState">
+		<s:url id="viewURL" action="joinMatch2">
 			<s:param name="game_no">
 				<s:property value="game_no"/>
 			</s:param>

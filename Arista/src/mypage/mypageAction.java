@@ -30,7 +30,7 @@ public class mypageAction extends ActionSupport{
 	private String m_ID;	// 아이디
 	private String m_password;	//비밀번호
 	private String m_name;	//이름
-	private int m_mobilephone;	//핸드폰 번호
+	private String m_mobilephone;	//핸드폰 번호
 	private int m_birthyear;	//생년월일
 	private String m_region;	//지역
 	private String m_email;		//이메일
@@ -62,8 +62,8 @@ public class mypageAction extends ActionSupport{
 		paramClass=new memVO();
 		resultClass=new memVO();
 		
-		paramClass.setM_ID(getM_ID());
-		paramClass.setM_password(getM_password());
+		paramClass.setM_id(getM_ID());
+		paramClass.setM_passwd(getM_password());
 		paramClass.setM_name(getM_name());
 		paramClass.setM_region(getM_region());
 		paramClass.setM_mobilephone(getM_mobilephone());
@@ -76,8 +76,8 @@ public class mypageAction extends ActionSupport{
 		sqlMapper.insert("memSQL.insertMem",paramClass);
 		paramClass=(memVO) sqlMapper.queryForObject("memSQL.selectOneMember");
 		
-		resultClass.setM_ID(getM_ID());
-		resultClass.setM_password(getM_password());
+		resultClass.setM_id(getM_ID());
+		resultClass.setM_passwd(getM_password());
 		resultClass.setM_name(getM_name());
 		resultClass.setM_region(getM_region());
 		resultClass.setM_mobilephone(getM_mobilephone());
@@ -167,12 +167,12 @@ public class mypageAction extends ActionSupport{
 	}
 
 
-	public int getM_mobilephone() {
+	public String getM_mobilephone() {
 		return m_mobilephone;
 	}
 
 
-	public void setM_mobilephone(int m_mobilephone) {
+	public void setM_mobilephone(String m_mobilephone) {
 		this.m_mobilephone = m_mobilephone;
 	}
 

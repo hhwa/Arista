@@ -69,13 +69,13 @@
 			<td width="70"><strong>매치번호</strong></td>
 			<td width="70"><strong>매치종류</strong></td>
 			<td width="70"><strong>경기종류</strong></td>
-			<td width="100"><strong>HOME팀</strong></td>
 			<td width="100"><strong>경기일</strong></td>
 			<td width="150"><strong>경기장</strong></td>
 			<td width="70"><strong>경기지역</strong></td>
-			<td width="100"><strong>비용</strong></td>
-			<td width="80"><strong>유니폼색상</strong></td>
-			<td width="400"><strong>내용</strong></td>
+			<td width="90"><strong>비용</strong></td>
+			<td width="100"><strong>유니폼색상</strong></td>
+			<td width="390"><strong>내용</strong></td>
+			<td width="100"><strong>HOME팀</strong></td>
 			<td width="100"><strong>AWAY팀</strong></td>
 			<td width="50">&nbsp;&nbsp;</td>
 		</tr>
@@ -86,13 +86,13 @@
 			<td align="center"><s:property value="match_no"/></td>
 			<td align="center"><s:property value="match_type"/></td>
 			<td align="center"><s:property value="game_type"/></td>
-			<td align="center"><s:property value="team_id"/></td>
 			<td align="center"><s:property value="game_day"/></td>
 			<td align="center"><s:property value="stadium"/></td>
 			<td align="center"><s:property value="game_area"/></td>
 			<td align="center"><s:property value="fee"/></td>
 			<td align="center"><s:property value="uniform_color"/></td>
 			<td align="center"><s:property value="content"/></td>
+			<td align="center"><s:property value="team_id"/></td>
 			<td align="center"><s:property value="team2_id"/></td>
 			<td align="center"><s:a href="%{viewURL}">신청</s:a></td>
 		</tr>
