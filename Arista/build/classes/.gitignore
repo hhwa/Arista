@@ -1,11 +1,3 @@
-/mem/
-/mypage/
-/notice/
-/qna/
-/soloMatch/
-/stadium/
-/team/
-/teamMatch/
 /admin/
 /footer/
-/sql/
+/struts2-member.xml
