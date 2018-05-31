@@ -40,8 +40,20 @@
 	<action name="joinForm" class="mem.MemberJoinAction" method="joinform">
 		<result>/join/JoinForm.jsp</result>
 	</action>
-	
-	
+
+<!-- 회원정보 수정 -->
+	<action name="modiftymemberForm" class="mem.MemberJoinAction" method="modifyMemForm">
+		<result>/mypage/myInfoUpdateForm.jsp</result>
+	</action>
+
+	<action name="modiftymemberPro" class="mem.MemberJoinAction" method="modifyMemPro">
+		<result>/login/loginForm.jsp</result>
+	</action>
+
+<!-- 회원탈퇴 -->
+	<action name="deletemember" class="mem.MemberJoinAction" method="deleteMem">
+		<result>/login/loginForm.jsp</result>
+	</action>
 	
 
 <!-- 로그인&로그아웃  -->	

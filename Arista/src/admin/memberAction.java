@@ -82,14 +82,10 @@ public class memberAction extends ActionSupport implements Preparable, ModelDriv
 	public String memberView() throws Exception {
 		memberResult = new memVO();
 		memberResult = (memVO)sqlMapper.queryForObject("memSQL.memListView", memberParam);
-		System.out.println("profpath:"+ServletActionContext.getServletContext().getRealPath("/profUpload"));
-		//profpath = ServletActionContext.getServletContext().getRealPath("/profUpload");
+		
 		if(memberResult.getProf_image_save() != null) {
 			prof_image_save = memberResult.getProf_image_save();
 			prof_image_org = memberResult.getProf_image_org();
-			
-			request.getContextPath();
-			
 			profpath = request.getContextPath()+"/profUpload/"+prof_image_save;
 			
 		}

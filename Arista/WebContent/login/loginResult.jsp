@@ -17,6 +17,8 @@
 
 
 <a href="logout.action">로그아웃</a>
+<a href='modiftymemberForm.action?m_id=<s:property value="m_id"/>'>회원정보수정</a>
+<a href='deletemember.action?m_id=<s:property value="m_id"/>'>회원탈퇴</a>
 
 
 </body>

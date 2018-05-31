@@ -11,14 +11,18 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 
 import java.util.*;
+
+import javax.servlet.http.HttpServletRequest;
+
 import java.io.Reader;
 import java.io.IOException;
 
 import java.io.File;
 import org.apache.commons.io.FileUtils;
+import org.apache.struts2.interceptor.ServletRequestAware;
 
 
-public class MemberJoinAction extends ActionSupport implements Preparable, ModelDriven<memVO>{
+public class MemberJoinAction extends ActionSupport implements Preparable, ModelDriven<memVO>, ServletRequestAware{
 	//SQL 맵핑
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
@@ -46,8 +50,16 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	private String m_position;
 	private Calendar m_joindate = Calendar.getInstance();
 	
+	private String prof_image_org;
+	private String prof_image_save;
+	private String profpath;
+	
 	private memVO memberParam;
 	private memVO memberResult;
+	
+	private HttpServletRequest request;
+	private File deletefile;
+	
 	
 	//아이디 중복 체크
 	private int idcheckresult = 0;
@@ -135,9 +147,80 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 		return SUCCESS;
 	}
 	
+	public String modifyMemForm() throws Exception {
+		memberResult = (memVO)sqlMapper.queryForObject("memSQL.updateform", memberParam);
+		
+		if(memberResult.getProf_image_save() != null) {
+			prof_image_save = memberResult.getProf_image_save();
+			prof_image_org = memberResult.getProf_image_org();
+			profpath = request.getContextPath()+"/profUpload/"+prof_image_save;
+			
+		}
+		return SUCCESS;
+	}
+	
+	
+	public String modifyMemPro() throws Exception {
+		sqlMapper.update("memSQL.updateMem", memberParam);
+		System.out.println("del:"+ getProf_image_save());
+		
+		if(getUpload() != null) {
+			deletefile = new File(fileUploadPath+getProf_image_save());
+			
+			FileUtils.forceDelete(deletefile);
+			
+			String file_name = "file_" + memberParam.getM_id();
+			String file_ext = getUploadFileName().substring(getUploadFileName().lastIndexOf('.')+1, getUploadFileName().length());
+			File destFile = new File(fileUploadPath + file_name + "." + file_ext);
+
+			FileUtils.copyFile(getUpload(), destFile);
+			
+			memberParam.setM_id(memberParam.getM_id());
+			memberParam.setProf_image_org(getUploadFileName());
+			memberParam.setProf_image_save(file_name+"."+file_ext);
+			
+			sqlMapper.update("memSQL.updateProfile", memberParam);
+		}
+		
+		return SUCCESS;
+	}
+	
+	public String deleteMem() throws Exception {
+		sqlMapper.update("memSQL.deleteMem", memberParam);
+		//프로필 사진 삭제 코드 추가
+		
+		return SUCCESS;
+	}
 	
 	
 	
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		this.request = request;
+		
+	}
+	public HttpServletRequest getRequest() {
+		return request;
+	}
+	public String getProf_image_org() {
+		return prof_image_org;
+	}
+	public String getProf_image_save() {
+		return prof_image_save;
+	}
+	public String getProfpath() {
+		return profpath;
+	}
+	public void setProf_image_org(String prof_image_org) {
+		this.prof_image_org = prof_image_org;
+	}
+	public void setProf_image_save(String prof_image_save) {
+		this.prof_image_save = prof_image_save;
+	}
+	public void setProfpath(String profpath) {
+		this.profpath = profpath;
+	}
 	public int getNickcheckresult() {
 		return nickcheckresult;
 	}
@@ -336,10 +419,7 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	public void setM_joindate(Calendar m_joindate) {
 		this.m_joindate = m_joindate;
 	}
-<<<<<<< HEAD
 
-=======
->>>>>>> sub
 	public int getGenUser() {
 		return genUser;
 	}
