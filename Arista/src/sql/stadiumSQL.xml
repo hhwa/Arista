@@ -69,7 +69,7 @@
 		
 		<!-- stadium 수정 -->
 		<update id="updateStadium" parameterClass="stadium">
-			update stadium set stadium_name=#stadium_name#,stadium_tel=#stadium_tel#,stadium_zipcode=#stadium_zipcode#,stadium_addr=#stadium_addr#,stadium_day=#stadium_day#,stadium_time=#stadium_time#
+			update stadium set stadium_name=#stadium_name#,stadium_tel=#stadium_tel#,stadium_zipcode=#stadium_zipcode#,stadium_addr=#stadium_addr#,stadium_day=#stadium_day#,stadium_time=#stadium_time#,stadium_regdate=#stadium_regdate#
 			<include refid="where-no"/>
 		</update>
 		

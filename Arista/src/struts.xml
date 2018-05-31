@@ -31,5 +31,13 @@
                <result>/stadium/stadiumView.jsp</result>
          </action>
          
+         <!-- 게시판 수정 액션 -->
+         <action name="stadiummodifyFormAction" class="stadium.stadiumviewAction">
+             <result type="chain">stadiumwriteFormAction</result>
+         </action>
+         
+         <action name="stadiummodifyAction" class="stadium.stadiummodifyAction">
+            <result type="chain">stadiumviewAction</result>
+         </action>
 	</package>
 </struts>
