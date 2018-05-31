@@ -18,20 +18,20 @@
 			<exception-mapping result="error" exception="java.lang.Exception"/>
 		</global-exception-mappings>
 	 	-->
-<!-- ================================ Main ================================ -->	 	
+<!--  Main  -->	 	
 	 	<!-- 메인 페이지 -->
 	 	<action name="main" class="main.mainAction">
 	 		<result type="tiles">main</result>
 	 	</action>
 	 	
-<!-- ================================ My Page ================================ -->
+<!--  My Page  -->
 	 	
 	 	<!-- 마이 페이지 -->
 	 	<action name="mypage" class="mypage.mypageAction" method="layout">
 	 		<result type="tiles">mypage</result>
 	 	</action>
 
-<!-- ================================ Footer ================================ -->
+<!--  Footer  -->
 	 	
 	 	<!-- 개인정보보안 뷰 -->
 	 	<action name="PrivacyView" class="footer.footerAction" method="layout">
@@ -39,7 +39,7 @@
     	</action>
 	</package>
 	
-<!-- ================================ Match ================================ -->
+<!--  Match  -->
 	<package name="match" extends="struts-default,tiles-default">
 		<!-- 매치선택 페이지 -->
 		<action name="selectMatch" class="matchState.matchAction" method="form">
@@ -96,7 +96,49 @@
 		 		<param name="actionName">TeamList</param> <!-- 처리 후 솔로매치 리스트로 -->
 		 	</result>
 		 </action>
-		
+	</package>
 	
+<!-- QNA -->
+	<package name="QNA" extends="struts-default">
+	<!-- 글로벌 예외 처리 화면 설정 -->
+	<!--<global-results> <result name="error">/board/pageError.jsp</result> </global-results> <global-exception-mappings> <exception-mapping result="error" exception="java.lang.Exception"/> </global-exception-mappings> -->
+	<!-- 게시판 리스트 액션 -->
+		<action name="QNAList" class="qna.QNAAction">
+			<result>/QNA/QNAList.jsp</result>
+		</action>
+
+		<action name="QNAWriteForm" class="qna.QNAAction" method="form">
+			<result>/QNA/QNAWrite.jsp</result>
+		</action>
+		<action name="QNAWrite" class="qna.QNAAction" method="write">
+			<result type="redirect-action">
+				<param name="actionName">QNAList</param>
+			</result>
+		</action>
+
+		<action name="QNAView" class="qna.QNAAction" method="view">
+			<result>/QNA/QNAView.jsp</result>
+		</action>
+
+		<action name="QNAcheckForm" class="qna.QNAAction" method="checkForm">
+			<result>/QNA/checkPassword.jsp</result>
+		</action>
+
+		<action name="QNAcheckAction" class="qna.QNAAction" method="checkAction">
+			<result name="error">/QNA/checkError.jsp</result>
+			<result>/QNA/checkSuccess.jsp</result>
+		</action>
+
+		<action name="QNAUpdateForm" class="qna.QNAAction" method="view">
+			<result type="chain">QNAWriteForm</result>
+		</action>
+
+		<action name="QNAUpdate" class="qna.QNAAction" method="update">
+			<result type="chain">QNAView</result>
+		</action>
+
+		<action name="QNADelete" class="qna.QNAAction" method="delete">
+			<result type="chain">QNAList</result>
+		</action>
 	</package>
 </struts>
