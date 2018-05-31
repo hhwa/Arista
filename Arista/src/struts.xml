@@ -52,47 +52,51 @@
 	<package name="team" extends="struts-default">
 
 		<!-- 글로벌 예외 처리 화면 설정 -->
-		<!-- <global-results> <result name="error">/board/pageError.jsp</result> 
-			</global-results> <global-exception-mappings> <exception-mapping result="error" 
-			exception="java.lang.Exception"/> </global-exception-mappings> -->
-		<!-- 팀 목록 액션 -->
-		<action name="listAction" class="team.listAction">
-			<result>/team/teamList.jsp</result>
-		</action>
-
-		<action name="writeForm" class="team.writeAction" method="form">
-			<result>/team/makeTeam.jsp</result>
-		</action>
-
-		<action name="writeAction" class="team.writeAction">
-			<result type="redirect-action">
-				<param name="actionName">listAction</param>
-			</result>
-		</action>
-
-		<!-- 팀 상세보기 액션. -->
-		<action name="viewAction" class="team.viewAction">
+		<!-- 
+		<global-results>
+			<result name="error">/board/pageError.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"/>
+		</global-exception-mappings>
+	 	-->
+	 	<!-- 팀 목록 액션 -->
+	 	<action name="teamlistAction" class="team.listAction">
+	 		<result>/team/teamList.jsp</result>
+	 	</action>
+	 	
+	 	<action name="teamwriteForm" class="team.writeAction" method="form">
+	 		<result>/team/makeTeam.jsp</result>
+	 	</action>
+	 	
+	 	<action name="teamwriteAction" class="team.writeAction">
+	 		<result type="redirect-action">
+	 			<param name="actionName">listAction</param>
+	 		</result>
+	 	</action>
+	 	
+	 	<!-- 팀 상세보기 액션. -->
+		<action name="teamviewAction" class="team.viewAction">
 			<result>/team/teamView.jsp</result>
 		</action>
 
 		<!-- 파일 다운로드 액션. -->
-		<action name="fileDownloadAction" class="team.viewAction"
-			method="download">
-			<result name="success" type="stream">
-				<param name="contentType">binary/octet-stream</param>
-				<param name="inputName">inputStream</param>
-				<param name="contentDisposition">${contentDisposition}</param>
-				<param name="contentLength">${contentLength}</param>
-				<param name="bufferSize">4096</param>
-			</result>
+		<action name="teamfileDownloadAction" class="team.viewAction" method="download">
+    		<result name="success" type="stream">
+             	   <param name="contentType">binary/octet-stream</param>
+             	   <param name="inputName">inputStream</param>
+             	   <param name="contentDisposition">${contentDisposition}</param>
+             	   <param name="contentLength">${contentLength}</param> 
+              	  <param name="bufferSize">4096</param>
+        	 </result>
 		</action>
-
-		<!-- 게시판 수정 액션. -->
-		<action name="modifyForm" class="team.viewAction">
+	 	
+	 	<!-- 팀 수정 액션. -->
+		<action name="teammodifyForm" class="team.viewAction">
 			<result type="chain">writeForm</result>
 		</action>
-
-		<action name="modifyAction" class="team.modifyAction">
+		
+		<action name="teammodifyAction" class="team.modifyAction">
 			<result type="chain">viewAction</result>
 		</action>
 	</package>
@@ -210,4 +214,38 @@
 			<result type="chain">QNAList</result>
 		</action>
 	</package>
+
+	<package name="stadium" extends="struts-default">
+
+		 <!-- 경기장 리스트 액션 -->
+		 <action name="stadiumlistAction" class="stadium.stadiumlistAction">
+		   <result>/stadium/stadiumList.jsp</result>
+		 </action>
+		 
+		 <!-- 경기장 등록/수정 액션 -->
+          <action name="stadiumwriteFormAction" class="stadium.stadiumwriteAction" method="form">
+              <result>/stadium/stadiumWrite.jsp</result>
+          </action>  
+	     
+	     <action name="stadiumwriteAction" class="stadium.stadiumwriteAction">
+	       <result type="redirect-action">
+	          <param name="actionName">stadiumlistAction</param>
+	       </result>
+	     </action>
+
+         <!-- 게시판 상세보기 액션 -->
+         <action name="stadiumviewAction" class="stadium.stadiumviewAction">
+               <result>/stadium/stadiumView.jsp</result>
+         </action>
+         
+         <!-- 게시판 수정 액션 -->
+         <action name="stadiummodifyFormAction" class="stadium.stadiumviewAction">
+             <result type="chain">stadiumwriteFormAction</result>
+         </action>
+         
+         <action name="stadiummodifyAction" class="stadium.stadiummodifyAction">
+            <result type="chain">stadiumviewAction</result>
+         </action>
+	</package>
+	
 </struts>
