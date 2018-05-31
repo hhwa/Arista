@@ -58,7 +58,7 @@ public class stadiummodifyAction extends ActionSupport {
     	paramClass.setStadium_day(getStadium_day());
     	paramClass.setStadium_regdate(stadium_regdate.getTime());
     	
-    	sqlMapper.update("stadiumSQL.updatestadium",paramClass);
+    	sqlMapper.update("stadiumSQL.updateStadium",paramClass);
     	
     	if (getUpload() != null) {
     		String file_name = "file_" + getStadium_no();
@@ -76,7 +76,7 @@ public class stadiummodifyAction extends ActionSupport {
     		sqlMapper.update("stadiumSQL.updateFile",paramClass);
     		
     	}
-    	resultClass = (stadiumVO)sqlMapper.queryForObject("selectOne",getStadium_no());
+    	resultClass = (stadiumVO)sqlMapper.queryForObject("stadiumSQL.selectOne",getStadium_no());
     	return SUCCESS;
     }
     
