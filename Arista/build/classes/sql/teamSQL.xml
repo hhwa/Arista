@@ -10,10 +10,13 @@
 			<result property="team_id" column="team_id"/>
 			<result property="team_area" column="team_area"/>
 			<result property="team_fieldtype" column="team_fieldtype"/>
+			<result property="team_type" column="team_type"/>
 			<result property="team_age" column="team_age"/>
 			<result property="team_skill" column="team_skill"/>
 			<result property="team_count" column="team_count"/>
 			<result property="team_intro" column="team_intro"/>
+			<result property="file_savname" column="file_savname"/> <!-- 0528-추가 -->
+			<result property="file_orgname" column="file_orgname"/> <!-- 0528-추가 -->
 			<result property="team_regdate" column="team_regdate"/>
 		</resultMap>
 		
@@ -27,18 +30,30 @@
 			where team_no = #team_no#
 		</sql>
 		
-		<!-- select 쿼리문 정의 -->
+		<select id="selectAll" resultMap="teamRes">
+			<include refid="select-all" />
+			ORDER BY team_no DESC
+		</select>
 		
+		<!-- select 쿼리문 정의 -->
+		<select id="selectOne" resultMap="teamRes" parameterClass="int">
+			<include refid="select-all" />
+			<include refid="where-no" />      
+		</select>
+		
+		<select id="selectLastNo" resultClass="team">
+			SELECT max(team_no) as team_no FROM TEAM 
+		</select>
 		<!-- team 목록 -->
 		<select id="teamList" resultMap="teamRes">
 			<include refid="select-all"/>
-			order by team_no desc;
+			order by team_no desc
 		</select>
 		
 		<!-- team 검색 -->
-		<select id="teamSearch" resultMap="teamRes" parameterClass="java.util.HashMap">
+		<select id="teamSearch" resultMap="teamRes" parameterClass="string">
 			<include refid="select-all"/>
-			where $param1$ like #param2# order by team_no desc;
+			 WHERE team_id like #searchKeyword# ORDER BY team_no DESC
 		</select>
 		
 		<!-- team 상세보기 -->
@@ -51,14 +66,18 @@
 		
 		<!-- team 추가 -->
 		<insert id="insertTeam" parameterClass="team">
-			insert into team (team_no,team_id,team_area,team_fieldtype,team_age,team_skill,team_count,team_intro,team_regdate) values (team_no_seq.NEXTVAL,#team_id#,#team_area#,#team_fieldtype#,#team_age#,#team_skill#,#team_count#,#team_intro#,#team_regdate#)
+			insert into team (team_no,team_id,team_area,team_type,team_fieldtype,team_age,team_skill,team_count,team_intro,team_regdate) values (team_no_seq.NEXTVAL,#team_id#,#team_area#,#team_type#,#team_fieldtype#,#team_age#,#team_skill#,#team_count#,#team_intro#,#team_regdate#)
 		</insert>
 		
 		<!-- update 쿼리문 정의 -->
-		
+		<update id="updateFile" parameterClass="team">
+    			UPDATE TEAM SET FILE_ORGNAME = #file_orgname#
+    		    		,FILE_SAVNAME = #file_savname#
+			<include refid="where-no" />
+   		 </update>
 		<!-- team 수정 -->
 		<update id="updateTeam" parameterClass="team">
-			update team set team_id=#team_id#,team_area=#team_area#,team_fieldtype=#team_fieldtype#,team_age=#team_age#,team_skill=#team_skill#,team_count=#team_count#,team_intro=#team_intro#
+			update team set team_id=#team_id#,team_area=#team_area#,team_type=#team_type#,team_fieldtype=#team_fieldtype#,team_age=#team_age#,team_skill=#team_skill#,team_count=#team_count#,team_intro=#team_intro#
 			<include refid="where-no"/>
 		</update>
 		
