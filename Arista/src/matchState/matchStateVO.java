@@ -1,9 +1,7 @@
 package matchState;
 
 public class matchStateVO {
-<<<<<<< HEAD
 
-=======
 	
 	private int match_no; 			//매치번호
 	private int game_no;  			//게임번호
@@ -104,6 +102,5 @@ public class matchStateVO {
 	public void setPeople_count(int people_count) {
 		this.people_count = people_count;
 	}
->>>>>>> ef6f54315f434b886435b89b4bc7d43972163bcb
 	
 }

@@ -57,7 +57,7 @@
 		<s:else>
 			<form action="modifyAction.action" method="post" enctype="multpart/form-data"/>
 			<s:hidden name="team_no" value="%{resultClass.team_no}"/>
-			<s:hidden name="currenstPage" value="%{resultClass.currentPage}"/>
+			<s:hidden name="currentPage" value="%{resultClass.currentPage}"/>
 			<s:hidden name="old_file" value="%{resultClass.file_savname}"/>
 		</s:else>
 		

@@ -53,27 +53,27 @@
 		</global-exception-mappings>
 	 	-->
 	 	<!-- 팀 목록 액션 -->
-	 	<action name="listAction" class="team.listAction">
+	 	<action name="teamlistAction" class="team.listAction">
 	 		<result>/team/teamList.jsp</result>
 	 	</action>
 	 	
-	 	<action name="writeForm" class="team.writeAction" method="form">
+	 	<action name="teamwriteForm" class="team.writeAction" method="form">
 	 		<result>/team/makeTeam.jsp</result>
 	 	</action>
 	 	
-	 	<action name="writeAction" class="team.writeAction">
+	 	<action name="teamwriteAction" class="team.writeAction">
 	 		<result type="redirect-action">
 	 			<param name="actionName">listAction</param>
 	 		</result>
 	 	</action>
 	 	
 	 	<!-- 팀 상세보기 액션. -->
-		<action name="viewAction" class="team.viewAction">
+		<action name="teamviewAction" class="team.viewAction">
 			<result>/team/teamView.jsp</result>
 		</action>
 		
 		<!-- 파일 다운로드 액션. -->
-		<action name="fileDownloadAction" class="team.viewAction" method="download">
+		<action name="teamfileDownloadAction" class="team.viewAction" method="download">
     		<result name="success" type="stream">
              	   <param name="contentType">binary/octet-stream</param>
              	   <param name="inputName">inputStream</param>
@@ -83,12 +83,12 @@
         	 </result>
 		</action>
 	 	
-	 	<!-- 게시판 수정 액션. -->
-		<action name="modifyForm" class="team.viewAction">
+	 	<!-- 팀 수정 액션. -->
+		<action name="teammodifyForm" class="team.viewAction">
 			<result type="chain">writeForm</result>
 		</action>
 		
-		<action name="modifyAction" class="team.modifyAction">
+		<action name="teammodifyAction" class="team.modifyAction">
 			<result type="chain">viewAction</result>
 		</action>
 	 </package>
