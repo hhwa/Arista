@@ -206,6 +206,7 @@
 		<action name="QNADelete" class="qna.QNAAction" method="delete">
 			<result type="chain">QNAList</result>
 		</action>
+	</package>
 
 	<package name="stadium" extends="struts-default">
 
@@ -239,4 +240,5 @@
             <result type="chain">stadiumviewAction</result>
          </action>
 	</package>
+	
 </struts>
