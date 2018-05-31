@@ -50,7 +50,7 @@ public class pagingAction {
 			else
 			pagingHtml.append("<a href=QNAList.action?currentPage="
 					+ (startPage - 1) + ">");
-			pagingHtml.append("[´ÙÀ½]");
+			pagingHtml.append("[ì´ì „]");
 			pagingHtml.append("</a>");
 		}
 		
@@ -85,7 +85,7 @@ public class pagingAction {
 			if(isSearch != "")
 				pagingHtml.append("&search="+isSearch);
 			pagingHtml.append("'>");
-			pagingHtml.append("[ÀÌÀü]");
+			pagingHtml.append("[ë‹¤ìŒ]");
 			pagingHtml.append("</a>");
 		}
 	}

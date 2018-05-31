@@ -2,7 +2,7 @@ package qna;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-
+import qna.qnaVO;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -38,7 +38,6 @@ public class QNAAction extends ActionSupport {
 	//write
 	private qnaVO paramClass;
 	private qnaVO resultClass;
-	
 	private int qna_no;
 	private String qna_subject;
 	private String qna_id;
@@ -95,7 +94,7 @@ public class QNAAction extends ActionSupport {
 	public String reply() throws Exception {
 		reply = true;
 		resultClass = new qnaVO();
-		resultClass = (qnaVO) sqlMapper.queryForObject("selectOne", getQna_no());
+		resultClass = (qnaVO) sqlMapper.queryForObject("qnaSQL.selectOne", getQna_no());
 		resultClass.setQna_subject("[re]" + resultClass.getQna_subject());
 		resultClass.setQna_password("");
 		resultClass.setQna_content("");
@@ -113,7 +112,7 @@ public class QNAAction extends ActionSupport {
 		} else {
 			paramClass.setRef(getRef());
 			paramClass.setRe_step(getRe_step());
-			sqlMapper.update("updateReplyStep", paramClass);
+			sqlMapper.update("qnaSQL.updateReplyStep", paramClass);
 			
 			paramClass.setRe_step(getRe_step() + 1);
 			paramClass.setRe_level(getRe_level() + 1);
@@ -134,6 +133,65 @@ public class QNAAction extends ActionSupport {
 		
 		return SUCCESS;
 	}
+	
+	public String view() throws Exception {
+		paramClass = new qnaVO();
+		resultClass = new qnaVO();
+		
+		paramClass.setQna_no(getQna_no());
+		sqlMapper.update("qnaSQL.updateReadHit", paramClass);
+		resultClass = (qnaVO) sqlMapper.queryForObject("qnaSQL.qnaView", getQna_no());
+		return SUCCESS;
+	}
+	
+	public String checkForm() throws Exception {
+		return SUCCESS;
+	}
+	
+	public String checkAction() throws Exception {
+		paramClass = new qnaVO();
+		resultClass = new qnaVO();
+		
+		paramClass.setQna_no(getQna_no());
+		paramClass.setQna_password(getQna_password());
+		
+		resultClass = (qnaVO) sqlMapper.queryForObject("qnaSQL.selectPassword", paramClass);
+		
+		if(resultClass == null)
+			return ERROR;
+		
+		return SUCCESS;
+	}
+	
+	public String update() throws Exception {
+		paramClass = new qnaVO();
+		resultClass = new qnaVO();		
+		
+		paramClass.setQna_no(getQna_no());
+		paramClass.setQna_subject(getQna_subject());
+		paramClass.setQna_id(getQna_id());
+		paramClass.setQna_password(getQna_password());
+		paramClass.setQna_content(getQna_content());
+		
+		sqlMapper.update("qnaSQL.updateQNA", paramClass);
+		
+		resultClass = (qnaVO) sqlMapper.queryForObject("qnaSQL.qnaView", getQna_no());
+		
+		return SUCCESS;
+	}
+	
+	public String delete() throws Exception {
+		paramClass = new qnaVO();
+		resultClass = new qnaVO();
+		
+		resultClass = (qnaVO) sqlMapper.queryForObject("qnaSQL.qnaView", getQna_no());
+		
+		paramClass.setQna_no(getQna_no());
+		
+		sqlMapper.update("qnaSQL.deleteQNA", paramClass);
+		
+		return SUCCESS;
+	}	
 
 
 

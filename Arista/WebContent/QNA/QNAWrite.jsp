@@ -49,12 +49,12 @@ function validation(){
   </s:if>
   
   <s:elseif test="resultClass == NULL">
-    <form action="QNAWriteAction.action" method="post" enctype="multipart/form-data" 
+    <form action="QNAWrite.action" method="post" enctype="multipart/form-data" 
     onsubmit="return validation();">
   </s:elseif>
 
   <s:else>
-    <form action="modifyAction.action" method="post" enctype="multipart/form-data">
+    <form action="QNAUpdate.action" method="post" enctype="multipart/form-data">
     <s:hidden name="qna_no" value="%{resultClass.qna_no}" />
     <s:hidden name="currentPage" value="%{currentPage}"/>
   </s:else>

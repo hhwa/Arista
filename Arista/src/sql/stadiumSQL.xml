@@ -8,7 +8,6 @@
 		<resultMap id="stadiumRes" class="stadium">
 			<result property="stadium_no" column="stadium_no"/>
 			<result property="stadium_name" column="stadium_name"/>
-			<result property="stadium_intro" column="stadium_intro"/>
 			<result property="stadium_tel" column="stadium_tel"/>
 			<result property="stadium_zipcode" column="stadium_zipcode"/>
 			<result property="stadium_addr" column="stadium_addr"/>
@@ -31,6 +30,12 @@
 		
 		<!-- select 쿼리문 정의 -->
 		
+		<!-- 특정 번호 경기장 한줄 가져오기  -->
+		 <select id="selectOne" resultMap="stadiumRes" parameterClass="int">
+		    <include refid="select-all" />
+		    <include refid="where-no" />             
+		 </select>
+		 
 		<!-- stadium 목록 -->
 		<select id="stadiumList" resultMap="stadiumRes">
 			<include refid="select-all"/>
@@ -57,14 +62,14 @@
 		
 		<!-- stadium 추가 -->
 		<insert id="insertStadium" parameterClass="stadium">
-			insert into stadium (stadium_no,stadium_name,stadium_intro,stadium_tel,stadium_zipcode,stadium_addr,stadium_day,stadium_time,stadium_regdate) values (stadium_no_seq.NEXTVAL,#stadium_name#,#stadium_intro#,#stadium_tel#,#stadium_zipcode#,#stadium_addr#,#stadium_day#,#stadium_time#,#stadium_regdate#)
+			insert into stadium (stadium_no,stadium_name,stadium_tel,stadium_zipcode,stadium_addr,stadium_day,stadium_time,stadium_regdate) values (stadium_no_seq.NEXTVAL,#stadium_name#,#stadium_tel#,#stadium_zipcode#,#stadium_addr#,#stadium_day#,#stadium_time#,#stadium_regdate#)
 		</insert>
 		
 		<!-- update 쿼리문 정의 -->
 		
 		<!-- stadium 수정 -->
 		<update id="updateStadium" parameterClass="stadium">
-			update stadium set stadium_name=#stadium_name#,stadium_intro=#stadium_intro#,stadium_tel=#stadium_tel#,stadium_zipcode=#stadium_zipcode#,stadium_addr=#stadium_addr#,stadium_day=#stadium_day#,stadium_time=#stadium_time#
+			update stadium set stadium_name=#stadium_name#,stadium_tel=#stadium_tel#,stadium_zipcode=#stadium_zipcode#,stadium_addr=#stadium_addr#,stadium_day=#stadium_day#,stadium_time=#stadium_time#,stadium_regdate=#stadium_regdate#
 			<include refid="where-no"/>
 		</update>
 		

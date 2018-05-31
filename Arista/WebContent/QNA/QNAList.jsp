@@ -24,16 +24,18 @@
   <tr align="center">
     <td width="50">번호</td>
     <td width="350">제목</td>
+    <td width="50">NO</td>
+    <td align="left" width="350">제목</td>
     <td width="70">ID</td>
     <td width="80">등록일</td>
     <td width="60">조회수</td>
   </tr>
 
 <s:iterator value="list" status="stat">
-  <s:url id="viewURL" action="QNAAction">
+  <s:url id="viewURL" action="QNAView">
     
-    <s:param name="no">
-      <s:property value="no"/>
+    <s:param name="qna_no">
+      <s:property value="qna_no"/>
     </s:param>
     
     <s:param name="currentPage">
@@ -42,13 +44,13 @@
     
   </s:url>
 <tr align="center">
-  <td><s:property value="no"/></td>
+  <td><s:property value="qna_no"/></td>
   <td align="left">&nbsp;
   <s:if test="re_level != 0">
     <c:forEach var="i" begin="${re_level }" end="0">&nsp;</c:forEach>ㄴ></s:if>
-  <s:a href="%{viewURL}"><s:property value="subject" /></s:a></td>
-  <td align="center"><s:property value="name" /></td>
-  <td align="center"><s:property value="regdate" /></td>
+  <s:a href="%{viewURL}"><s:property value="qna_subject" /></s:a></td>
+  <td align="center"><s:property value="qna_id" /></td>
+  <td align="center"><s:property value="qna_regdate" /></td>
   <td><s:property value="readhit" /></td>
 </tr>
 <tr>
@@ -75,7 +77,8 @@
 
 <tr align="right">
   <td colspan="5">
-  <input type="button" value="글쓰기" onClick="javascript:location.href='QNAWrite.action?currentPage=<s:property value="currentPage" />';">
+  <input type="button" value="글쓰기" onClick="javascript:location.href='QNAWriteForm.action?currentPage=<s:property value="currentPage" />';">
+>>>>>>> sub
   </td>
 </tr>
 
