@@ -1,6 +1,8 @@
 /faq/
+/main/
 /matchState/
 /mem/
+/mypage/
 /notice/
 /qna/
 /soloMatch/
@@ -8,4 +10,3 @@
 /team/
 /teamMatch/
 /sql/
-/stadiumList.jsp
