@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -41,7 +42,11 @@
 			}
 			return true;
 		}
-	</SCRIPT>	
+	</SCRIPT>
+	<script type="text/javascript">
+	$("#team_area option:checked").text()
+	</script>
+	
 </head>
 <body>
 	<table width="600" border="0" cellspacing="0" cellpadding="2">
@@ -83,7 +88,10 @@
           <td width="100" bgcolor="#F4F4F4"><font color="#FF0000">*</font>  지역</td>
           <td width="500" bgcolor="#FFFFFF">         
           	<select name="team_area">
+          	
      	    	<option selected="selected">선택</option> 
+     	  
+     	    	
 				<option>서울</option>
          		<option>경기</option>
          		<option>충북</option>
@@ -211,4 +219,6 @@
 
     </table>
 </body>
+
+
 </html>
