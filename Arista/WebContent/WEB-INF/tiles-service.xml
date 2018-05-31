@@ -4,22 +4,47 @@
  		"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 
 <tiles-definitions>
-<!-- ================================ Main ================================ -->
-	<!-- 메인페이지 -->
+
+<!-- 메인페이지 -->
 	<definition name="main" template="/template/layout_main.jsp">
-		<put-attribute name="title" value="OFF THE BALL - Main"/>
-		<put-attribute name="header" value="/template/header.jsp"/>
-		<put-attribute name="body" value="/match/totalMatch.jsp"/>
-		<put-attribute name="footer" value="/template/footer.jsp"/>
+		<put-attribute name="title" value="OFF THE BALL - Main" />
+		<put-attribute name="header" value="/template/header.jsp" />
+		<put-attribute name="body" value="/match/totalMatch.jsp" />
+		<put-attribute name="footer" value="/template/footer.jsp" />
 	</definition>
-<!-- ================================ My Page ================================ -->
-	<!-- 마이페이지 -->
-	<definition name="mypage" template="/template/layout.jsp" extends="main">
-		<put-attribute name="title" value="OFF THE BALL - MyPage"/>
-		<put-attribute name="menu" value="/template/menu.jsp"/>
-		<put-attribute name="body" value="/mypage/mypage.jsp"/>
+
+<!-- 마이페이지 -->
+	<definition name="mypage" template="/template/layout.jsp"
+		extends="main">
+		<put-attribute name="title" value="OFF THE BALL - MyPage" />
+		<put-attribute name="menu" value="/template/menu.jsp" />
+		<put-attribute name="body" value="/mypage/mypage.jsp" />
 	</definition>
-<!-- ================================ Match ================================ -->	
+	<!-- 마이페이지 상세보기 -->
+	<definition name="myInfoView" template="/template/layout.jsp"
+		extends="main">
+		<put-attribute name="title" value="OFF THE BALL -myInfoView" />
+		<put-attribute name="menu" value="/template/menu.jsp" />
+		<put-attribute name="body" value="/mypage/mypage.jsp" />
+	</definition>
+
+<!-- footer -->
+	<definition name="privacy" template="/template/layout_main.jsp"
+		extends="main">
+		<put-attribute name="title" value="OFF THE BALL - privacy" />
+		<put-attribute name="body" value="/footer/privacyView.jsp" />
+	</definition>
+	<definition name="promiss" template="/template/layout_main.jsp"
+		extends="main">
+		<put-attribute name="title" value="OFF THE BALL - promiss" />
+		<put-attribute name="body" value="/footer/promissView.jsp" />
+	</definition>
+	<definition name="emailx" template="/template/layout_main.jsp"
+		extends="main">
+		<put-attribute name="title" value="OFF THE BALL - emailx" />
+		<put-attribute name="body" value="/footer/emailXView.jsp" />
+	</definition>
+<!-- Match -->	
 	<!-- 매치선택 -->
 	<definition name="selectMatch" template="/template/layout.jsp" extends="main">
 		<put-attribute name="title" value="OFF THE BALL - SoloMatch"/>
@@ -55,12 +80,6 @@
 		<put-attribute name="body" value="/match/CreateTeamMatch.jsp"/>
 	</definition>
 	
-	
-<!-- ================================ Footer ================================ -->
-	<!-- 개인정보처리방침 -->
-	<definition name="PrivacyView" template="/template/layout_main.jsp" extends="main">
-      <put-attribute name="title" value="OFF THE BALL - Privacy"/>
-      <put-attribute name="body" value="/footer/PrivacyView.jsp"/>
-	</definition>
+
 
 </tiles-definitions>

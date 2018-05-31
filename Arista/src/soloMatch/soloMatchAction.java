@@ -28,6 +28,8 @@ public class soloMatchAction extends ActionSupport {
 	private joinSoloVO joinSoloClass;
 	
 	private int currentPage; //현재 페이지
+	
+
 	private int totalCount;	//총 게시물의 수
 	private int blockCount = 10;	//한 페이지의 게시물의 수
 	private int blockPage=5;	//한화면에 보여줄 페이지 수
@@ -139,6 +141,7 @@ public class soloMatchAction extends ActionSupport {
 		resultClass.setContent(getContent());
 		resultClass.setPeople_count(getPeople_count());
 		resultClass.setPeople_max(getPeople_max());
+		
 		
 		sqlMapper.insert("matchStateSQL.insertMatch",resultClass);
 			
