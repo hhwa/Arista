@@ -56,7 +56,7 @@
          <tr>
            <td width="100" bgcolor="F4F4F4">µÓ∑œ¿œ</td>
            <td bgcolor="#FFFFFF">
-             &nbsp;&nbsp;<s:property value="resultClass.regdate" />
+             &nbsp;&nbsp;<s:property value="resultClass.stadium_regdate" />
              </td>
              </tr>
            

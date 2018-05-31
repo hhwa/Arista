@@ -35,7 +35,7 @@
        
        <s:url id="viewURL" action="stadiumviewAction" >
           <s:param name="stadium_no">
-             <s:property value="no" />
+             <s:property value="stadium_no" />
              </s:param>
              <s:param name="currentPage">
                 <s:property value="currentPage" />
