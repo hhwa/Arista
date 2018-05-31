@@ -336,7 +336,10 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	public void setM_joindate(Calendar m_joindate) {
 		this.m_joindate = m_joindate;
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> sub
 	public int getGenUser() {
 		return genUser;
 	}

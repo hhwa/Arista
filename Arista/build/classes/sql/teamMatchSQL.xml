@@ -15,6 +15,7 @@
 			<result property="game_area" column="game_area"/>
 			<result property="uniform_color" column="uniform_color"/>
 			<result property="content" column="content"/>
+			<result property="match_type" column="match_type"/>
 		</resultMap>
 		
 		<!-- 공통으로 사용할 select 절 정의 -->
@@ -47,17 +48,21 @@
 			<include refid="where-no"/>
 		</select>
 		
+		<select id="selectLastNo" resultClass="teamMatch">
+			select max(game_no) as game_no from teamMatch
+		</select>
+		
 		<!-- insert 쿼리문 정의 -->
 		<!-- 팀매치생성 -->
 		<insert id="insertTeamMatch" parameterClass="teamMatch">
-			insert into teamMatch (game_no,team_id,game_day,game_type,stadium,fee,game_area,uniform_color,content) values (teammatch_no_seq.NEXTVAL,#team_id#,#game_day#,#game_type#,#stadium#,#fee#,#game_area#,#uniform_color#,#content#)
+			insert into teamMatch (game_no,team_id,game_day,game_type,match_type,stadium,fee,game_area,uniform_color,content) values (teammatch_no_seq.NEXTVAL,#team_id#,#game_day#,#game_type#,#match_type#,#stadium#,#fee#,#game_area#,#uniform_color#,#content#)
 		</insert>
 		
 		<!-- update 쿼리문 정의 -->
 		
 		<!-- 팀매치 수정 -->
 		<update id="updateTeamMatch" parameterClass="teamMatch">
-			update sboard_hh set game_day=#game_day#,game_type=#game_type#,stadium=#stadium#,fee=#fee#,game_area=#game_area#,uniform_color=#uniform_color#,content=#content#
+			update teamMatch set game_day=#game_day#,game_type=#game_type#,stadium=#stadium#,fee=#fee#,game_area=#game_area#,uniform_color=#uniform_color#,content=#content#
 			<include refid="where-no"/>
 		</update>
 		

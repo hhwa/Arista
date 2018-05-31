@@ -8,11 +8,14 @@
 		<resultMap id="soloMatchRes" class="soloMatch">
 			<result property="game_no" column="game_no"/>
 			<result property="game_day" column="game_day"/>
+			<result property="match_type" column="match_type"/>
 			<result property="game_type" column="game_type"/>
 			<result property="stadium" column="stadium"/>
 			<result property="fee" column="fee"/>
 			<result property="game_area" column="game_area"/>
 			<result property="content" column="content"/>
+			<result property="people_max" column="people_max"/>
+			<result property="people_count" column="people_count"/>
 		</resultMap>
 		
 		<!-- 공통으로 사용할 select 절 정의 -->
@@ -45,26 +48,35 @@
 			<include refid="where-no"/>
 		</select>
 		
+		<select id="selectLastNo" resultClass="soloMatch">
+			select max(game_no) as game_no from soloMatch
+		</select>
+		
 		<!-- insert 쿼리문 정의 -->
 		
 		<!-- 솔로매치 생성 -->
 		<insert id="insertSoloMatch" parameterClass="soloMatch">
-			insert into soloMatch (game_no,game_day,game_type,stadium,fee,game_area,content) values (solomatch_no_seq.NEXTVAL,#game_day#,#game_type#,#stadium#,#fee#,#game_area#,#content#)
+			insert into soloMatch (game_no,game_day,match_type,game_type,stadium,fee,game_area,content,people_count,people_max) values (solomatch_no_seq.NEXTVAL,#game_day#,#match_type#,#game_type#,#stadium#,#fee#,#game_area#,#content#,#people_count#,#people_max#)
 		</insert>
-		
+
 		<!-- update 쿼리문 정의 -->
 		
 		<!-- 솔로매치 정보수정 -->
 		<update id="updateSoloMatch" parameterClass="soloMatch">
-			update soloMatch set game_day=#game_day#,game_type=#game_type#,stadium=#stadium#,fee=#fee#,game_area=#game_area#,content=#content#
+			update soloMatch set game_day=#game_day#,game_type=#game_type#,stadium=#stadium#,fee=#fee#,game_area=#game_area#,content=#content#,people_max=#people_max#
 			<include refid="where-no"/>
 		</update>
 		
+		<!-- 개인매치 신청인원수 -->
+		<update id="soloCount" parameterClass="int">
+			update soloMatch set people_count=people_count+1
+			<include refid="where-no"/>
+		</update>
 		<!-- delete 쿼리문 정의 -->
 		
 		<!-- 매치삭제 -->
 		<delete id="deleteMatch" parameterClass="soloMatch">
-			delete from solomatch
+			delete from soloMatch
 			<include refid="where-no"/>
 		</delete>
 </sqlMap>
