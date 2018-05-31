@@ -153,7 +153,7 @@
 
 <body>
 
-<s:form method="post" action="MemberJoinAction.action" name="userinput" enctype="multipart/form-data">
+<s:form method="post" action="MemberJoinAction" name="userinput" enctype="multipart/form-data">
 	<table width="600" border="1" cellspacing="0" cellpadding="3" align="center">
 		<tr>
 			<td colspan="2" height="39" align="center" >
@@ -225,7 +225,7 @@
 		<tr>
 			<td width="200">휴대폰 번호</td>
 			<td width="400">
-				<input type="text" name="m_mobilephone" size="11"> <font size="2">예시)010-1111-1111</font>
+				<input type="text" name="m_mobilephone" size="11"> <font size="2">예시)01011111111</font>
 				
 			</td>
 		</tr>				
@@ -239,7 +239,7 @@
 			<td width="200">출생년월</td>
 			<td width="400">
 				<input type="text" name="m_birthyear" size="10">
-			<font size="2">예시)1990-01-01</font></td>
+			<font size="2">예시)1990</font></td>
 		</tr>
 		<tr>
 			<td width="200">이메일</td>

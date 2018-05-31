@@ -42,9 +42,7 @@ public class memberAction extends ActionSupport implements Preparable, ModelDriv
 	private String prof_image_org;
 	private String prof_image_save;
 	
-	private String profpath;
-	private String saveFileName;
-	
+	//private String profpath;
 	private memVO memberParam;
 	private memVO memberResult;
 	
@@ -80,10 +78,11 @@ public class memberAction extends ActionSupport implements Preparable, ModelDriv
 		memberResult = new memVO();
 		memberResult = (memVO)sqlMapper.queryForObject("memSQL.memListView", memberParam);
 		
+		//profpath = ServletActionContext.getServletContext().getRealPath("/profUpload");
 		if(memberResult.getProf_image_save() != null) {
-			System.out.println();
+			prof_image_save = memberResult.getProf_image_save();
+			prof_image_org = memberResult.getProf_image_org();
 			
-			profpath = ServletActionContext.getServletContext().getRealPath("/upload");
 			
 		}
 		

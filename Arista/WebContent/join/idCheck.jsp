@@ -13,6 +13,8 @@ function setid()
  {
 	opener.document.userinput.m_ID.value="<s:property value='m_id'/>";
  	self.close();
+
+
  } 
 
 

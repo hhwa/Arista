@@ -28,7 +28,8 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	private File Upload;
 	private String uploadContentType;
 	private String uploadFileName;
-	private String fileUploadPath = "C:\\Users\\yk\\Desktop\\upload\\";
+//	private String fileUploadPath = "C:\\Users\\user1\\git\\Arista\\Arista\\WebContent\\profUpload\\";
+	private String fileUploadPath = "C:\\Users\\user1\\Desktop\\upload\\";
 	
 	//회원가입 속성
 	private String m_id;
