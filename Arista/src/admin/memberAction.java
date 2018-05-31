@@ -11,6 +11,9 @@ import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 
 import java.util.*;
+
+import javax.servlet.http.HttpServletRequest;
+
 import java.io.Reader;
 import java.io.IOException;
 
@@ -20,9 +23,10 @@ import java.io.InputStream;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.ServletRequestAware;
 
 
-public class memberAction extends ActionSupport implements Preparable, ModelDriven<memVO>{
+public class memberAction extends ActionSupport implements Preparable, ModelDriven<memVO>, ServletRequestAware{
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
@@ -42,11 +46,12 @@ public class memberAction extends ActionSupport implements Preparable, ModelDriv
 	private String prof_image_org;
 	private String prof_image_save;
 	
-	//private String profpath;
+	private String profpath;
 	private memVO memberParam;
 	private memVO memberResult;
-	
 	private List<memVO> memlist = new ArrayList<memVO>();
+
+	private HttpServletRequest request;
 	
 	public memberAction() throws IOException {
 		// TODO Auto-generated constructor stub
@@ -77,12 +82,15 @@ public class memberAction extends ActionSupport implements Preparable, ModelDriv
 	public String memberView() throws Exception {
 		memberResult = new memVO();
 		memberResult = (memVO)sqlMapper.queryForObject("memSQL.memListView", memberParam);
-		
+		System.out.println("profpath:"+ServletActionContext.getServletContext().getRealPath("/profUpload"));
 		//profpath = ServletActionContext.getServletContext().getRealPath("/profUpload");
 		if(memberResult.getProf_image_save() != null) {
 			prof_image_save = memberResult.getProf_image_save();
 			prof_image_org = memberResult.getProf_image_org();
 			
+			request.getContextPath();
+			
+			profpath = request.getContextPath()+"/profUpload/"+prof_image_save;
 			
 		}
 		
@@ -91,6 +99,27 @@ public class memberAction extends ActionSupport implements Preparable, ModelDriv
 	}
  
 	
+	
+	
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		this.request = request;
+	}
+
+	
+	public String getProfpath() {
+		return profpath;
+	}
+
+	public HttpServletRequest getRequest() {
+		return request;
+	}
+
+	public void setProfpath(String profpath) {
+		this.profpath = profpath;
+	}
+
 	public String getProf_image_org() {
 		return prof_image_org;
 	}
