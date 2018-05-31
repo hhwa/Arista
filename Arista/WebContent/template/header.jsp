@@ -4,6 +4,7 @@
 
 <html>
 <head>
+<link rel="stylesheet" href="/Arista/css/style.css" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Header</title>
 
@@ -63,7 +64,7 @@
 	 <table border="0" width=1300 cellspacing="1" cellpadding="1">
 		<td width=100 align="center"></td>
 		<td width=100 align="center"><a href=mypage.action><h4><b>마이페이지</b></h4></a></td>
-		<td width=100 align="center"><h4><b> 매치</b></h4></td>
+		<td width=100 align="center"><a href=selectMatch.action><h4><b> 매치</b></h4></a></td>
 		<td width=100 align="center"><h4><b>팀</b></h4></td>
 		<td width=100 align="center"> <h4><b>경기장</b></h4></td>
 		<td width=100 align="center"><h4><b>고객센터</b></h4></td>

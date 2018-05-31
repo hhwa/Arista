@@ -18,15 +18,18 @@
 			<exception-mapping result="error" exception="java.lang.Exception"/>
 		</global-exception-mappings>
 	 	-->
-	 	<action name="main" class="main.mainAction" method="layout">
+	 	
+	 	<!-- 메인 페이지 -->
+	 	<action name="main" class="main.mainAction">
 	 		<result type="tiles">main</result>
 	 	</action>
 	 	
+	 	<!-- 마이 페이지 -->
 	 	<action name="mypage" class="mypage.mypageAction" method="layout">
 	 		<result type="tiles">mypage</result>
 	 	</action>
 	
-	<!-- footer 약관 -->
+		<!-- footer 약관 -->
 		<action name="privacy" class="footer.footerAction" method="layout">
 	 		<result type="tiles">privacy</result>
 	 	</action>
@@ -42,6 +45,46 @@
 	 		<result type="tiles">myInfoView</result>
 	 	</action>
 	 	
-	 	
+	</package>
+	
+		<!-- 매치 -->
+		<package name="match" extends="struts-default,tiles-default">
+		<!-- 매치선택 페이지 -->
+		<action name="selectMatch" class="matchState.matchAction" method="form">
+			<result type="tiles">selectMatch</result>
+		</action>
+		
+		<!-- 매치 신청 -->
+		<action name="joinMatch" class="matchState.matchAction" method="join">
+			<result type="redirect-action">
+				<param name="actionName">main</param>
+			</result>
+		</action>
+		<!-- 솔로매치 리스트 -->
+		<action name="SoloList" class="soloMatch.soloMatchAction">
+			<result type="tiles">SoloList</result>
+		</action>
+		<!-- 솔로매치 생성폼 -->
+		<action name="CreateSoloMatchForm" class="soloMatch.soloMatchAction" method="form">
+			<result type="tiles">CreateSoloMatchForm</result>
+		</action>
+		<!-- 솔로매치 생성처리 -->
+		<action name="CreateSoloMatch" class="soloMatch.soloMatchAction" method="create">
+		 	<result type="redirect-action">
+		 		<param name="actionName">SoloList</param> <!-- 처리 후 솔로매치 리스트로 -->
+		 	</result>
+		 </action>
+		 <!-- 솔로매치 수정 폼 -->
+		 <action name="modifySoloMatchForm" class="soloMatch.soloMatchAction">
+		 	<result type="chain">CreateSoloMatchForm</result>
+		 </action>
+		 <!-- 솔로매치 수정처리 -->
+		 <action name="modifySoloMatch" class="soloMatch.soloMatchAction" method="modify">
+		 	<result type="redirect-action">
+		 		<param name="actionName">SoloList</param> <!-- 처리 후 솔로매치 리스트로 -->
+		 	</result>
+		 </action>
+	
+	
 	</package>
 </struts>

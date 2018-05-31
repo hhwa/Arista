@@ -57,7 +57,7 @@
 		
 		<!-- 팀매치 수정 -->
 		<update id="updateTeamMatch" parameterClass="teamMatch">
-			update sboard_hh set game_day=#game_day#,game_type=#game_type#,stadium=#stadium#,fee=#fee#,game_area=#game_area#,uniform_color=#uniform_color#,content=#content#
+			update teamMatch set game_day=#game_day#,game_type=#game_type#,stadium=#stadium#,fee=#fee#,game_area=#game_area#,uniform_color=#uniform_color#,content=#content#
 			<include refid="where-no"/>
 		</update>
 		

@@ -23,7 +23,7 @@ height:8px;
 <br><br><br>
 
 	<table id="menu_back" align="center">
-		<td align="center"><h4><b>마이페이지</b></h4>
+		<td align="center"><a href=mypage.action><h4><b>마이페이지</b></h4></a>
 	</table>
 	
 	<table id="menu_list" align="center">
@@ -34,12 +34,12 @@ height:8px;
 	</table><br><br>
 	
 	<table id="menu_back" align="center">
-		<td align="center"><h4><b>매치</b></h4>
+		<td align="center"><a href=selectMatch.action><h4><b>매치</b></h4></a>
 	</table>
 	
 	<table id="menu_list" align="center">
 		<tr><td align="left">팀 매치</td></tr>
-		<tr><td align="left">솔로 매치<td></tr>
+		<tr><td align="left"><a href=SoloList.action>솔로 매치</a><td></tr>
 	</table><br><br>
 	
 		<table id="menu_back" align="center">

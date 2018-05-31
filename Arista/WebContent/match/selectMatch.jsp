@@ -7,6 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+매치를 선택해주세요
+<div style="margin:auto;">
+<a href="SoloList.action">Solo Match</a> &nbsp;&nbsp;&nbsp;
+<a href="#">Team Match</a>
+</div>
 </body>
 </html>
