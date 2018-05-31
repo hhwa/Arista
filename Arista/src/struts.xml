@@ -239,6 +239,12 @@
          <action name="stadiummodifyAction" class="stadium.stadiummodifyAction">
             <result type="chain">stadiumviewAction</result>
          </action>
+         
+         <!-- 게시판 삭제하기액션 -->
+         <action name="stadiumdeleteAction" class="stadium.stadiumdeleteAction">
+            <result type="chain">stadiumlistAction</result>
+         </action>
+         
 	</package>
 	
 </struts>

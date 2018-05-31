@@ -133,20 +133,10 @@
             <tr>
              <td align="right" colspan="2">
              
-                <s:url id="stadiummodifyURL" action="stadiummodifyFormAction">
-                 <s:param name="stadium_no">
-                 <s:property value="stadium_no" />
-                 </s:param>
-                 </s:url>
-                 
-                 <s:url id="stadiumdeleteURL" action="stadiumdeleteAction" >
-                     <s:param name="stadium_no">
-                     <s:property value="stadium_no" />
-                     </s:param>
-                     </s:url>
+                
                      
                      <input name="list" type="button" value="수정" class="inputb" onClick="javascript:location.href='stadiummodifyFormAction.action?stadium_no=<s:property value="stadium_no"/>&currentPage=<s:property value="currentPage"/>'"> 
-                     <input name="list" type="button" value="삭제" class="inputb" onClick="javascript:open_win_noresizable('checkForm.action?no=<s:property value="resultClass.stadium_no" />&currentPage=<s:property value="currentPage" />','delete')">
+                     <input name="list" type="button" value="삭제" class="inputb" onClick="javascript:location.href='stadiumdeleteAction.action?stadium_no=<s:property value="stadium_no"/>&currentPage=<s:property value="currentPage"/>'"> 
                      <input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='stadiumlistAction.action?currentPage=<s:property value="currentPage" />'">
             
          

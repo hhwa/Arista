@@ -46,10 +46,11 @@ public class stadiummodifyAction extends ActionSupport {
     }
     
     public String execute() throws Exception{
+    	System.out.println();
     	paramClass = new stadiumVO();
     	resultClass = new stadiumVO();
-    	
-    	
+
+    	paramClass.setStadium_no(getStadium_no());
     	paramClass.setStadium_name(getStadium_name());
     	paramClass.setStadium_time(getStadium_time());
     	paramClass.setStadium_day(getStadium_day());

@@ -52,6 +52,7 @@ public class stadiumwriteAction extends ActionSupport {
     	  paramClass = new stadiumVO();
     	  resultClass = new stadiumVO();
     	  
+    	  
     	  paramClass.setStadium_name(getStadium_name());
     	  paramClass.setStadium_day(getStadium_day());
     	  paramClass.setStadium_addr(getStadium_addr());
