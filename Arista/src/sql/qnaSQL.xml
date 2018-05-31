@@ -47,7 +47,7 @@
 			<include refid="where-no"/>
 		</select>
 		
-		<select id="selectLastNo" resultClass="board">
+		<select id="selectLastNo" resultClass="qna">
 			select max(no) as no from qna
 		</select>
 		

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+<struts>
+	<!-- 용량제한 100MB로 설정 -->
+	<constant name="struts.multipart.maxSize" value="104857600"/>
+	
+	<package name="main" extends="struts-default,tiles-default">
+	
+		<!-- 글로벌 예외 처리 화면 설정 -->
+		<!-- 
+		<global-results>
+			<result name="error">/board/pageError.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"/>
+		</global-exception-mappings>
+	 	-->
+<!-- ================================ Main ================================ -->	 	
+	 	<!-- 메인 페이지 -->
+	 	<action name="main" class="main.mainAction">
+	 		<result type="tiles">main</result>
+	 	</action>
+	 	
+<!-- ================================ My Page ================================ -->
+	 	
+	 	<!-- 마이 페이지 -->
+	 	<action name="mypage" class="mypage.mypageAction" method="layout">
+	 		<result type="tiles">mypage</result>
+	 	</action>
+
+<!-- ================================ Footer ================================ -->
+	 	
+	 	<!-- 개인정보보안 뷰 -->
+	 	<action name="PrivacyView" class="footer.footerAction" method="layout">
+          <result type="tiles">PrivacyView</result>
+    	</action>
+	</package>
+	
+<!-- ================================ Match ================================ -->
+	<package name="match" extends="struts-default,tiles-default">
+		<!-- 매치선택 페이지 -->
+		<action name="selectMatch" class="matchState.matchAction" method="form">
+			<result type="tiles">selectMatch</result>
+		</action>
+		
+		<!-- 솔로매치 신청 -->
+		<action name="joinMatch" class="matchState.matchAction" method="join">
+			<result type="redirect-action">
+				<param name="actionName">main</param>
+			</result>
+		</action>
+		<action name="joinMatch2" class="soloMatch.soloMatchAction" method="solo">
+			<result type="redirect-action">
+				<param name="actionName">SoloList</param>
+			</result>
+		</action>
+		<!-- 솔로매치 리스트 -->
+		<action name="SoloList" class="soloMatch.soloMatchAction">
+			<result type="tiles">SoloList</result>
+		</action>
+		<!-- 솔로매치 생성폼 -->
+		<action name="CreateSoloMatchForm" class="soloMatch.soloMatchAction" method="form">
+			<result type="tiles">CreateSoloMatchForm</result>
+		</action>
+		<!-- 솔로매치 생성처리 -->
+		<action name="CreateSoloMatch" class="soloMatch.soloMatchAction" method="create">
+		 	<result type="redirect-action">
+		 		<param name="actionName">SoloList</param> <!-- 처리 후 솔로매치 리스트로 -->
+		 	</result>
+		 </action>
+		 <!-- 솔로매치 수정 폼 -->
+		 <action name="modifySoloMatchForm" class="soloMatch.soloMatchAction">
+		 	<result type="chain">CreateSoloMatchForm</result>
+		 </action>
+		 <!-- 솔로매치 수정처리 -->
+		 <action name="modifySoloMatch" class="soloMatch.soloMatchAction" method="modify">
+		 	<result type="redirect-action">
+		 		<param name="actionName">SoloList</param> <!-- 처리 후 솔로매치 리스트로 -->
+		 	</result>
+		 </action>
+		 
+		 <!-- 팀매치 리스트 -->
+		 <action name="TeamList" class="teamMatch.teamMatchAction">
+		 	<result type="tiles">TeamList</result>
+		 </action>
+		 <!-- 팀매치 생성폼 -->
+		<action name="CreateTeamMatchForm" class="teamMatch.teamMatchAction" method="form">
+			<result type="tiles">CreateTeamMatchForm</result>
+		</action>
+		<!-- 팀매치 생성처리 -->
+		<action name="CreateTeamMatch" class="teamMatch.teamMatchAction" method="create">
+		 	<result type="redirect-action">
+		 		<param name="actionName">TeamList</param> <!-- 처리 후 솔로매치 리스트로 -->
+		 	</result>
+		 </action>
+		
+	
+	</package>
+</struts>
