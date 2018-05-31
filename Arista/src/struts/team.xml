@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+  
+	<struts>
+	
+		<package name="team" extends="struts-default">
+	
+			<!-- 글로벌 예외 처리 화면 설정 -->
+			<!-- 
+			<global-results>
+				<result name="error">/board/pageError.jsp</result>
+			</global-results>
+			<global-exception-mappings>
+				<exception-mapping result="error" exception="java.lang.Exception"/>
+			</global-exception-mappings>
+	 		-->
+	 		<!-- 팀 목록 액션 -->
+	 		<action name="listAction" class="team.listAction">
+	 			<result>/team/teamList.jsp</result>
+	 		</action>
+	 	
+	 		<action name="writeForm" class="team.writeAction" method="form">
+	 			<result>/team/makeTeam.jsp</result>
+	 		</action>
+	 	
+	 		<action name="writeAction" class="team.writeAction">
+	 			<result type="redirect-action">
+	 				<param name="actionName">listAction</param>
+	 			</result>
+	 		</action>
+	 	
+	 		<!-- 팀 상세보기 액션. -->
+			<action name="viewAction" class="team.viewAction">
+				<result>/team/teamView.jsp</result>
+			</action>
+		
+			<!-- 파일 다운로드 액션. -->
+			<action name="fileDownloadAction" class="team.viewAction" method="download">
+    			<result name="success" type="stream">
+             	   	<param name="contentType">binary/octet-stream</param>
+             	   	<param name="inputName">inputStream</param>
+             	   	<param name="contentDisposition">${contentDisposition}</param>
+             	   	<param name="contentLength">${contentLength}</param> 
+              	  	<param name="bufferSize">4096</param>
+        	 	</result>
+			</action>
+	 	
+	 		<!-- 게시판 수정 액션. -->
+			<action name="modifyForm" class="team.viewAction">
+				<result type="chain">writeForm</result>
+			</action>
+		
+			<action name="modifyAction" class="team.modifyAction">
+				<result type="chain">viewAction</result>
+			</action>
+	 	</package>
+	</struts>
