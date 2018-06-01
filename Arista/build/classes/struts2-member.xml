@@ -18,7 +18,7 @@
 	</interceptors>
 	
 		<global-results>
-	 		<result name="gologin">/login/loginForm.jsp</result>
+	 		<result name="logiologin">/login/loginForm.jsp</result>
 	 	</global-results>
 	
 	<action name="MemberJoinAction" class="mem.MemberJoinAction">
@@ -58,7 +58,7 @@
 
 <!-- 로그인&로그아웃  -->	
 	<action name="loginForm" class="mem.loginAction" method="loginForm">
-		<result>/login/loginForm.jsp</result>
+		<result type="tiles">loginForm</result>
 	</action>
 
 	<action name="loginPro" class="mem.loginAction">
@@ -72,8 +72,8 @@
 	
 
 <!-- 아이디 찾기 -->	
-	<action name="findIDForm" class="mem.loginAction" method="findidform">
-		<result>/login/findIDForm.jsp</result>
+	<action name="loginForm" class="mem.loginAction" method="loginForm">
+		<result type="tiles">loginForm</result>
 	</action>
 
 	<action name="findIDPro" class="mem.loginAction" method="findId">

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE struts PUBLIC
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
@@ -241,4 +242,256 @@
          </action>
    </package>
    
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<include file="struts2-member.xml" />
+	<!-- 용량제한 100MB로 설정 -->
+	<constant name="struts.multipart.maxSize" value="104857600" />
+
+	<package name="main" extends="struts-default,tiles-default">
+		<!-- 글로벌 예외 처리 화면 설정 -->
+		<!-- <global-results> <result name="error">/board/pageError.jsp</result> 
+			</global-results> <global-exception-mappings> <exception-mapping result="error" 
+			exception="java.lang.Exception"/> </global-exception-mappings> -->
+		<!-- Main -->
+		<!-- 메인 페이지 -->
+		<action name="main" class="main.mainAction">
+			<result type="tiles">main</result>
+		</action>
+
+
+
+		<!-- My Page -->
+
+		<!-- 마이 페이지 -->
+		<action name="mypage" class="mypage.mypageAction" method="layout">
+			<result type="tiles">mypage</result>
+		</action>
+
+		<!-- footer 약관 -->
+		<action name="privacy" class="footer.footerAction" method="layout">
+			<result type="tiles">privacy</result>
+		</action>
+		<action name="promiss" class="footer.footerAction" method="layout">
+			<result type="tiles">promiss</result>
+		</action>
+		<action name="emailx" class="footer.footerAction" method="layout">
+			<result type="tiles">emailx</result>
+		</action>
+
+		<!-- 마이페이지 상세보기 -->
+		<action name="myInfoView" class="mypage.mypageAction" method="view">
+			<result type="tiles">myInfoView</result>
+		</action>
+
+	</package>
+
+
+
+
+	<package name="team" extends="struts-default">
+
+		<!-- 글로벌 예외 처리 화면 설정 -->
+		<!-- 
+		<global-results>
+			<result name="error">/board/pageError.jsp</result>
+		</global-results>
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"/>
+		</global-exception-mappings>
+	 	-->
+	 	<!-- 팀 목록 액션 -->
+	 	<action name="teamlistAction" class="team.listAction">
+	 		<result>/team/teamList.jsp</result>
+	 	</action>
+	 	
+	 	<action name="teamwriteForm" class="team.writeAction" method="form">
+	 		<result>/team/makeTeam.jsp</result>
+	 	</action>
+	 	
+	 	<action name="teamwriteAction" class="team.writeAction">
+	 		<result type="redirect-action">
+	 			<param name="actionName">listAction</param>
+	 		</result>
+	 	</action>
+	 	
+	 	<!-- 팀 상세보기 액션. -->
+		<action name="teamviewAction" class="team.viewAction">
+			<result>/team/teamView.jsp</result>
+		</action>
+
+		<!-- 파일 다운로드 액션. -->
+		<action name="teamfileDownloadAction" class="team.viewAction" method="download">
+    		<result name="success" type="stream">
+             	   <param name="contentType">binary/octet-stream</param>
+             	   <param name="inputName">inputStream</param>
+             	   <param name="contentDisposition">${contentDisposition}</param>
+             	   <param name="contentLength">${contentLength}</param> 
+              	  <param name="bufferSize">4096</param>
+        	 </result>
+		</action>
+	 	
+	 	<!-- 팀 수정 액션. -->
+		<action name="teammodifyForm" class="team.viewAction">
+			<result type="chain">writeForm</result>
+		</action>
+		
+		<action name="teammodifyAction" class="team.modifyAction">
+			<result type="chain">viewAction</result>
+		</action>
+	</package>
+
+	<!-- Match -->
+	<package name="match" extends="struts-default,tiles-default">
+
+		<!-- 매치선택 페이지 -->
+		<action name="selectMatch" class="matchState.matchAction"
+			method="form">
+			<result type="tiles">selectMatch</result>
+		</action>
+
+		<!-- 솔로매치 신청 -->
+		<action name="joinMatch" class="matchState.matchAction" method="join">
+			<result type="redirect-action">
+				<param name="actionName">main</param>
+			</result>
+		</action>
+		<action name="joinMatch2" class="soloMatch.soloMatchAction"
+			method="solo">
+			<result type="redirect-action">
+				<param name="actionName">SoloList</param>
+			</result>
+		</action>
+		<!-- 솔로매치 리스트 -->
+		<action name="SoloList" class="soloMatch.soloMatchAction">
+			<result type="tiles">SoloList</result>
+		</action>
+		<!-- 솔로매치 생성폼 -->
+		<action name="CreateSoloMatchForm" class="soloMatch.soloMatchAction"
+			method="form">
+			<result type="tiles">CreateSoloMatchForm</result>
+		</action>
+		<!-- 솔로매치 생성처리 -->
+		<action name="CreateSoloMatch" class="soloMatch.soloMatchAction"
+			method="create">
+			<result type="redirect-action">
+				<param name="actionName">SoloList</param> <!-- 처리 후 솔로매치 리스트로 -->
+			</result>
+		</action>
+
+		<!-- 솔로매치 수정 폼 -->
+		<action name="modifySoloMatchForm" class="soloMatch.soloMatchAction">
+			<result type="chain">CreateSoloMatchForm</result>
+		</action>
+		<!-- 솔로매치 수정처리 -->
+		<action name="modifySoloMatch" class="soloMatch.soloMatchAction"
+			method="modify">
+			<result type="redirect-action">
+				<param name="actionName">SoloList</param> <!-- 처리 후 솔로매치 리스트로 -->
+			</result>
+		</action>
+
+		<!-- 팀매치 리스트 -->
+		<action name="TeamList" class="teamMatch.teamMatchAction">
+			<result type="tiles">TeamList</result>
+		</action>
+		<!-- 팀매치 생성폼 -->
+		<action name="CreateTeamMatchForm" class="teamMatch.teamMatchAction"
+			method="form">
+			<result type="tiles">CreateTeamMatchForm</result>
+		</action>
+		<!-- 팀매치 생성처리 -->
+		<action name="CreateTeamMatch" class="teamMatch.teamMatchAction"
+			method="create">
+			<result type="redirect-action">
+				<param name="actionName">TeamList</param> <!-- 처리 후 솔로매치 리스트로 -->
+			</result>
+		</action>
+	</package>
+
+	<!-- QNA -->
+	<package name="QNA" extends="struts-default">
+		<!-- 글로벌 예외 처리 화면 설정 -->
+		<!--<global-results> <result name="error">/board/pageError.jsp</result> 
+			</global-results> <global-exception-mappings> <exception-mapping result="error" 
+			exception="java.lang.Exception"/> </global-exception-mappings> -->
+		<!-- 게시판 리스트 액션 -->
+		<action name="QNAList" class="qna.QNAAction">
+			<result>/QNA/QNAList.jsp</result>
+		</action>
+
+		<action name="QNAWriteForm" class="qna.QNAAction" method="form">
+			<result>/QNA/QNAWrite.jsp</result>
+		</action>
+		<action name="QNAWrite" class="qna.QNAAction" method="write">
+			<result type="redirect-action">
+				<param name="actionName">QNAList</param>
+			</result>
+		</action>
+
+		<action name="QNAView" class="qna.QNAAction" method="view">
+			<result>/QNA/QNAView.jsp</result>
+		</action>
+
+		<action name="QNAcheckForm" class="qna.QNAAction" method="checkForm">
+			<result>/QNA/checkPassword.jsp</result>
+		</action>
+
+		<action name="QNAcheckAction" class="qna.QNAAction" method="checkAction">
+			<result name="error">/QNA/checkError.jsp</result>
+			<result>/QNA/checkSuccess.jsp</result>
+		</action>
+
+		<action name="QNAUpdateForm" class="qna.QNAAction" method="view">
+			<result type="chain">QNAWriteForm</result>
+		</action>
+
+		<action name="QNAUpdate" class="qna.QNAAction" method="update">
+			<result type="chain">QNAView</result>
+		</action>
+
+		<action name="QNADelete" class="qna.QNAAction" method="delete">
+			<result type="chain">QNAList</result>
+		</action>
+	</package>
+
+	<package name="stadium" extends="struts-default">
+
+		 <!-- 경기장 리스트 액션 -->
+		 <action name="stadiumlistAction" class="stadium.stadiumlistAction">
+		   <result>/stadium/stadiumList.jsp</result>
+		 </action>
+		 
+		 <!-- 경기장 등록/수정 액션 -->
+          <action name="stadiumwriteFormAction" class="stadium.stadiumwriteAction" method="form">
+              <result>/stadium/stadiumWrite.jsp</result>
+          </action>  
+	     
+	     <action name="stadiumwriteAction" class="stadium.stadiumwriteAction">
+	       <result type="redirect-action">
+	          <param name="actionName">stadiumlistAction</param>
+	       </result>
+	     </action>
+
+         <!-- 게시판 상세보기 액션 -->
+         <action name="stadiumviewAction" class="stadium.stadiumviewAction">
+               <result>/stadium/stadiumView.jsp</result>
+         </action>
+         
+         <!-- 게시판 수정 액션 -->
+         <action name="stadiummodifyFormAction" class="stadium.stadiumviewAction">
+             <result type="chain">stadiumwriteFormAction</result>
+         </action>
+         
+         <action name="stadiummodifyAction" class="stadium.stadiummodifyAction">
+            <result type="chain">stadiumviewAction</result>
+         </action>
+	</package>
+	
+>>>>>>> 5659668c7f32f50246799c3a1ee19db94da473d2
 </struts>

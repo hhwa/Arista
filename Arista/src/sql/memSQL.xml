@@ -80,19 +80,18 @@
 		<include refid="select-all"/>
 		<include refid="where-id"/>
 		</select>
-		
 	
-		
+
 		<!-- 관리자 - 회원검색 -->
 		<select id="memSearch" resultMap="memRes" parameterClass="java.util.HashMap">
 			<include refid="select-all"/>
 			where $param1$ like #param2# order by m_joindate desc
-
 		</select>
-		
 		<select id="selectLastNo" resultClass="mem">
 			select max(no) as no from mem
+
 		</select> 
+
 		
 		<!-- 회원비밀번호??????????????????????(비밀번호인증할때) -->
 		<!-- <select id="selectPassword" resultMap="boardRes" parameterClass="board">
@@ -113,6 +112,7 @@
 		<!-- update 쿼리문 정의 -->
 		
 		<!-- 회원 정보수정 -->
+
 		<select id="updateform" resultMap="memRes" parameterClass="mem">
 				<include refid="select-all"/>
 				<include refid="where-id"/>
@@ -122,6 +122,8 @@
 			update mem set m_passwd=#m_passwd#,m_mobilephone=#m_mobilephone#,m_region=#m_region#,m_position=#m_position#,m_nickname=#m_nickname#
 			<include refid="where-id"/>
 		</update>
+
+
 		
 		<!-- 프로필 이미지 설정 -->
 		<update id="updateProfile" parameterClass="mem">

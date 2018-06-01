@@ -121,7 +121,7 @@
           <tr>
         <td align="right" colspan="2">
         
-	        <s:url id="modifyURL" action="modifyForm" >
+	        <s:url id="modifyURL" action="teammodifyForm" >
 				<s:param name="team_no">
 					<s:property value="team_no" />
 				</s:param>
@@ -133,11 +133,11 @@
 				</s:param>
 	        </s:url>
 				
-	<input name="list" type="button" value="수정" class="inputb" onClick="javascript:location.href='modifyForm.action?team_no=<s:property value="team_no"/>&currentPage=<s:property value="currentPage"/>'">
+	<input name="list" type="button" value="수정" class="inputb" onClick="javascript:location.href='teammodifyForm.action?team_no=<s:property value="team_no"/>&currentPage=<s:property value="currentPage"/>'">
 					
-	<input name="list" type="button" value="삭제" class="inputb" onClick="javascript:location.href='deleteForm.action?team_no=<s:property value="team_no"/>&currentPage=<s:property value="currentPage"/>'">
+	<input name="list" type="button" value="삭제" class="inputb" onClick="javascript:location.href='teamdeleteForm.action?team_no=<s:property value="team_no"/>&currentPage=<s:property value="currentPage"/>'">
 
-	<input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='listAction.action?currentPage=<s:property value="currentPage" />'">
+	<input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='teamlistAction.action?currentPage=<s:property value="currentPage" />'">
 
         </td>
       </tr>

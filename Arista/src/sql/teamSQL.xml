@@ -10,6 +10,7 @@
 			<result property="team_id" column="team_id"/>
 			<result property="team_area" column="team_area"/>
 			<result property="team_fieldtype" column="team_fieldtype"/>
+			<result property="team_type" column="team_type"/>
 			<result property="team_age" column="team_age"/>
 			<result property="team_skill" column="team_skill"/>
 			<result property="team_count" column="team_count"/>
@@ -76,7 +77,7 @@
    		 </update>
 		<!-- team 수정 -->
 		<update id="updateTeam" parameterClass="team">
-			update team set team_id=#team_id#,team_area=#team_area#,team_fieldtype=#team_fieldtype#,team_age=#team_age#,team_skill=#team_skill#,team_count=#team_count#,team_intro=#team_intro#
+			update team set team_id=#team_id#,team_area=#team_area#,team_type=#team_type#,team_fieldtype=#team_fieldtype#,team_age=#team_age#,team_skill=#team_skill#,team_count=#team_count#,team_intro=#team_intro#
 			<include refid="where-no"/>
 		</update>
 		

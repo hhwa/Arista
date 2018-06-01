@@ -36,7 +36,7 @@
 <table border=0 height=1 cellspacing="1" cellpadding="1" align="right" >
 <td width=20 align="center"><a href=main.action><h6>홈</h6></a></td>
 <td align="center"><h6>|</h6></td>
-<td width=45 align="center"><h6>로그인</h6></td>
+<td width=45 align="center"><a href=loginForm.action><h6>로그인</h6></a></td>
 <td align="center"><h6>|</h6></td>
 <td width=55 align="center"><h6>회원가입</h6></td>
 <td width=120 align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
