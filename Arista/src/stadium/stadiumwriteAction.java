@@ -16,8 +16,9 @@ public class stadiumwriteAction extends ActionSupport {
 
 	public static Reader reader; 
 	public static SqlMapClient sqlMapper; 
+	 
 	private stadiumVO paramClass;
-	 private stadiumVO resultClass; 
+    private stadiumVO resultClass; 
 
 	 private int currentPage; 
 	
@@ -35,7 +36,7 @@ public class stadiumwriteAction extends ActionSupport {
       private File upload;
       private String uploadContentType;
       private String uploadFileName;
-      private String fileUploadPath = "C:\\Java\\upload\\";
+      private String fileUploadPath ="C:\\Java\\git\\Arista\\Arista\\WebContent\\upload\\";
       
       public stadiumwriteAction() throws IOException{
     	  
@@ -48,7 +49,7 @@ public class stadiumwriteAction extends ActionSupport {
       }
       
       public String execute() throws Exception{
-    	  System.out.println(stadium_name);
+    	  
     	  paramClass = new stadiumVO();
     	  resultClass = new stadiumVO();
     	  
@@ -84,6 +85,7 @@ public class stadiumwriteAction extends ActionSupport {
     		  sqlMapper.update("stadiumSQL.updateFile",paramClass);
     		  
     	  }
+    	  
     	  return SUCCESS;
       }
 	

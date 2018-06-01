@@ -53,6 +53,17 @@
          <td height="1" colspan="2"></td>
          </tr>
          
+       <tr>
+       <td width="100" bgcolor="F4F4F4">경기장 이미지</td>
+       <td bgcolor="#FFFFFF">
+         &nbsp;&nbsp;<img src="<%= request.getContextPath()%>/upload/<s:property value="resultClass.stadium_main_img_save" />"/>
+         </td>
+         </tr>
+         
+         <tr bgcolor="#777777">
+         <td height="80" colspan="0"></td>
+         </tr>
+         
          <tr>
            <td width="100" bgcolor="F4F4F4">등록일</td>
            <td bgcolor="#FFFFFF">

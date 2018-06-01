@@ -24,11 +24,7 @@ public class stadiumviewAction extends ActionSupport {
        
        private int stadium_no;
        
-       private String fileUploadPath="C:\\Java\\upload\\";
-       
-       private InputStream inputStream;
-       private String contentDisposition;
-       private long contentLength;
+   
        
        public stadiumviewAction() throws IOException {
     	    
@@ -81,30 +77,7 @@ public class stadiumviewAction extends ActionSupport {
 	public void setStadium_no(int stadium_no) {
 		this.stadium_no = stadium_no;
 	}
-	public String getFileUploadPath() {
-		return fileUploadPath;
-	}
-	public void setFileUploadPath(String fileUploadPath) {
-		this.fileUploadPath = fileUploadPath;
-	}
-	public InputStream getInputStream() {
-		return inputStream;
-	}
-	public void setInputStream(InputStream inputStream) {
-		this.inputStream = inputStream;
-	}
-	public String getContentDisposition() {
-		return contentDisposition;
-	}
-	public void setContentDisposition(String contentDisposition) {
-		this.contentDisposition = contentDisposition;
-	}
-	public long getContentLength() {
-		return contentLength;
-	}
-	public void setContentLength(long contentLength) {
-		this.contentLength = contentLength;
-	}
+	
        
        
        

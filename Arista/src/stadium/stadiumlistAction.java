@@ -10,12 +10,17 @@ import java.io.Reader;
 import java.io.IOException;
 import stadium.stadiumpagingAction;
 
+
+
 public class stadiumlistAction extends ActionSupport {
 	
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
 	private List<stadiumVO> list = new ArrayList<stadiumVO>();
+	
+	private String SearchKeyword;
+	private int SearchNum;
 	
 	private int currentPage = 1;
 	private int totalCount;
@@ -31,6 +36,11 @@ public class stadiumlistAction extends ActionSupport {
 	}
 	
 	public String execute() throws Exception{
+		   
+		if(getSearchKeyword() != null)
+		   {
+			   return search();
+		   }
 		list = sqlMapper.queryForList("stadiumSQL.stadiumList"); //stadiumSQL의 stadiumList의 쿼리문을 실행해서 List에 넣는다.
 		
 		totalCount = list.size();
@@ -48,6 +58,46 @@ public class stadiumlistAction extends ActionSupport {
 		
 		
 		return SUCCESS;
+	}
+	
+	public String search() throws Exception{
+		
+		String column;
+		if(SearchNum ==0) {
+			column="stadium_name";
+		}
+		else if(SearchNum ==1) {
+			column="stadium_addr";
+		}
+		else
+		{
+			column="stadium_tel";
+		}
+		 Map<String,String> search = new HashMap<String, String>();
+		 
+		 search.put("param1",column);
+         search.put("param2","%"+getSearchKeyword()+"%");
+		
+		list =  sqlMapper.queryForList("stadiumSQL.stadiumSearch",search);
+         
+         return SUCCESS;
+	}
+    
+	
+	public String getSearchKeyword() {
+		return SearchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.SearchKeyword = searchKeyword;
+	}
+
+	public int getSearchNum() {
+		return SearchNum;
+	}
+
+	public void setSearchNum(int searchNum) {
+		SearchNum = searchNum;
 	}
 
 	public static Reader getReader() {
