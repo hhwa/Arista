@@ -36,7 +36,6 @@
 	</tr>
 	<tr>
 	<td>프로필이미지
-	<!-- <img src="/Arista/profUpload/file_test1.jpg"> -->
 	<img src='${profpath}'>
 	</td>
 	</tr>
