@@ -2,6 +2,9 @@ package team;
 
 
 import com.opensymphony.xwork2.ActionSupport;
+
+import team.teamVO;
+
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
@@ -14,49 +17,55 @@ import java.io.IOException;
 
 import java.net.URLEncoder;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.struts2.ServletActionContext;
+
 public class viewAction extends ActionSupport {
 	
-	public static Reader reader; //?��?�� ?��?��림을 ?��?�� reader.
-	public static SqlMapClient sqlMapper; //SqlMapClient API�? ?��?��?���? ?��?�� sqlMapper 객체.
+	public static Reader reader; 
+	public static SqlMapClient sqlMapper; 
 
-	private teamVO paramClass; //?��?��미터�? ???��?�� 객체
-	private teamVO resultClass; //쿼리 결과 값을 ???��?�� 객체
+	private teamVO paramClass; 
+	private teamVO resultClass; 
 
-	private int currentPage; //?��?�� ?��?���?
+	private int currentPage; 
 	
 	private int team_no;
 	
-	private String fileUploadPath = "C:\\Users\\user1\\Desktop\\offtheball\\upload\\";
+	private String fileUploadPath = "C:\\Users\\user1\\git\\Arista\\Arista\\WebContent\\teamimg\\";
 	
 	private InputStream inputStream;
 	private String contentDisposition;
 	private long contentLength;
+	private String file_savname;
+	private String file_orgname;
+	private String teamimg;
+	
+	
 	
 	public viewAction() throws IOException {
 
-		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); // sqlMapConfig.xml ?��?��?�� ?��?��?��?��?�� �??��?��?��.
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); // sqlMapConfig.xml?�� ?��?��?�� ?��?��?�� sqlMapper 객체 ?��?��.
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); 
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader); 
 		reader.close();
 	}
 
-	// ?��?��보기
 	public String execute() throws Exception {
-
-		// ?��?�� 번호?�� �??�� �??��?��?��.
+		
 		resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.selectOne", getTeam_no());
 
 		return SUCCESS;
+		
 	}
-	// 첨�? ?��?�� ?��?��로드
+	
 		public String download() throws Exception {
 
-			// ?��?�� 번호?�� ?��?�� ?��보�?? �??��?��?��.
 			resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.selectOne", getTeam_no());
 
-			// ?��?�� 경로?? ?��?��명을 file 객체?�� ?��?��?��.
+
 			File fileInfo = new File(fileUploadPath + resultClass.getFile_savname());
 
-			// ?��?��로드 ?��?�� ?���? ?��?��.
+			
 			setContentLength(fileInfo.length());
 			setContentDisposition("attachment;filename="
 					+ URLEncoder.encode(resultClass.getFile_orgname(), "UTF-8"));
@@ -64,6 +73,30 @@ public class viewAction extends ActionSupport {
 					+ resultClass.getFile_savname()));
 
 			return SUCCESS;
+		}		
+
+		public String getFile_savname() {
+			return file_savname;
+		}
+
+		public void setFile_savname(String file_savname) {
+			this.file_savname = file_savname;
+		}
+
+		public String getFile_orgname() {
+			return file_orgname;
+		}
+
+		public void setFile_orgname(String file_orgname) {
+			this.file_orgname = file_orgname;
+		}
+
+		public String getTeamimg() {
+			return teamimg;
+		}
+
+		public void setTeamimg(String teamimg) {
+			this.teamimg = teamimg;
 		}
 
 		public static Reader getReader() {

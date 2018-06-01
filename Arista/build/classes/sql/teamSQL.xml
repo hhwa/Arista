@@ -56,6 +56,12 @@
 			 WHERE team_id like #searchKeyword# ORDER BY team_no DESC
 		</select>
 		
+	<!-- 	
+		<select id="qnaSearch" resultMap="qnaRes" parameterClass="java.util.HashMap">
+			<include refid="select-all"/>
+			where $param1$ like #param2# order by ref desc, re_step asc
+		</select> -->
+		
 		<!-- team 상세보기 -->
 		<select id="teamView" resultMap="teamRes" parameterClass="int">
 			<include refid="select-all"/>

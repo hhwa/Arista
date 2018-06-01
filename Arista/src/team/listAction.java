@@ -57,7 +57,7 @@ public class listAction extends ActionSupport{
 		list = list.subList(page.getStartCount(), lastCount);
 		return SUCCESS;
 	}
-public String search() throws Exception {
+	public String search() throws Exception {
 		
 		//searchKeyword = new String(searchKeyword.getBytes("iso-8859-1"),"euc-kr") ;
 		//System.out.println(searchKeyword);

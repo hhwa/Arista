@@ -30,10 +30,10 @@
 		<td width="100">가입날짜:&nbsp;<s:property value="memberResult.m_joindate"/></td>
 		<td width="60">관리자 권한:&nbsp;<s:property value="memberResult.admin_yn"/>&nbsp;&nbsp;<font color="red" size="2">※0:일반 / 1:관리자</font></td>
 	</tr>
-	<tr>
+	<%-- <tr>
 	<td>프로필사진 원본명:&nbsp;<s:property value="memberResult.prof_image_org"/></td>
 	<td>프로필사진 저장명:&nbsp;<s:property value="memberResult.prof_image_save"/></td>
-	</tr>
+	</tr> --%>
 	<tr>
 	<td>프로필이미지
 	<img src="/Arista/profUpload/file_test1.jpg">

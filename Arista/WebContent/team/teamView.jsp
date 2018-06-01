@@ -31,13 +31,16 @@
     </tr>
 	</table> --%>
 <table width="600" border="0" cellspacing="0" cellpadding="0">     
-     
-    <%--  <tr>
-     	<td>
-     		<img src="<%= request.getContextPath() %>/teamimg/레알.jpg"/>
-     	</td>
-     </tr> --%>
-     
+ 
+		<tr>				
+		<td width="100" bgcolor="F4F4F4"></td>
+       <td bgcolor="#FFFFFF">
+         &nbsp;&nbsp;<img src="<%= request.getContextPath()%>/teamimg/<s:property value="resultClass.file_savname" />"/>
+         </td>
+         </tr>
+         
+         
+ 	
      <tr bgcolor="#777777">
         <td height="1" colspan="2"></td>
       </tr>
@@ -121,7 +124,7 @@
           <tr>
         <td align="right" colspan="2">
         
-	        <s:url id="modifyURL" action="teammodifyForm" >
+	       <%--  <s:url id="modifyURL" action="teammodifyForm" >
 				<s:param name="team_no">
 					<s:property value="team_no" />
 				</s:param>
@@ -131,7 +134,7 @@
 				<s:param name="no">
 					<s:property value="no" />
 				</s:param>
-	        </s:url>
+	        </s:url> --%>
 				
 	<input name="list" type="button" value="수정" class="inputb" onClick="javascript:location.href='teammodifyForm.action?team_no=<s:property value="team_no"/>&currentPage=<s:property value="currentPage"/>'">
 					

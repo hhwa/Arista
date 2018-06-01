@@ -23,8 +23,8 @@
 	<table width="600" border="0" cellspacing="0" cellpadding="2">
 	      <tr align="center" bgcolor="#F3F3F3">
       		<td width="70"><strong>¹øÈ£</strong></td>
-			<td width="70"><strong>ÆÀ¸í</strong></td>
-        	<td width="390"><strong>ÆÀ ¼Ò°³</strong></td>
+			<td width="150"><strong>ÆÀ¸í</strong></td>
+        	<td width="310"><strong>ÆÀ ¼Ò°³</strong></td>
        		<td width="70"><strong>½ÅÃ»</strong></td>
          </tr>
 <tr bgcolor="#777777">
@@ -44,7 +44,7 @@
 			
      	      <tr bgcolor="#FFFFFF"  align="center">
         		<td><s:property value="team_no" /></td>
-        		<td align="center"> &nbsp;<s:a href="%{viewURL}"><s:property value="team_id" /></s:a></td>
+        		<td align="left"> &nbsp;<img src="<%= request.getContextPath()%>/teamimg/<s:property value="file_savname" />"/><s:a href="%{viewURL}"><s:property value="team_id" /></s:a></td>
         		<td align="center"><s:property value="team_intro" /></td>
 				<td><input name="submit" type="submit" value="½ÅÃ»" class="inputb"></td> 
       	      </tr>
