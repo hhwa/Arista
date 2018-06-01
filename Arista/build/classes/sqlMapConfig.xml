@@ -1,4 +1,3 @@
-<<<<<<< .merge_file_a02804
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
 	"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
@@ -33,40 +32,4 @@
 	 <sqlMap resource="sql/noticeSQL.xml"/> -->
 	 
 	 
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE sqlMapConfig PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
-	"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
-<sqlMapConfig>
-	<properties resource="/dbconnect.properties"/>
-	<settings cacheModelsEnabled="true"
-			 enhancementEnabled="true"
-	         lazyLoadingEnabled="true" 
-	         maxRequests="32" 
-	         maxSessions="10" 
-	         maxTransactions="5" 
-	         useStatementNamespaces="true" />
-	 
-	 <transactionManager type="JDBC" commitRequired="false">
-	 	<dataSource type="SIMPLE">
-	 		<property name="JDBC.Driver" value="${driver}"/>
-	 		<property name="JDBC.ConnectionURL" value="${url}"/>
-	 		<property name="JDBC.Username" value="${username}"/>
-	 		<property name="JDBC.Password" value="${password}"/>
-	 	</dataSource>
-	 </transactionManager>
-	 
-	 <sqlMap resource="sql/matchStateSQL.xml"/>
-	 <sqlMap resource="sql/soloMatchSQL.xml"/>
-	 <sqlMap resource="sql/joinSoloSQL.xml"/>
-	 <sqlMap resource="sql/teamMatchSQL.xml"/>
-	 <sqlMap resource="sql/teamSQL.xml"/>
-	 <sqlMap resource="sql/stadiumSQL.xml"/>
-	 <sqlMap resource="sql/memSQL.xml"/>
-	 <sqlMap resource="sql/qnaSQL.xml"/>
-	 <!-- <sqlMap resource="sql/faqSQL.xml"/>
-	 <sqlMap resource="sql/noticeSQL.xml"/> -->
-	 
-	 
->>>>>>> .merge_file_a05188
 </sqlMapConfig>

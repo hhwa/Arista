@@ -8,18 +8,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-<s:if test="loginchk ==1">
+<s:if test="#session.m_id == null">
 <h2>로그인불가, 일치하는 정보가 없습니다.</h2>
 </s:if>
-<s:elseif test="loginchk ==0">
+<s:elseif test="#session.m_id != null">
 <h2><s:property value="m_id"/></h2>님 환영합니다.
-</s:elseif>
-
 
 <a href="logout.action">로그아웃</a>
 <a href='modiftymemberForm.action?m_id=<s:property value="m_id"/>'>회원정보수정</a>
 <a href='deletemember.action?m_id=<s:property value="m_id"/>'>회원탈퇴</a>
-
+</s:elseif>
 
 </body>
 </html>

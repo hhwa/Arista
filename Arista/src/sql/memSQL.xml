@@ -87,6 +87,7 @@
 			<include refid="select-all"/>
 			where $param1$ like #param2# order by m_joindate desc
 		</select>
+		
 		<select id="selectLastNo" resultClass="mem">
 			select max(no) as no from mem
 

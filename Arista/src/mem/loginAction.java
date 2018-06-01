@@ -40,7 +40,6 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 	private memVO memberParam;
 	private memVO memberResult;
 	
-	private int loginchk =0;
 	
 	private Map<String, String> sessionMap;
 	
@@ -69,9 +68,7 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 	public String execute() throws Exception {
 		//사용자에게 입력 받은 정보와 같은 값이 DB 안에 존재하는지 확인한다.
 		memberResult = (memVO)sqlMapper.queryForObject("memSQL.loginPro", memberParam);
-		if(memberResult == null) {
-			loginchk = 1;
-		}
+		
 		if(memberResult != null) {
 		sessionMap.put("m_id", memberResult.getM_id());
 		}		
@@ -138,13 +135,6 @@ public String test() {
 	
 	
 
-	public int getLoginchk() {
-		return loginchk;
-	}
-
-	public void setLoginchk(int loginchk) {
-		this.loginchk = loginchk;
-	}
 
 	public static Reader getReader() {
 		return reader;

@@ -72,12 +72,12 @@
 		}
 		
 		if(!userinput.m_birthyear.value) {
-			alert("출생년월을 입력하세요");
+			alert("출생연도를 입력하세요");
 			return false;
 		}
 		
 		if(isNaN(userinput.m_birthyear.value)) {
-			alert("출생년월을 숫자로 입력하세요");
+			alert("출생연도를 숫자로 입력하세요");
 			return false;
 		}
 		
@@ -235,7 +235,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td width="200">출생년월</td>
+			<td width="200">출생연도</td>
 			<td width="400">
 				<input type="text" name="m_birthyear" size="10">
 			<font size="2">예시)1990</font></td>

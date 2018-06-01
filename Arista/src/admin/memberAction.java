@@ -53,6 +53,12 @@ public class memberAction extends ActionSupport implements Preparable, ModelDriv
 
 	private HttpServletRequest request;
 	
+	//검색
+	private String search;
+	private int topic;  
+
+	
+	
 	public memberAction() throws IOException {
 		// TODO Auto-generated constructor stub
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
@@ -74,10 +80,19 @@ public class memberAction extends ActionSupport implements Preparable, ModelDriv
 
 
 	public String memberList() throws Exception{
+		
+	if(getSearch()==null||getSearch().equals("")) {
 		memlist = sqlMapper.queryForList("memSQL.memList");
-		return SUCCESS;
+		
+	}else {
+		HashMap searchMap = new HashMap();
+		String topics[]= {"m_id","m_name","m_email"};
+		searchMap.put("param1",topics[getTopic()]);
+		searchMap.put("param2","%"+getSearch()+"%");
+		memlist = sqlMapper.queryForList("memSQL.memSearch",searchMap );
 	}
-	
+	return SUCCESS;
+	}
 	
 	public String memberView() throws Exception {
 		memberResult = new memVO();
@@ -104,6 +119,23 @@ public class memberAction extends ActionSupport implements Preparable, ModelDriv
 	}
 
 	
+	
+	public String getSearch() {
+		return search;
+	}
+
+	public int getTopic() {
+		return topic;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	public void setTopic(int topic) {
+		this.topic = topic;
+	}
+
 	public String getProfpath() {
 		return profpath;
 	}

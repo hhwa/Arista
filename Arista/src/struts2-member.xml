@@ -100,8 +100,15 @@
 	
 	</package>
 	
+	
+<!-- 회원비밀번호??????????????????????(비밀번호인증할때) -->
+
+	<!-- <select id="selectPassword" resultMap="boardRes" parameterClass="board"> <include refid="select-all"/> <include refid="where-id"/> and m_passwd=#m_passwd# </select> -->
+
+<!-- 관리자 설정 -->
+
+	<!-- <update id="updateAdminYN" parameterClass="mem"> update mem set admin_yn=#admin_yn# </update> -->
+	<!-- delete 쿼리문 정의 -->
+	
 <!-- 회원가입 끝 -->	
-
-
-
 	</struts>

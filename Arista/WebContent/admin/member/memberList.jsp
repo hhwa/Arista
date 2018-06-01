@@ -57,5 +57,16 @@
 
 </table>
 </s:elseif>
+
+<s:form action="adminMemList" method="post">
+<select name="topic">
+<option value="0">아이디</option>
+<option value="1">이름</option>
+<option value="2">이메일</option>
+</select>
+<input type="text" name="search" size="15" maxlength="50"/>
+<input type="submit" value="검색"/>
+</s:form>
+
 </body>
 </html>

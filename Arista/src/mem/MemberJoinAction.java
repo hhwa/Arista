@@ -34,6 +34,8 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	private String uploadFileName;
 	private String fileUploadPath = "C:\\Users\\user1\\git\\Arista\\Arista\\WebContent\\profUpload\\";
 	//private String fileUploadPath = "C:\\Users\\user1\\Desktop\\upload\\";
+	//http://localhost:8080/Arista/profUpload/file_null.jpg
+		//http://localhost:8080/Arista/profUpload/file_test5555.jpg
 	
 	//회원가입 속성
 	private String m_id;
@@ -89,7 +91,6 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 		memberParam.setAdmin_yn(genUser);
 		memberParam.setM_joindate(m_joindate.getTime());
 		sqlMapper.insert("memSQL.insertMem", memberParam);
-//memberSQL.insertmember
 		
 		if(getUpload() != null) {
 		
@@ -154,7 +155,7 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 			prof_image_save = memberResult.getProf_image_save();
 			prof_image_org = memberResult.getProf_image_org();
 			profpath = request.getContextPath()+"/profUpload/"+prof_image_save;
-			
+			//profpath =fileUploadPath + prof_image_save;
 		}
 		return SUCCESS;
 	}
@@ -162,12 +163,12 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	
 	public String modifyMemPro() throws Exception {
 		sqlMapper.update("memSQL.updateMem", memberParam);
-		System.out.println("del:"+ getProf_image_save());
 		
 		if(getUpload() != null) {
-			deletefile = new File(fileUploadPath+getProf_image_save());
+			deletefile = new File(fileUploadPath+memberParam.getProf_image_save());
 			
-			FileUtils.forceDelete(deletefile);
+			if(deletefile.isFile())
+				FileUtils.forceDelete(deletefile);
 			
 			String file_name = "file_" + memberParam.getM_id();
 			String file_ext = getUploadFileName().substring(getUploadFileName().lastIndexOf('.')+1, getUploadFileName().length());
