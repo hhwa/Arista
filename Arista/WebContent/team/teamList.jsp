@@ -71,9 +71,10 @@
     	<tr align="center">
 		<td colspan="5">
 			<form>
-				<select name="searchNum" >
+				<%-- <select name="searchNum" >
 					<option value="0">ÆÀ¸í</option>
-				</select>
+				</select> --%>
+				<label name="searchNum"> ÆÀ¸í </label>
 				<s:textfield name="searchKeyword" theme="simple" value="" cssStyle="width:120px" maxlength="20" />
 				<input name="submit" type="submit" value="°Ë»ö" class="inputb">
 			</form>

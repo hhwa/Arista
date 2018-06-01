@@ -101,7 +101,13 @@
 		<action name="teammodifyAction" class="team.modifyAction">
 			<result type="chain">teamviewAction</result>
 		</action>
+		
+		<!-- 팀 삭제 액션. -->
+		<action name="teamdeleteAction" class="team.deleteAction">
+			<result type="chain">teamlistAction</result>
+		</action>
 	 </package>
+	 
 
 <!--  Match  -->
 	<package name="match" extends="struts-default,tiles-default">
