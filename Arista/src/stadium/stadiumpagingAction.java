@@ -1,6 +1,7 @@
 package stadium;
 
 public class stadiumpagingAction {
+	   
 	   private int currentPage;
 	   private int totalCount;
 	   private int totalPage;
@@ -13,7 +14,7 @@ public class stadiumpagingAction {
 	   
 	   private StringBuffer pagingHtml;
 	   
-	   public stadiumpagingAction(int currentPage, int totalCount, int blockCount, int blockPage) {
+	   public stadiumpagingAction(int currentPage, int totalCount, int blockCount, int blockPage, int searchNum,String isSearch) {
 		   this.blockCount = blockCount;
 		   this.blockPage = blockPage;
 		   this.currentPage = currentPage;
@@ -21,14 +22,14 @@ public class stadiumpagingAction {
 		   
 		   totalPage = (int) Math.ceil((double)totalCount / blockCount);
 		   
-		   if(totalPage ==0) {
+		   if (totalPage ==0) {
 			   totalPage =1;
 		   }
 		   
 		   if(currentPage > totalPage) {
 			   currentPage = totalPage;
 		   }
-		   startCount =(currentPage -1) * blockCount;
+		   startCount =(currentPage -1) * blockCount;  //startCount는 한 페이지에서 보여줄 게시글의 시작번호
 		   endCount = startCount + blockCount -1;
 		   
 		   startPage = (int) ((currentPage-1) / blockPage) * blockPage +1;
@@ -40,6 +41,10 @@ public class stadiumpagingAction {
 		   
 		   pagingHtml = new StringBuffer();
 		   if(currentPage > blockPage) {
+			   
+			   if(isSearch !="")
+				   pagingHtml.append("<a href=stadiumlistAction.action?currentPage=" + (startPage -1) + "&searchKeyword="+isSearch+"searchNum="+searchNum+">");
+			   else
 			   pagingHtml.append("<a href=stadiumlistAction.action?currentPage="
 					             + (startPage -1) +">");
 			   pagingHtml.append("이전");
@@ -58,19 +63,23 @@ public class stadiumpagingAction {
 			   }else {
 				   pagingHtml.append("&nbsp;<a href='stadiumlistAction.action?currentPage=");
 				   pagingHtml.append(i);
-				   pagingHtml.append(">");
+				   if(isSearch !="")
+					   pagingHtml.append("&searchKeyword="+isSearch);
+				   pagingHtml.append("'>");
 				   pagingHtml.append(i);
 				   pagingHtml.append("</a>");
 				   
 			   }
 			   pagingHtml.append("&nbsp;");
 		   }
-		   pagingHtml.append("&nbsp;&nbsp;||&nbsp;&nbsp;");
+		   pagingHtml.append("&nbsp;&nbsp;|&nbsp;&nbsp;");
 		   
 		   if(totalPage - startPage >= blockPage) {
 			   pagingHtml.append("<a href=stadiumAction.action?currentPage="
-					     + (endPage +1) + ">");
-			   
+					     + (endPage +1));
+			   if(isSearch != "")
+				   pagingHtml.append("&searchKeyword="+isSearch);
+			   pagingHtml.append("'>");
 			   pagingHtml.append("다음");
 			   pagingHtml.append("</a>");
 		   }

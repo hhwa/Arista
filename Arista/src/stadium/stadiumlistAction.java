@@ -14,10 +14,10 @@ import stadium.stadiumpagingAction;
 
 public class stadiumlistAction extends ActionSupport {
 	
-	public static Reader reader;
-	public static SqlMapClient sqlMapper;
+	public static Reader reader;     //파일 스트림을 위한 reader. sql id를 사용하기 위해
+	public static SqlMapClient sqlMapper; //SqlMapClient API를 사용하기 휘한 sqlMapper 객체.
 	
-	private List<stadiumVO> list = new ArrayList<stadiumVO>();
+	private List<stadiumVO> list = new ArrayList<stadiumVO>(); //sql쿼리에서 경기장의 정보를 싹다 뽑아와서 list에 저장
 	
 	private String SearchKeyword;
 	private int SearchNum;
@@ -28,10 +28,11 @@ public class stadiumlistAction extends ActionSupport {
 	private int blockPage = 5;
 	private String pagingHtml;
 	private stadiumpagingAction page;
+	private int num=0;
 	
 	public stadiumlistAction()throws IOException{
-		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
-		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml"); //sqlMapConfig.xml 파일의 설정내용을 가져온다.
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);   
 		reader.close();
 	}
 	
@@ -45,7 +46,7 @@ public class stadiumlistAction extends ActionSupport {
 		
 		totalCount = list.size();
 		
-		page = new stadiumpagingAction(currentPage, totalCount, blockCount, blockPage);
+		page = new stadiumpagingAction(currentPage, totalCount, blockCount, blockPage,num,"");
 		pagingHtml = page.getPagingHtml().toString();
 		
 		int lastCount = totalCount;
@@ -62,6 +63,7 @@ public class stadiumlistAction extends ActionSupport {
 	
 	public String search() throws Exception{
 		
+		SearchKeyword = new String(SearchKeyword.getBytes("iso-8859-1"),"euc-kr");
 		String column;
 		if(SearchNum ==0) {
 			column="stadium_name";
@@ -79,7 +81,17 @@ public class stadiumlistAction extends ActionSupport {
          search.put("param2","%"+getSearchKeyword()+"%");
 		
 		list =  sqlMapper.queryForList("stadiumSQL.stadiumSearch",search);
-         
+		
+		totalCount = list.size();
+		page = new stadiumpagingAction(currentPage, totalCount, blockCount, blockPage, SearchNum, getSearchKeyword());
+        pagingHtml = page.getPagingHtml().toString();
+        
+        int lastCount = totalCount;
+        
+        if(page.getEndCount() < totalCount)
+        	lastCount = page.getEndCount() +1;
+        
+         list = list.subList(page.getStartCount(), lastCount);
          return SUCCESS;
 	}
     
