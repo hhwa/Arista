@@ -10,27 +10,35 @@
 <title>My Team</title>
 </head>
 <body>
-	<table width="600" border="0" cellspacing="0" cellpadding="2">
+	<table align="center" width="600" border="0" cellspacing="0" cellpadding="2">
   		<tr>
-  			<td align="center"><h2>My Team</h2></td>
+  			<td><h2>My Team</h2></td>
   		</tr>
   		<tr>
   			<td height="20"></td>
   		</tr>
   	</table>
   	
-	<table width="600" border="0" cellspacing="0" cellpadding="2">
+	<table align="center" width="600" border="0" cellspacing="0" cellpadding="2">
   		<tr>
-  			<td align="center"><h3>My Team이 없습니다.</h3></td>
+  			<td><h3>My Team이 없습니다.</h3></td>
   		</tr>
  	</table>
- 		<teble align="center"> 
-  			<input name="list" type="button" value="팀 생성 하기" class="inputb" onClick="javascript:location.href='teamwriteAction.action?currentPage=<s:property value="currentPage" />'">
-  		</teble>
+ 	
+ 	<table align="center" width="600" border="0" cellspacing="0" cellpadding="2">	
+ 		<tr>
+ 			<!-- <td><a href="http://localhost:8080/Arista/team/makeTeam.jsp">팀 생성 하기</a></td> -->
+  			<td><input name="list" type="button" value="팀 생성 하기" class="inputb" onClick="javascript:location.href='http://localhost:8080/Arista/team/makeTeam.jsp'"></td>
+  		</tr>
   		
-  		<teble align=center>
-  			<input name="list" type="button" value="팀 신청 목록" class="inputb" onClick="javascript:location.href='teamlistAction.action?currentPage=<s:property value="currentPage" />'">
-		</table>	
+  		<tr>
+  			<td height="20"></td>
+  		</tr>
+  		
+  		<tr>
+  			<td><input name="list" type="button" value="팀 신청 목록" class="inputb" onClick="javascript:location.href='teamlistAction.action?currentPage=<s:property value="currentPage" />'"></td>
+		</tr>
+	</table>
   	
 </body>
 </html>

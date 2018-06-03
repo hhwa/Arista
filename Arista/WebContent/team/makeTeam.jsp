@@ -16,6 +16,10 @@
 				alert("팀명을 입력해주세요.");
 				return false;
 			}
+			else if(frm.team_area.value == "--"){
+				alert("지역을 선택해 주세요.");
+				return false;
+			}
 			else if(frm.team_type.value == "선택"){
 				alert("소속유형을 선택해 주세요.");
 				return false;
@@ -86,8 +90,25 @@
         </tr>
 		<tr>
           <td width="100" bgcolor="#F4F4F4"><font color="#FF0000">*</font>  지역</td>
-          <td width="500" bgcolor="#FFFFFF">         
-          	<select name="team_area">
+          <td width="500" bgcolor="#FFFFFF"> 
+          
+          <select name="team_area">
+          	
+     	    	<option>--</option> 
+     	  
+     	    	
+				<option>서울</option>
+         		<option>경기</option>
+         		<option>충북</option>
+         		<option>충남</option>
+         		<option>전라</option>
+         		<option>경기</option>
+         		<option>강원</option>
+         	</select>
+          
+          
+                  
+          	<%-- <select name="team_area">
           	
      	    	<option selected="selected">선택</option> 
      	  
@@ -99,7 +120,7 @@
          		<option>전라</option>
          		<option>경기</option>
          		<option>강원</option>
-         	</select>
+         	</select> --%>
           </td>
         </tr>
         

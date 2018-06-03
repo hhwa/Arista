@@ -62,6 +62,11 @@
 			<exception-mapping result="error" exception="java.lang.Exception"/>
 		</global-exception-mappings>
 	 	-->
+	 	<!-- 마이 팀 목록 액션 -->
+	 	<!-- <action name="myteamviewAction" class="team.myTeamViewAction">
+	 		<result>/team/myTeamView.jsp</result>
+	 	</action> -->
+	 	
 	 	<!-- 팀 목록 액션 -->
 	 	<action name="teamlistAction" class="team.listAction">
 	 		<result>/team/teamList.jsp</result>
@@ -81,17 +86,6 @@
 		<action name="teamviewAction" class="team.viewAction">
 			<result>/team/teamView.jsp</result>
 		</action>
-		
-		<!-- 파일 다운로드 액션. -->
-		<!-- <action name="teamfileDownloadAction" class="team.viewAction" method="download">
-    		<result name="success" type="stream">
-             	   <param name="contentType">binary/octet-stream</param>
-             	   <param name="inputName">inputStream</param>
-             	   <param name="contentDisposition">${contentDisposition}</param>
-             	   <param name="contentLength">${contentLength}</param> 
-              	  <param name="bufferSize">4096</param>
-        	 </result>
-		</action> -->
 	 	
 	 	<!-- 팀 수정 액션. -->
 		<action name="teammodifyForm" class="team.viewAction">

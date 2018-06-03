@@ -123,18 +123,6 @@
       
           <tr>
         <td align="right" colspan="2">
-        
-	       <%--  <s:url id="modifyURL" action="teammodifyForm" >
-				<s:param name="team_no">
-					<s:property value="team_no" />
-				</s:param>
-	        </s:url>
-					
-	        <s:url id="deleteURL" action="deleteAction" >
-				<s:param name="no">
-					<s:property value="no" />
-				</s:param>
-	        </s:url> --%>
 				
 	<input name="list" type="button" value="수정" class="inputb" onClick="javascript:location.href='teammodifyForm.action?team_no=<s:property value="team_no"/>&currentPage=<s:property value="currentPage"/>'">
 					

@@ -20,12 +20,12 @@
   	</table>
   	
   
-	<table width="600" border="0" cellspacing="0" cellpadding="2">
+	<table width="800" border="0" cellspacing="0" cellpadding="2">
 	      <tr align="center" bgcolor="#F3F3F3">
-      		<td width="70"><strong>번호</strong></td>
-			<td width="150"><strong>팀명</strong></td>
-        	<td width="310"><strong>팀 소개</strong></td>
-       		<td width="70"><strong>신청</strong></td>
+      		<td width="50"><strong>번호</strong></td>
+			<td colspan="2" width="300"><strong>팀명</strong></td>
+        	<td colspan="2" width="400"><strong>팀 정보</strong></td>
+       		<td width="50"><strong>신청</strong></td>
          </tr>
 <tr bgcolor="#777777">
         		<td height="1" colspan="5"></td>
@@ -44,8 +44,22 @@
 			
      	      <tr bgcolor="#FFFFFF"  align="center">
         		<td><s:property value="team_no" /></td>
-        		<td align="left"> &nbsp;<img src="<%= request.getContextPath()%>/teamimg/<s:property value="file_savname" />"/><s:a href="%{viewURL}"><s:property value="team_id" /></s:a></td>
-        		<td align="center"><s:property value="team_intro" /></td>
+        		<td align="center"> &nbsp;<img src="<%= request.getContextPath()%>/teamimg/<s:property value="file_savname"/>"/>
+        		</td>
+        		<td align="left">
+        			<s:a href="%{viewURL}"><s:property value="team_id" /></s:a>
+        		</td>
+        		<td align="left">
+        			<li>지역:<s:property value="team_area" /></li>
+        			<li>연령대:<s:property value="team_age" /></li>
+        			<li>실력:<s:property value="team_skill" /></li>
+        		</td>
+        		
+        		<td align="left">
+        			<li>소속유형:<s:property value="team_fype" /></li>
+        			<li>팀원수:<s:property value="team_count" /></li>
+        			<li>경기유형:<s:property value="team_fieldtype" /></li>
+        		</td>
 				<td><input name="submit" type="submit" value="신청" class="inputb"></td> 
       	      </tr>
       	      <tr bgcolor="#777777">
@@ -69,17 +83,25 @@
     		<td colspan="5"><s:property value="pagingHtml"  escape="false" /></td>
     	      </tr>
     	<tr align="center">
-		<td colspan="5">
+		<td colspan="5">		
 			<form>
-				<%-- <select name="searchNum" >
-					<option value="0">팀명</option>
-				</select> --%>
-				<label name="searchNum"> 팀명 </label>
+				팀명:<input type="search" name="searchKeyword"/><input type="submit" value="검색"/>			
+			
+				<%-- <label name="searchNum"> 팀명 </label>
 				<s:textfield name="searchKeyword" theme="simple" value="" cssStyle="width:120px" maxlength="20" />
-				<input name="submit" type="submit" value="검색" class="inputb">
+				<input name="submit" type="submit" value="검색" class="inputb"> --%>
+				
+				
+				
+				<!-- <td align="right" colspan="2">
+	
+					<input name="list" type="button" value="MY TEAM" class="inputb" onClick="javascript:location.href='myteamviewAction.action'">
+
+       			 </td> -->
 			</form>
 		</td>
 	</tr>
 	</table>
+	
 </body>
 </html>
