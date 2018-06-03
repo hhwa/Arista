@@ -16,7 +16,6 @@
 	<tr>	
 		<td width="50">이름:&nbsp;<s:property value="memberResult.m_name"/></td>
 		<td width="50">닉네임:&nbsp;<s:property value="memberResult.m_nickname"/></td>
-		<td width="50">포지션:&nbsp;<s:property value="memberResult.m_position"/></td>
 	</tr>
 	<tr>	
 		<td width="60">휴대폰 번호:&nbsp;<s:property value="memberResult.m_mobilephone"/></td>
@@ -27,8 +26,8 @@
 		<td width="100">이메일:&nbsp;<s:property value="memberResult.m_email"/></td>
 	</tr>
 	<tr>
+		<td width="50">포지션:&nbsp;<s:property value="memberResult.m_position"/></td>
 		<td width="100">가입날짜:&nbsp;<s:property value="memberResult.m_joindate"/></td>
-		<td width="60">관리자 권한:&nbsp;<s:property value="memberResult.admin_yn"/>&nbsp;&nbsp;<font color="red" size="2">※0:일반 / 1:관리자</font></td>
 	</tr>
 	<tr>
 	<td>프로필사진 원본명:&nbsp;<s:property value="memberResult.prof_image_org"/></td>
@@ -38,8 +37,26 @@
 	<td>프로필이미지
 	<img src='${profpath}'>
 	</td>
+		<td width="60">관리자 권한:&nbsp;<s:property value="memberResult.admin_yn"/>&nbsp;&nbsp;<font color="red" size="2">※0:일반 / 1:관리자</font>
+		&nbsp;&nbsp;&nbsp;
+		<s:form action="adminRight" method="post">
+		<s:hidden name="m_id" value="%{memberResult.m_id}"/>
+		<select name="admin_yn">
+		<option selected="selected">0</option>
+		<option>1</option>
+		</select>
+		<input type="submit" value="권한 수정">
+		</s:form>
+		</td>
 	</tr>
-	
-</table>			
+</table>
+<br>			
+	<table>
+	<tr>
+	<td>
+	<input type="button" value="목록으로" onclick="javascript:window.location='adminMemList.action?currentPage=<s:property value="currentPage"/>'">
+	</td>
+	</tr>
+	</table>
 </body>
 </html>

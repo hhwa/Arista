@@ -32,10 +32,8 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	private File Upload;
 	private String uploadContentType;
 	private String uploadFileName;
-	private String fileUploadPath = "C:\\Users\\user1\\git\\Arista\\Arista\\WebContent\\profUpload\\";
-	//private String fileUploadPath = "C:\\Users\\user1\\Desktop\\upload\\";
-	//http://localhost:8080/Arista/profUpload/file_null.jpg
-		//http://localhost:8080/Arista/profUpload/file_test5555.jpg
+	//private String fileUploadPath = "C:\\Users\\user1\\git\\Arista\\Arista\\WebContent\\profUpload\\";
+	private String fileUploadPath = "C:\\Users\\yk\\git\\Arista\\Arista\\WebContent\\profUpload\\";
 	
 	//회원가입 속성
 	private String m_id;
@@ -63,10 +61,12 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	private File deletefile;
 	
 	
-	//아이디 중복 체크
+	//중복 체크
 	private int idcheckresult = 0;
 	private int nickcheckresult = 0;
 	private int emailcheckresult = 0;
+	//회원탈퇴
+	private int deletemembercheck = 0;
 	
 	public MemberJoinAction() throws IOException {
 		// TODO Auto-generated constructor stub
@@ -186,11 +186,21 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 		return SUCCESS;
 	}
 	
-	public String deleteMem() throws Exception {
-		sqlMapper.update("memSQL.deleteMem", memberParam);
-		//프로필 사진 삭제 코드 추가
+	public String deleteMemPw() throws Exception {
 		
 		return SUCCESS;
+	}
+	
+	
+	public String deleteMem() throws Exception {
+		memberResult = (memVO)sqlMapper.queryForObject("memSQL.selectPassword",memberParam);
+		if(memberResult != null) { 
+			sqlMapper.update("memSQL.deleteMem", memberParam);
+			deletemembercheck = 1;}
+		//프로필 사진 삭제 코드 추가
+			
+		return SUCCESS;
+	
 	}
 	
 	
@@ -244,51 +254,37 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 		return memberParam;
 	}
 
-
 	public memVO getMemberResult() {
 		return memberResult;
 	}
-
 
 	public void setMemberParam(memVO memberParam) {
 		this.memberParam = memberParam;
 	}
 
-
 	public void setMemberResult(memVO memberResult) {
 		this.memberResult = memberResult;
 	}
-
 
 	public static Reader getReader() {
 		return reader;
 	}
 
-
-
 	public static SqlMapClient getSqlMapper() {
 		return sqlMapper;
 	}
-
-
 
 	public File getUpload() {
 		return Upload;
 	}
 
-
-
 	public String getUploadContentType() {
 		return uploadContentType;
 	}
 
-
-
 	public String getUploadFileName() {
 		return uploadFileName;
 	}
-
-
 
 	public String getFileUploadPath() {
 		return fileUploadPath;
@@ -298,75 +294,49 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 		return m_passwd;
 	}
 
-
-
 	public String getM_name() {
 		return m_name;
 	}
-
-
 
 	public String getM_mobilephone() {
 		return m_mobilephone;
 	}
 
-
-
 	public int getM_birthyear() {
 		return m_birthyear;
 	}
-
-
 
 	public String getM_region() {
 		return m_region;
 	}
 
-
-
 	public String getM_email() {
 		return m_email;
 	}
-
-
 
 	public String getM_nickname() {
 		return m_nickname;
 	}
 
-
-
 	public static void setReader(Reader reader) {
 		MemberJoinAction.reader = reader;
 	}
-
-
 
 	public static void setSqlMapper(SqlMapClient sqlMapper) {
 		MemberJoinAction.sqlMapper = sqlMapper;
 	}
 
-
-
-
-
 	public void setUpload(File upload) {
 		Upload = upload;
 	}
-
-
-
+	
 	public void setUploadContentType(String uploadContentType) {
 		this.uploadContentType = uploadContentType;
 	}
 
-
-
 	public void setUploadFileName(String uploadFileName) {
 		this.uploadFileName = uploadFileName;
 	}
-
-
 
 	public void setFileUploadPath(String fileUploadPath) {
 		this.fileUploadPath = fileUploadPath;
@@ -376,43 +346,29 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 		this.m_passwd = m_passwd;
 	}
 
-
-
 	public void setM_name(String m_name) {
 		this.m_name = m_name;
 	}
-
-
 
 	public void setM_mobilephone(String m_mobilephone) {
 		this.m_mobilephone = m_mobilephone;
 	}
 
-
-
 	public void setM_birthyear(int m_birthyear) {
 		this.m_birthyear = m_birthyear;
 	}
-
-
 
 	public void setM_region(String m_region) {
 		this.m_region = m_region;
 	}
 
-
-
 	public void setM_email(String m_email) {
 		this.m_email = m_email;
 	}
 
-
-
 	public void setM_nickname(String m_nickname) {
 		this.m_nickname = m_nickname;
 	}
-
-
 
 	public Calendar getM_joindate() {
 		return m_joindate;
@@ -451,6 +407,13 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	public void setM_id(String m_id) {
 		this.m_id = m_id;
 	}
+	public int getDeletemembercheck() {
+		return deletemembercheck;
+	}
+	public void setDeletemembercheck(int deletemembercheck) {
+		this.deletemembercheck = deletemembercheck;
+	}
+	
 	
 	
 	

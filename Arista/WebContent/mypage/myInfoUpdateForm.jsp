@@ -6,6 +6,29 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
+<script language="javascript">
+
+
+function openConfirmnick(userinput) {
+	var re = /[~!@\#$%^&*\()\-=+_']/gi;
+
+	var m_nickname = userinput.m_nickname.value
+	if(m_nickname == ""){
+		alert("닉네임을 입력하세요");
+		return;
+	}
+	else if(re.test(userinput.m_nickname.value)){
+		alert("닉네임 형식이 올바르지 않습니다.");
+		return false;
+	}
+	
+
+url = "memberNickCheck.action?m_nickname="+m_nickname;
+open(url, "confirm2", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
+}
+
+
+</script>
 </head>
 <body>
 <s:form method="post" action="modiftymemberPro" name="userinput" enctype="multipart/form-data">
@@ -15,7 +38,7 @@
 	<table width="600" border="1" cellspacing="0" cellpadding="3" align="center">
 		<tr>
 			<td colspan="2" height="39" align="center" >
-				<font size="+1"><b>회원가입</b></font></td>
+				<font size="+1"><b>회원정보 수정</b></font></td>
 		</tr>
 		<tr>
 			<td width="200"><b>아이디 입력</b></td>
@@ -122,8 +145,9 @@
 		<tr>
 			<td colspan="2" align="center">
 				<input type="submit" name="confirm" value="등 록" onclick="return checkIt()">
-				<input type="reset" name="reset" value="다시 입력">
-				<input type="button" value="취소" onclick="javascript:window.location='modiftymemberForm.action?m_id=<s:property value="memberResult.m_id"/>'">
+				<!-- <input type="reset" name="reset" value="다시 입력"> -->
+				<input type="button" value="되돌리기" onclick="javascript:window.location='modiftymemberForm.action?m_id=<s:property value="memberResult.m_id"/>'">
+				<input type="button" value="취소" onclick="">
 			</td>
 		</tr>			
 	</table>

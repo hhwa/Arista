@@ -71,8 +71,10 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 		
 		if(memberResult != null) {
 		sessionMap.put("m_id", memberResult.getM_id());
-		}		
-		return SUCCESS;
+		sessionMap.put("admin_yn", String.valueOf(memberResult.getAdmin_yn()));
+		}
+			return SUCCESS;
+		
 	}
 
 

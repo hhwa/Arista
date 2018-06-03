@@ -13,7 +13,6 @@ public class LoginCheckInterceptor extends AbstractInterceptor{
 		// TODO Auto-generated method stub
 		Map<String, Object> session = invocation.getInvocationContext().getSession();		
 		
-		//memVO memvo = (memVO)session.get("memberResult");
 		String m_id = (String)session.get("m_id");
 		
 		if(m_id == null) {

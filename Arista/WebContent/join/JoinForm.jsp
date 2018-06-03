@@ -261,7 +261,7 @@
 			<td colspan="2" align="center">
 				<input type="submit" name="confirm" value="등 록" onclick="return checkIt()">
 				<input type="reset" name="reset" value="다시 입력">
-				<input type="button" value="취소" onclick="javascript:window.location='loginForm.jsp'">
+				<input type="button" value="취소" onclick="javascript:window.location='loginForm.action'">
 			</td>
 		</tr>			
 	</table>

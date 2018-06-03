@@ -11,10 +11,11 @@
 		<package name="member" extends="struts-default,tiles-default">
 	
 			<interceptors>
-				<interceptor name="LoginCheckInter" class="mem.LoginCheckInterceptor"></interceptor>
+				<interceptor name="LoginCheckInter" class="mem.LoginCheckInterceptor"/>
+				
 				<interceptor-stack name="stack-with-login">
-  				<interceptor-ref name="LoginCheckInter"/>
   				<interceptor-ref name="defaultStack"/>
+  				<interceptor-ref name="LoginCheckInter"/>
 	 			</interceptor-stack>
 			</interceptors>
 	
@@ -23,7 +24,7 @@
 	 		</global-results>
 	
 			<action name="MemberJoinAction" class="mem.MemberJoinAction">
-			<result type="tiles">main</result>
+			<result type="chain">main</result>
 			</action>
 	
 			<action name="memberIdCheck" class="mem.MemberJoinAction" method="idcheck">
@@ -48,12 +49,20 @@
 			</action>
 		
 			<action name="modiftymemberPro" class="mem.MemberJoinAction" method="modifyMemPro">
-				<result type="tiles">main</result>
+				<result type="chain">main</result>
 			</action>
 					
 			<!-- 회원탈퇴 -->
+			<action name="deletememberPW" class="mem.MemberJoinAction" method="deleteMemPw">
+				<result>/join/mDeleteCheckPW.jsp</result>
+			</action>
+			
 			<action name="deletemember" class="mem.MemberJoinAction" method="deleteMem">
-				<result type="tiles">main</result>
+				<result>/join/deleteMemberResult.jsp</result>
+			</action>
+			
+			<action name="redirectPW">
+				<result type="chain">deletememberPW</result>
 			</action>
 
 			<!-- 로그인&로그아웃  -->	
@@ -62,11 +71,11 @@
 			</action>
 
 			<action name="loginPro" class="mem.loginAction">
-				<result type="tiles">loginResult</result>
+				<result name="success" type="tiles">loginResult</result>
 			</action>
 	
 			<action name="logout" class="mem.loginAction" method="logout">
-				<result type="tiles">main</result>
+				<result type="chain">main</result>
 			</action>
 
 
@@ -92,11 +101,20 @@
 			
 			<!-- 회원관리 -->	
 			<action name="adminMemList" class="admin.memberAction" method="memberList">
+				<interceptor-ref name="stack-with-login"/>
 				<result type="tiles">MemList</result>
 			</action>
 	
+			<!-- 회원관리 - 상세 -->
 			<action name="adminMemView" class="admin.memberAction" method="memberView">
+				<interceptor-ref name="stack-with-login"/>
 				<result type="tiles">MemView</result>
+			</action>
+			
+			<!-- 회원관리 - 권한수정 -->
+			<action name="adminRight" class="admin.memberAction" method="adminRightModi">
+				<interceptor-ref name="stack-with-login"/>
+				<result type="chain">adminMemView</result>
 			</action>
 	
 		</package>
