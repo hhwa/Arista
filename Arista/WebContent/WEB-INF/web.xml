@@ -29,7 +29,7 @@
     	<servlet-class>org.apache.tiles.web.startup.TilesServlet</servlet-class>
     	<init-param>
       		<param-name>definitions-config</param-name>
-      		<param-value>/WEB-INF/tiles-service.xml</param-value>
+      		<param-value>/WEB-INF/tiles/tiles-service.xml</param-value>
     	</init-param>
     	<load-on-startup>1</load-on-startup>
   	</servlet>  

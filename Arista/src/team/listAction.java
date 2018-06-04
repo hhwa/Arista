@@ -78,18 +78,6 @@ public String search() throws Exception {
 		return SUCCESS;
 	}
 
-	public static Reader getReader() {
-		return reader;
-	}
-	public static void setReader(Reader reader) {
-		listAction.reader = reader;
-	}
-	public static SqlMapClient getSqlMapper() {
-		return sqlMapper;
-	}
-	public static void setSqlMapper(SqlMapClient sqlMapper) {
-		listAction.sqlMapper = sqlMapper;
-	}
 	public List<teamVO> getList() {
 		return list;
 	}

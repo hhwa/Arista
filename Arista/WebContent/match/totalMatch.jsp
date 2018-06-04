@@ -23,6 +23,9 @@
 		<s:param name="match_no">
 			<s:property value="match_no"/>
 		</s:param>
+		<s:param name="mem_id">
+			<s:property value="#session.session_id"/>
+		</s:param>
 		<s:param name="currentPage">
 			<s:property value="currentPage"/>			
 		</s:param>
@@ -58,7 +61,9 @@
 			<td align="center"><s:property value="content"/></td>
 			<td align="center"><s:property value="people_count"/></td>
 			<td align="center"><s:property value="people_max"/></td>
-			<td align="center"><s:a href="%{viewURL}">脚没</s:a></td>
+			<s:if test="#session.session_id != null">
+				<td align="center"><s:a href="%{viewURL}">脚没</s:a></td>
+			</s:if>
 		</tr>
 		<tr bgcolor="#777777">
 			<td height="1" colspan="11"></td>
@@ -94,7 +99,9 @@
 			<td align="center"><s:property value="content"/></td>
 			<td align="center"><s:property value="team_id"/></td>
 			<td align="center"><s:property value="team2_id"/></td>
-			<td align="center"><s:a href="%{viewURL}">脚没</s:a></td>
+			<s:if test="#session.session_id != null">
+				<td align="center"><s:a href="%{viewURL}">脚没</s:a></td>
+			</s:if>
 		</tr>
 		<tr bgcolor="#777777">
 			<td height="1" colspan="12"></td>

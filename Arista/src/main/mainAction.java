@@ -4,21 +4,27 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import matchState.matchStateVO;
+import mem.memVO;
 
-public class mainAction extends ActionSupport{
+public class mainAction extends ActionSupport {
 	
 	public static Reader reader; // 파일 스트림을 위한 reader.
 	public static SqlMapClient sqlMapper; // SqlMapClient API를 사용하기 위한 sqlMapper 객체
 
 	private List<matchStateVO> list = new ArrayList<matchStateVO>();
 	private matchStateVO paramClass = new matchStateVO();
+	private memVO memParam = new memVO();
 	
 	private int currentPage = 1; // 현재 페이지
 	private int totalCount; // 총 게시물의 수
@@ -26,7 +32,7 @@ public class mainAction extends ActionSupport{
 	private int blockPage = 5; // 한화면에 보여줄 페이지 수
 	private String pagingHtml; // 페이징을 구현한 HTML
 	private pagingAction page; // 페이징 클래스
-	
+	private String m_id;
 	
 	public mainAction() throws IOException {
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
@@ -35,6 +41,8 @@ public class mainAction extends ActionSupport{
 	}
 
 	public String execute() throws Exception{
+		
+		memParam = new memVO();
 		
 		list = sqlMapper.queryForList("matchStateSQL.matchList");
 		totalCount = list.size();// 전체 글 갯수
@@ -49,11 +57,11 @@ public class mainAction extends ActionSupport{
 		// lastCount를 +1번호로 설정
 		if (page.getEndCount() < totalCount)
 			lastCount = page.getEndCount() + 1;
-
 		// 전체 리스트에서 현재 페이지 만큼의 리스트만 가져온다.
 		list = list.subList(page.getStartCount(), lastCount);
 		return SUCCESS;
 	}
+
 	public List<matchStateVO> getList() {
 		return list;
 	}
@@ -68,6 +76,14 @@ public class mainAction extends ActionSupport{
 
 	public void setParamClass(matchStateVO paramClass) {
 		this.paramClass = paramClass;
+	}
+
+	public memVO getMemParam() {
+		return memParam;
+	}
+
+	public void setMemParam(memVO memParam) {
+		this.memParam = memParam;
 	}
 
 	public int getCurrentPage() {
@@ -117,4 +133,13 @@ public class mainAction extends ActionSupport{
 	public void setPage(pagingAction page) {
 		this.page = page;
 	}
+
+	public String getM_id() {
+		return m_id;
+	}
+
+	public void setM_id(String m_id) {
+		this.m_id = m_id;
+	}
+	
 }

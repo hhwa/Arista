@@ -83,7 +83,7 @@
 </table>
 </div>
 <br>
-<form action="SoloList.action" method="post">
+<form action="SoloMatchList.action" method="post">
 <table align="center">
 	<tr>
 		<td>

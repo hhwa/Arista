@@ -44,16 +44,8 @@ public class stadiumListAction extends ActionSupport {
 			lastCount = page.getEndCount() +1;
 		
 		list= list.subList(page.getStartCount(), lastCount);
-		
-		
-		
-		return SUCCESS;
-	}
 
-	public static Reader getReader() {
-		return reader;
-	}
-
+<<<<<<< HEAD:Arista/src/stadium/stadiumListAction.java
 	public static void setReader(Reader reader) {
 		stadiumListAction.reader = reader;
 	}
@@ -64,6 +56,9 @@ public class stadiumListAction extends ActionSupport {
 
 	public static void setSqlMapper(SqlMapClient sqlMapper) {
 		stadiumListAction.sqlMapper = sqlMapper;
+=======
+		return SUCCESS;
+>>>>>>> 265a683c74613243a54bd922b8d37cfd347f2758:Arista/src/stadium/stadiumListAction.java
 	}
 
 	public List<stadiumVO> getList() {
@@ -121,8 +116,6 @@ public class stadiumListAction extends ActionSupport {
 	public void setPage(stadiumPagingAction page) {
 		this.page = page;
 	}
-	
-	
 
 	
 }

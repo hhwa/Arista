@@ -34,40 +34,47 @@ height:8px;
 	</table><br><br>
 	
 	<table id="menu_back" align="center">
-		<td align="center"><a href=selectMatch.action><h4><b>매치</b></h4></a>
+		<tr>
+			<td align="center"><h4><a href=selectMatch.action><b>매치</b></a></h4></td>
+		</tr>
 	</table>
 	
 	<table id="menu_list" align="center">
-		<tr><td align="left">팀 매치</td></tr>
-		<tr><td align="left"><a href=SoloList.action>솔로 매치</a><td></tr>
+		<tr><td align="left"><a href="TeamMatchList.action">팀 매치</a></td></tr>
+		<tr><td align="left"><a href="SoloMatchList.action">솔로 매치</a><td></tr>
 	</table><br><br>
 	
 		<table id="menu_back" align="center">
-		<td align="center"><h4><b>팀</b></h4>
+		<tr>
+		<td align="center"><h4><a href="MyTeam.action"><b>팀</b></a></h4></td>
+		</tr>
 	</table>
 	
 	<table id="menu_list" align="center">
-		<tr><td align="left">마이팀</td></tr>
-		<tr><td align="left">팀 정보<td></tr>
+		<tr><td align="left"><a href="MyTeam.action">마이팀</a></td></tr>
+		<tr><td align="left"><a href="TeamList.action">팀 목록</a><td></tr>
 	</table><br><br>
 	
 		<table id="menu_back" align="center">
-		<td align="center"><h4><b>경기장</b></h4>
+			<tr>
+			<td align="center"><h4><a href="stadiumList.action"><b>경기장</b></a></h4></td>
+			</tr>
 	</table>
 	
 	<table id="menu_list" align="center">
-		<tr><td align="left">경기장 정보</td></tr>
+		<tr><td align="left"><a href="stadiumList.action">경기장 목록</a></td></tr>
 	</table><br><br>
 
 	<table id="menu_back" align="center">
-		<td align="center"><h4><b>고객센터</b></h4>
+	<tr>
+		<td align="center"><h4><a href="QNAList.action"><b>고객센터</b></a></h4></td>
+	</tr>
 	</table>
 	
 	<table id="menu_list" align="center">
 		<tr><td align="left">공지사항</td></tr>
-		<tr><td align="left">Q&A<td></tr>
-		<tr><td align="left">FAQ<td></tr>
+		<tr><td align="left"><a href="QNAList.action">Q&A</a></td></tr>
+		<tr><td align="left">FAQ</td></tr>
 	</table><br><br>
-
 </body>
 </html>
