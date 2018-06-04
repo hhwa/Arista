@@ -85,23 +85,6 @@ public class stadiumWriteAction extends ActionSupport {
     	  }
     	  return SUCCESS;
       }
-	
-<<<<<<< HEAD:Arista/src/stadium/stadiumWriteAction.java
-      
-    public static Reader getReader() {
-		return reader;
-	}
-	public static void setReader(Reader reader) {
-		stadiumWriteAction.reader = reader;
-	}
-	public static SqlMapClient getSqlMapper() {
-		return sqlMapper;
-	}
-	public static void setSqlMapper(SqlMapClient sqlMapper) {
-		stadiumWriteAction.sqlMapper = sqlMapper;
-	}
-=======
->>>>>>> 265a683c74613243a54bd922b8d37cfd347f2758:Arista/src/stadium/stadiumWriteAction.java
 	public stadiumVO getParamClass() {
 		return paramClass;
 	}
