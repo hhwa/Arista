@@ -1,6 +1,6 @@
 package stadium;
 
-public class stadiumpagingAction {
+public class stadiumPagingAction {
 	   private int currentPage;
 	   private int totalCount;
 	   private int totalPage;
@@ -13,7 +13,7 @@ public class stadiumpagingAction {
 	   
 	   private StringBuffer pagingHtml;
 	   
-	   public stadiumpagingAction(int currentPage, int totalCount, int blockCount, int blockPage) {
+	   public stadiumPagingAction(int currentPage, int totalCount, int blockCount, int blockPage) {
 		   this.blockCount = blockCount;
 		   this.blockPage = blockPage;
 		   this.currentPage = currentPage;
