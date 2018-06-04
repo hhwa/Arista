@@ -87,18 +87,6 @@ public class writeAction extends ActionSupport {
 		return SUCCESS;
 		
 	}
-	public static Reader getReader() {
-		return reader;
-	}
-	public static void setReader(Reader reader) {
-		writeAction.reader = reader;
-	}
-	public static SqlMapClient getSqlMapper() {
-		return sqlMapper;
-	}
-	public static void setSqlMapper(SqlMapClient sqlMapper) {
-		writeAction.sqlMapper = sqlMapper;
-	}
 	public teamVO getParamClass() {
 		return paramClass;
 	}

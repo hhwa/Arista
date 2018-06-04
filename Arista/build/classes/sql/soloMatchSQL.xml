@@ -68,8 +68,8 @@
 		</update>
 		
 		<!-- 개인매치 신청인원수 -->
-		<update id="soloCount" parameterClass="int">
-			update soloMatch set people_count=people_count+1
+		<update id="soloCount" parameterClass="soloMatch">
+			update soloMatch set people_count=#people_count#
 			<include refid="where-no"/>
 		</update>
 		<!-- delete 쿼리문 정의 -->

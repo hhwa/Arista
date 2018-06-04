@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>닉네임 중복체크</title>
-<script language="javascript">
+<script type="text/javascript">
 
 function setnick()
  {
@@ -15,11 +15,9 @@ function setnick()
  	self.close();
  } 
 
-
 </script>
 </head>
 <body>
-
 
 <s:if test="nickcheckresult == 0">
 <table width="270" border="0" cellspacing="0" cellpadding="5">

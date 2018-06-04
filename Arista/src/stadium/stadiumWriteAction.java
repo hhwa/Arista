@@ -86,19 +86,6 @@ public class stadiumWriteAction extends ActionSupport {
     	  return SUCCESS;
       }
 	
-      
-    public static Reader getReader() {
-		return reader;
-	}
-	public static void setReader(Reader reader) {
-		stadiumWriteAction.reader = reader;
-	}
-	public static SqlMapClient getSqlMapper() {
-		return sqlMapper;
-	}
-	public static void setSqlMapper(SqlMapClient sqlMapper) {
-		stadiumWriteAction.sqlMapper = sqlMapper;
-	}
 	public stadiumVO getParamClass() {
 		return paramClass;
 	}

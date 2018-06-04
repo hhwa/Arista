@@ -6,7 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>경기장 정보</title>
-<link rel="stylesheet" href="/css/css.css" type="text/css">
 
 <script type="text/javascript">
    function open_win_noresizable(url, name){
@@ -145,13 +144,13 @@
                      </s:param>
                      </s:url>
                      
-                     <input name="list" type="button" value="수정" class="inputb" onClick="javascript:loaction.href='stadiummodifyFormAction.action?stadium_no=<s:property value="stadium_no" />'">
+                     <input name="list" type="button" value="수정" class="inputb" onClick="javascript:loaction.href='stadiumModifyForm.action?stadium_no=<s:property value="stadium_no" />'">
                      <input name="list" type="button" value="삭제" class="inputb" onClick="javascript:open_win_noresizable('checkForm.action?no=<s:property value="resultClass.stadium_no" />&currentPage=<s:property value="currentPage" />','delete')">
-                     <input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='stadiumlistAction.action?currentPage=<s:property value="currentPage" />'">
+                     <input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='stadiumList.action?currentPage=<s:property value="currentPage" />'">
             
-         
-</body>
-<body>
+ 			</td>
+ 			</tr>
+ </table>
 
 </body>
 </html>

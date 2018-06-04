@@ -44,26 +44,8 @@ public class stadiumListAction extends ActionSupport {
 			lastCount = page.getEndCount() +1;
 		
 		list= list.subList(page.getStartCount(), lastCount);
-		
-		
-		
+
 		return SUCCESS;
-	}
-
-	public static Reader getReader() {
-		return reader;
-	}
-
-	public static void setReader(Reader reader) {
-		stadiumListAction.reader = reader;
-	}
-
-	public static SqlMapClient getSqlMapper() {
-		return sqlMapper;
-	}
-
-	public static void setSqlMapper(SqlMapClient sqlMapper) {
-		stadiumListAction.sqlMapper = sqlMapper;
 	}
 
 	public List<stadiumVO> getList() {
@@ -121,8 +103,6 @@ public class stadiumListAction extends ActionSupport {
 	public void setPage(stadiumPagingAction page) {
 		this.page = page;
 	}
-	
-	
 
 	
 }

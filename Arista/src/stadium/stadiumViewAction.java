@@ -44,19 +44,6 @@ public class stadiumViewAction extends ActionSupport {
     	   return SUCCESS;
        }
 	
-       
-       public static Reader getReader() {
-		return reader;
-	}
-	public static void setReader(Reader reader) {
-		stadiumViewAction.reader = reader;
-	}
-	public static SqlMapClient getSqlMapper() {
-		return sqlMapper;
-	}
-	public static void setSqlMapper(SqlMapClient sqlMapper) {
-		stadiumViewAction.sqlMapper = sqlMapper;
-	}
 	public stadiumVO getParamClass() {
 		return paramClass;
 	}

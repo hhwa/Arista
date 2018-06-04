@@ -33,7 +33,7 @@
 
 	      <s:iterator value="list" status="stat">
 
-		<s:url id="viewURL" action="teamviewAction" >
+		<s:url id="viewURL" action="TeamView" >
 			<s:param name="team_no">
 				<s:property value="team_no" />
 			</s:param>

@@ -23,7 +23,6 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
-	
 	//파일 업로드
 	private File Upload;
 	private String uploadContentType;

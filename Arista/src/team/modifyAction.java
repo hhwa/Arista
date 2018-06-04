@@ -92,22 +92,6 @@ public class modifyAction extends ActionSupport {
 				return SUCCESS;
 	}
 
-	public static Reader getReader() {
-		return reader;
-	}
-
-	public static void setReader(Reader reader) {
-		modifyAction.reader = reader;
-	}
-
-	public static SqlMapClient getSqlMapper() {
-		return sqlMapper;
-	}
-
-	public static void setSqlMapper(SqlMapClient sqlMapper) {
-		modifyAction.sqlMapper = sqlMapper;
-	}
-
 	public teamVO getParamClass() {
 		return paramClass;
 	}

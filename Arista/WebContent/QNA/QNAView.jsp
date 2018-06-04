@@ -94,7 +94,8 @@ function open_win_noresizable (url, name){
         </s:param>
       </s:url>
       
-      
+    <input name="list" type="button" value="답변달기" 
+    onClick="javascript:location.href='QNAReplyForm.action?qna_no=<s:property value="resultClass.qna_no"/>&currentPage=<s:property value="currentPage" />'">  
     <input name="list" type="button" value="수정" 
     onClick="javascript:open_win_noresizable('QNAcheckForm.action?qna_no=<s:property value="resultClass.qna_no"
     />&currentPage=<s:property value="currentPage" />','update')">
