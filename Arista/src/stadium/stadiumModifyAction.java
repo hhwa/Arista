@@ -96,22 +96,6 @@ public class stadiumModifyAction extends ActionSupport {
 		this.stadium_regdate = stadium_regdate;
 	}
 
-	public static Reader getReader() {
-		return reader;
-	}
-
-	public static void setReader(Reader reader) {
-		stadiumModifyAction.reader = reader;
-	}
-
-	public static SqlMapClient getSqlMapper() {
-		return sqlMapper;
-	}
-
-	public static void setSqlMapper(SqlMapClient sqlMapper) {
-		stadiumModifyAction.sqlMapper = sqlMapper;
-	}
-
 	public stadiumVO getParamClass() {
 		return paramClass;
 	}
