@@ -31,22 +31,23 @@
          
          
  	
-     <tr bgcolor="#777777">
-        <td height="1" colspan="2"></td>
-      </tr>
+    	 <tr bgcolor="#777777">
+        	<td height="1" colspan="2"></td>
+    	  </tr>
 			
       <tr>
       	<td align="left">
-        			<li>지역:<s:property value="resultClass.team_area" /></li>
-        			<li>연령대:<s:property value="resultClass.team_age" /></li>
-        			<li>실력:<s:property value="resultClass.team_skill" /></li>
+        			<li>지역 : <s:property value="resultClass.team_area" /></li>
+        			<li>연령대 : <s:property value="resultClass.team_age" /></li>
+        			<li>실력 : <s:property value="resultClass.team_skill" /></li>
         		
         </td>
+        
         		
         <td align="left">
-        			<li>소속유형:<s:property value="resultClass.team_fype" /></li>
-        			<li>팀원수:<s:property value="resultClass.team_count" /></li>
-        			<li>경기유형:<s:property value="resultClass.team_fieldtype" /></li>
+        			<li>소속유형 : <s:property value="resultClass.team_type" /></li>
+        			<li>팀원수 : <s:property value="resultClass.team_count" /></li>
+        			<li>경기유형 : <s:property value="resultClass.team_fieldtype" /></li>
         </td>
        <%--  <td bgcolor="#F4F4F4">  팀명 </td>
         <td bgcolor="#FFFFFF">
@@ -124,9 +125,7 @@
       </tr>
       
       <tr>
-        <td bgcolor="#F4F4F4">  간략한 소개 </td>
-        <td bgcolor="#FFFFFF">
-          &nbsp;&nbsp;<s:property value="resultClass.team_intro" />
+        <td>  간략한 소개 : <s:property value="resultClass.team_intro" />
         </td>
       </tr>
       

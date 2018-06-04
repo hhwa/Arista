@@ -68,38 +68,46 @@
 	 	</action> -->
 	 	
 	 	<!-- 팀 목록 액션 -->
-	 	<action name="teamlistAction" class="team.listAction">
+	 	<action name="teamlistAction" class="team.teamAction" >
 	 		<result>/team/teamList.jsp</result>
 	 	</action>
 	 	
-	 	<action name="teamwriteForm" class="team.writeAction" method="form">
+	 	<!-- <action name="teamlistAction" class="team.teamAction" >
+	 		<result type="tiles">TeamList</result>
+	 	</action> -->
+	 	
+	 	<action name="myTeamAction" class="team.teamAction" >
+	 		<result>/team/myTeamView.jsp</result>
+	 	</action>
+	 	
+	 	<action name="teamwriteForm" class="team.teamAction" method="form">
 	 		<result>/team/makeTeam.jsp</result>
 	 	</action>
 	 	
-	 	<action name="teamwriteAction" class="team.writeAction">
+	 	<action name="teamwriteAction" class="team.teamAction" method="writeAction">
 	 		<result type="redirect-action">
 	 			<param name="actionName">teamlistAction</param>
 	 		</result>
 	 	</action>
 	 	
 	 	<!-- 팀 상세보기 액션. -->
-		<action name="teamviewAction" class="team.viewAction">
+		<action name="teamviewAction" class="team.teamAction" method="viewAction">
 			<result>/team/teamView.jsp</result>
 		</action>
 	 	
 	 	<!-- 팀 수정 액션. -->
-		<action name="teammodifyForm" class="team.viewAction">
+		<action name="teammodifyForm" class="team.teamAction" method="form">
 			<result type="chain">teamwriteForm</result>
 		</action>
 		
-		<action name="teammodifyAction" class="team.modifyAction">
+		<action name="teammodifyAction" class="team.teamAction" method="modifyAction">
 			<result type="chain">teamviewAction</result>
 		</action>
 		
 		<!-- 팀 삭제 액션. -->
-		<action name="teamdeleteAction" class="team.deleteAction">
+		<!-- <action name="teamdeleteAction" class="team.deleteAction">
 			<result type="chain">teamlistAction</result>
-		</action>
+		</action> -->
 	 </package>
 	 
 
