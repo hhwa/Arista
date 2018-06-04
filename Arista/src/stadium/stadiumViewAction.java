@@ -13,7 +13,7 @@ import java.io.IOException;
 
 import java.net.URLEncoder;
 
-public class stadiumviewAction extends ActionSupport {
+public class stadiumViewAction extends ActionSupport {
        public static Reader reader;
        public static SqlMapClient sqlMapper;
        
@@ -30,7 +30,7 @@ public class stadiumviewAction extends ActionSupport {
        private String contentDisposition;
        private long contentLength;
        
-       public stadiumviewAction() throws IOException {
+       public stadiumViewAction() throws IOException {
     	    
     	   reader = Resources.getResourceAsReader("sqlMapConfig.xml");
     	    sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
@@ -49,13 +49,13 @@ public class stadiumviewAction extends ActionSupport {
 		return reader;
 	}
 	public static void setReader(Reader reader) {
-		stadiumviewAction.reader = reader;
+		stadiumViewAction.reader = reader;
 	}
 	public static SqlMapClient getSqlMapper() {
 		return sqlMapper;
 	}
 	public static void setSqlMapper(SqlMapClient sqlMapper) {
-		stadiumviewAction.sqlMapper = sqlMapper;
+		stadiumViewAction.sqlMapper = sqlMapper;
 	}
 	public stadiumVO getParamClass() {
 		return paramClass;
