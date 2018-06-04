@@ -13,8 +13,8 @@
 			<action name="privacy" class="footer.footerAction" method="layout">
 	 			<result type="tiles">privacy</result>
 	 		</action>
-	 		<action name="promiss" class="footer.footerAction" method="layout">
-		 		<result type="tiles">promiss</result>
+	 		<action name="promise" class="footer.footerAction" method="layout">
+		 		<result type="tiles">promise</result>
 	 		</action>
 	 		<action name="emailx" class="footer.footerAction" method="layout">
 	 			<result type="tiles">emailx</result>

@@ -1,8 +1,7 @@
 package mem;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
-import com.opensymphony.xwork2.Preparable;
 
 import mem.memVO;
 
@@ -19,7 +18,8 @@ import org.apache.struts2.interceptor.SessionAware;
 import java.io.Reader;
 import java.io.IOException;
 
-public class loginAction extends ActionSupport implements Preparable, ModelDriven<memVO>, SessionAware{
+public class loginAction extends ActionSupport implements SessionAware{
+	
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
@@ -40,90 +40,46 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 	private memVO memberParam;
 	private memVO memberResult;
 	
-	private int loginchk =0;
-	
-	private Map<String, String> sessionMap;
-	
+	private Map session;
 	
 	public loginAction() throws IOException {
 		// TODO Auto-generated constructor stub
-	reader = Resources.getResourceAsReader("sqlMapConfig.xml");
-	//parsing configuration documents and building the SqlMapClient instance
-	sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
-	reader.close();
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
+		reader.close();
+		
 	}
-	
-	@Override
-	public void prepare() throws Exception {
-		// TODO Auto-generated method stub
-		memberParam = new memVO();
-	}
-	
-	@Override
-	public memVO getModel() {
-		// TODO Auto-generated method stub
-		return memberParam;
-	}
-	
 	@Override
 	public String execute() throws Exception {
 		//사용자에게 입력 받은 정보와 같은 값이 DB 안에 존재하는지 확인한다.
-		memberResult = (memVO)sqlMapper.queryForObject("memSQL.loginPro", memberParam);
-		if(memberResult == null) {
-			loginchk = 1;
-		}
+		memberResult = (memVO)sqlMapper.queryForObject("memSQL.loginPro",getM_id());
 		if(memberResult != null) {
-		sessionMap.put("m_id", memberResult.getM_id());
-		}		
-		return SUCCESS;
-	}
-
-
-	
-	public String joinform() {
+			if (memberResult.getM_passwd().equals(getM_passwd())) {
+				session.put("session_id", memberResult.getM_id());
+				
+				return SUCCESS;
+			}
+		}
+		return ERROR;
 		
+	}
+	public String form() {
 		return SUCCESS;
 	}
-	
-	
-	public String loginForm() {
-		
-		return SUCCESS;
-	}
-	
-
 	public String logout() {
-		sessionMap.remove("m_id");
+		if(session.get("session_id")!=null) {
+			session.remove("session_id");
+		}
 		return SUCCESS;
 	}
 	
-
-	public String findidform() {
-		
-		return SUCCESS;
-	}
-	
-
 	public String findId() throws Exception{
-		
-		memberResult = (memVO)sqlMapper.queryForObject("memSQL.findId", memberParam);
+		memberResult = (memVO)sqlMapper.queryForObject("memSQL.findId",memberParam);
 		return SUCCESS;
 	}
-	
-
-	public String findpwform() {
-		
-		return SUCCESS;
-	}
-	
-public String test() {
-		
-		return SUCCESS;
-	}
-	
 
 	public String findPw() throws Exception{
-		memberResult = (memVO)sqlMapper.queryForObject("memSQL.findPw", memberParam);
+		memberResult = (memVO)sqlMapper.queryForObject("memSQL.findPw",memberParam);
 
 		if(memberResult !=null) {
 		String subject = memberResult.getM_name()+"님, 비밀번호를 알려드립니다. -Arista";
@@ -135,32 +91,6 @@ public String test() {
 		return SUCCESS;
 	}
 	
-	
-	
-
-	public int getLoginchk() {
-		return loginchk;
-	}
-
-	public void setLoginchk(int loginchk) {
-		this.loginchk = loginchk;
-	}
-
-	public static Reader getReader() {
-		return reader;
-	}
-
-	public static void setReader(Reader reader) {
-		loginAction.reader = reader;
-	}
-
-	public static SqlMapClient getSqlMapper() {
-		return sqlMapper;
-	}
-
-	public static void setSqlMapper(SqlMapClient sqlMapper) {
-		loginAction.sqlMapper = sqlMapper;
-	}
 
 	public String getM_id() {
 		return m_id;
@@ -282,19 +212,13 @@ public String test() {
 		this.memberResult = memberResult;
 	}
 
-	@Override
+	public Map getSession() {
+		return session;
+	}
+
 	public void setSession(Map session) {
-		this.sessionMap = session;
-		// TODO Auto-generated method stub
-		
+		this.session = session;
 	}
-
-	public Map getSessionMap() {
-		return sessionMap;
-	}
-
-	
-
 	
 	
 }

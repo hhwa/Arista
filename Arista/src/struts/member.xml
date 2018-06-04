@@ -10,20 +10,12 @@
 		<!-- 회원가입  -->	
 		<package name="member" extends="struts-default,tiles-default">
 	
-			<interceptors>
-				<interceptor name="LoginCheckInter" class="mem.LoginCheckInterceptor"></interceptor>
-				<interceptor-stack name="stack-with-login">
-  				<interceptor-ref name="LoginCheckInter"/>
-  				<interceptor-ref name="defaultStack"/>
-	 			</interceptor-stack>
-			</interceptors>
-	
 			<global-results>
-	 			<result name="gologin">/login/loginForm.jsp</result>
+	 			<result name="gologin" type="tiles">loginForm</result>
 	 		</global-results>
 	
 			<action name="MemberJoinAction" class="mem.MemberJoinAction">
-				<result>/member/main.jsp</result>
+				<result type="tiles">main</result>
 			</action>
 	
 			<action name="memberIdCheck" class="mem.MemberJoinAction" method="idcheck">
@@ -39,25 +31,32 @@
 			</action>
 	
 			<action name="joinForm" class="mem.MemberJoinAction" method="joinform">
-				<result>/join/JoinForm.jsp</result>
+				<result type="tiles">JoinForm</result>
 			</action>
 
 			<!-- 로그인&로그아웃  -->	
-			<action name="loginForm" class="mem.loginAction" method="loginForm">
-				<result>/login/loginForm.jsp</result>
+			<action name="loginForm" class="mem.loginAction" method="form">
+				<result type="tiles">loginForm</result>
 			</action>
 
 			<action name="loginPro" class="mem.loginAction">
-				<result>/login/loginResult.jsp</result>
+				<result type="redirect-action">
+					<param name="actionName">main</param>
+				</result>
+				<!-- <result type="chain">main</result> -->
+				<result name="error">/error/loginError.jsp</result>
 			</action>
 	
 			<action name="logout" class="mem.loginAction" method="logout">
-				<result>/login/loginForm.jsp</result>
+				<result type="redirect-action">
+					<param name="actionName">main</param>
+				</result>
 			</action>
 
 			<!-- 아이디 찾기 -->	
-			<action name="findIDForm" class="mem.loginAction" method="findidform">
-				<result>/login/findIDForm.jsp</result>
+			<action name="findIDForm" class="mem.loginAction" method="form">
+				<result type="tiles">findIDForm</result>
+				
 			</action>
 
 			<action name="findIDPro" class="mem.loginAction" method="findId">
@@ -65,8 +64,8 @@
 			</action>	
 
 			<!-- 비밀번호 찾기 -->	
-			<action name="findPWForm" class="mem.loginAction" method="findpwform">
-				<result>/login/findPWForm.jsp</result>
+			<action name="findPWForm" class="mem.loginAction" method="form">
+				<result type="tiles">findPWForm</result>
 			</action>
 
 			<action name="findPWPro" class="mem.loginAction" method="findPw">
@@ -75,11 +74,11 @@
 	
 			<!-- 회원관리 -->	
 			<action name="adminMemList" class="admin.memberAction" method="memberList">
-				<result>/admin/member/memberList.jsp</result>
+				<result type="tiles">MemList</result>
 			</action>
 	
 			<action name="adminMemView" class="admin.memberAction" method="memberView">
-				<result>/admin/member/memberView.jsp</result>
+				<result type="tiles">MemView</result>
 			</action>
 	
 		</package>

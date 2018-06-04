@@ -1,13 +1,12 @@
-<%@ page contentType="text/html; charset=euc-kr" %>
-<%@ taglib prefix="s" uri="/struts-tags" %>
-<?xml version="1.0" encoding="euc-kr" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+   <%@ taglib prefix="s" uri="/struts-tags" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-   <title>경기장 목록</title>
-   <link rel="stylesheet" href="/css/css.css" type="text/css"> 
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>경기장 목록</title>
 </head>
-
 <body>
     <table width="600" border="0" cellspacing="0" cellpadding="2">
          <tr>
@@ -33,7 +32,7 @@
        
        <s:iterator value="list" status="stat">
        
-       <s:url id="viewURL" action="stadiumviewAction" >
+       <s:url id="viewURL" action="stadiumView" >
           <s:param name="stadium_no">
              <s:property value="stadium_no" />
              </s:param>
@@ -69,7 +68,7 @@
               
               <tr align="right">
                  <td colspan="5">
-                    <input type="button" value="경기장 등록" class="inputb" onClick="javascript:location.href='stadiumwriteFormAction.action?currentPage=<s:property value="currentPage" />';"></input> 
+                    <input type="button" value="경기장 등록" class="inputb" onclick="javascript:location.href='stadiumWriteForm.action?currentPage=<s:property value="currentPage" />';"></input> 
                  </td>
               </tr>
        

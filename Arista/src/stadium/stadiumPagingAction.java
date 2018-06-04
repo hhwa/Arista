@@ -1,6 +1,6 @@
 package stadium;
 
-public class stadiumpagingAction {
+public class stadiumPagingAction {
 	   private int currentPage;
 	   private int totalCount;
 	   private int totalPage;
@@ -13,7 +13,7 @@ public class stadiumpagingAction {
 	   
 	   private StringBuffer pagingHtml;
 	   
-	   public stadiumpagingAction(int currentPage, int totalCount, int blockCount, int blockPage) {
+	   public stadiumPagingAction(int currentPage, int totalCount, int blockCount, int blockPage) {
 		   this.blockCount = blockCount;
 		   this.blockPage = blockPage;
 		   this.currentPage = currentPage;
@@ -40,7 +40,7 @@ public class stadiumpagingAction {
 		   
 		   pagingHtml = new StringBuffer();
 		   if(currentPage > blockPage) {
-			   pagingHtml.append("<a href=stadiumlistAction.action?currentPage="
+			   pagingHtml.append("<a href=stadiumList.action?currentPage="
 					             + (startPage -1) +">");
 			   pagingHtml.append("이전");
 			   pagingHtml.append("</a>");
@@ -56,7 +56,7 @@ public class stadiumpagingAction {
 				   pagingHtml.append(i);
 				   pagingHtml.append("</font></b>");
 			   }else {
-				   pagingHtml.append("&nbsp;<a href='stadiumlistAction.action?currentPage=");
+				   pagingHtml.append("&nbsp;<a href='stadiumList.action?currentPage=");
 				   pagingHtml.append(i);
 				   pagingHtml.append(">");
 				   pagingHtml.append(i);
@@ -68,7 +68,7 @@ public class stadiumpagingAction {
 		   pagingHtml.append("&nbsp;&nbsp;||&nbsp;&nbsp;");
 		   
 		   if(totalPage - startPage >= blockPage) {
-			   pagingHtml.append("<a href=stadiumAction.action?currentPage="
+			   pagingHtml.append("<a href=stadiumList.action?currentPage="
 					     + (endPage +1) + ">");
 			   
 			   pagingHtml.append("다음");

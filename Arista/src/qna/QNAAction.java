@@ -96,7 +96,7 @@ public class QNAAction extends ActionSupport {
 	public String reply() throws Exception {
 		reply = true;
 		resultClass = new qnaVO();
-		resultClass = (qnaVO) sqlMapper.queryForObject("qnaSQL.selectOne", getQna_no());
+		resultClass = (qnaVO) sqlMapper.queryForObject("qnaSQL.qnaView", getQna_no());
 		resultClass.setQna_subject("[re]" + resultClass.getQna_subject());
 		resultClass.setQna_password("");
 		resultClass.setQna_content("");

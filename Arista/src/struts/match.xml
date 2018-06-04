@@ -24,12 +24,12 @@
 			</action>
 			<action name="joinMatch2" class="soloMatch.soloMatchAction" method="solo">
 				<result type="redirect-action">
-					<param name="actionName">SoloList</param>
+					<param name="actionName">SoloMatchList</param>
 				</result>
 			</action>
 			<!-- 솔로매치 리스트 -->
-			<action name="SoloList" class="soloMatch.soloMatchAction">
-				<result type="tiles">SoloList</result>
+			<action name="SoloMatchList" class="soloMatch.soloMatchAction">
+				<result type="tiles">SoloMatchList</result>
 			</action>
 			<!-- 솔로매치 생성폼 -->
 			<action name="CreateSoloMatchForm" class="soloMatch.soloMatchAction" method="form">
@@ -49,13 +49,13 @@
 		 	<!-- 솔로매치 수정처리 -->
 		 	<action name="modifySoloMatch" class="soloMatch.soloMatchAction" method="modify">
 			 	<result type="redirect-action">
-			 		<param name="actionName">SoloList</param> <!-- 처리 후 솔로매치 리스트로 -->
+			 		<param name="actionName">SoloMatchList</param> <!-- 처리 후 솔로매치 리스트로 -->
 			 	</result>
 		 	</action>
 		 
 			 <!-- 팀매치 리스트 -->
-			<action name="TeamList" class="teamMatch.teamMatchAction">
-		 		<result type="tiles">TeamList</result>
+			<action name="TeamMatchList" class="teamMatch.teamMatchAction">
+		 		<result type="tiles">TeamMatchList</result>
 		 	</action>
 		 	<!-- 팀매치 생성폼 -->
 			<action name="CreateTeamMatchForm" class="teamMatch.teamMatchAction" method="form">
@@ -64,7 +64,7 @@
 			<!-- 팀매치 생성처리 -->
 			<action name="CreateTeamMatch" class="teamMatch.teamMatchAction" method="create">
 			 	<result type="redirect-action">
-		 			<param name="actionName">TeamList</param> <!-- 처리 후 솔로매치 리스트로 -->
+		 			<param name="actionName">TeamMatchList</param> <!-- 처리 후 솔로매치 리스트로 -->
 		 		</result>
 		 	</action> 
 		</package>

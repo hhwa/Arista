@@ -16,9 +16,13 @@
 		</sql>
 		
 		<!-- 솔로매치 신청자 목록 -->
-		<select id="joinSoloMatchList" resultMap="joinSoloRes">
+		<select id="joinSoloMatchList" resultMap="joinSoloRes" parameterClass="joinSolo">
 			<include refid="select-all"/>
 			where match_no=#match_no#
+		</select>
+		<!-- 솔로매치 신청자 수 -->
+		<select id="joinSoloMatchCount" resultMap="joinSoloRes" resultClass="java.lang.Integer">
+			select count(*) as mem_idCount from joinSolo where match_no=#match_no#
 		</select>
 		<!-- 솔로매치 신청 -->
 		<insert id="joinSoloMatch" parameterClass="joinSolo">
@@ -27,7 +31,7 @@
 		
 		
 		<!-- 솔로매치 신청 취소 -->
-		<delete id="cancelSoloMatch" parameterClass="String">
-			delete from joinSolo where mem_id=#mem_id#
+		<delete id="cancelSoloMatch" parameterClass="joinSolo">
+			delete from joinSolo where match_no=#match_no#,mem_id=#mem_id#
 		</delete>
 </sqlMap>

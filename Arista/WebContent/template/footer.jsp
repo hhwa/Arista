@@ -47,7 +47,7 @@ $(document).ready(function(){
 	<br>
 	
 	<a href="privacy.action"> 개인정보처리방침</a> &nbsp;
-	<a href="promiss.action"> 이용약관 </a> &nbsp;
+	<a href="promise.action"> 이용약관 </a> &nbsp;
 	<a href="emailx.action"> 이메일무단수집거부 </a> &nbsp;
 	
  <p><span class="glyphicon glyphicon-copyright-mark"></span>&nbsp;Copyrightⓒ 2017 Off The Match. All rights reserved. e-mail : hyunhwa91@naver.com</p>

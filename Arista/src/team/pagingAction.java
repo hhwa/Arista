@@ -48,9 +48,9 @@ public class pagingAction {
 		if(currentPage > blockPage)
 		{
 			if(isSearch != "")
-				pagingHtml.append("<a href=listAction.action?currentPage=" + (startPage - 1) + "&searchKeyword="+isSearch+"&searchNum="+searchNum+">");
+				pagingHtml.append("<a href=TeamList.action?currentPage=" + (startPage - 1) + "&searchKeyword="+isSearch+"&searchNum="+searchNum+">");
 			else
-				pagingHtml.append("<a href=listAction.action?currentPage=" + (startPage - 1) + ">");
+				pagingHtml.append("<a href=TeamList.action?currentPage=" + (startPage - 1) + ">");
 			pagingHtml.append("이전");
 			pagingHtml.append("</a>");
 		}
@@ -71,7 +71,7 @@ public class pagingAction {
 			}
 			else
 			{
-				pagingHtml.append("&nbsp;<a href='listAction.action?currentPage=");
+				pagingHtml.append("&nbsp;<a href='TeamList.action?currentPage=");
 				pagingHtml.append(i);
 				if(isSearch != "")
 					pagingHtml.append("&searchKeyword="+isSearch);
@@ -87,7 +87,7 @@ public class pagingAction {
 		
 		if(totalPage - startPage >= blockPage)
 		{
-			pagingHtml.append("&nbsp;<a href='listAction.action?currentPage=");
+			pagingHtml.append("&nbsp;<a href='TeamList.action?currentPage=");
 			pagingHtml.append((endPage+1));
 			if(isSearch != "")
 				pagingHtml.append("&searchKeyword="+isSearch);

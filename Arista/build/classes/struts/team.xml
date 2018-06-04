@@ -5,7 +5,7 @@
   
 	<struts>
 	
-		<package name="team" extends="struts-default">
+		<package name="team" extends="struts-default,tiles-default">
 	
 			<!-- 글로벌 예외 처리 화면 설정 -->
 			<!-- 
@@ -17,23 +17,26 @@
 			</global-exception-mappings>
 	 		-->
 	 		<!-- 팀 목록 액션 -->
-	 		<action name="listAction" class="team.listAction">
-	 			<result>/team/teamList.jsp</result>
+	 		<action name="MyTeam" class="team.listAction">
+	 			<result type="tiles">MyTeam</result>
+	 		</action>
+	 		<action name="TeamList" class="team.listAction">
+	 			<result type="tiles">TeamList</result>
 	 		</action>
 	 	
-	 		<action name="writeForm" class="team.writeAction" method="form">
-	 			<result>/team/makeTeam.jsp</result>
+	 		<action name="TeamCreateForm" class="team.writeAction" method="form">
+	 			<result type="tiles">TeamCreateForm</result>
 	 		</action>
 	 	
-	 		<action name="writeAction" class="team.writeAction">
+	 		<action name="TeamCreate" class="team.writeAction">
 	 			<result type="redirect-action">
-	 				<param name="actionName">listAction</param>
+	 				<param name="actionName">TeamList</param>
 	 			</result>
 	 		</action>
 	 	
 	 		<!-- 팀 상세보기 액션. -->
-			<action name="viewAction" class="team.viewAction">
-				<result>/team/teamView.jsp</result>
+			<action name="TeamView" class="team.viewAction">
+				<result type="tiles">teamView</result>
 			</action>
 		
 			<!-- 파일 다운로드 액션. -->
@@ -48,12 +51,12 @@
 			</action>
 	 	
 	 		<!-- 게시판 수정 액션. -->
-			<action name="modifyForm" class="team.viewAction">
-				<result type="chain">writeForm</result>
+			<action name="TeamModifyForm" class="team.viewAction">
+				<result type="chain">TeamCreateForm</result>
 			</action>
 		
-			<action name="modifyAction" class="team.modifyAction">
-				<result type="chain">viewAction</result>
+			<action name="TeamModify" class="team.modifyAction">
+				<result type="chain">TeamView</result>
 			</action>
 	 	</package>
 	</struts>

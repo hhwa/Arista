@@ -5,25 +5,34 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import matchState.matchStateVO;
+import mem.memVO;
 import soloMatch.soloMatchVO;
 import main.pagingAction;
 
-public class matchAction extends ActionSupport {
-
+public class matchAction extends ActionSupport implements SessionAware{
+	
+	private Map session;
+	
 	public static Reader reader; // 파일 스트림을 위한 reader.
 	public static SqlMapClient sqlMapper; // SqlMapClient API를 사용하기 위한 sqlMapper 객체
 
 	private List<matchStateVO> list = new ArrayList<matchStateVO>();
 	
-	private matchStateVO paramClass = new matchStateVO();
-	private joinSoloVO paramClass2 = new joinSoloVO();
+	private matchStateVO matchStateParam = new matchStateVO();
+	private soloMatchVO soloMatchParam = new soloMatchVO();
+	private joinSoloVO joinSoloParam = new joinSoloVO();
+	private memVO memParam = new memVO();
 
 	private int currentPage = 1; // 현재 페이지
 	private int totalCount; // 총 게시물의 수
@@ -34,8 +43,10 @@ public class matchAction extends ActionSupport {
 	private String search;
 	private int topic;
 	private int match_no;
+	private int game_no;
 	private String mem_id;
 
+	
 	public matchAction() throws IOException {
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
@@ -46,7 +57,7 @@ public class matchAction extends ActionSupport {
 	}
 
 	public String execute() throws Exception {
-
+		
 		list = sqlMapper.queryForList("matchStateSQL.matchList");
 		totalCount = list.size();// 전체 글 갯수
 		page = new pagingAction(currentPage, totalCount, blockCount, blockPage);// pagingAction 객체 생성
@@ -67,26 +78,113 @@ public class matchAction extends ActionSupport {
 	}
 	//솔로매치 신청
 	public String join() throws Exception {
-		paramClass = (matchStateVO) sqlMapper.queryForObject("matchStateSQL.matchView",getMatch_no());
 		
-		paramClass2.setMatch_no(getMatch_no());
-		paramClass2.setMem_id(getMem_id());
+		matchStateParam = (matchStateVO) sqlMapper.queryForObject("matchStateSQL.matchView",getMatch_no());
+		soloMatchParam = (soloMatchVO) sqlMapper.queryForObject("soloMatchSQL.soloMatchView",matchStateParam.getGame_no());
 		
-		if(paramClass.getMatch_type().equals("Solo")) {
-			sqlMapper.insert("joinSoloSQL.joinSoloMatch",paramClass2);
-			sqlMapper.update("soloMatchSQL.soloCount",paramClass.getGame_no());
-			sqlMapper.update("matchStateSQL.soloCount",paramClass.getMatch_no());
+		joinSoloParam.setMatch_no(getMatch_no());
+		joinSoloParam.setMem_id((String)session.get("session_id"));
+		System.out.println(joinSoloParam.getMatch_no()+"!"+getMatch_no());
+		joinSoloParam = (joinSoloVO) sqlMapper.queryForObject("joinSoloSQL.joinSoloMatchCount",getMatch_no());
+		
+		matchStateParam.setPeople_count(count);
+		soloMatchParam.setPeople_count(count);
+		if(matchStateParam.getMatch_type().equals("Solo")) {
+			sqlMapper.insert("joinSoloSQL.joinSoloMatch",joinSoloParam);
+			sqlMapper.update("soloMatchSQL.soloCount",soloMatchParam);
+			sqlMapper.update("matchStateSQL.soloCount",matchStateParam);
 		}
-		
 		return SUCCESS;
 	}
-
-
-	public joinSoloVO getParamClass2() {
-		return paramClass2;
+	public Map getSession() {
+		return session;
 	}
-	public void setParamClass2(joinSoloVO paramClass2) {
-		this.paramClass2 = paramClass2;
+	public void setSession(Map session) {
+		this.session = session;
+	}
+	public List<matchStateVO> getList() {
+		return list;
+	}
+	public void setList(List<matchStateVO> list) {
+		this.list = list;
+	}
+	public matchStateVO getMatchStateParam() {
+		return matchStateParam;
+	}
+	public void setMatchStateParam(matchStateVO matchStateParam) {
+		this.matchStateParam = matchStateParam;
+	}
+	public soloMatchVO getSoloMatchParam() {
+		return soloMatchParam;
+	}
+	public void setSoloMatchParam(soloMatchVO soloMatchParam) {
+		this.soloMatchParam = soloMatchParam;
+	}
+	public joinSoloVO getJoinSoloParam() {
+		return joinSoloParam;
+	}
+	public void setJoinSoloParam(joinSoloVO joinSoloParam) {
+		this.joinSoloParam = joinSoloParam;
+	}
+	public memVO getMemParam() {
+		return memParam;
+	}
+	public void setMemParam(memVO memParam) {
+		this.memParam = memParam;
+	}
+	public int getCurrentPage() {
+		return currentPage;
+	}
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+	public int getTotalCount() {
+		return totalCount;
+	}
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+	public int getBlockCount() {
+		return blockCount;
+	}
+	public void setBlockCount(int blockCount) {
+		this.blockCount = blockCount;
+	}
+	public int getBlockPage() {
+		return blockPage;
+	}
+	public void setBlockPage(int blockPage) {
+		this.blockPage = blockPage;
+	}
+	public String getPagingHtml() {
+		return pagingHtml;
+	}
+	public void setPagingHtml(String pagingHtml) {
+		this.pagingHtml = pagingHtml;
+	}
+	public pagingAction getPage() {
+		return page;
+	}
+	public void setPage(pagingAction page) {
+		this.page = page;
+	}
+	public String getSearch() {
+		return search;
+	}
+	public void setSearch(String search) {
+		this.search = search;
+	}
+	public int getTopic() {
+		return topic;
+	}
+	public void setTopic(int topic) {
+		this.topic = topic;
+	}
+	public int getMatch_no() {
+		return match_no;
+	}
+	public void setMatch_no(int match_no) {
+		this.match_no = match_no;
 	}
 	public String getMem_id() {
 		return mem_id;
@@ -94,96 +192,11 @@ public class matchAction extends ActionSupport {
 	public void setMem_id(String mem_id) {
 		this.mem_id = mem_id;
 	}
-	public String team() throws Exception {
-		return SUCCESS;
+	public int getGame_no() {
+		return game_no;
 	}
-
-	public List<matchStateVO> getList() {
-		return list;
-	}
-
-	public void setList(List<matchStateVO> list) {
-		this.list = list;
-	}
-
-	public int getCurrentPage() {
-		return currentPage;
-	}
-
-	public void setCurrentPage(int currentPage) {
-		this.currentPage = currentPage;
-	}
-
-	public int getTotalCount() {
-		return totalCount;
-	}
-
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
-	}
-
-	public int getBlockCount() {
-		return blockCount;
-	}
-
-	public void setBlockCount(int blockCount) {
-		this.blockCount = blockCount;
-	}
-
-	public int getBlockPage() {
-		return blockPage;
-	}
-
-	public void setBlockPage(int blockPage) {
-		this.blockPage = blockPage;
-	}
-
-	public String getPagingHtml() {
-		return pagingHtml;
-	}
-
-	public void setPagingHtml(String pagingHtml) {
-		this.pagingHtml = pagingHtml;
-	}
-
-	public pagingAction getPage() {
-		return page;
-	}
-
-	public void setPage(pagingAction page) {
-		this.page = page;
-	}
-
-	public String getSearch() {
-		return search;
-	}
-
-	public void setSearch(String search) {
-		this.search = search;
-	}
-
-	public int getTopic() {
-		return topic;
-	}
-
-	public void setTopic(int topic) {
-		this.topic = topic;
-	}
-
-	public int getMatch_no() {
-		return match_no;
-	}
-
-	public void setMatch_no(int match_no) {
-		this.match_no = match_no;
-	}
-
-	public matchStateVO getParamClass() {
-		return paramClass;
-	}
-
-	public void setParamClass(matchStateVO paramClass) {
-		this.paramClass = paramClass;
+	public void setGame_no(int game_no) {
+		this.game_no = game_no;
 	}
 
 }

@@ -8,9 +8,9 @@ import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import java.util.*;
 import java.io.Reader;
 import java.io.IOException;
-import stadium.stadiumpagingAction;
+import stadium.stadiumPagingAction;
 
-public class stadiumlistAction extends ActionSupport {
+public class stadiumListAction extends ActionSupport {
 	
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
@@ -22,9 +22,9 @@ public class stadiumlistAction extends ActionSupport {
 	private int blockCount = 10;
 	private int blockPage = 5;
 	private String pagingHtml;
-	private stadiumpagingAction page;
+	private stadiumPagingAction page;
 	
-	public stadiumlistAction()throws IOException{
+	public stadiumListAction()throws IOException{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
@@ -35,7 +35,7 @@ public class stadiumlistAction extends ActionSupport {
 		
 		totalCount = list.size();
 		
-		page = new stadiumpagingAction(currentPage, totalCount, blockCount, blockPage);
+		page = new stadiumPagingAction(currentPage, totalCount, blockCount, blockPage);
 		pagingHtml = page.getPagingHtml().toString();
 		
 		int lastCount = totalCount;
@@ -44,26 +44,8 @@ public class stadiumlistAction extends ActionSupport {
 			lastCount = page.getEndCount() +1;
 		
 		list= list.subList(page.getStartCount(), lastCount);
-		
-		
-		
+
 		return SUCCESS;
-	}
-
-	public static Reader getReader() {
-		return reader;
-	}
-
-	public static void setReader(Reader reader) {
-		stadiumlistAction.reader = reader;
-	}
-
-	public static SqlMapClient getSqlMapper() {
-		return sqlMapper;
-	}
-
-	public static void setSqlMapper(SqlMapClient sqlMapper) {
-		stadiumlistAction.sqlMapper = sqlMapper;
 	}
 
 	public List<stadiumVO> getList() {
@@ -114,15 +96,13 @@ public class stadiumlistAction extends ActionSupport {
 		this.pagingHtml = pagingHtml;
 	}
 
-	public stadiumpagingAction getPage() {
+	public stadiumPagingAction getPage() {
 		return page;
 	}
 
-	public void setPage(stadiumpagingAction page) {
+	public void setPage(stadiumPagingAction page) {
 		this.page = page;
 	}
-	
-	
 
 	
 }
