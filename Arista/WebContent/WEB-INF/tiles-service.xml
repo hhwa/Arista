@@ -29,10 +29,30 @@
 	</definition>
 
 <!-- 로그인 -->
-<definition name="loginFrom" template="/template/layout_main.jsp" extends="main">
+<definition name="loginForm" template="/template/layout_main.jsp" extends="main">
 	<put-attribute name="title" value="OFF THE BALL - Login" />
 	<put-attribute name="body" value="/login/loginForm.jsp"/>
+</definition>
 
+<definition name="loginResult" template="/template/layout_main.jsp" extends="main">
+<put-attribute name="title" value="OFF THE BALL - LoginResult"/>
+<put-attribute name="body" value="/login/loginResult.jsp"/>
+</definition>
+
+<!-- 회원가입 -->
+<definition name="joinForm" template="/template/layout_main.jsp" extends="main">
+<put-attribute name="title" value="OFF THE BALL - Join"/>
+<put-attribute name="body" value="/join/JoinForm.jsp"/>
+</definition>
+
+<definition name="memjoin" template="/template.layout_main.jsp" extends="main">
+<put-attribute name="title" value="OFF THE BALL - Join"/>
+<put-attribute name="body" value="/member/main.jsp"/>
+</definition>
+
+<definition name="memberIdchec nk">
+<put-attribute name="title" value="OFF THE BALL - IDcheck"/>
+<put-attribute name="body" value="/join/idCheck.jsp"></put-attribute>
 </definition>
 
 <!-- footer -->
@@ -87,6 +107,39 @@
 		<put-attribute name="body" value="/match/CreateTeamMatch.jsp"/>
 	</definition>
 	
+	<!-- 내가 등록한 매치글 -->
+	<definition name="TeamMatchInfo" template="/template/layout.jsp" extends="main">
+		<put-attribute name="title" value="OFF THE BALL - teamMatchInfo"/>
+		<put-attribute name="menu" value="/template/menu.jsp"/>
+		<put-attribute name="body" value="/mypage/teamMatchInfo.jsp"/>
+	</definition>
+	
+	
+	<!-- Q&A -->
+	<definition name="QNA" template="/template/layout.jsp" extends="main">
+	<put-attribute name="title" value="OFF THE BALL - QNA"/>
+	<put-attribute name="menu" value="/template/menu.jsp"/>
+	<put-attribute name="body" value="/QNA/QNAList.jsp"/>
+	</definition>
 
 
 </tiles-definitions>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

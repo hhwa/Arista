@@ -12,11 +12,8 @@
 <h2>로그인불가, 일치하는 정보가 없습니다.</h2>
 </s:if>
 <s:elseif test="loginchk ==0">
-<h2><s:property value="m_id"/></h2>님 환영합니다.
+<h2><a href=main.action>asd</a>
 </s:elseif>
-
-
-<a href="logout.action">로그아웃</a>
 
 
 </body>

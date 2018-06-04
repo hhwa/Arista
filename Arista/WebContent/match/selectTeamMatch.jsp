@@ -11,7 +11,7 @@
 <body>
 <table width="600" border="0" cellspacing="0" cellpadding="2" align="center">
 	<tr>
-		<td align="center"><h2>Solo Match</h2></td>
+		<td align="center"><h2>Team Match</h2></td>
 	</tr>
 	<tr>
 		<td height="20"></td>

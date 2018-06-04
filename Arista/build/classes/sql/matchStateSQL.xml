@@ -34,6 +34,8 @@
 		
 	<!-- select 쿼리문 정의 -->
 		
+		
+		
 		<!-- 매치목록 -->
 		<select id="matchList" resultMap="matchStateRes">
 			<include refid="select-all"/>

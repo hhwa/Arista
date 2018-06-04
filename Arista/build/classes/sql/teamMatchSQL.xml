@@ -36,6 +36,7 @@
 			order by game_no
 		</select>
 		
+		
 		<!-- 팀매치 검색 -->
 		<select id="teamMatchSearch" resultMap="teamMatchRes" parameterClass="java.util.HashMap">
 			<include refid="select-all"/>

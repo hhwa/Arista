@@ -23,13 +23,15 @@ height:8px;
 <br><br><br>
 
 	<table id="menu_back" align="center">
-		<td align="center"><a href=mypage.action><h4><b>마이페이지</b></h4></a>
+	<tr>
+		<td align="center"><a href=mypage.action><h4><b>마이페이지</b></h4></a></td>
+	</tr>
 	</table>
 	
 	<table id="menu_list" align="center">
 		<tr><td align="left">내 정보</td></tr>
-		<tr><td align="left">팀 검색<td></tr>
-		<tr><td align="left">내가 쓴 매치글</td></tr>
+		<tr><td align="left">팀 정보<td></tr>
+		<tr><td align="left"><a href="TeamMatchInfo.action">내가 쓴 매치글</a></td></tr>
 		<tr><td align="left">내가 신청한 매치글</td></tr>
 	</table><br><br>
 	
@@ -38,7 +40,7 @@ height:8px;
 	</table>
 	
 	<table id="menu_list" align="center">
-		<tr><td align="left">팀 매치</td></tr>
+		<tr><td align="left"><a href=TeamList.action>팀 매치</a></td></tr>
 		<tr><td align="left"><a href=SoloList.action>솔로 매치</a><td></tr>
 	</table><br><br>
 	

@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
+<script type="text/javascript">
+<!--
+
+//-->
+</script>
 <html>
 <head>
 <link rel="stylesheet" href="/Arista/css/style.css" type="text/css">
@@ -27,11 +33,12 @@
 </style>
 
 
+
 </head>
 
 <body>
-
-
+<%-- <s:if test="loginchk ==1">
+ --%>
 <!-- 상단     홈|로그인|회원가입  -->
 <table border=0 height=1 cellspacing="1" cellpadding="1" align="right" >
 <td width=20 align="center"><a href=main.action><h6>홈</h6></a></td>
@@ -40,7 +47,26 @@
 <td align="center"><h6>|</h6></td>
 <td width=55 align="center"><h6>회원가입</h6></td>
 <td width=120 align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+
 </table>
+
+<%-- </s:if>
+
+
+<s:elseif test="loginchk ==0">
+<table border=0 height=1 cellspacing="1" cellpadding="1" align="right" >
+<td width=135 align="center"><h6><s:property value="m_id"/>&nbsp;님 환영합니다.</h6></td>
+<td align="center"><h6>|</h6></td>
+<td width=55 align="center"><a href="logout.action"><h6>로그아웃</h6></a></td>
+<td width=120 align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+
+</s:elseif> --%>
+
+
+
+
+
+
 
 
 <!-- 로고_ 검색 -->

@@ -1,3 +1,6 @@
+/admin/
+/faq/
+/footer/
 /main/
 /matchState/
 /mem/
@@ -8,10 +11,4 @@
 /stadium/
 /team/
 /teamMatch/
-/test/
 /sql/
-<<<<<<< HEAD
-/struts2-member.xml
-=======
-/footer/
->>>>>>> ec38af9665d29f54e28f4fe9046a1819fb25a640
