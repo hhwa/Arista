@@ -20,23 +20,13 @@
   		</tr>
   	</table>
   	
-  <%-- 	<table class="type01">
-   	<tr>
-        <th scope="row">팀명</th>
-        <td>&nbsp;&nbsp;<s:property value="resultClass.team_id" /></td>
-    </tr>
-    <tr>
-    	<th scope="row">지역</th>
-        <td>&nbsp;&nbsp;<s:property value="resultClass.team_area" /></td>
-    </tr>
-	</table> --%>
-<table width="600" border="0" cellspacing="0" cellpadding="0">     
+	<table width="600" border="0" cellspacing="0" cellpadding="0">     
  
 		<tr>				
-		<td width="100" bgcolor="F4F4F4"></td>
-       <td bgcolor="#FFFFFF">
-         &nbsp;&nbsp;<img src="<%= request.getContextPath()%>/teamimg/<s:property value="resultClass.file_savname" />"/>
-         </td>
+		<!-- <td width="100" bgcolor="F4F4F4"></td> -->
+      		 <td bgcolor="#FFFFFF" colspan="2">
+       		  &nbsp;&nbsp;<img width="200" height="200" src="<%= request.getContextPath()%>/teamimg/<s:property value="resultClass.file_savname" />"/>
+       		  </td>
          </tr>
          
          
@@ -46,7 +36,19 @@
       </tr>
 			
       <tr>
-        <td bgcolor="#F4F4F4">  팀명 </td>
+      	<td align="left">
+        			<li>지역:<s:property value="resultClass.team_area" /></li>
+        			<li>연령대:<s:property value="resultClass.team_age" /></li>
+        			<li>실력:<s:property value="resultClass.team_skill" /></li>
+        		
+        </td>
+        		
+        <td align="left">
+        			<li>소속유형:<s:property value="resultClass.team_fype" /></li>
+        			<li>팀원수:<s:property value="resultClass.team_count" /></li>
+        			<li>경기유형:<s:property value="resultClass.team_fieldtype" /></li>
+        </td>
+       <%--  <td bgcolor="#F4F4F4">  팀명 </td>
         <td bgcolor="#FFFFFF">
           &nbsp;&nbsp;<s:property value="resultClass.team_id" />
         </td>
@@ -106,12 +108,19 @@
           &nbsp;&nbsp;<s:property value="resultClass.team_skill" />
         </td>
       </tr>
+      <tr bgcolor="#777777">
+        <td height="1" colspan="2"></td>
+      </tr>
       
       <tr>
         <td bgcolor="#F4F4F4">  팀 인원 </td>
         <td bgcolor="#FFFFFF">
           &nbsp;&nbsp;<s:property value="resultClass.team_count" />
         </td>
+      </tr>
+      
+      <tr bgcolor="#777777">
+        <td height="1" colspan="2"></td> --%>
       </tr>
       
       <tr>
@@ -121,14 +130,14 @@
         </td>
       </tr>
       
-          <tr>
+      <tr>
         <td align="right" colspan="2">
 				
-	<input name="list" type="button" value="수정" class="inputb" onClick="javascript:location.href='teammodifyForm.action?team_no=<s:property value="team_no"/>&currentPage=<s:property value="currentPage"/>'">
+			<input name="list" type="button" value="수정" class="inputb" onClick="javascript:location.href='teammodifyForm.action?team_no=<s:property value="team_no"/>&currentPage=<s:property value="currentPage"/>'">
 					
-	<input name="list" type="button" value="삭제" class="inputb" onClick="javascript:location.href='teamlistAction.action?currentPage=<s:property value="currentPage" />'">
+			<input name="list" type="button" value="삭제" class="inputb" onClick="javascript:location.href='teamlistAction.action?currentPage=<s:property value="currentPage" />'">
 
-	<input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='teamlistAction.action?currentPage=<s:property value="currentPage" />'">
+			<input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='teamlistAction.action?currentPage=<s:property value="currentPage" />'">
 
         </td>
       </tr>

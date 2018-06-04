@@ -28,7 +28,7 @@
        		<td width="50"><strong>신청</strong></td>
          </tr>
 <tr bgcolor="#777777">
-        		<td height="1" colspan="5"></td>
+        		<td height="1" colspan="6"></td>
       	      </tr>
 
 	      <s:iterator value="list" status="stat">
@@ -44,7 +44,7 @@
 			
      	      <tr bgcolor="#FFFFFF"  align="center">
         		<td><s:property value="team_no" /></td>
-        		<td align="center"> &nbsp;<img src="<%= request.getContextPath()%>/teamimg/<s:property value="file_savname"/>"/>
+        		<td align="center"> &nbsp;<img width="60" height="60" src="<%= request.getContextPath()%>/teamimg/<s:property value="file_savname"/>"/>
         		</td>
         		<td align="left">
         			<s:a href="%{viewURL}"><s:property value="team_id" /></s:a>
@@ -63,7 +63,7 @@
 				<td><input name="submit" type="submit" value="신청" class="inputb"></td> 
       	      </tr>
       	      <tr bgcolor="#777777">
-        		<td height="1" colspan="5"></td>
+        		<td height="1" colspan="6"></td>
       	      </tr>
       
 	      </s:iterator>
@@ -74,30 +74,19 @@
 		<td colspan="5">등록된 게시물이 없습니다.</td>
                   </tr>						
 	      <tr bgcolor="#777777">
-      		<td height="1" colspan="5"></td>
+      		<td height="1" colspan="6"></td>
     	      </tr>
     		
 	      </s:if>
 			
 	      <tr align="center">
-    		<td colspan="5"><s:property value="pagingHtml"  escape="false" /></td>
+    		<td colspan="6"><s:property value="pagingHtml"  escape="false" /></td>
     	      </tr>
     	<tr align="center">
-		<td colspan="5">		
+		<td colspan="6">		
 			<form>
 				팀명:<input type="search" name="searchKeyword"/><input type="submit" value="검색"/>			
 			
-				<%-- <label name="searchNum"> 팀명 </label>
-				<s:textfield name="searchKeyword" theme="simple" value="" cssStyle="width:120px" maxlength="20" />
-				<input name="submit" type="submit" value="검색" class="inputb"> --%>
-				
-				
-				
-				<!-- <td align="right" colspan="2">
-	
-					<input name="list" type="button" value="MY TEAM" class="inputb" onClick="javascript:location.href='myteamviewAction.action'">
-
-       			 </td> -->
 			</form>
 		</td>
 	</tr>

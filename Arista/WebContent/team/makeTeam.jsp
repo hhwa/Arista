@@ -16,7 +16,7 @@
 				alert("팀명을 입력해주세요.");
 				return false;
 			}
-			else if(frm.team_area.value == "--"){
+			else if(frm.team_area.value == "선택"){
 				alert("지역을 선택해 주세요.");
 				return false;
 			}
@@ -47,10 +47,7 @@
 			return true;
 		}
 	</SCRIPT>
-	<script type="text/javascript">
-	$("#team_area option:checked").text()
-	</script>
-	
+
 </head>
 <body>
 	<table width="600" border="0" cellspacing="0" cellpadding="2">
@@ -64,7 +61,7 @@
 		</s:if>
 		
 		<s:else>
-			<form action="teammodifyAction.action" method="post" enctype="multpart/form-data"/>
+			<form action="teammodifyAction.action" method="post" enctype="multpart/form-data" onsubmit="return validation();"/>
 			<s:hidden name="team_no" value="%{resultClass.team_no}"/>
 			<s:hidden name="currentPage" value="%{resultClass.currentPage}"/>
 			<s:hidden name="old_file" value="%{resultClass.file_savname}"/>
@@ -84,43 +81,27 @@
             <s:textfield name="team_id" theme="simple" value="%{resultClass.team_id}" cssStyle="width:370px" maxlength="50"/>
           </td>
         </tr>
-        
+       
         <tr bgcolor="#777777">
           <td height="1" colspan="2"></td>
         </tr>
 		<tr>
           <td width="100" bgcolor="#F4F4F4"><font color="#FF0000">*</font>  지역</td>
           <td width="500" bgcolor="#FFFFFF"> 
-          
-          <select name="team_area">
-          	
-     	    	<option>--</option> 
-     	  
-     	    	
-				<option>서울</option>
-         		<option>경기</option>
-         		<option>충북</option>
-         		<option>충남</option>
-         		<option>전라</option>
-         		<option>경기</option>
-         		<option>강원</option>
-         	</select>
-          
-          
-                  
-          	<%-- <select name="team_area">
-          	
-     	    	<option selected="selected">선택</option> 
-     	  
-     	    	
-				<option>서울</option>
-         		<option>경기</option>
-         		<option>충북</option>
-         		<option>충남</option>
-         		<option>전라</option>
-         		<option>경기</option>
-         		<option>강원</option>
-         	</select> --%>
+          <select name="team_area">          	
+     	    	<option selected="selected">선택</option>     	    	
+				<option value="서울">서울</option>
+         		<option value="경기">경기</option>
+         		<option value="충북">충북</option>
+         		<option value="충남">충남</option>
+         		<option value="전라">전라</option>
+         		<option value="경기">경기</option>
+         		<option value="강원">강원</option>
+         </select>
+         
+    
+         	
+         		
           </td>
         </tr>
         

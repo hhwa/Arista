@@ -27,7 +27,6 @@
  	
  	<table align="center" width="600" border="0" cellspacing="0" cellpadding="2">	
  		<tr>
- 			<!-- <td><a href="http://localhost:8080/Arista/team/makeTeam.jsp">得 持失 馬奄</a></td> -->
   			<td><input name="list" type="button" value="得 持失 馬奄" class="inputb" onClick="javascript:location.href='http://localhost:8080/Arista/team/makeTeam.jsp'"></td>
   		</tr>
   		

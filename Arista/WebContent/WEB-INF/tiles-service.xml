@@ -68,10 +68,10 @@
 	</definition>
 	
 	<!-- ÆÀ¸ÅÄ¡ ¸ñ·Ï(½ÅÃ») -->
-	<definition name="TeamList" template="/template/layout.jsp" extends="selectMatch">
+	<definition name="TeamList" template="/template/layout.jsp" extends="main">
 		<put-attribute name="title" value="OFF THE BALL - TeamList"/>
 		<put-attribute name="menu" value="/template/menu.jsp"/>
-		<put-attribute name="body" value="/match/selectTeamMatch.jsp"/>
+		<put-attribute name="body" value="/team/teamList.jsp"/>
 	</definition>
 	<!-- ÆÀ¸ÅÄ¡ »ý¼ºÆû -->
 	<definition name="CreateTeamMatchForm" template="/template/layout.jsp" extends="selectMatch">
