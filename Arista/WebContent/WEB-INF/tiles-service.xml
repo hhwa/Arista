@@ -29,11 +29,40 @@
 	</definition>
 
 <!-- 로그인 -->
-<definition name="loginFrom" template="/template/layout_main.jsp" extends="main">
+<definition name="loginForm" template="/template/layout_main.jsp" extends="main">
 	<put-attribute name="title" value="OFF THE BALL - Login" />
 	<put-attribute name="body" value="/login/loginForm.jsp"/>
-
 </definition>
+
+<definition name="loginResult" template="/template/layout_main.jsp" extends="main">
+	<put-attribute name="title" value="OFF THE BALL - Login" />
+	<put-attribute name="body" value="/login/loginResult.jsp"/>
+</definition>
+
+<!-- 회원가입폼 -->
+<definition name="JoinForm" template="/template/layout_main.jsp" extends="main">
+	<put-attribute name="title" value="OFF THE BALL - Login" />
+	<put-attribute name="body" value="/join/JoinForm.jsp"/>
+</definition>
+
+
+<!-- 가입정보수정 -->
+<definition name="memberModifyForm" template="/template/layout_main.jsp" extends="main">
+	<put-attribute name="title" value="OFF THE BALL - Login" />
+	<put-attribute name="body" value="/mypage/myInfoUpdateForm.jsp"/>
+</definition>
+
+<!-- 관리자 회원관리 -->
+<definition name="MemList" template="/template/layout_main.jsp" extends="main">
+	<put-attribute name="title" value="OFF THE BALL - Login" />
+	<put-attribute name="body" value="/admin/member/memberList.jsp"/>
+</definition>
+
+<definition name="MemView" template="/template/layout_main.jsp" extends="main">
+	<put-attribute name="title" value="OFF THE BALL - Login" />
+	<put-attribute name="body" value="/admin/member/memberView.jsp"/>
+</definition>
+
 
 <!-- footer -->
 	<definition name="privacy" template="/template/layout_main.jsp"

@@ -11,11 +11,14 @@
 
 <table width="100%" height="800" border="1" cellpadding="0" cellspacing="0">
 <tr>
-	<td height="100"colspan="2" >
+
+	<td height="100"colspan="2">
+
 	<tiles:insertAttribute name="header"/>
 	</td>
 </tr>
 <tr>
+
 	<td valign="top" width="80%" ><tiles:insertAttribute name="body"/></td>
 </tr>
 <tr>

@@ -95,7 +95,6 @@ public class stadiumModifyAction extends ActionSupport {
 	public void setStadium_regdate(Calendar stadium_regdate) {
 		this.stadium_regdate = stadium_regdate;
 	}
-
 	public stadiumVO getParamClass() {
 		return paramClass;
 	}

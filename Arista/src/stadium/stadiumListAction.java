@@ -47,7 +47,6 @@ public class stadiumListAction extends ActionSupport {
 
 		return SUCCESS;
 	}
-
 	public List<stadiumVO> getList() {
 		return list;
 	}
