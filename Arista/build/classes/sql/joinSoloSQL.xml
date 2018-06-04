@@ -21,7 +21,7 @@
 			where match_no=#match_no#
 		</select>
 		<!-- 솔로매치 신청자 수 -->
-		<select id="joinSoloMatchCount" resultMap="joinSoloRes" resultClass="java.lang.Integer">
+		<select id="joinSoloMatchCount" paramaterClass="int" resultClass="java.lang.Integer">
 			select count(*) as mem_idCount from joinSolo where match_no=#match_no#
 		</select>
 		<!-- 솔로매치 신청 -->
