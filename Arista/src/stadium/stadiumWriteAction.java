@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.File;
 import org.apache.commons.io.FileUtils;
 
-public class stadiumwriteAction extends ActionSupport {
+public class stadiumWriteAction extends ActionSupport {
 
 	public static Reader reader; 
 	public static SqlMapClient sqlMapper; 
@@ -37,7 +37,7 @@ public class stadiumwriteAction extends ActionSupport {
       private String uploadFileName;
       private String fileUploadPath = "C:\\Java\\upload\\";
       
-      public stadiumwriteAction() throws IOException{
+      public stadiumWriteAction() throws IOException{
     	  
     	  reader = Resources.getResourceAsReader("sqlMapConfig.xml");
     	  sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
@@ -91,13 +91,13 @@ public class stadiumwriteAction extends ActionSupport {
 		return reader;
 	}
 	public static void setReader(Reader reader) {
-		stadiumwriteAction.reader = reader;
+		stadiumWriteAction.reader = reader;
 	}
 	public static SqlMapClient getSqlMapper() {
 		return sqlMapper;
 	}
 	public static void setSqlMapper(SqlMapClient sqlMapper) {
-		stadiumwriteAction.sqlMapper = sqlMapper;
+		stadiumWriteAction.sqlMapper = sqlMapper;
 	}
 	public stadiumVO getParamClass() {
 		return paramClass;
