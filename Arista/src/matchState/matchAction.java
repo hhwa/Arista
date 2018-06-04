@@ -84,13 +84,11 @@ public class matchAction extends ActionSupport implements SessionAware{
 		
 		joinSoloParam.setMatch_no(getMatch_no());
 		joinSoloParam.setMem_id((String)session.get("session_id"));
-		System.out.println(joinSoloParam.getMatch_no()+"!"+getMatch_no());
-		int count = (int)sqlMapper.queryForObject("joinSoloSQL.joinSoloMatchCount",getMatch_no());
-		
-		matchStateParam.setPeople_count(count);
-		soloMatchParam.setPeople_count(count);
 		if(matchStateParam.getMatch_type().equals("Solo")) {
 			sqlMapper.insert("joinSoloSQL.joinSoloMatch",joinSoloParam);
+			joinSoloParam = (joinSoloVO)sqlMapper.queryForObject("joinSoloSQL.joinSoloMatchCount",getMatch_no());
+			matchStateParam.setPeople_count(joinSoloParam.getMem_idCount());
+			soloMatchParam.setPeople_count(joinSoloParam.getMem_idCount());
 			sqlMapper.update("soloMatchSQL.soloCount",soloMatchParam);
 			sqlMapper.update("matchStateSQL.soloCount",matchStateParam);
 		}

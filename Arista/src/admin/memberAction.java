@@ -3,22 +3,20 @@ package admin;
 import com.opensymphony.xwork2.ActionSupport;
 
 import mem.memVO;
+import admin.pagingAction;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 
 import java.util.*;
-import java.io.Reader;
-import java.io.IOException;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.interceptor.SessionAware;
-
+import java.io.Reader;
+import java.io.IOException;
 
 public class memberAction extends ActionSupport implements SessionAware{
 	
@@ -42,11 +40,24 @@ public class memberAction extends ActionSupport implements SessionAware{
 	private String prof_image_org;
 	private String prof_image_save;
 	
-	//private String profpath;
+	private String profpath;
 	private memVO memberParam;
 	private memVO memberResult;
-	
 	private List<memVO> memlist = new ArrayList<memVO>();
+
+	private HttpServletRequest request;
+	
+	//검색
+	private String search;
+	private int topic;  
+	//페이징
+	private int currentPage = 1;
+	private int totalCount;
+	private int blockCount = 5;
+	private int blockPage = 5;
+	private String pagingHtml;
+	private pagingAction page;
+	
 	
 	public memberAction() throws IOException {
 		// TODO Auto-generated constructor stub
@@ -56,21 +67,126 @@ public class memberAction extends ActionSupport implements SessionAware{
 	}
 
 	public String memberList() throws Exception{
+		
+	if(getSearch()==null||getSearch().equals("")) {
 		memlist = sqlMapper.queryForList("memSQL.memList");
-		return SUCCESS;
+		totalCount = memlist.size();
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "", "");
+
+	}else {
+		HashMap searchMap = new HashMap();
+		String topics[]= {"m_id","m_name","m_email"};
+		searchMap.put("param1",topics[getTopic()]);
+		searchMap.put("param2","%"+getSearch()+"%");
+		memlist = sqlMapper.queryForList("memSQL.memSearch",searchMap );
+		totalCount = memlist.size();
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, getSearch(), "");
+
+	}
+	
+	pagingHtml = page.getPagingHtml().toString(); 
+	
+	int lastCount = totalCount;
+	
+	if(page.getEndCount()<totalCount)
+		lastCount=page.getEndCount() + 1;
+	
+	memlist = memlist.subList(page.getStartCount(), lastCount);
+	
+	return SUCCESS;
 	}
 	
 	public String memberView() throws Exception {
-		memberResult = new memVO();
 		memberResult = (memVO)sqlMapper.queryForObject("memSQL.memListView", memberParam);
 		
-		//profpath = ServletActionContext.getServletContext().getRealPath("/profUpload");
 		if(memberResult.getProf_image_save() != null) {
 			prof_image_save = memberResult.getProf_image_save();
 			prof_image_org = memberResult.getProf_image_org();
+			profpath = request.getContextPath()+"/profUpload/"+prof_image_save;
+			
 		}
 		return SUCCESS;
 	}
+ 
+	public String adminRightModi() throws Exception {
+		sqlMapper.update("memSQL.updateAdminYN",memberParam);
+		
+		return SUCCESS;
+	}
+	
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+
+	public int getBlockCount() {
+		return blockCount;
+	}
+
+	public void setBlockCount(int blockCount) {
+		this.blockCount = blockCount;
+	}
+
+	public int getBlockPage() {
+		return blockPage;
+	}
+
+	public void setBlockPage(int blockPage) {
+		this.blockPage = blockPage;
+	}
+
+	public String getPagingHtml() {
+		return pagingHtml;
+	}
+
+	public void setPagingHtml(String pagingHtml) {
+		this.pagingHtml = pagingHtml;
+	}
+
+	public pagingAction getPage() {
+		return page;
+	}
+
+	public void setPage(pagingAction page) {
+		this.page = page;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public int getTopic() {
+		return topic;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	public void setTopic(int topic) {
+		this.topic = topic;
+	}
+
+	public String getProfpath() {
+		return profpath;
+	}
+
+
+	public void setProfpath(String profpath) {
+		this.profpath = profpath;
+	}
+
 
 	public Map getSession() {
 		return session;

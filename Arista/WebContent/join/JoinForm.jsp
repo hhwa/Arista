@@ -14,15 +14,16 @@
 		var id = userinput.m_id.value
 		var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
 		var re = /[~!@\#$%^&*\()\-=+_']/gi;
+
 		if(!id) {
 			alert("ID를 입력하세요");
 			return false;
 		}
-	/* 	else if((id < "0" || id > "9") && (id < "A" || id > "Z") && (id < "a" || id > "z")){ 
+		else if((id < "0" || id > "9") && (id < "A" || id > "Z") && (id < "a" || id > "z")){ 
             alert("한글 및 특수문자는 아이디로 사용하실 수 없습니다.");
             return false;
-		}  */
-		
+		}
+
 		if(!userinput.m_passwd.value) {
 			alert("비밀번호를 입력하세요");
 			return false;
@@ -70,12 +71,12 @@
 		}
 		
 		if(!userinput.m_birthyear.value) {
-			alert("출생년월을 입력하세요");
+			alert("출생연도를 입력하세요");
 			return false;
 		}
 		
 		if(isNaN(userinput.m_birthyear.value)) {
-			alert("출생년월을 숫자로 입력하세요");
+			alert("출생연도를 숫자로 입력하세요");
 			return false;
 		}
 		
@@ -141,7 +142,6 @@
 	url = "memberEmailCheck.action?m_email="+m_email;
 	open(url, "confirm3", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
 	}
-	
 </script>
 </head>
 
@@ -230,7 +230,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td width="200">출생년월</td>
+			<td width="200">출생연도</td>
 			<td width="400">
 				<input type="text" name="m_birthyear" size="10">
 			<font size="2">예시)1990</font></td>
@@ -256,7 +256,7 @@
 			<td colspan="2" align="center">
 				<input type="submit" name="confirm" value="등 록" onclick="return checkIt()">
 				<input type="reset" name="reset" value="다시 입력">
-				<input type="button" value="취소" onclick="javascript:window.location='loginForm.jsp'">
+				<input type="button" value="취소" onclick="javascript:window.location='loginForm.action'">
 			</td>
 		</tr>			
 	</table>

@@ -85,7 +85,6 @@ public class stadiumWriteAction extends ActionSupport {
     	  }
     	  return SUCCESS;
       }
-	
 	public stadiumVO getParamClass() {
 		return paramClass;
 	}
