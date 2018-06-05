@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,121 +7,54 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>È¸¿ø°¡ÀÔ</title>
+<title>íšŒì›ê°€ì…</title>
 <script language="javaScript">
 	function checkIt(){
-		var useinput = eval("document.userinput");
+	 	var useinput = eval("document.userinput");
+		//ì‚¬ìš©ìê°€ ì…ë ¥í•œ id
 		var id = userinput.m_id.value
-		var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-		var re = /[~!@\#$%^&*\()\-=+_']/gi;
-
-		if(!id) {
-			alert("ID¸¦ ÀÔ·ÂÇÏ¼¼¿ä");
-			return false;
-		}
-		else if((id < "0" || id > "9") && (id < "A" || id > "Z") && (id < "a" || id > "z")){ 
-            alert("ÇÑ±Û ¹× Æ¯¼ö¹®ÀÚ´Â ¾ÆÀÌµğ·Î »ç¿ëÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.");
-            return false;
-		}
+	 	//ì•„ì´ë”” ìœ íš¨ì„± ê²€ì‚¬ ì •ê·œì‹
+		var regExp1 = /^[a-zA-Z0-9]{4,12}$/; 
+		//ë‹‰ë„¤ì„ ìœ íš¨ì„± ê²€ì‚¬ ì •ê·œì‹
+		var regExp2 = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+		//ì´ë©”ì¼ ìœ íš¨ì„± ê²€ì‚¬ ì •ê·œì‹
+		var regExp3 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
 		
-		if(!userinput.m_passwd.value) {
-			alert("ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä");
-			return false;
-		}
-		
-		if(userinput.m_passwd.value != userinput.passwd2.value)
-		{
-			alert("ºñ¹Ğ¹øÈ£¸¦ µ¿ÀÏÇÏ°Ô ÀÔ·ÂÇÏ¼¼¿ä");
-			return false;
-		}
-		
-		if(!userinput.m_name.value) {
-			alert("»ç¿ëÀÚ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä");
-			return false;
-		}
-		if (!isNaN(userinput.m_name.value))	{
-			alert("»ç¿ëÀÚ ÀÌ¸§Àº ¹®ÀÚ·Î ÀÔ·ÂÇÏ¼¼¿ä");
-		
-			return false;
-		}
+		 if(!regExp1.test(id)){
+				alert("ì•„ì´ë””ëŠ” íŠ¹ìˆ˜ë¬¸ì ë° í•œê¸€ì€ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.(4ì ì´ìƒ 12ì ì´í•˜, ê³µë°±X)");
+			 	return false;
+			 }
+	}
 		
 		
-		if(!userinput.m_nickname.value) {
-			alert("´Ğ³×ÀÓÀ» ÀÔ·ÂÇÏ¼¼¿ä");
-			return false;
-		}
-		else if(re.test(userinput.m_nickname.value)){
-			alert("´Ğ³×ÀÓ Çü½ÄÀÌ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.");
-			return false;
-		}
-		
-		if(!userinput.m_mobilephone.value) {
-			alert("ÈŞ´ëÆù¹øÈ£¸¦ ÀÔ·ÂÇÏ¼¼¿ä");
-			return false;
-		}
-			
-		if (isNaN(userinput.m_mobilephone.value))	{
-			alert("ÈŞ´ëÆù ¹øÈ£´Â '-'¸¦ Á¦¿ÜÇÑ ¼ıÀÚ·Î ÀÔ·ÂÇÏ¼¼¿ä");
-			return false;
-		}
-		
-		if(!userinput.m_region.value) {
-			alert("Áö¿ª¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä");
-			return false;
-		}
-		
-		if(!userinput.m_birthyear.value) {
-			alert("Ãâ»ı¿¬µµ¸¦ ÀÔ·ÂÇÏ¼¼¿ä");
-			return false;
-		}
-		
-		if(isNaN(userinput.m_birthyear.value)) {
-			alert("Ãâ»ı¿¬µµ¸¦ ¼ıÀÚ·Î ÀÔ·ÂÇÏ¼¼¿ä");
-			return false;
-		}
-		
-		if(!userinput.m_email.value) {
-			alert("ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇÏ¼¼¿ä");
-			return false;
-		}
-		else if(exptext.test(userinput.m_email.value)==false){
-			alert("ÀÌ¸ŞÀÏ Çü½ÄÀÌ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.");
-		return false;
-		}
-	    }
 	
-	 // ¾ÆÀÌµğ Áßº¹Ã¼Å© Ã¢ ¿ÀÇÂ
+	 // ì•„ì´ë”” ì¤‘ë³µì²´í¬ ì°½ ì˜¤í”ˆ
 	function openConfirmid(userinput) {
 		var id = userinput.m_id.value
-		if(id == ""){
-			alert("¾ÆÀÌµğ¸¦ ÀÔ·ÂÇÏ¼¼¿ä");
-			return;
-		}
-		 else if((id < "0" || id > "9") && (id < "A" || id > "Z") && (id < "a" || id > "z")){ 
-             alert("ÇÑ±Û ¹× Æ¯¼ö¹®ÀÚ´Â ¾ÆÀÌµğ·Î »ç¿ëÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.");
-             return false;
-         }
-	
-	//url°ú »ç¿ëÀÚ ÀÔ·Â id¸¦ Á¶ÇÕÇÕ´Ï´Ù.	
+		//ì •ê·œì‹ a~z, A~Z, 0 ~9ë§Œ ì…ë ¥ ë°›ê³  ìë¦¿ìˆ˜ëŠ” 4~12ë¡œ ì œí•œí•œë‹¤.
+		var regExp1 = /^[a-zA-Z0-9]{4,12}$/; 
+		
+		 if(!regExp1.test(id)){
+			alert("ì•„ì´ë””ëŠ” íŠ¹ìˆ˜ë¬¸ì ë° í•œê¸€ì€ ì‚¬ìš©í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.(4ì ì´ìƒ 12ì ì´í•˜, ê³µë°±X)");
+		 	return false;
+		 }
+		 
+		
+	//urlê³¼ ì‚¬ìš©ì ì…ë ¥ idë¥¼ ì¡°í•©í•©ë‹ˆë‹¤.	
 	url = "memberIdCheck.action?m_id="+id;
-	//url = "<s:url action='memberIdCheck.action'/>"+"?m_ID="+id;
-	//»õ·Î¿î À©µµ¿ì¸¦ ¿±´Ï´Ù.
+	//ìƒˆë¡œìš´ ìœˆë„ìš°ë¥¼ ì—½ë‹ˆë‹¤.
 	open(url, "confirm", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
 	}
 	 
 	function openConfirmnick(userinput) {
-		var re = /[~!@\#$%^&*\()\-=+_']/gi;
-
+		var regExp2 = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
 		var m_nickname = userinput.m_nickname.value
-		if(m_nickname == ""){
-			alert("´Ğ³×ÀÓÀ» ÀÔ·ÂÇÏ¼¼¿ä");
-			return;
-		}
-		else if(re.test(userinput.m_nickname.value)){
-			alert("´Ğ³×ÀÓ Çü½ÄÀÌ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.");
+		
+		if(regExp2.test(m_nickname)){
+			alert("ë‹‰ë„¤ì„ì— íŠ¹ìˆ˜ë¬¸ì ë° ê³µë°±ì„ ì‚¬ìš©í•˜ì‹¤ ìˆ˜ ì—†ìŠµë‹ˆë‹¤. (2ìë¦¬ ì´ìƒ 10ì ì´í•˜)")
 			return false;
-		}
+		} 
 		
 	
 	url = "memberNickCheck.action?m_nickname="+m_nickname;
@@ -129,18 +62,14 @@
 	}
 	
 	function openConfirmemail(userinput) {
-		var exptext = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
-
+		var regExp3 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 		var m_email = userinput.m_email.value
-		if(m_email == ""){
-			alert("ÀÌ¸ŞÀÏÀ» ÀÔ·ÂÇÏ¼¼¿ä");
-			return;
-		}
-		else if(exptext.test(m_email)==false){
-			alert("ÀÌ¸ŞÀÏ Çü½ÄÀÌ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.");
-		return false;
-		}
 		
+		if(!regExp3.test(m_email)){
+			alert("ì´ë©”ì¼ í˜•ì‹ì— ë§ê²Œ ì…ë ¥í•´ì£¼ì„¸ìš”.")
+			return false;
+		}
+
 	
 	url = "memberEmailCheck.action?m_email="+m_email;
 	open(url, "confirm3", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
@@ -156,53 +85,53 @@
 	<table width="600" border="1" cellspacing="0" cellpadding="3" align="center">
 		<tr>
 			<td colspan="2" height="39" align="center" >
-				<font size="+1"><b>È¸¿ø°¡ÀÔ</b></font></td>
+				<font size="+1"><b>íšŒì›ê°€ì…</b></font></td>
 		</tr>
 		<tr>
-			<td width="200"><b>¾ÆÀÌµğ ÀÔ·Â</b></td>
+			<td width="200"><b>ì•„ì´ë”” ì…ë ¥</b></td>
 			<td width="400"></td>
 		</tr>
 		<tr>
-			<td width="200"> »ç¿ëÀÚ ID </td>
+			<td width="200"> ì‚¬ìš©ì ID </td>
 			<td width="400">
 				<input type="text" name="m_id" size="10" maxlength="12">
-				<input type="button" name="check_id" value="IDÁßº¹È®ÀÎ" OnClick="openConfirmid(this.form)">
+				<input type="button" name="check_id" value="IDì¤‘ë³µí™•ì¸" OnClick="openConfirmid(this.form)">
 		</tr>
 		<tr>
-			<td width="200">ºñ¹Ğ¹øÈ£</td>
+			<td width="200">ë¹„ë°€ë²ˆí˜¸</td>
 			<td width="400">
 				<input type="password" name="m_passwd" size="15" maxlength="12">
 			</td>
 		</tr>
 		<tr>
-			<td width="200">ºñ¹Ğ¹øÈ£ È®ÀÎ</td>
+			<td width="200">ë¹„ë°€ë²ˆí˜¸ í™•ì¸</td>
 			<td width="400">
 				<input type="password" name="passwd2" size="15" maxlength="12">
 			</td>
 		</tr>				
 		<tr>
-			<td width="200"><b>°³ÀÎÁ¤º¸ ÀÔ·Â</b></td>
+			<td width="200"><b>ê°œì¸ì •ë³´ ì…ë ¥</b></td>
 			<td width="400"> </td>
 		</tr>
 		<tr>
-			<td width="200">ÀÌ¸§</td>
+			<td width="200">ì´ë¦„</td>
 			<td width="400">
 				<input type="text" name="m_name" size="15" maxlength="10">
 			</td>
 		</tr>
 		<tr>
-			<td width="200">´Ğ³×ÀÓ</td>
+			<td width="200">ë‹‰ë„¤ì„</td>
 			<td width="400">
 				<input type="text" name="m_nickname" size="15" maxlength="10">
-				<input type="button" name="check_nick" value="´Ğ³×ÀÓ Áßº¹È®ÀÎ" OnClick="openConfirmnick(this.form)">
+				<input type="button" name="check_nick" value="ë‹‰ë„¤ì„ ì¤‘ë³µí™•ì¸" OnClick="openConfirmnick(this.form)">
 			</td>
 		</tr>
 
 			<tr>
-			<td width="200">Æ÷Áö¼Ç</td>
+			<td width="200">í¬ì§€ì…˜</td>
 			<td width="400">
 			<select name="m_position">
-			<option selected="selected">¼±ÅÃ</option> 
+			<option selected="selected">ì„ íƒ</option> 
 			<option>LWF</option>
 			<option>ST</option>
 			<option>RWF</option>
@@ -217,41 +146,41 @@
 			<option>RWB</option>
 			<option>GK</option>
 			</select>
-			<font color="red" size="2">¡ØÆ÷Áö¼ÇÀ» ¼±ÅÃÇØÁÖ¼¼¿ä.</font>
+			<font color="red" size="2">â€»í¬ì§€ì…˜ì„ ì„ íƒí•´ì£¼ì„¸ìš”.</font>
 			</td>
 		</tr>
 		
 		<tr>
-			<td width="200">ÈŞ´ëÆù ¹øÈ£</td>
+			<td width="200">íœ´ëŒ€í° ë²ˆí˜¸</td>
 			<td width="400">
-				<input type="text" name="m_mobilephone" size="11"> <font size="2">¿¹½Ã)01011111111</font>
+				<input type="text" name="m_mobilephone" size="11"> <font size="2">ì˜ˆì‹œ)01011111111</font>
 				
 			</td>
 		</tr>				
 		<tr>
-			<td width="200">Áö¿ª</td>
+			<td width="200">ì§€ì—­</td>
 			<td width="400">
 				<input type="text" name="m_region" size="20">
 			</td>
 		</tr>
 		<tr>
-			<td width="200">Ãâ»ı¿¬µµ</td>
+			<td width="200">ì¶œìƒì—°ë„</td>
 			<td width="400">
 				<input type="text" name="m_birthyear" size="10">
-			<font size="2">¿¹½Ã)1990</font></td>
+			<font size="2">ì˜ˆì‹œ)1990</font></td>
 		</tr>
 		<tr>
-			<td width="200">ÀÌ¸ŞÀÏ</td>
+			<td width="200">ì´ë©”ì¼</td>
 			<td width="400">
 				<input type="text" name="m_email" size="30">
-				<input type="button" name="email_nick" value="ÀÌ¸ŞÀÏ Áßº¹È®ÀÎ" OnClick="openConfirmemail(this.form)">
+				<input type="button" name="email_nick" value="ì´ë©”ì¼ ì¤‘ë³µí™•ì¸" OnClick="openConfirmemail(this.form)">
 				
 			</td>
 		</tr>
 		
 
 		<tr>
-			<td>ÇÁ·ÎÇÊ»çÁø</td>
+			<td>í”„ë¡œí•„ì‚¬ì§„</td>
 			<td>
 			<s:file name="upload" theme="simple"/>
 			
@@ -259,9 +188,9 @@
 		</tr>				
 		<tr>
 			<td colspan="2" align="center">
-				<input type="submit" name="confirm" value="µî ·Ï" onclick="return checkIt()">
-				<input type="reset" name="reset" value="´Ù½Ã ÀÔ·Â">
-				<input type="button" value="Ãë¼Ò" onclick="javascript:window.location='loginForm.action'">
+				<input type="submit" name="confirm" value="ë“± ë¡" onclick="return checkIt()">
+				<input type="reset" name="reset" value="ë‹¤ì‹œ ì…ë ¥">
+				<input type="button" value="ì·¨ì†Œ" onclick="javascript:window.location='loginForm.action'">
 			</td>
 		</tr>			
 	</table>
