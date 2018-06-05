@@ -18,6 +18,9 @@ public class teamVO {
 	private String file_orgname;
 	private Date team_regdate;
 	
+	private String team_master;
+	private int team_admin;
+	
 	public int getTeam_no() {
 		return team_no;
 	}
@@ -93,6 +96,19 @@ public class teamVO {
 	public void setTeam_regdate(Date team_regdate) {
 		this.team_regdate = team_regdate;
 	}
+	public String getTeam_master() {
+		return team_master;
+	}
+	public void setTeam_master(String team_master) {
+		this.team_master = team_master;
+	}
+	public int getTeam_admin() {
+		return team_admin;
+	}
+	public void setTeam_admin(int team_admin) {
+		this.team_admin = team_admin;
+	}
+	
 
 	
 	

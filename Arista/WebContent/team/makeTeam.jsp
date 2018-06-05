@@ -57,11 +57,11 @@
 	</table>
 	
 		<s:if test="resultClass == NULL">
-			<form action="teamwriteAction.action" method="post" enctype="multipart/form-data" onsubmit="return validation();"/>
+			<form action="TeamCreateForm.action" method="post" enctype="multipart/form-data" onsubmit="return validation();"/>
 		</s:if>
 		
 		<s:else>
-			<form action="teammodifyAction.action" method="post" enctype="multpart/form-data" onsubmit="return validation();"/>
+			<form action="TeamModifyForm.action" method="post" enctype="multpart/form-data" onsubmit="return validation();"/>
 			<s:hidden name="team_no" value="%{resultClass.team_no}"/>
 			<s:hidden name="currentPage" value="%{resultClass.currentPage}"/>
 			<s:hidden name="old_file" value="%{resultClass.file_savname}"/>
@@ -215,7 +215,7 @@
         <tr>
           <td align="right" colspan="2">
           	<input name="submit" type="submit" value="작성완료" class="inputb">
-            <input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='teamlistAction.action?currentPage=<s:property value="currentPage" />'">
+            <input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='TeamList.action?currentPage=<s:property value="currentPage" />'">
           </td>
         </tr>
 

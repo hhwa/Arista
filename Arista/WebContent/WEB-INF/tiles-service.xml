@@ -80,6 +80,26 @@
 		<put-attribute name="body" value="/match/CreateTeamMatch.jsp"/>
 	</definition>
 	
+	<!-- 팀 상세 보기 -->
+	<definition name="TeamView" template="/template/layout.jsp" extends="main">
+		<put-attribute name="title" value="OFF THE BALL - TeamList"/>
+		<put-attribute name="menu" value="/template/menu.jsp"/>
+		<put-attribute name="body" value="/team/teamView.jsp"/>
+	</definition>
+	
+	<!-- 마이 팀 상세 보기 -->
+	<definition name="MyTeam" template="/template/layout.jsp" extends="main">
+		<put-attribute name="title" value="OFF THE BALL - TeamList"/>
+		<put-attribute name="menu" value="/template/menu.jsp"/>
+		<put-attribute name="body" value="/team/myTeamView.jsp"/>
+	</definition>
+	
+	<!-- 팀 수정 보기 -->
+	<definition name="TeamCreateForm" template="/template/layout.jsp" extends="main">
+		<put-attribute name="title" value="OFF THE BALL - TeamList"/>
+		<put-attribute name="menu" value="/template/menu.jsp"/>
+		<put-attribute name="body" value="/team/makeTeam.jsp"/>
+	</definition>
 
 
 </tiles-definitions>

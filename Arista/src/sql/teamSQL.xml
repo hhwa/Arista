@@ -3,6 +3,7 @@
 <sqlMap namespace="teamSQL">
 
 	<typeAlias alias="team" type="team.teamVO"/>
+	<typeAlias alias="teamInfo" type="team.teamInfoVO"/>
 	
 		<!-- 리절트 맵 정의 -->
 		<resultMap id="teamRes" class="team">
@@ -18,6 +19,9 @@
 			<result property="file_savname" column="file_savname"/> <!-- 0528-추가 -->
 			<result property="file_orgname" column="file_orgname"/> <!-- 0528-추가 -->
 			<result property="team_regdate" column="team_regdate"/>
+			<result property="team_master" column="team_master"/>
+         	
+			
 		</resultMap>
 		
 		<!-- 공통으로 사용할 select 절 정의 -->
@@ -72,8 +76,12 @@
 		
 		<!-- team 추가 -->
 		<insert id="insertTeam" parameterClass="team">
-			insert into team (team_no,team_id,team_area,team_type,team_fieldtype,team_age,team_skill,team_count,team_intro,team_regdate) values (team_no_seq.NEXTVAL,#team_id#,#team_area#,#team_type#,#team_fieldtype#,#team_age#,#team_skill#,#team_count#,#team_intro#,#team_regdate#)
+			insert into team (team_no,team_id,team_area,team_type,team_fieldtype,team_age,team_skill,team_count,team_intro,team_regdate,team_master) values (team_no_seq.NEXTVAL,#team_id#,#team_area#,#team_type#,#team_fieldtype#,#team_age#,#team_skill#,#team_count#,#team_intro#,#team_regdate#,#team_master#)
 		</insert>
+		
+		<insert id="joinTeam" parameterClass="teamInfo">
+       	  insert into teamInfo (team_id,mem_id,team_admin) values (#team_id#,#mem_id#,#team_admin#)
+    	  </insert>
 		
 		<!-- update 쿼리문 정의 -->
 		<update id="updateFile" parameterClass="team">

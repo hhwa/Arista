@@ -19,6 +19,7 @@
 			<result property="prof_image_org" column="prof_image_org"/>
 			<result property="prof_image_save" column="prof_image_save"/>
 			<result property="m_nickname" column="m_nickname"/>
+			<result property="myteam" column="myteam"/>
 		</resultMap>
 		
 		<!-- 공통으로 사용할 select 절 정의 -->
@@ -33,8 +34,8 @@
 		
 		<!-- 아이디 중복확인  -->
 		<select id="idcheck" resultMap="memRes" parameterClass="mem">
-		<include refid="select-all"/>
-		<include refid="where-id"/>
+			<include refid="select-all"/>
+			<include refid="where-id"/>
 		</select>
 		
 		<!-- 닉네임 중복확인  -->
@@ -50,9 +51,9 @@
 		</select>
 		
 		<!-- 로그인 처리 -->
-		<select id="loginPro" resultMap="memRes" parameterClass="mem">
+		<select id="loginPro" resultMap="memRes" parameterClass="String">
 			<include refid="select-all"/>
-			WHERE m_id=#m_id# AND M_PASSWD=#m_passwd#
+			WHERE m_id=#m_id#
 		</select>
 		
 		<!-- ID 찾기 -->
@@ -81,7 +82,11 @@
 		<include refid="where-id"/>
 		</select>
 		
-	
+		<!-- 마이팀 찾기(멤버아이디로) -->
+		<select id="myTeam" resultClass="String" parameterClass="String">
+			select myteam from mem
+			where m_id=#m_id#
+		</select>
 		
 		<!-- 회원검색 -->
 		<!-- <select id="memSearch" resultMap="memRes" parameterClass="java.util.HashMap">

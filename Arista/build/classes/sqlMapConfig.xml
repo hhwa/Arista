@@ -20,15 +20,14 @@
 	 	</dataSource>
 	 </transactionManager>
 	 
-	  <sqlMap resource="sql/teamSQL.xml"/>
-	<!--  <sqlMap resource="sql/matchStateSQL.xml"/>
+	 <sqlMap resource="sql/matchStateSQL.xml"/>
 	 <sqlMap resource="sql/soloMatchSQL.xml"/>
 	 <sqlMap resource="sql/joinSoloSQL.xml"/>
 	 <sqlMap resource="sql/teamMatchSQL.xml"/>
-	
+	 <sqlMap resource="sql/teamSQL.xml"/>
 	 <sqlMap resource="sql/stadiumSQL.xml"/>
 	 <sqlMap resource="sql/memSQL.xml"/>
-	 <sqlMap resource="sql/qnaSQL.xml"/> -->
+	 <sqlMap resource="sql/qnaSQL.xml"/>
 	 <!-- <sqlMap resource="sql/faqSQL.xml"/>
 	 <sqlMap resource="sql/noticeSQL.xml"/> -->
 	 
