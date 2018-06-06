@@ -19,6 +19,9 @@ import java.io.Reader;
 import java.io.IOException;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.SessionAware;
+
+
 
 public class memberAction extends ActionSupport implements Preparable, ModelDriven<memVO>, ServletRequestAware{
 	public static Reader reader;
@@ -94,7 +97,6 @@ public class memberAction extends ActionSupport implements Preparable, ModelDriv
 		memlist = sqlMapper.queryForList("memSQL.memSearch",searchMap );
 		totalCount = memlist.size();
 		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, getSearch(), "");
-
 	}
 	
 	pagingHtml = page.getPagingHtml().toString(); 

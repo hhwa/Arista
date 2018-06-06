@@ -9,20 +9,6 @@
 	
 		<!-- 회원가입  -->	
 		<package name="member" extends="struts-default,tiles-default">
-	
-			<interceptors>
-				<interceptor name="LoginCheckInter" class="mem.LoginCheckInterceptor"/>
-				
-				<interceptor-stack name="stack-with-login">
-  				<interceptor-ref name="defaultStack"/>
-  				<interceptor-ref name="LoginCheckInter"/>
-	 			</interceptor-stack>
-			</interceptors>
-	
-			<global-results>
-	 			<result name="gologin" type="tiles">loginForm</result>
-	 		</global-results>
-	
 			<action name="MemberJoinAction" class="mem.MemberJoinAction">
 			<result type="chain">main</result>
 			</action>
@@ -71,13 +57,16 @@
 			</action>
 
 			<action name="loginPro" class="mem.loginAction">
-				<result name="success" type="tiles">loginResult</result>
+				<result type="redirect-action">
+					<param name="actionName">main</param>
+				</result>
+				<!-- <result type="chain">main</result> -->
+				<result name="error">/error/loginError.jsp</result>
 			</action>
 	
 			<action name="logout" class="mem.loginAction" method="logout">
 				<result type="chain">main</result>
 			</action>
-
 
 
 			<!-- 아이디 찾기 -->	
@@ -101,19 +90,16 @@
 			
 			<!-- 회원관리 -->	
 			<action name="adminMemList" class="admin.memberAction" method="memberList">
-				<interceptor-ref name="stack-with-login"/>
 				<result type="tiles">MemList</result>
 			</action>
 	
 			<!-- 회원관리 - 상세 -->
 			<action name="adminMemView" class="admin.memberAction" method="memberView">
-				<interceptor-ref name="stack-with-login"/>
 				<result type="tiles">MemView</result>
 			</action>
 			
 			<!-- 회원관리 - 권한수정 -->
 			<action name="adminRight" class="admin.memberAction" method="adminRightModi">
-				<interceptor-ref name="stack-with-login"/>
 				<result type="chain">adminMemView</result>
 			</action>
 	

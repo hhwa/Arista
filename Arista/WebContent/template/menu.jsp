@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <style>
@@ -16,55 +16,55 @@ height:8px;
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>menu</title>
 </head>
 <body>
 <br><br><br>
 
 	<table id="menu_back" align="center">
-		<td align="center"><a href=mypage.action><h4><b>¸¶ÀÌÆäÀÌÁö</b></h4></a>
+		<td align="center"><a href=mypage.action><h4><b>ë§ˆì´íŽ˜ì´ì§€</b></h4></a>
 	</table>
 	
 	<table id="menu_list" align="center">
-		<tr><td align="left">³» Á¤º¸</td></tr>
-		<tr><td align="left">ÆÀ °Ë»ö<td></tr>
-		<tr><td align="left">³»°¡ ¾´ ¸ÅÄ¡±Û</td></tr>
-		<tr><td align="left">³»°¡ ½ÅÃ»ÇÑ ¸ÅÄ¡±Û</td></tr>
+		<tr><td align="left">ë‚´ ì •ë³´</td></tr>
+		<tr><td align="left">íŒ€ ê²€ìƒ‰<td></tr>
+		<tr><td align="left">ë‚´ê°€ ì“´ ë§¤ì¹˜ê¸€</td></tr>
+		<tr><td align="left">ë‚´ê°€ ì‹ ì²­í•œ ë§¤ì¹˜ê¸€</td></tr>
 	</table><br><br>
 	
 	<table id="menu_back" align="center">
-		<td align="center"><a href=selectMatch.action><h4><b>¸ÅÄ¡</b></h4></a>
+		<td align="center"><a href=selectMatch.action><h4><b>ë§¤ì¹˜</b></h4></a>
 	</table>
 	
 	<table id="menu_list" align="center">
-		<tr><td align="left">ÆÀ ¸ÅÄ¡</td></tr>
-		<tr><td align="left"><a href=SoloList.action>¼Ö·Î ¸ÅÄ¡</a><td></tr>
+		<tr><td align="left">íŒ€ ë§¤ì¹˜</td></tr>
+		<tr><td align="left"><a href=SoloList.action>ì†”ë¡œ ë§¤ì¹˜</a><td></tr>
 	</table><br><br>
 	
 		<table id="menu_back" align="center">
-		<td align="center"><h4><b>ÆÀ</b></h4>
+		<td align="center"><h4><b>íŒ€</b></h4>
 	</table>
 	
 	<table id="menu_list" align="center">
-		<tr><td align="left">¸¶ÀÌÆÀ</td></tr>
-		<tr><td align="left">ÆÀ Á¤º¸<td></tr>
+		<tr><td align="left">ë§ˆì´íŒ€</td></tr>
+		<tr><td align="left">íŒ€ ì •ë³´<td></tr>
 	</table><br><br>
 	
 		<table id="menu_back" align="center">
-		<td align="center"><h4><b>°æ±âÀå</b></h4>
+		<td align="center"><h4><b>ê²½ê¸°ìž¥</b></h4>
 	</table>
 	
 	<table id="menu_list" align="center">
-		<tr><td align="left">°æ±âÀå Á¤º¸</td></tr>
+		<tr><td align="left">ê²½ê¸°ìž¥ ì •ë³´</td></tr>
 	</table><br><br>
 
 	<table id="menu_back" align="center">
-		<td align="center"><h4><b>°í°´¼¾ÅÍ</b></h4>
+		<td align="center"><h4><b>ê³ ê°ì„¼í„°</b></h4>
 	</table>
 	
 	<table id="menu_list" align="center">
-		<tr><td align="left">°øÁö»çÇ×</td></tr>
+		<tr><td align="left">ê³µì§€ì‚¬í•­</td></tr>
 		<tr><td align="left">Q&A<td></tr>
 		<tr><td align="left">FAQ<td></tr>
 	</table><br><br>

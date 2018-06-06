@@ -72,7 +72,7 @@
 <option value="1">이름</option>
 <option value="2">이메일</option>
 </select>
-<input type="text" name="search" size="15" maxlength="50"/>
+<input type="text" name="search" size="15">
 <s:submit action="adminMemList" method="memberList" value="검색"/>
 </td>
 <td>&nbsp;&nbsp;&nbsp;

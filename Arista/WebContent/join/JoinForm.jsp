@@ -6,82 +6,13 @@
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <title>회원가입</title>
-<script language="javaScript">
-	function checkIt(){
-	 	var useinput = eval("document.userinput");
-		//사용자가 입력한 id
-		var id = userinput.m_id.value
-	 	//아이디 유효성 검사 정규식
-		var regExp1 = /^[a-zA-Z0-9]{4,12}$/; 
-		//닉네임 유효성 검사 정규식
-		var regExp2 = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
-		//이메일 유효성 검사 정규식
-		var regExp3 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-
-		
-		 if(!regExp1.test(id)){
-				alert("아이디는 특수문자 및 한글은 사용할 수 없습니다.(4자 이상 12자 이하, 공백X)");
-			 	return false;
-			 }
-	}
-		
-		
-	
-	 // 아이디 중복체크 창 오픈
-	function openConfirmid(userinput) {
-		var id = userinput.m_id.value
-		//정규식 a~z, A~Z, 0 ~9만 입력 받고 자릿수는 4~12로 제한한다.
-		var regExp1 = /^[a-zA-Z0-9]{4,12}$/; 
-		
-		 if(!regExp1.test(id)){
-			alert("아이디는 특수문자 및 한글은 사용할 수 없습니다.(4자 이상 12자 이하, 공백X)");
-		 	return false;
-		 }
-		 
-		
-	//url과 사용자 입력 id를 조합합니다.	
-	url = "memberIdCheck.action?m_id="+id;
-	//새로운 윈도우를 엽니다.
-	open(url, "confirm", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
-	}
-	 
-	function openConfirmnick(userinput) {
-		var regExp2 = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
-		var m_nickname = userinput.m_nickname.value
-		
-		if(regExp2.test(m_nickname)){
-			alert("닉네임에 특수문자 및 공백을 사용하실 수 없습니다. (2자리 이상 10자 이하)")
-			return false;
-		} 
-		
-	
-	url = "memberNickCheck.action?m_nickname="+m_nickname;
-	open(url, "confirm2", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
-	}
-	
-	function openConfirmemail(userinput) {
-		var regExp3 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-		var m_email = userinput.m_email.value
-		
-		if(!regExp3.test(m_email)){
-			alert("이메일 형식에 맞게 입력해주세요.")
-			return false;
-		}
-
-	
-	url = "memberEmailCheck.action?m_email="+m_email;
-	open(url, "confirm3", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
-	}
-	
-
+<script src="./join/joinForm.js" type="text/javascript">
 </script>
 </head>
-
 <body>
-
-<s:form method="post" action="MemberJoinAction" name="userinput" enctype="multipart/form-data">
+<s:form method="post" action="MemberJoinAction" name="userinput" enctype="multipart/form-data" onsubmit="return checkIt();">
 	<table width="600" border="1" cellspacing="0" cellpadding="3" align="center">
 		<tr>
 			<td colspan="2" height="39" align="center" >
@@ -100,13 +31,13 @@
 		<tr>
 			<td width="200">비밀번호</td>
 			<td width="400">
-				<input type="password" name="m_passwd" size="15" maxlength="12">
+				<input type="password" name="m_passwd" size="20">
 			</td>
 		</tr>
 		<tr>
 			<td width="200">비밀번호 확인</td>
 			<td width="400">
-				<input type="password" name="passwd2" size="15" maxlength="12">
+				<input type="password" name="passwd2" size="20">
 			</td>
 		</tr>				
 		<tr>
@@ -116,13 +47,13 @@
 		<tr>
 			<td width="200">이름</td>
 			<td width="400">
-				<input type="text" name="m_name" size="15" maxlength="10">
+				<input type="text" name="m_name" size="15" maxlength="15">
 			</td>
 		</tr>
 		<tr>
 			<td width="200">닉네임</td>
 			<td width="400">
-				<input type="text" name="m_nickname" size="15" maxlength="10">
+				<input type="text" name="m_nickname" size="15" maxlength="15">
 				<input type="button" name="check_nick" value="닉네임 중복확인" OnClick="openConfirmnick(this.form)">
 			</td>
 		</tr>
@@ -153,14 +84,23 @@
 		<tr>
 			<td width="200">휴대폰 번호</td>
 			<td width="400">
-				<input type="text" name="m_mobilephone" size="11"> <font size="2">예시)01011111111</font>
+				<input type="text" name="m_mobilephone" size="11"> <font size="2">예시)010-1111-1111</font>
 				
 			</td>
 		</tr>				
 		<tr>
 			<td width="200">지역</td>
 			<td width="400">
-				<input type="text" name="m_region" size="20">
+				<!-- <input type="text" name="m_region" size="20"> -->
+				<select name="m_region"><option value="선택">선택</option>
+								<option value="서울">서울</option>
+								<option value="경기도">경기도</option>
+								<option value="강원도">강원도</option>
+								<option value="충청도">충청도</option>
+								<option value="전라도">전라도</option>
+								<option value="경상도">경상도</option>
+								<option value="제주도">제주도</option>
+							</select>
 			</td>
 		</tr>
 		<tr>
@@ -188,7 +128,7 @@
 		</tr>				
 		<tr>
 			<td colspan="2" align="center">
-				<input type="submit" name="confirm" value="등 록" onclick="return checkIt()">
+				<input type="submit" name="confirm" value="등 록">
 				<input type="reset" name="reset" value="다시 입력">
 				<input type="button" value="취소" onclick="javascript:window.location='loginForm.action'">
 			</td>

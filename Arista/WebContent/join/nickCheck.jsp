@@ -1,13 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>╢пЁвюс аъ╨╧ц╪е╘</title>
-<script language="javascript">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>К▀┴К└╓Л·└ Л╓▒КЁ╣Л╡╢М│╛</title>
+<script language="javascript" charset="utf-8">
 
 function setnick()
  {
@@ -24,16 +24,16 @@ function setnick()
 <s:if test="nickcheckresult == 0">
 <table width="270" border="0" cellspacing="0" cellpadding="5">
 	<tr>
-		<td height="39"><s:property value="%{memberResult.m_nickname}"/>╢б юл╧л ╩Г©Каъюн ╢пЁвюсют╢о╢ы.</td>
+		<td height="39"><s:property value="%{memberResult.m_nickname}"/>К┼■ Л²╢К╞╦ Л┌╛Л ╘Л╓▒Л²╦ К▀┴К└╓Л·└Л·┘К▀┬К▀╓.</td>
 	</tr>	
 </table>
 <s:form name="checkForm" method="post" action="memberNickCheck.action">
 <table width="200" border="0" cellspacing="0" cellpadding="5">
 	<tr>
 		<td align="center">
-		╢ы╦╔ ╢пЁвюсю╩ ют╥бго╪╪©Д.<p>
+		К▀╓К╔╦ К▀┴К└╓Л·└Л²└ Л·┘К═╔М∙≤Л└╦Л ■.<p>
 		<input type="text" size="20" name="m_nickname">
-		<input type="submit" value="╢пЁвюс аъ╨╧х╝юн">
+		<input type="submit" value="К▀┴К└╓Л·└ Л╓▒КЁ╣М≥∙Л²╦">
 		</td>
 	</tr>	
 </table>
@@ -44,8 +44,8 @@ function setnick()
 <table width="270" border="0" cellspacing="0" cellpadding="5">
 	<tr>
 		<td align="center">
-			<p>ют╥бго╫е [<s:property value="m_nickname"/>]╢б ╩Г©Кго╫г ╪Ж юж╢б ╢пЁвюсют╢о╢ы </p>
-			<input type="button" value="╢щ╠Б" onclick="setnick()">
+			<p>Л·┘К═╔М∙≤Л▀═ [<s:property value="m_nickname"/>]К┼■ Л┌╛Л ╘М∙≤Л▀╓ Л┬≤ Л·┬К┼■ К▀┴К└╓Л·└Л·┘К▀┬К▀╓ </p>
+			<input type="button" value="К▀╚Й╦╟" onclick="setnick()">
 		</td>
 	</tr>
 </table>

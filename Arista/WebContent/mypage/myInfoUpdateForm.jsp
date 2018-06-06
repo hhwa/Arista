@@ -1,33 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<script language="javascript">
-
-
-function openConfirmnick(userinput) {
-	var re = /[~!@\#$%^&*\()\-=+_']/gi;
-
-	var m_nickname = userinput.m_nickname.value
-	if(m_nickname == ""){
-		alert("´Ğ³×ÀÓÀ» ÀÔ·ÂÇÏ¼¼¿ä");
-		return;
-	}
-	else if(re.test(userinput.m_nickname.value)){
-		alert("´Ğ³×ÀÓ Çü½ÄÀÌ ¿Ã¹Ù¸£Áö ¾Ê½À´Ï´Ù.");
-		return false;
-	}
-	
-
-url = "memberNickCheck.action?m_nickname="+m_nickname;
-open(url, "confirm2", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
-}
-
-
+<script src="./join/joinForm.js" type="text/javascript">
 </script>
 </head>
 <body>
@@ -38,50 +17,50 @@ open(url, "confirm2", "toolbar=no, location=no, status=no, menubar=no, scrollbar
 	<table width="600" border="1" cellspacing="0" cellpadding="3" align="center">
 		<tr>
 			<td colspan="2" height="39" align="center" >
-				<font size="+1"><b>È¸¿øÁ¤º¸ ¼öÁ¤</b></font></td>
+				<font size="+1"><b>íšŒì›ì •ë³´ ìˆ˜ì •</b></font></td>
 		</tr>
 		<tr>
-			<td width="200"><b>¾ÆÀÌµğ ÀÔ·Â</b></td>
+			<td width="200"><b>ì•„ì´ë”” ì…ë ¥</b></td>
 			<td width="400"></td>
 		</tr>
 		<tr>
-			<td width="200"> »ç¿ëÀÚ ID </td>
+			<td width="200"> ì‚¬ìš©ì ID </td>
 			<td width="400"><s:property value="memberResult.m_id"/></td>
 		</tr>
 		<tr>
-			<td width="200">»õ·Î¿î ºñ¹Ğ¹øÈ£</td>
+			<td width="200">ìƒˆë¡œìš´ ë¹„ë°€ë²ˆí˜¸</td>
 			<td width="400">
 				<input type="password" name="m_passwd" size="15" maxlength="12" value="<s:property value="memberResult.m_passwd"/>" >
 			</td>
 		</tr>
 		<tr>
-			<td width="200">»õ·Î¿î ºñ¹Ğ¹øÈ£ È®ÀÎ</td>
+			<td width="200">ìƒˆë¡œìš´ ë¹„ë°€ë²ˆí˜¸ í™•ì¸</td>
 			<td width="400">
 				<input type="password" name="passwd2" size="15" maxlength="12" value="<s:property value="memberResult.m_passwd"/>">
 			</td>
 		</tr>				
 		<tr>
-			<td width="200"><b>°³ÀÎÁ¤º¸ ÀÔ·Â</b></td>
+			<td width="200"><b>ê°œì¸ì •ë³´ ì…ë ¥</b></td>
 			<td width="400"> </td>
 		</tr>
 		<tr>
-			<td width="200">ÀÌ¸§</td>
+			<td width="200">ì´ë¦„</td>
 			<td width="400"><s:property value="memberResult.m_name"/>
 			</td>
 		</tr>
 		<tr>
-			<td width="200">´Ğ³×ÀÓ</td>
+			<td width="200">ë‹‰ë„¤ì„</td>
 			<td width="400">
 				<input type="text" name="m_nickname" size="20" value="<s:property value="memberResult.m_nickname"/>">
-				<input type="button" name="check_nick" value="´Ğ³×ÀÓ Áßº¹È®ÀÎ" OnClick="openConfirmnick(this.form)">
+				<input type="button" name="check_nick" value="ë‹‰ë„¤ì„ ì¤‘ë³µí™•ì¸" OnClick="openConfirmnick(this.form)">
 			</td>
 		</tr>
 
 			<tr>
-			<td width="200">Æ÷Áö¼Ç</td>
+			<td width="200">í¬ì§€ì…˜</td>
 			<td width="400"><s:property value="memberResult.m_position"/> >
 			<select name="m_position">
-			<option selected="selected">¼±ÅÃ</option> 
+			<option selected="selected">ì„ íƒ</option> 
 			<option>LWF</option>
 			<option>ST</option>
 			<option>RWF</option>
@@ -96,39 +75,39 @@ open(url, "confirm2", "toolbar=no, location=no, status=no, menubar=no, scrollbar
 			<option>RWB</option>
 			<option>GK</option>
 			</select>
-			<font color="red" size="2">¡ØÆ÷Áö¼ÇÀ» »õ·Î ¼±ÅÃÇØÁÖ¼¼¿ä.</font>
+			<font color="red" size="2">â€»í¬ì§€ì…˜ì„ ìƒˆë¡œ ì„ íƒí•´ì£¼ì„¸ìš”.</font>
 			</td>
 		</tr>
 		
 		<tr>
-			<td width="200">ÈŞ´ëÆù ¹øÈ£</td>
+			<td width="200">íœ´ëŒ€í° ë²ˆí˜¸</td>
 			<td width="400">
-				<input type="text" name="m_mobilephone" size="20" value="<s:property value="memberResult.m_mobilephone"/>"> <font size="2">¿¹½Ã)01011111111</font>
+				<input type="text" name="m_mobilephone" size="20" value="<s:property value="memberResult.m_mobilephone"/>"> <font size="2">ì˜ˆì‹œ)01011111111</font>
 				
 			</td>
 		</tr>				
 		<tr>
-			<td width="200">Áö¿ª</td>
+			<td width="200">ì§€ì—­</td>
 			<td width="400">
 				<input type="text" name="m_region" size="20" value="<s:property value="memberResult.m_region"/>">
 			</td>
 		</tr>
 		<tr>
-			<td width="200">Ãâ»ı¿¬µµ</td>
+			<td width="200">ì¶œìƒì—°ë„</td>
 			<td width="400"><s:property value="memberResult.m_birthyear"/>
 		<%-- 		<input type="text" name="m_birthyear" size="10" value="<s:property value="memberResult.m_birthyear"/>">
-			<font size="2">¿¹½Ã)1990</font></td> --%>
+			<font size="2">ì˜ˆì‹œ)1990</font></td> --%>
 		</tr>
 		<tr>
-			<td width="200">ÀÌ¸ŞÀÏ</td>
+			<td width="200">ì´ë©”ì¼</td>
 			<td width="400"><s:property value="memberResult.m_email"/>
 				<%-- <input type="text" name="m_email" size="30" value="<s:property value="memberResult.m_email"/>">
-				<input type="button" name="email_nick" value="ÀÌ¸ŞÀÏ Áßº¹È®ÀÎ" OnClick="openConfirmemail(this.form)" value="<s:property value="memberResult.m_email"/>"> --%>
+				<input type="button" name="email_nick" value="ì´ë©”ì¼ ì¤‘ë³µí™•ì¸" OnClick="openConfirmemail(this.form)" value="<s:property value="memberResult.m_email"/>"> --%>
 				
 			</td>
 		</tr>
 		<tr>
-		<td>±âÁ¸ ÇÁ·ÎÇÊ»çÁø</td>
+		<td>ê¸°ì¡´ í”„ë¡œí•„ì‚¬ì§„</td>
 		</tr>
 		<tr>
 		
@@ -138,16 +117,16 @@ open(url, "confirm2", "toolbar=no, location=no, status=no, menubar=no, scrollbar
 		<tr>
 			
 			<td>
-			ÇÁ·ÎÇÊ»çÁø ¼öÁ¤ÇÏ±â> <s:file name="upload" theme="simple"/>
+			í”„ë¡œí•„ì‚¬ì§„ ìˆ˜ì •í•˜ê¸°> <s:file name="upload" theme="simple"/>
 			
 			</td>	
 		</tr>				
 		<tr>
 			<td colspan="2" align="center">
-				<input type="submit" name="confirm" value="µî ·Ï" onclick="return checkIt()">
-				<!-- <input type="reset" name="reset" value="´Ù½Ã ÀÔ·Â"> -->
-				<input type="button" value="µÇµ¹¸®±â" onclick="javascript:window.location='modiftymemberForm.action?m_id=<s:property value="memberResult.m_id"/>'">
-				<input type="button" value="Ãë¼Ò" onclick="">
+				<input type="submit" name="confirm" value="ë“± ë¡" onclick="return checkIt()">
+				<!-- <input type="reset" name="reset" value="ë‹¤ì‹œ ì…ë ¥"> -->
+				<input type="button" value="ë˜ëŒë¦¬ê¸°" onclick="javascript:window.location='modiftymemberForm.action?m_id=<s:property value="memberResult.m_id"/>'">
+				<input type="button" value="ì·¨ì†Œ" onclick="">
 			</td>
 		</tr>			
 	</table>

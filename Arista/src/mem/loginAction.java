@@ -70,11 +70,11 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 		memberResult = (memVO)sqlMapper.queryForObject("memSQL.loginPro", memberParam);
 		
 		if(memberResult != null) {
-		sessionMap.put("m_id", memberResult.getM_id());
-		sessionMap.put("admin_yn", String.valueOf(memberResult.getAdmin_yn()));
+		sessionMap.put("session_id", memberResult.getM_id());
+		sessionMap.put("session_admin_yn", String.valueOf(memberResult.getAdmin_yn()));
+		return SUCCESS;
 		}
-			return SUCCESS;
-		
+		return ERROR;
 	}
 
 
@@ -92,7 +92,9 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 	
 
 	public String logout() {
-		sessionMap.remove("m_id");
+		if(sessionMap.get("session_id")!=null) {
+		sessionMap.remove("session_id");
+		}
 		return SUCCESS;
 	}
 	
@@ -115,11 +117,6 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 		return SUCCESS;
 	}
 	
-public String test() {
-		
-		return SUCCESS;
-	}
-	
 
 	public String findPw() throws Exception{
 		memberResult = (memVO)sqlMapper.queryForObject("memSQL.findPw", memberParam);
@@ -133,8 +130,6 @@ public String test() {
 		
 		return SUCCESS;
 	}
-	
-	
 	
 
 
