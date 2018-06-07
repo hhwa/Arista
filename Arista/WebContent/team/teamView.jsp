@@ -15,7 +15,7 @@
   
   <body>
   
-  	<table width="600" border="0" cellspacing="0" cellpadding="2">
+  	<table width="600" border="0" cellspacing="0" cellpadding="2" align="center">
   		<tr>
   			<td align="center"><h2>팀 상세보기</h2></td>
   		</tr>
@@ -24,7 +24,7 @@
   		</tr>
   	</table>
   	
-	<table width="600" border="0" cellspacing="0" cellpadding="0">     
+	<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">     
  
 		<tr>				
 		<!-- <td width="100" bgcolor="F4F4F4"></td> -->
@@ -44,6 +44,7 @@
         			<li>지역 : <s:property value="paramClass.team_area" /></li>
         			<li>연령대 : <s:property value="paramClass.team_age" /></li>
         			<li>실력 : <s:property value="paramClass.team_skill" /></li>
+        			<li>간략한 소개 : <s:property value="paramClass.team_intro" /></li>
         		
         </td>
         
@@ -55,11 +56,12 @@
         </td>
       </tr>
       
-      <tr>
-        <td>  간략한 소개 : <s:property value="paramClass.team_intro" />
-        </td>
-      </tr>
-      
+      <s:url id="deleteURL" action="delete" >
+				<s:param name="team_no">
+					<s:property value="team_no" />
+				</s:param>
+	  </s:url>
+	        
       <tr>
         <td align="right" colspan="2">
 				

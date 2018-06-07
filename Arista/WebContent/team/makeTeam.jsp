@@ -50,24 +50,24 @@
 
 </head>
 <body>
-	<table width="600" border="0" cellspacing="0" cellpadding="2">
+	<table width="600" border="0" cellspacing="0" cellpadding="2" align="center">
 		<tr>
 			<td align="center"><h2>팀 생성</h2></td>
 		</tr>
 	</table>
 	
-		<s:if test="resultClass == NULL">
-			<form action="TeamCreateForm.action" method="post" enctype="multipart/form-data" onsubmit="return validation();"/>
+		<s:if test="paramClass == NULL">
+			<form action="TeamCreate.action" method="post" enctype="multipart/form-data" onsubmit="return validation();"/>
 		</s:if>
 		
 		<s:else>
-			<form action="TeamModifyForm.action" method="post" enctype="multpart/form-data" onsubmit="return validation();"/>
+			<form action="TeamModify.action" method="post" enctype="multpart/form-data" onsubmit="return validation();"/>
 			<s:hidden name="team_no" value="%{resultClass.team_no}"/>
 			<s:hidden name="currentPage" value="%{resultClass.currentPage}"/>
 			<s:hidden name="old_file" value="%{resultClass.file_savname}"/>
 		</s:else>
 		
-	<table width="600" border="0" cellspacing="0" cellpadding="0">
+	<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
 		<tr>
           <td align="right" colspan="2"><font color="#FF0000">*</font>는 필수 입력사항입니다.</td>
         </tr>

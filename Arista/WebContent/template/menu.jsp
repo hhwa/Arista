@@ -43,11 +43,11 @@ height:8px;
 	</table><br><br>
 	
 		<table id="menu_back" align="center">
-		<td align="center"><h4><b>∆¿</b></h4>
+		<td align="center"><a href=TeamList.action><h4><b>∆¿</b></h4></a>
 	</table>
 	
 	<table id="menu_list" align="center">
-		<tr><td align="left">∏∂¿Ã∆¿</td></tr>
+		<tr><td align="left">∏∂¿Ã∆¿</a></td></tr>
 		<tr><td align="left">∆¿ ¡§∫∏<td></tr>
 	</table><br><br>
 	

@@ -18,7 +18,11 @@
   			<td height="20"></td>
   		</tr>
   	</table>
-  	
+	
+	<s:iterator value="list" status="stat"> 
+		
+	</s:iterator>
+		
 	<table align="center" width="600" border="0" cellspacing="0" cellpadding="2">
   		<tr>
   			<td><h3>My Team이 없습니다.</h3></td>

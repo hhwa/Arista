@@ -10,7 +10,7 @@
 <title>Team List</title>
 </head>
 <body>
-<table width="600" border="0" cellspacing="0" cellpadding="2">
+<table width="600" border="0" cellspacing="0" cellpadding="2" align="center">
   		<tr>
   			<td align="center"><h2>ÆÀ ¸ñ·Ï</h2></td>
   		</tr>
@@ -20,7 +20,7 @@
   	</table>
   	
   
-	<table width="800" border="0" cellspacing="0" cellpadding="2">
+	<table width="800" border="0" cellspacing="0" cellpadding="2" align="center">
 	      <tr align="center" bgcolor="#F3F3F3">
       		<td width="50"><strong>¹øÈ£</strong></td>
 			<td colspan="2" width="300"><strong>ÆÀ¸í</strong></td>
@@ -82,6 +82,8 @@
 	      <tr align="center">
     		<td colspan="6"><s:property value="pagingHtml"  escape="false" /></td>
     	      </tr>
+    	      
+    	      
     	<tr align="center">
 		<td colspan="6">		
 			<form>

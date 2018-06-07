@@ -33,7 +33,7 @@ public class teamAction extends ActionSupport implements SessionAware{
    private int searchNum;
 
    private teamVO paramClass = new teamVO();
-   private teamVO resultClass;
+   private teamVO resultClass =new teamVO();
    private memVO memParam = new memVO();
    private teamInfoVO teamInfoParam = new teamInfoVO();
 
@@ -184,7 +184,7 @@ public class teamAction extends ActionSupport implements SessionAware{
    }
 
    public String form() throws Exception {
-
+	   resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.selectOne", getTeam_no());
       return SUCCESS;
    }
 
@@ -222,9 +222,31 @@ public class teamAction extends ActionSupport implements SessionAware{
          sqlMapper.update("updateFile", paramClass);
       }
 
-      resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.selectOne", getTeam_no());
+      resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.selectOne", paramClass.getTeam_no());
 
       return SUCCESS;
+   }
+   
+   public String deleteform() throws Exception {
+
+      return SUCCESS;
+   }
+   
+   public String deletee() throws Exception {
+	   
+	   paramClass =new teamVO();
+	   resultClass = new teamVO();
+	   
+	   resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.selectOne", getTeam_no());
+	   
+	   File deleteFile = new File(fileUploadPath + paramClass.getFile_savname());
+	   deleteFile.delete();
+	   
+	   paramClass.setTeam_no(getTeam_no());
+	   
+	   sqlMapper.update("teamSQL.deleteTeam", paramClass);
+	   
+	   return SUCCESS;
    }
 
    public List<teamVO> getList() {

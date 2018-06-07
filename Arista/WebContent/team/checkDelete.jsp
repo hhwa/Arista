@@ -8,29 +8,21 @@
 </head>
 <body>
 
-<h2>팀 삭제 확인</h2>
+<h3>팀을 삭제 하시겠습니까?</h3>
   	
-  	<form action="checkAction.action" method="post">
+  	<form action="deletee.action" method="post">
   	<s:hidden name="team_no" value="%{team_no}" />
   	<s:hidden name="currentPage" value="%{currentPage}" />
   		
   	<table width="250" border="0" cellspacing="0" cellpadding="0">
-      
-      <tr bgcolor="#777777">
-        <td height="1" colspan="2"></td>
-      </tr>
-			
-     <!--  <tr>
-        <td width="100" bgcolor="#F4F4F4">  비밀번호 입력</td>
+  	
+		<tr>
         <td width="150" bgcolor="#FFFFFF">
-          &nbsp;&nbsp;<s:textfield name="password" theme="simple" cssStyle="width:100px" maxlength="20"/>
-          &nbsp;&nbsp;<input name="submit" type="submit" value="확인" class="inputb">
-        </td>
-      </tr> -->
-      
-      <tr bgcolor="#777777">
-        <td height="1" colspan="2"></td>
-      </tr>
+          &nbsp;&nbsp;<input name="submit" type="submit" value="예">
+          &nbsp;&nbsp;<input name="view" type="button" value="아니요" onClick="window.close();"></td>
+        </tr>
+ 
+
       
     </table>
   

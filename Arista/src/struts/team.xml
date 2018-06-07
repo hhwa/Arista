@@ -51,13 +51,22 @@
         	 	</result>
 			</action>
 	 	
-	 		<!-- 게시판 수정 액션. -->
+	 		<!-- 팀 수정 액션. -->
 			<action name="TeamModifyForm" class="team.teamAction" method="form">
 				<result type="chain">TeamCreateForm</result>
 			</action>
 		
 			<action name="TeamModify" class="team.teamAction" method="modify">
 				<result type="chain">TeamView</result>
+			</action>
+			
+			<!-- 팀 삭제 액션. -->
+			<action name="deleteForm" class="team.teamAction" method="deleteform">
+				<result>/team/checkDelete.jsp</result>
+			</action>
+			<action name="delete" class="team.teamAction" method="deletee">
+				<!-- <result type="chain">TeamList</result> -->
+				<result>/team/deleteSuccess.jsp</result>
 			</action>
 	 	</package>
 	</struts>

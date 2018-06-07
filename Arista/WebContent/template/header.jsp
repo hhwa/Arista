@@ -36,7 +36,7 @@
 <table border=0 height=1 cellspacing="1" cellpadding="1" align="right" >
 <td width=20 align="center"><a href=main.action><h6>홈</h6></a></td>
 <td align="center"><h6>|</h6></td>
-<td width=45 align="center"><h6>로그인</h6></td>
+<td width=45 align="center"><a href=joinForm.action><h6>로그인</h6></td>
 <td align="center"><h6>|</h6></td>
 <td width=55 align="center"><h6>회원가입</h6></td>
 <td width=120 align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -65,7 +65,7 @@
 		<td width=100 align="center"></td>
 		<td width=100 align="center"><a href=mypage.action><h4><b>마이페이지</b></h4></a></td>
 		<td width=100 align="center"><a href=selectMatch.action><h4><b> 매치</b></h4></a></td>
-		<td width=100 align="center"><h4><b>팀</b></h4></td>
+		<td width=100 align="center"><a href=TeamList.action><h4><b>팀</b></h4></a></td>
 		<td width=100 align="center"> <h4><b>경기장</b></h4></td>
 		<td width=100 align="center"><h4><b>고객센터</b></h4></td>
 		<td width=100 align="center"></td>
