@@ -44,7 +44,7 @@
 			<td width="60" align="center"><h6><a href="logout.action">로그아웃</a></h6></td>
 		</s:if>
 		<s:else>
-			<td width="20" align="center"><h6><a href=main.action>홈</a></h6></td>
+			<td width="20" align="center"><h6><a href="main.action">홈</a></h6></td>
 			<td align="center"><h6>&nbsp;|&nbsp;</h6></td>
 			<td width="45" align="center"><h6><a href="loginForm.action">로그인</a></h6></td>
 			<td align="center"><h6>&nbsp;|&nbsp;</h6></td>
@@ -61,7 +61,7 @@
 <br>
 <table align="center"width=700 cellspacing="1" cellpadding="1">
 	<tr>
-		<td align="center" width=30%><img src="/Arista/template/image/logo.jpg" width="300" height="120" alt="" /></td>
+		<td align="center" width=30%><a href="main.action"><img src="/Arista/template/image/logo.jpg" width="300" height="120"/></a></td>
 		<td align="center" width=70% align="left" > <br><br>
 		<input type="text" name=search size=40  style="height:35px; width:300px; padding:0px 0px 0px 10px;">  
 		<input type="submit" value="검색" size=40 style="height: 35px; width: 50px;">
@@ -89,7 +89,7 @@
 </header>
 </center>
  <center>
-<div id="header_img" style="overflow:hidden;" align="center"><h1>마이페이지</h1></div>
+<div id="header_img" style="overflow:hidden;" align="center"><h1><s:property value="PageName"/></h1></div>
 </center>
 </body>
 </html>

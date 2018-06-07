@@ -15,6 +15,7 @@
 
 <!-- Member -->
 	<!-- ·Î±×ÀÎÆû -->
+	
 	<definition name="loginForm" template="/template/layout_main.jsp" extends="main">
 		<put-attribute name="body" value="/login/loginForm.jsp"></put-attribute>
 	</definition>
@@ -50,6 +51,9 @@
 	<definition name="myInfoView" template="/template/layout.jsp" extends="mypage">
 		<put-attribute name="body" value="/mypage/mypage.jsp" />
 	</definition>
+	<definition name="MyTeam" template="/template/layout.jsp" extends="mypage">
+		<put-attribute name="body" value="/mypage/myTeam.jsp" />
+	</definition>
 <!-- Team -->
 	<definition name="TeamList" template="/template/layout.jsp" extends="mypage">
 		<put-attribute name="body" value="/team/teamList.jsp" />
@@ -60,8 +64,8 @@
 	<definition name="TeamView" template="/template/layout.jsp" extends="mypage">
 		<put-attribute name="body" value="/team/teamView.jsp" />
 	</definition>
-	<definition name="MyTeam" template="/template/layout.jsp" extends="mypage">
-		<put-attribute name="body" value="/team/MyTeam.jsp" />
+	<definition name="noTeam" template="/template/layout.jsp" extends="mypage">
+		<put-attribute name="body" value="/team/noTeam.jsp" />
 	</definition>
 
 <!-- Match -->	
@@ -91,6 +95,7 @@
 		<put-attribute name="body" value="/match/CreateTeamMatch.jsp"/>
 	</definition>
 
+
 <!-- stadium -->
 	<definition name="StadiumList" template="/template/layout.jsp" extends="mypage">
 		<put-attribute name="body" value="/stadium/stadiumList.jsp"/>
@@ -101,6 +106,7 @@
 	<definition name="StadiumView" template="/template/layout.jsp" extends="mypage">
 		<put-attribute name="body" value="/stadium/stadiumView.jsp"/>
 	</definition>
+
 <!-- customer -->
 	<definition name="QNAList" template="/template/layout.jsp" extends="mypage">
 		<put-attribute name="body" value="/QNA/QNAList.jsp"/>

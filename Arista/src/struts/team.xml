@@ -17,30 +17,31 @@
 			</global-exception-mappings>
 	 		-->
 	 		<!-- 팀 목록 액션 -->
-	 		<action name="MyTeam" class="team.listAction">
+	 		<action name="MyTeam" class="team.teamAction" method="myTeam">
 	 			<result type="tiles">MyTeam</result>
+	 			<result name="noTeam" type="tiles">noTeam</result>
 	 		</action>
-	 		<action name="TeamList" class="team.listAction">
+	 		<action name="TeamList" class="team.teamAction" >
 	 			<result type="tiles">TeamList</result>
 	 		</action>
 	 	
-	 		<action name="TeamCreateForm" class="team.writeAction" method="form">
+	 		<action name="TeamCreateForm" class="team.teamAction" method="form">
 	 			<result type="tiles">TeamCreateForm</result>
 	 		</action>
 	 	
-	 		<action name="TeamCreate" class="team.writeAction">
+	 		<action name="TeamCreate" class="team.teamAction" method="create">
 	 			<result type="redirect-action">
 	 				<param name="actionName">TeamList</param>
 	 			</result>
 	 		</action>
 	 	
 	 		<!-- 팀 상세보기 액션. -->
-			<action name="TeamView" class="team.viewAction">
-				<result type="tiles">teamView</result>
+			<action name="TeamView" class="team.teamAction" method="view">
+				<result type="tiles">TeamView</result>
 			</action>
 		
 			<!-- 파일 다운로드 액션. -->
-			<action name="fileDownloadAction" class="team.viewAction" method="download">
+			<action name="fileDownloadAction" class="team.teamAction" method="download">
     			<result name="success" type="stream">
              	   	<param name="contentType">binary/octet-stream</param>
              	   	<param name="inputName">inputStream</param>
@@ -51,11 +52,11 @@
 			</action>
 	 	
 	 		<!-- 게시판 수정 액션. -->
-			<action name="TeamModifyForm" class="team.viewAction">
+			<action name="TeamModifyForm" class="team.teamAction" method="form">
 				<result type="chain">TeamCreateForm</result>
 			</action>
 		
-			<action name="TeamModify" class="team.modifyAction">
+			<action name="TeamModify" class="team.teamAction" method="modify">
 				<result type="chain">TeamView</result>
 			</action>
 	 	</package>

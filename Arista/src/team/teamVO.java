@@ -17,7 +17,14 @@ public class teamVO {
 	private String file_savname;
 	private String file_orgname;
 	private Date team_regdate;
+	private String team_master;
 	
+	public String getTeam_master() {
+		return team_master;
+	}
+	public void setTeam_master(String team_master) {
+		this.team_master = team_master;
+	}
 	public int getTeam_no() {
 		return team_no;
 	}

@@ -12,6 +12,7 @@ public class teamMatchVO {
 	private String uniform_color;	//유니폼색상
 	private String content;			//내용
 	private String match_type;		//매치타입(팀)
+	private String team2_id;		//상대팀
 	
 	public int getGame_no() {
 		return game_no;
@@ -72,6 +73,12 @@ public class teamMatchVO {
 	}
 	public void setMatch_type(String match_type) {
 		this.match_type = match_type;
+	}
+	public String getTeam2_id() {
+		return team2_id;
+	}
+	public void setTeam2_id(String team2_id) {
+		this.team2_id = team2_id;
 	}
 	
 }

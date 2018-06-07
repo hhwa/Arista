@@ -121,7 +121,8 @@ function validation(){
 		<tr>
         	<td width="100" bgcolor="#F4F4F4"><font color="#FF0000">*</font>  비용</td>
          	<td width="500" bgcolor="#FFFFFF">
-           	<s:textfield name="fee" theme="simple" value="%{resultClass.fee}" cssStyle="width:370px" maxlength="50"/>
+         	<input type="number" name="fee" value="%{resultClass.fee"} cssStyle="width:370px" maxlength="50"/>
+           	<%-- <s:textfield name="fee" theme="simple" value="%{resultClass.fee}" cssStyle="width:370px" maxlength="50"/> --%>
          	</td>
        	</tr>
        	
@@ -143,6 +144,7 @@ function validation(){
        	<tr>
          	<td bgcolor="#F4F4F4"><font color="#FF0000">*</font>  내용 </td>
          	<td bgcolor="#FFFFFF">
+         	
            	<s:textarea name="content" theme="simple" value="%{resultClass.content}" cols="50" rows="10" />
          	</td>
        	</tr>

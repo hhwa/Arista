@@ -53,10 +53,11 @@ public class loginAction extends ActionSupport implements SessionAware{
 	public String execute() throws Exception {
 		//사용자에게 입력 받은 정보와 같은 값이 DB 안에 존재하는지 확인한다.
 		memberResult = (memVO)sqlMapper.queryForObject("memSQL.loginPro",getM_id());
+		int adminYN = memberResult.getAdmin_yn();
 		if(memberResult != null) {
 			if (memberResult.getM_passwd().equals(getM_passwd())) {
 				session.put("session_id", memberResult.getM_id());
-				
+				session.put("session_adminYN", adminYN);
 				return SUCCESS;
 			}
 		}

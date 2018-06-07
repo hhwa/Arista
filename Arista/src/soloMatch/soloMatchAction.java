@@ -25,16 +25,15 @@ public class soloMatchAction extends ActionSupport implements SessionAware{
 	
 	private List<soloMatchVO> list = new ArrayList<soloMatchVO>();
 	private Map session;
-	private soloMatchVO soloMatchParam; //파라미터를 저장할 객체
-	private matchStateVO matchStateParam;//쿼리 결과 값을 저장할 객체
-	private matchStateVO matchStateResult;
-	private joinSoloVO joinSoloParam;
+	private soloMatchVO soloMatchParam = new soloMatchVO(); //파라미터를 저장할 객체
+	private matchStateVO matchStateParam = new matchStateVO();//쿼리 결과 값을 저장할 객체
+	private matchStateVO matchStateResult = new matchStateVO();
+	private joinSoloVO joinSoloParam = new joinSoloVO();
 	
-	private int currentPage; //현재 페이지
-	
+	private int currentPage=1; //현재 페이지
 
 	private int totalCount;	//총 게시물의 수
-	private int blockCount = 10;	//한 페이지의 게시물의 수
+	private int blockCount = 5;	//한 페이지의 게시물의 수
 	private int blockPage=5;	//한화면에 보여줄 페이지 수
 	private String pagingHtml;	//페이징을 구현한 HTML
 	private pagingAction page;	//페이징 클래스
@@ -56,36 +55,28 @@ public class soloMatchAction extends ActionSupport implements SessionAware{
 	private String mem_id;
 	
 	private List<String> areaList = new ArrayList<String>();
+	private String pageName;
 
 	public soloMatchAction() throws IOException{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
 		
-		areaList.add("인천");
-		areaList.add("서울");
-		areaList.add("경기");
-		areaList.add("강원");
-		areaList.add("충남");
-		areaList.add("충북");
-		areaList.add("세종");
-		areaList.add("대전");
-		areaList.add("전북");
-		areaList.add("전남");
-		areaList.add("광주");
-		areaList.add("경북");
-		areaList.add("경남");
-		areaList.add("대구");
-		areaList.add("울산");
-		areaList.add("부산");
+		areaList.add("인천");		areaList.add("서울");		areaList.add("경기");		areaList.add("강원");
+		areaList.add("충남");		areaList.add("충북");		areaList.add("세종");		areaList.add("대전");
+		areaList.add("전북");		areaList.add("전남");		areaList.add("광주");		areaList.add("경북");
+		areaList.add("경남");		areaList.add("대구");		areaList.add("울산");		areaList.add("부산");
 	}
 	
+	//soloMatchList
 	public String execute() throws Exception {
-		currentPage = 1;
+		setPageName("SOLO MATCH");
+		String paging="SoloMatchList";
 		if(getSearch()==null||getSearch().equals("")) {
 			list = sqlMapper.queryForList("soloMatchSQL.soloMatchList");
 			totalCount = list.size();//전체 글 갯수
-			page = new pagingAction(currentPage, totalCount,blockCount,blockPage);//pagingAction 객체 생성
+			
+			page = new pagingAction(currentPage, totalCount,blockCount,blockPage,paging);//pagingAction 객체 생성
 		}else {
 			HashMap searchMap = new HashMap();
 			String topics[]= {"subject","name","content"};
@@ -93,7 +84,7 @@ public class soloMatchAction extends ActionSupport implements SessionAware{
 			searchMap.put("param2","%"+getSearch()+"%");
 			list = sqlMapper.queryForList("soloMatchSQL.soloMatchSearch",searchMap);
 			totalCount = list.size();//전체 글 갯수
-			page = new pagingAction(currentPage, totalCount,blockCount,blockPage,getSearch());//pagingAction 객체 생성
+			page = new pagingAction(currentPage, totalCount,blockCount,blockPage,paging,getSearch());//pagingAction 객체 생성
 		}
 		
 		pagingHtml = page.getPagingHtml().toString(); //페이지 HTML 생성.
@@ -113,10 +104,12 @@ public class soloMatchAction extends ActionSupport implements SessionAware{
 	
 	//솔로 매치 생성 폼 (관리자)
 	public String form() throws Exception {
+		setPageName("MAKE SOLO MATCH");
 		return SUCCESS;
 	}
 	//솔로 매치 생성
 	public String create() throws Exception {
+		
 		soloMatchParam = new soloMatchVO();
 		matchStateParam = new matchStateVO();
 		
@@ -152,6 +145,7 @@ public class soloMatchAction extends ActionSupport implements SessionAware{
 	}
 	//솔로매치 수정
 	public String modify() throws Exception {
+		setPageName("솔로매치 수정");
 		soloMatchParam = new soloMatchVO();
 		matchStateParam = new matchStateVO();
 		
@@ -166,7 +160,7 @@ public class soloMatchAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 	//솔로매치 신청 처리
-	public String solo() throws Exception {
+	public String join() throws Exception {
 		
 		soloMatchParam = (soloMatchVO) sqlMapper.queryForObject("soloMatchSQL.soloMatchView",getGame_no());
 		matchStateParam.setGame_no(soloMatchParam.getGame_no());
@@ -176,12 +170,19 @@ public class soloMatchAction extends ActionSupport implements SessionAware{
 		joinSoloParam.setMatch_no(matchStateResult.getMatch_no());
 		joinSoloParam.setMem_id((String)session.get("session_id"));
 		
-		int count = (int) sqlMapper.queryForObject("joinSoloSQL.joinSoloMatchCount",joinSoloParam);
+		sqlMapper.insert("joinSoloSQL.joinSoloMatch",joinSoloParam);
+		int count = (int) sqlMapper.queryForObject("joinSoloSQL.joinSoloMatchCount",getMatch_no());
 		matchStateResult.setPeople_count(count);
 		soloMatchParam.setPeople_count(count);
-		sqlMapper.insert("joinSoloSQL.joinSoloMatch",joinSoloParam);
+		
 		sqlMapper.update("soloMatchSQL.soloCount",soloMatchParam);
 		sqlMapper.update("matchStateSQL.soloCount",matchStateResult);
+		
+		return SUCCESS;
+	}
+	//솔로매치 취소
+	public String cancel() throws Exception{
+		
 		
 		return SUCCESS;
 	}
@@ -226,11 +227,11 @@ public class soloMatchAction extends ActionSupport implements SessionAware{
 		this.matchStateResult = matchStateResult;
 	}
 
-	public joinSoloVO getjoinSoloParam() {
+	public joinSoloVO getJoinSoloParam() {
 		return joinSoloParam;
 	}
 
-	public void setjoinSoloParam(joinSoloVO joinSoloParam) {
+	public void setJoinSoloParam(joinSoloVO joinSoloParam) {
 		this.joinSoloParam = joinSoloParam;
 	}
 
@@ -400,6 +401,14 @@ public class soloMatchAction extends ActionSupport implements SessionAware{
 
 	public void setAreaList(List<String> areaList) {
 		this.areaList = areaList;
+	}
+
+	public String getPageName() {
+		return pageName;
+	}
+
+	public void setPageName(String pageName) {
+		this.pageName = pageName;
 	}
 	
 

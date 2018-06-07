@@ -34,10 +34,17 @@
 		
 	<!-- select 쿼리문 정의 -->
 		
-		<!-- 매치목록 -->
+		<!-- 매치목록 (비 로그인 시)-->
 		<select id="matchList" resultMap="matchStateRes">
 			<include refid="select-all"/>
 			order by match_no desc
+		</select>
+		<!-- 매치목록 (로그인 시)-->
+		<select id="matchList2" resultClass="matchState" parameterClass="String">
+			select m.match_no,m.game_no,match_type,team_id,team2_id,game_day,game_type,stadium,fee,game_area,uniform_color,content,people_max,people_count,mem_id
+			from matchState m left outer join joinsolo j 
+			on j.match_no=m.match_no and j.game_no=m.game_no and j.mem_id=#mem_id#
+			order by m.match_no desc
 		</select>
 		
 		<!-- 매치검색 -->
@@ -52,10 +59,18 @@
 			<include refid="where-no"/>
 		</select>
 		
+		<!-- 매치타입 불러오기 -->
 		<select id="matchTypeView" resultMap="matchStateRes" parameterClass="matchState">
 			<include refid="select-all"/>
 			where game_type=#game_type# and game_no=#game_no#
 		</select>
+		
+		<!-- 내가 신청한 매치 -->
+      	<select id="myMatchView" resultMap="matchStateRes" parameterClass="String">
+            select * from matchState m,joinsolo j
+            where j.mem_id=#mem_id# and j.match_no=m.match_no
+            order by m.match_no desc
+        </select>
 		
 	<!-- insert 쿼리문 정의 -->
 		
@@ -88,10 +103,13 @@
 			update matchState set people_count=#people_count#
 			<include refid="where-no"/>
 		</update>
-		
+		<!-- 매치 취소 -->
+		<update id="cancelMatch" parameterClass="int">
+			update matchState set team2_id=''
+			<include refid="where-no"/>
+		</update>		
 	<!-- delete 쿼리문 정의 -->
-		
-		<!-- 매치삭제 -->
+		<!-- 매치 삭제 -->
 		<delete id="deleteMatch" parameterClass="matchState">
 			delete from matchState
 			<include refid="where-no"/>

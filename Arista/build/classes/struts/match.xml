@@ -16,13 +16,15 @@
 				<result type="tiles">selectMatch</result>
 			</action>
 		
-			<!-- 솔로매치 신청 -->
+			<!-- 솔로&팀매치 신청 -->
 			<action name="joinMatch" class="matchState.matchAction" method="join">
 				<result type="redirect-action">
 					<param name="actionName">main</param>
 				</result>
+				<result name="error">/error/teamMatchError.jsp</result>
 			</action>
-			<action name="joinMatch2" class="soloMatch.soloMatchAction" method="solo">
+			<!-- 솔로매치 신청 -->
+			<action name="joinSoloMatch" class="soloMatch.soloMatchAction" method="join">
 				<result type="redirect-action">
 					<param name="actionName">SoloMatchList</param>
 				</result>
@@ -38,7 +40,7 @@
 			<!-- 솔로매치 생성처리 -->
 			<action name="CreateSoloMatch" class="soloMatch.soloMatchAction" method="create">
 		 		<result type="redirect-action">
-			 		<param name="actionName">SoloList</param> <!-- 처리 후 솔로매치 리스트로 -->
+			 		<param name="actionName">SoloMatchList</param> <!-- 처리 후 솔로매치 리스트로 -->
 			 	</result>
 			</action>
 		 
@@ -52,11 +54,25 @@
 			 		<param name="actionName">SoloMatchList</param> <!-- 처리 후 솔로매치 리스트로 -->
 			 	</result>
 		 	</action>
+		 	<!-- 솔로매치 취소 (메인에서)-->
+		 	<action name="cancelMatch" class="matchState.matchAction" method="cancel">
+		 		<result type="redirect-action">
+		 			<param name="actionName">main</param>
+		 		</result>
+		 	</action>
 		 
-			 <!-- 팀매치 리스트 -->
+			<!-- 팀매치 리스트 -->
 			<action name="TeamMatchList" class="teamMatch.teamMatchAction">
 		 		<result type="tiles">TeamMatchList</result>
 		 	</action>
+		 	
+			<!-- 팀매치 신청 -->
+			<action name="joinTeamMatch" class="teamMatch.teamMatchAction" method="join">
+				<result type="redirect-action">
+					<param name="actionName">TeamMatchList</param>
+				</result>
+				<result name="error">/error/teamMatchError.jsp</result>
+			</action>
 		 	<!-- 팀매치 생성폼 -->
 			<action name="CreateTeamMatchForm" class="teamMatch.teamMatchAction" method="form">
 				<result type="tiles">CreateTeamMatchForm</result>

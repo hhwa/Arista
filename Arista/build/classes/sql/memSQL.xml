@@ -19,6 +19,7 @@
 			<result property="prof_image_org" column="prof_image_org"/>
 			<result property="prof_image_save" column="prof_image_save"/>
 			<result property="m_nickname" column="m_nickname"/>
+			<result property="myteam" column="myteam"/>
 		</resultMap>
 		
 		<!-- 공통으로 사용할 select 절 정의 -->
@@ -67,8 +68,6 @@
 			WHERE M_NAME=#m_name# AND M_EMAIL=#m_email# AND m_id=#m_id#
 		</select>
 		
-		
-		
 		<!-- 관리자 - 회원 목록 -->
 		<select id="memList" resultMap="memRes">
 			<include refid="select-all"/>
@@ -81,7 +80,11 @@
 		<include refid="where-id"/>
 		</select>
 		
-	
+		<!-- 마이팀 찾기(멤버아이디로) -->
+		<select id="myTeam" resultMap="memRes" parameterClass="String">
+			<include refid="select-all"/>	
+			where m_id=#m_id#
+		</select>
 		
 		<!-- 회원검색 -->
 		<!-- <select id="memSearch" resultMap="memRes" parameterClass="java.util.HashMap">
@@ -121,6 +124,10 @@
 		<update id="updateProfile" parameterClass="mem">
 			update mem set prof_image_org=#prof_image_org#,prof_image_save=#prof_image_save#
 			<include refid="where-id"/>		
+		</update>
+		<!-- 팀 설정 -->
+		<update id="joinTeam" parameterClass="String">
+			update mem set myteam=#myteam#
 		</update>
 		
 		<!-- 관리자 설정 -->

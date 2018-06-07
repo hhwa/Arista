@@ -5,6 +5,9 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -13,20 +16,26 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import main.pagingAction;
 import matchState.matchStateVO;
+import mem.memVO;
+import team.teamInfoVO;
 
-public class teamMatchAction extends ActionSupport{
+public class teamMatchAction extends ActionSupport implements SessionAware{
 	public static Reader reader; //파일 스트림을 위한 reader.
 	public static SqlMapClient sqlMapper; //SqlMapClient API를 사용하기 위한 sqlMapper 객체
+	private Map session;
 	
 	private List<teamMatchVO> list = new ArrayList<teamMatchVO>();
 	private List<String> areaList = new ArrayList<String>();
 	
-	private teamMatchVO paramClass; //파라미터를 저장할 객체
-	private matchStateVO resultClass;//쿼리 결과 값을 저장할 객체
+	private teamMatchVO teamMatchParam = new teamMatchVO(); //파라미터를 저장할 객체
+	private matchStateVO matchStateParam = new matchStateVO();//쿼리 결과 값을 저장할 객체
+	private matchStateVO matchStateResult = new matchStateVO();
+	private memVO memParam = new memVO();
+	private teamInfoVO teamInfoParam = new teamInfoVO();
 	
-	private int currentPage; //현재 페이지
+	private int currentPage=1; //현재 페이지
 	private int totalCount;	//총 게시물의 수
-	private int blockCount = 10;	//한 페이지의 게시물의 수
+	private int blockCount = 5;	//한 페이지의 게시물의 수
 	private int blockPage=5;	//한화면에 보여줄 페이지 수
 	private String pagingHtml;	//페이징을 구현한 HTML
 	private pagingAction page;	//페이징 클래스
@@ -43,6 +52,9 @@ public class teamMatchAction extends ActionSupport{
 	private String uniform_color;
 	private String content;
 	private String match_type;
+	private String team2_id;
+	
+	private String pageName;
 	
 	public teamMatchAction() throws IOException{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
@@ -67,11 +79,15 @@ public class teamMatchAction extends ActionSupport{
 		areaList.add("부산");
 	}
 	public String execute() throws Exception {
-		currentPage = 1;
+		memParam = new memVO();
+		
+		setPageName("TEAM MATCH");
+		String paging="TeamMatchList";
+		
 		if(getSearch()==null||getSearch().equals("")) {
 			list = sqlMapper.queryForList("teamMatchSQL.teamMatchList");
 			totalCount = list.size();//전체 글 갯수
-			page = new pagingAction(currentPage, totalCount,blockCount,blockPage);//pagingAction 객체 생성
+			page = new pagingAction(currentPage, totalCount,blockCount,blockPage,paging);//pagingAction 객체 생성
 		}else {
 			HashMap searchMap = new HashMap();
 			String topics[]= {"subject","name","content"};
@@ -79,9 +95,10 @@ public class teamMatchAction extends ActionSupport{
 			searchMap.put("param2","%"+getSearch()+"%");
 			list = sqlMapper.queryForList("teamMatchSQL.teamMatchSearch",searchMap);
 			totalCount = list.size();//전체 글 갯수
-			page = new pagingAction(currentPage, totalCount,blockCount,blockPage,getSearch());//pagingAction 객체 생성
+			page = new pagingAction(currentPage, totalCount,blockCount,blockPage,paging,getSearch());//pagingAction 객체 생성
 		}
-		
+		memParam = (memVO) sqlMapper.queryForObject("memSQL.myTeam",(String)session.get("session_id"));
+		teamInfoParam = (teamInfoVO) sqlMapper.queryForObject("teamSQL.teamMember",(String)session.get("session_id"));
 		pagingHtml = page.getPagingHtml().toString(); //페이지 HTML 생성.
 		
 		//현재 페이지에서 보여줄 마지막 글의 번호 설정.
@@ -97,46 +114,82 @@ public class teamMatchAction extends ActionSupport{
 		return SUCCESS;
 	}
 	public String form() throws Exception {
+		setPageName("팀매치 생성");
 		return SUCCESS;
 	}
 	public String create() throws Exception {
-		paramClass = new teamMatchVO();
-		resultClass = new matchStateVO();
 		
-		paramClass.setTeam_id(getTeam_id());
-		paramClass.setGame_day(getGame_day());
-		paramClass.setGame_type(getGame_type());
-		paramClass.setMatch_type("Team");
-		paramClass.setStadium(getStadium());
-		paramClass.setFee(getFee());
-		paramClass.setUniform_color(getUniform_color());
-		paramClass.setGame_area(getGame_area());
-		paramClass.setContent(getContent());
+		memParam = (memVO) sqlMapper.queryForObject("memSQL.myTeam",(String)session.get("session_id"));
+		teamMatchParam.setTeam_id(memParam.getMyteam());
+		teamMatchParam.setGame_day(getGame_day());
+		teamMatchParam.setGame_type(getGame_type());
+		teamMatchParam.setMatch_type("Team");
+		teamMatchParam.setStadium(getStadium());
+		teamMatchParam.setFee(getFee());
+		teamMatchParam.setUniform_color(getUniform_color());
+		teamMatchParam.setGame_area(getGame_area());
+		teamMatchParam.setContent(getContent());
 		
-		sqlMapper.insert("teamMatchSQL.insertTeamMatch",paramClass);
+		sqlMapper.insert("teamMatchSQL.insertTeamMatch",teamMatchParam);
 		
-		paramClass = (teamMatchVO) sqlMapper.queryForObject("teamMatchSQL.selectLastNo");
+		teamMatchParam = (teamMatchVO) sqlMapper.queryForObject("teamMatchSQL.selectLastNo");
 		
-		resultClass.setGame_no(paramClass.getGame_no());
-		resultClass.setTeam_id(getTeam_id());
-		resultClass.setGame_day(getGame_day());
-		resultClass.setGame_type(getGame_type());
-		resultClass.setMatch_type("Team");
-		resultClass.setStadium(getStadium());
-		resultClass.setFee(getFee());
-		resultClass.setUniform_color(getUniform_color());
-		resultClass.setGame_area(getGame_area());
-		resultClass.setContent(getContent());
+		matchStateParam.setGame_no(teamMatchParam.getGame_no());
+		matchStateParam.setTeam_id(memParam.getMyteam());
+		matchStateParam.setGame_day(getGame_day());
+		matchStateParam.setGame_type(getGame_type());
+		matchStateParam.setMatch_type("Team");
+		matchStateParam.setStadium(getStadium());
+		matchStateParam.setFee(getFee());
+		matchStateParam.setUniform_color(getUniform_color());
+		matchStateParam.setGame_area(getGame_area());
+		matchStateParam.setContent(getContent());
 		
-		sqlMapper.insert("matchStateSQL.insertMatch",resultClass);
+		sqlMapper.insert("matchStateSQL.insertMatch",matchStateParam);
 		
 		return SUCCESS;
 	}
 	public String modify() throws Exception {
+		setPageName("팀매치 수정");
+		return SUCCESS;
+	}
+	//팀매치 신청
+	public String join() throws Exception {
+		
+		teamMatchParam =(teamMatchVO) sqlMapper.queryForObject("teamMatchSQL.teamMatchView",getGame_no());
+		matchStateParam.setGame_no(teamMatchParam.getGame_no());
+		matchStateParam.setGame_type(teamMatchParam.getGame_type());
+		
+		matchStateResult = (matchStateVO) sqlMapper.queryForObject("matchStateSQL.matchTypeView",matchStateParam);
+		matchStateResult.setTeam2_id(getTeam2_id());
+		teamMatchParam.setTeam2_id(getTeam2_id());
+		sqlMapper.update("teamMatchSQL.joinTeamMatch",teamMatchParam);
+		sqlMapper.update("matchStateSQL.MatchUp",matchStateResult);
+		
+		return SUCCESS;
+	}
+	
+	//팀매치 취소
+	public String cancel() throws Exception {
+		
+		teamMatchParam =(teamMatchVO) sqlMapper.queryForObject("teamMatchSQL.teamMatchView",getGame_no());
+		matchStateParam.setGame_no(teamMatchParam.getGame_no());
+		matchStateParam.setGame_type(teamMatchParam.getGame_type());
+		
+		matchStateResult = (matchStateVO) sqlMapper.queryForObject("matchStateSQL.matchTypeView",matchStateParam);
+		
+		sqlMapper.update("teamMatchSQL.cancelTeamMatch",getGame_no());
+		sqlMapper.update("matchStateSQL.cancelMatch",matchStateResult.getMatch_no());
 		return SUCCESS;
 	}
 	
 	
+	public Map getSession() {
+		return session;
+	}
+	public void setSession(Map session) {
+		this.session = session;
+	}
 	public List<teamMatchVO> getList() {
 		return list;
 	}
@@ -149,17 +202,35 @@ public class teamMatchAction extends ActionSupport{
 	public void setAreaList(List<String> areaList) {
 		this.areaList = areaList;
 	}
-	public teamMatchVO getParamClass() {
-		return paramClass;
+	public teamMatchVO getTeamMatchParam() {
+		return teamMatchParam;
 	}
-	public void setParamClass(teamMatchVO paramClass) {
-		this.paramClass = paramClass;
+	public void setTeamMatchParam(teamMatchVO teamMatchParam) {
+		this.teamMatchParam = teamMatchParam;
 	}
-	public matchStateVO getResultClass() {
-		return resultClass;
+	public matchStateVO getMatchStateParam() {
+		return matchStateParam;
 	}
-	public void setResultClass(matchStateVO resultClass) {
-		this.resultClass = resultClass;
+	public void setMatchStateParam(matchStateVO matchStateParam) {
+		this.matchStateParam = matchStateParam;
+	}
+	public matchStateVO getMatchStateResult() {
+		return matchStateResult;
+	}
+	public void setMatchStateResult(matchStateVO matchStateResult) {
+		this.matchStateResult = matchStateResult;
+	}
+	public memVO getMemParam() {
+		return memParam;
+	}
+	public void setMemParam(memVO memParam) {
+		this.memParam = memParam;
+	}
+	public teamInfoVO getTeamInfoParam() {
+		return teamInfoParam;
+	}
+	public void setTeamInfoParam(teamInfoVO teamInfoParam) {
+		this.teamInfoParam = teamInfoParam;
 	}
 	public int getCurrentPage() {
 		return currentPage;
@@ -268,6 +339,18 @@ public class teamMatchAction extends ActionSupport{
 	}
 	public void setMatch_type(String match_type) {
 		this.match_type = match_type;
+	}
+	public String getTeam2_id() {
+		return team2_id;
+	}
+	public void setTeam2_id(String team2_id) {
+		this.team2_id = team2_id;
+	}
+	public String getPageName() {
+		return pageName;
+	}
+	public void setPageName(String pageName) {
+		this.pageName = pageName;
 	}
 	
 	

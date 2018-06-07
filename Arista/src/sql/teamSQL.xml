@@ -3,6 +3,7 @@
 <sqlMap namespace="teamSQL">
 
 	<typeAlias alias="team" type="team.teamVO"/>
+	<typeAlias alias="teamInfo" type="team.teamInfoVO"/>
 	
 		<!-- 리절트 맵 정의 -->
 		<resultMap id="teamRes" class="team">
@@ -17,6 +18,7 @@
 			<result property="file_savname" column="file_savname"/> <!-- 0528-추가 -->
 			<result property="file_orgname" column="file_orgname"/> <!-- 0528-추가 -->
 			<result property="team_regdate" column="team_regdate"/>
+			<result property="team_master" column="team_master"/>
 		</resultMap>
 		
 		<!-- 공통으로 사용할 select 절 정의 -->
@@ -35,13 +37,15 @@
 		</select>
 		
 		<!-- select 쿼리문 정의 -->
-		<select id="selectOne" resultMap="teamRes" parameterClass="int">
-			<include refid="select-all" />
-			<include refid="where-no" />      
+		<!-- myTeam 보기 -->
+		<select id="myTeamView" resultMap="teamRes" parameterClass="String">
+			<include refid="select-all"/>
+			where team_id=#team_id#
 		</select>
-		
-		<select id="selectLastNo" resultClass="team">
-			SELECT max(team_no) as team_no FROM TEAM 
+		<!-- team 상세보기 -->
+		<select id="teamView" resultMap="teamRes" parameterClass="int">
+			<include refid="select-all"/>
+			<include refid="where-no"/>
 		</select>
 		<!-- team 목록 -->
 		<select id="teamList" resultMap="teamRes">
@@ -50,22 +54,30 @@
 		</select>
 		
 		<!-- team 검색 -->
-		<select id="teamSearch" resultMap="teamRes" parameterClass="string">
+		<select id="teamSearch" resultMap="teamRes" parameterClass="String">
 			<include refid="select-all"/>
 			 WHERE team_id like #searchKeyword# ORDER BY team_no DESC
 		</select>
 		
-		<!-- team 상세보기 -->
-		<select id="teamView" resultMap="teamRes" parameterClass="int">
-			<include refid="select-all"/>
-			<include refid="where-no"/>
+		<!-- team 멤버 보기 -->
+		<select id="teamMember" resultClass="teamInfo" parameterClass="String">
+			select * from teamInfo
+			where mem_id=#mem_id#
 		</select>
 		
+		<select id="selectLastNo" resultClass="team">
+			SELECT max(team_no) as team_no FROM TEAM 
+		</select>
+
 		<!-- insert 쿼리문 정의 -->
 		
 		<!-- team 추가 -->
 		<insert id="insertTeam" parameterClass="team">
-			insert into team (team_no,team_id,team_area,team_type,team_fieldtype,team_age,team_skill,team_count,team_intro,team_regdate) values (team_no_seq.NEXTVAL,#team_id#,#team_area#,#team_type#,#team_fieldtype#,#team_age#,#team_skill#,#team_count#,#team_intro#,#team_regdate#)
+			insert into team (team_no,team_id,team_area,team_type,team_fieldtype,team_age,team_skill,team_count,team_intro,team_regdate,team_master) values (team_no_seq.NEXTVAL,#team_id#,#team_area#,#team_type#,#team_fieldtype#,#team_age#,#team_skill#,#team_count#,#team_intro#,#team_regdate#,#team_master#)
+		</insert>
+		
+		<insert id="joinTeam" parameterClass="teamInfo">
+			insert into teamInfo (team_id,mem_id,team_admin) values (#team_id#,#mem_id#,#team_admin#)
 		</insert>
 		
 		<!-- update 쿼리문 정의 -->
@@ -81,6 +93,7 @@
 		</update>
 		
 		<!-- delete 쿼리문 정의 -->
+		<!-- team 삭제 -->
 		<delete id="deleteTeam" parameterClass="team">
 			delete from team
 			<include refid="where-no"/>

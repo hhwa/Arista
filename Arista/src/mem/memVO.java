@@ -17,6 +17,7 @@ public class memVO {
 	private int admin_yn;
 	private String prof_image_org;
 	private String prof_image_save;
+	private String myteam;
 	public String getM_id() {
 		return m_id;
 	}
@@ -95,9 +96,10 @@ public class memVO {
 	public void setProf_image_save(String prof_image_save) {
 		this.prof_image_save = prof_image_save;
 	}
-	
-	
-	
-	
-	
+	public String getMyteam() {
+		return myteam;
+	}
+	public void setMyteam(String myteam) {
+		this.myteam = myteam;
+	}
 }

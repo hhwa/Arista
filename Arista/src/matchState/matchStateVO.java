@@ -16,6 +16,7 @@ public class matchStateVO {
 	private String content;			//내용
 	private int people_max;			//경기최대신청인원
 	private int people_count;		//경기신청인원수
+	private String mem_id;
 	
 	public int getMatch_no() {
 		return match_no;
@@ -100,6 +101,12 @@ public class matchStateVO {
 	}
 	public void setPeople_count(int people_count) {
 		this.people_count = people_count;
+	}
+	public String getMem_id() {
+		return mem_id;
+	}
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
 	}
 	
 }

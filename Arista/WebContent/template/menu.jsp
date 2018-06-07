@@ -40,8 +40,8 @@ height:8px;
 	</table>
 	
 	<table id="menu_list" align="center">
-		<tr><td align="left"><a href="TeamMatchList.action">팀 매치</a></td></tr>
 		<tr><td align="left"><a href="SoloMatchList.action">솔로 매치</a><td></tr>
+		<tr><td align="left"><a href="TeamMatchList.action">팀 매치</a></td></tr>
 	</table><br><br>
 	
 		<table id="menu_back" align="center">

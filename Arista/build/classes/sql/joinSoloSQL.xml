@@ -21,8 +21,12 @@
 			where match_no=#match_no#
 		</select>
 		<!-- 솔로매치 신청자 수 -->
-		<select id="joinSoloMatchCount" resultMap="joinSoloRes" resultClass="java.lang.Integer">
+		<select id="joinSoloMatchCount" resultClass="int" parameterClass="int">
 			select count(*) as mem_idCount from joinSolo where match_no=#match_no#
+		</select>
+		<!-- 솔로매치 신청여부 -->
+		<select id="isJoinSoloMatch" resultClass="int" parameterClass="int">
+			select count(*) as isJoinSoloMatch from joinSolo where match_no=#match_no# and mem_id=#mem_id#
 		</select>
 		<!-- 솔로매치 신청 -->
 		<insert id="joinSoloMatch" parameterClass="joinSolo">
@@ -32,6 +36,6 @@
 		
 		<!-- 솔로매치 신청 취소 -->
 		<delete id="cancelSoloMatch" parameterClass="joinSolo">
-			delete from joinSolo where match_no=#match_no#,mem_id=#mem_id#
+			delete from joinSolo where match_no=#match_no# and mem_id=#mem_id#
 		</delete>
 </sqlMap>

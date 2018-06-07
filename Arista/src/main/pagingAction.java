@@ -17,7 +17,7 @@ public class pagingAction {
 	
 	private StringBuffer pagingHtml;
 	
-	public pagingAction(int currentPage,int totalCount,int blockCount,int blockPage) {
+	public pagingAction(int currentPage,int totalCount,int blockCount,int blockPage,String paging) {
 		this.blockCount=blockCount;
 		this.blockPage=blockPage;
 		this.currentPage=currentPage;
@@ -50,7 +50,7 @@ public class pagingAction {
 		//이전 blcok 페이지
 		pagingHtml=new StringBuffer();
 		if(currentPage>blockPage) {
-			pagingHtml.append("<a href=listAction.action?currentPage="+(startPage-1)+">");
+			pagingHtml.append("<a href="+paging+".action?currentPage="+(startPage-1)+">");
 			pagingHtml.append("이전");
 			pagingHtml.append("</a>");
 		}
@@ -69,7 +69,7 @@ public class pagingAction {
 				pagingHtml.append(i);
 				pagingHtml.append("</font></b>");
 			}else {
-				pagingHtml.append("&nbsp;<a href='listAction.action?currentPage=");
+				pagingHtml.append("&nbsp;<a href='"+paging+".action?currentPage=");
 				pagingHtml.append(i);
 				pagingHtml.append("'>");
 				pagingHtml.append(i);
@@ -79,12 +79,12 @@ public class pagingAction {
 		pagingHtml.append("&nbsp;&nbsp;|&nbsp;&nbsp;");
 		// 다음 block 페이지
 		if (totalPage - startPage >= blockPage) {
-			pagingHtml.append("<a href=listAction.action?currentPage="+ (endPage + 1) + ">");
+			pagingHtml.append("<a href="+paging+".action?currentPage="+ (endPage + 1) + ">");
 			pagingHtml.append("다음");
 			pagingHtml.append("</a>");
 		}
 	}
-	public pagingAction(int currentPage,int totalCount,int blockCount,int blockPage,String search) {
+	public pagingAction(int currentPage,int totalCount,int blockCount,int blockPage,String paging,String search) {
 		
 		this.blockCount=blockCount;
 		this.blockPage=blockPage;
@@ -119,7 +119,7 @@ public class pagingAction {
 		//이전 blcok 페이지
 		pagingHtml=new StringBuffer();
 		if(currentPage>blockPage) {
-			pagingHtml.append("<a href=listAction.action?currentPage="+(startPage-1)+"&search="+getSearch()+">");
+			pagingHtml.append("<a href="+paging+".action?currentPage="+(startPage-1)+"&search="+getSearch()+">");
 			pagingHtml.append("이전");
 			pagingHtml.append("</a>");
 		}
@@ -138,7 +138,7 @@ public class pagingAction {
 				pagingHtml.append(i);
 				pagingHtml.append("</font></b>");
 			}else {
-				pagingHtml.append("&nbsp;<a href='listAction.action?currentPage=");
+				pagingHtml.append("&nbsp;<a href='"+paging+".action?currentPage=");
 				pagingHtml.append(i);
 				pagingHtml.append("&search="+getSearch()+"'>");
 				pagingHtml.append(i);
@@ -148,7 +148,7 @@ public class pagingAction {
 		pagingHtml.append("&nbsp;&nbsp;|&nbsp;&nbsp;");
 		// 다음 block 페이지
 		if (totalPage - startPage >= blockPage) {
-			pagingHtml.append("<a href=listAction.action?currentPage="+ (endPage + 1) +"&search="+getSearch()+">");
+			pagingHtml.append("<a href="+paging+".action?currentPage="+ (endPage + 1) +"&search="+getSearch()+">");
 			pagingHtml.append("다음");
 			pagingHtml.append("</a>");
 		}

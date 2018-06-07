@@ -40,13 +40,15 @@ public class mypageAction extends ActionSupport{
 	private String prof_image_save;	//이미지
 	private Date m_joindate;	//가입일
 	private String m_nickname;	//닉네임
-	
+	private String PageName;
 	
 	public mypageAction() throws IOException{
 		
 		reader=Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper=SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
+		
+		setPageName("마이페이지");
 		
 	}
 	
@@ -264,6 +266,16 @@ public class mypageAction extends ActionSupport{
 
 	public void setM_nickname(String m_nickname) {
 		this.m_nickname = m_nickname;
+	}
+
+
+	public String getPageName() {
+		return PageName;
+	}
+
+
+	public void setPageName(String pageName) {
+		PageName = pageName;
 	}
 
 }

@@ -37,14 +37,28 @@
 	</tr>
 	
 	<s:iterator value="list" status="stat">
-		<s:url id="viewURL" action="joinMatch2">
-			<s:param name="game_no">
-				<s:property value="game_no"/>
-			</s:param>
-			<s:param name="currentPage">
-				<s:property value="currentPage"/>			
-			</s:param>
-		</s:url>
+		<s:url id="joinURL" action="joinSoloMatch">
+		<s:param name="match_no">
+			<s:property value="match_no"/>
+		</s:param>
+		<s:param name="mem_id">
+			<s:property value="#session.session_id"/>
+		</s:param>
+		<s:param name="currentPage">
+			<s:property value="currentPage"/>			
+		</s:param>
+	</s:url>
+	<s:url id="cancelURL" action="cancelSoloMatch">
+		<s:param name="match_no">
+			<s:property value="match_no"/>
+		</s:param>
+		<s:param name="mem_id">
+			<s:property value="#session.session_id"/>
+		</s:param>
+		<s:param name="currentPage">
+			<s:property value="currentPage"/>			
+		</s:param>
+	</s:url>
 	<tr bgcolor="#FFFFFF" align="center">
 		<td align="center"><s:property value="game_no"/></td>
 		<td align="center"><s:property value="game_type"/></td>
@@ -55,7 +69,17 @@
 		<td align="center"><s:property value="content"/></td>
 		<td align="center"><s:property value="people_count"/></td>
 		<td align="center"><s:property value="people_max"/></td>
-		<td align="center"><s:a href="%{viewURL}">신청</s:a></td>
+		<s:if test="#session.session_id != null">
+			<td align="center">
+				<s:if test="mem_id != null">
+					<s:a href="%{cancelURL}">취소</s:a>
+				</s:if>
+				<s:else>
+					<s:if test="people_count == people_max">마감</s:if>
+					<s:else><s:a href="%{joinURL}">신청</s:a></s:else>
+				</s:else>
+			</td>
+		</s:if>
 	</tr>
 	<tr bgcolor="#777777">
 		<td height="1" colspan="10"></td>
@@ -74,12 +98,13 @@
 	<tr align="center">
 		<td colspan="10"><s:property value="pagingHtml" escape="false"/></td>
 	</tr>
-	
+	<s:if test="#session.session_adminYN == 1">
 	<tr align="right">
 		<td colspan="10">
-			<input type="button" value="글쓰기" class="inputb" onclick="javascript:location.href='CreateSoloMatchForm.action?currentPage=<s:property value="currentPage"/>';">
+			<input type="button" value="솔로매치 생성" class="inputb" onclick="javascript:location.href='CreateSoloMatchForm.action?currentPage=<s:property value="currentPage"/>';">
 		</td>
 	</tr>
+	</s:if>
 </table>
 </div>
 <br>
