@@ -10,7 +10,7 @@
 
 <h3>팀을 삭제 하시겠습니까?</h3>
   	
-  	<form action="deletee.action" method="post">
+  	<form action="TeamDelete.action" method="post">
   	<s:hidden name="team_no" value="%{team_no}" />
   	<s:hidden name="currentPage" value="%{currentPage}" />
   		

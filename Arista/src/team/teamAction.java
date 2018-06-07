@@ -134,8 +134,10 @@ public class teamAction extends ActionSupport implements SessionAware{
       return SUCCESS;
    }
    public String view() throws Exception {
-      paramClass = (teamVO) sqlMapper.queryForObject("teamSQL.teamView", getTeam_no());
+      /*paramClass = (teamVO) sqlMapper.queryForObject("teamSQL.teamView", getTeam_no());*/
+      paramClass.setTeam_no(getTeam_no());
 
+      resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.selectOne", getTeam_no());
       return SUCCESS;
    }
 
@@ -184,12 +186,13 @@ public class teamAction extends ActionSupport implements SessionAware{
    }
 
    public String form() throws Exception {
-	   resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.selectOne", getTeam_no());
+	  resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.selectOne", getTeam_no());
       return SUCCESS;
    }
 
    public String modify() throws Exception {
 	   
+	  paramClass = new teamVO(); 
 	  resultClass = new teamVO();
 	  
       paramClass.setTeam_no(getTeam_no());
@@ -228,11 +231,11 @@ public class teamAction extends ActionSupport implements SessionAware{
    }
    
    public String deleteform() throws Exception {
-
+	  resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.selectOne", getTeam_no());
       return SUCCESS;
    }
    
-   public String deletee() throws Exception {
+   public String delete() throws Exception {
 	   
 	   paramClass =new teamVO();
 	   resultClass = new teamVO();

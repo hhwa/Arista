@@ -64,7 +64,7 @@
 			<action name="deleteForm" class="team.teamAction" method="deleteform">
 				<result>/team/checkDelete.jsp</result>
 			</action>
-			<action name="delete" class="team.teamAction" method="deletee">
+			<action name="TeamDelete" class="team.teamAction" method="delete">
 				<!-- <result type="chain">TeamList</result> -->
 				<result>/team/deleteSuccess.jsp</result>
 			</action>

@@ -29,7 +29,7 @@
 		<tr>				
 		<!-- <td width="100" bgcolor="F4F4F4"></td> -->
       		 <td bgcolor="#FFFFFF" colspan="2">
-       		  &nbsp;&nbsp;<img width="200" height="200" src="<%= request.getContextPath()%>/teamimg/<s:property value="paramClass.file_savname" />"/>
+       		  &nbsp;&nbsp;<img width="200" height="200" src="<%= request.getContextPath()%>/teamimg/<s:property value="resultClass.file_savname" />"/>
        		  </td>
          </tr>
          
@@ -41,18 +41,18 @@
 			
       <tr>
       	<td align="left">
-        			<li>지역 : <s:property value="paramClass.team_area" /></li>
-        			<li>연령대 : <s:property value="paramClass.team_age" /></li>
-        			<li>실력 : <s:property value="paramClass.team_skill" /></li>
-        			<li>간략한 소개 : <s:property value="paramClass.team_intro" /></li>
+        			<li>지역 : <s:property value="resultClass.team_area" /></li>
+        			<li>연령대 : <s:property value="resultClass.team_age" /></li>
+        			<li>실력 : <s:property value="resultClass.team_skill" /></li>
+        			<li>간략한 소개 : <s:property value="resultClass.team_intro" /></li>
         		
         </td>
         
         		
         <td align="left">
-        			<li>소속유형 : <s:property value="paramClass.team_type" /></li>
-        			<li>팀원수 : <s:property value="paramClass.team_count" /></li>
-        			<li>경기유형 : <s:property value="paramClass.team_fieldtype" /></li>
+        			<li>소속유형 : <s:property value="resultClass.team_type" /></li>
+        			<li>팀원수 : <s:property value="resultClass.team_count" /></li>
+        			<li>경기유형 : <s:property value="resultClass.team_fieldtype" /></li>
         </td>
       </tr>
       
@@ -67,7 +67,7 @@
 				
 			<input name="list" type="button" value="수정" class="inputb" onClick="javascript:location.href='TeamModifyForm.action?team_no=<s:property value="team_no"/>&currentPage=<s:property value="currentPage"/>'">
 					
-			<input name="list" type="button" value="삭제" class="inputb" onClick="javascript:open_win_noresizable('deleteForm.action?no=<s:property value="paramClass.no" />&currentPage=<s:property value="currentPage" />','delete')">
+			<input name="list" type="button" value="삭제" class="inputb" onClick="javascript:open_win_noresizable('deleteForm.action?no=<s:property value="resultClass.team_no" />&currentPage=<s:property value="currentPage" />','delete')">
 
 			<input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='TeamList.action?currentPage=<s:property value="currentPage" />'">
 

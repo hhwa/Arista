@@ -9,18 +9,17 @@
 	<script type="text/javascript">
 		function locationURL() {
 		
-		if ( window.name == 'delete' )
-			{
+		window.name == 'delete' 
+		
 			alert('삭제되었습니다.');
-			window.opener.parent.location.href='deletee.action?no=<s:property value="team_no" />&currentPage=<s:property value="currentPage" />';
-			}	
+		window.opener.parent.location.href='TeamList.action?no=<s:property value="team_no" />&currentPage=<s:property value="currentPage" />';
 		window.close();
 		}
 	</script>
 </head>
 <body>
 
-  	<script>locationURL()</script>
-  	
+  	<!-- <script>locationURL()</script>
+  	 -->
 </body>
 </html>

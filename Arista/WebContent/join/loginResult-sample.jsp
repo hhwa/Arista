@@ -16,7 +16,7 @@ function open_win_noresizable (url, name) {
 <body>
 <s:if test="#session.m_id == null">
 <script>
-alert("일치하는 정보가 없습니다.");
+alert("로그인 정보가 없습니다.");
 window.location.href="loginForm.action";
 </script>
 </s:if>

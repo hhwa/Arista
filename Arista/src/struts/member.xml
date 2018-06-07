@@ -9,13 +9,8 @@
 	
 		<!-- 회원가입  -->	
 		<package name="member" extends="struts-default,tiles-default">
-	
-			<global-results>
-	 			<result name="gologin" type="tiles">loginForm</result>
-	 		</global-results>
-	
 			<action name="MemberJoinAction" class="mem.MemberJoinAction">
-				<result type="tiles">main</result>
+			<result type="chain">main</result>
 			</action>
 	
 			<action name="memberIdCheck" class="mem.MemberJoinAction" method="idcheck">
@@ -33,9 +28,31 @@
 			<action name="joinForm" class="mem.MemberJoinAction" method="joinform">
 				<result type="tiles">JoinForm</result>
 			</action>
+			
+			<!-- 회원정보 수정 -->
+			<action name="modiftymemberForm" class="mem.MemberJoinAction" method="modifyMemForm">
+				<result type="tiles">memberModifyForm</result>
+			</action>
+		
+			<action name="modiftymemberPro" class="mem.MemberJoinAction" method="modifyMemPro">
+				<result type="chain">main</result>
+			</action>
+					
+			<!-- 회원탈퇴 -->
+			<action name="deletememberPW" class="mem.MemberJoinAction" method="deleteMemPw">
+				<result>/join/mDeleteCheckPW.jsp</result>
+			</action>
+			
+			<action name="deletemember" class="mem.MemberJoinAction" method="deleteMem">
+				<result>/join/deleteMemberResult.jsp</result>
+			</action>
+			
+			<action name="redirectPW">
+				<result type="chain">deletememberPW</result>
+			</action>
 
 			<!-- 로그인&로그아웃  -->	
-			<action name="loginForm" class="mem.loginAction" method="form">
+			<action name="loginForm" class="mem.loginAction" method="loginForm">
 				<result type="tiles">loginForm</result>
 			</action>
 
@@ -48,13 +65,12 @@
 			</action>
 	
 			<action name="logout" class="mem.loginAction" method="logout">
-				<result type="redirect-action">
-					<param name="actionName">main</param>
-				</result>
+				<result type="chain">main</result>
 			</action>
 
+
 			<!-- 아이디 찾기 -->	
-			<action name="findIDForm" class="mem.loginAction" method="form">
+			<action name="findIDForm" class="mem.loginAction" method="findidform">
 				<result type="tiles">findIDForm</result>
 				
 			</action>
@@ -64,21 +80,27 @@
 			</action>	
 
 			<!-- 비밀번호 찾기 -->	
-			<action name="findPWForm" class="mem.loginAction" method="form">
+			<action name="findPWForm" class="mem.loginAction" method="findpwform">
 				<result type="tiles">findPWForm</result>
 			</action>
 
 			<action name="findPWPro" class="mem.loginAction" method="findPw">
 				<result>/login/findPWresult.jsp</result>
 			</action>
-	
+			
 			<!-- 회원관리 -->	
 			<action name="adminMemList" class="admin.memberAction" method="memberList">
 				<result type="tiles">MemList</result>
 			</action>
 	
+			<!-- 회원관리 - 상세 -->
 			<action name="adminMemView" class="admin.memberAction" method="memberView">
 				<result type="tiles">MemView</result>
+			</action>
+			
+			<!-- 회원관리 - 권한수정 -->
+			<action name="adminRight" class="admin.memberAction" method="adminRightModi">
+				<result type="chain">adminMemView</result>
 			</action>
 	
 		</package>
