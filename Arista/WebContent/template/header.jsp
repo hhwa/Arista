@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 <head>
 <link rel="stylesheet" href="/Arista/css/style.css" type="text/css">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Header</title>
 
 
@@ -33,22 +33,22 @@
 <body>
 
 
-<!-- ìƒë‹¨     í™ˆ|ë¡œê·¸ì¸|íšŒì›ê°€ìž…  -->
+<!-- »ó´Ü     È¨|·Î±×ÀÎ|È¸¿ø°¡ÀÔ  -->
 <table border=0 height=1 cellspacing="1" cellpadding="1" align="right" >
 	<tr>
 		<s:if test="#session.session_id != null">
-			<td align="center"><h6><s:property value="#session.session_id"/>ë‹˜ í™˜ì˜í•©ë‹ˆë‹¤! </h6></td>
+			<td align="center"><h6><s:property value="#session.session_id"/>´Ô È¯¿µÇÕ´Ï´Ù! </h6></td>
 			<td align="center"><h6>&nbsp;|&nbsp;</h6></td>
-			<td width="20" align="center"><h6><a href=main.action>í™ˆ</a></h6></td>
+			<td width="20" align="center"><h6><a href=main.action>È¨</a></h6></td>
 			<td align="center"><h6>&nbsp;|&nbsp;</h6></td>
-			<td width="60" align="center"><h6><a href="logout.action">ë¡œê·¸ì•„ì›ƒ</a></h6></td>
+			<td width="60" align="center"><h6><a href="logout.action">·Î±×¾Æ¿ô</a></h6></td>
 		</s:if>
 		<s:else>
-			<td width="20" align="center"><h6><a href=main.action>í™ˆ</a></h6></td>
+			<td width="20" align="center"><h6><a href=main.action>È¨</a></h6></td>
 			<td align="center"><h6>&nbsp;|&nbsp;</h6></td>
-			<td width="45" align="center"><h6><a href="loginForm.action">ë¡œê·¸ì¸</a></h6></td>
+			<td width="45" align="center"><h6><a href="loginForm.action">·Î±×ÀÎ</a></h6></td>
 			<td align="center"><h6>&nbsp;|&nbsp;</h6></td>
-			<td width="55" align="center"><h6><a href="joinForm.action">íšŒì›ê°€ìž…</a></h6></td>
+			<td width="55" align="center"><h6><a href="joinForm.action">È¸¿ø°¡ÀÔ</a></h6></td>
 		</s:else>
 		<td width="120" align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 		
@@ -56,7 +56,7 @@
 </table>
 
 
-<!-- ë¡œê³ _ ê²€ìƒ‰ -->
+<!-- ·Î°í_ °Ë»ö -->
 <center>
 <br>
 
@@ -64,12 +64,12 @@
 <td align="center" width=30%><img src="/Arista/template/image/logo.jpg" width="300" height="120" alt="" /></td>
 <td align="center" width=70% align="left" > <br><br>
 <input type="text" name=search size=40  style="height:35px; width:300px; padding:0px 0px 0px 10px;">  
-<input type="submit" value="ê²€ìƒ‰" size=40 style="height: 35px; width: 50px;">
+<input type="submit" value="°Ë»ö" size=40 style="height: 35px; width: 50px;">
 </td>
 </table>
 </center>
 
-<!-- ë©”ë‰´     ë§ˆì´íŽ˜ì´ì§€  ë§¤ì¹˜  íŒ€  ê²½ê¸°ìž¥  ê³ ê°ì„¼í„° -->
+<!-- ¸Þ´º     ¸¶ÀÌÆäÀÌÁö  ¸ÅÄ¡  ÆÀ  °æ±âÀå  °í°´¼¾ÅÍ -->
 	<br>
 <header>
 <center>
@@ -77,18 +77,18 @@
 	 <table border="0" width=1300 cellspacing="1" cellpadding="1">
 	 	<tr>
 			<td width=100 align="center"></td>
-			<td width=100 align="center"><h4><a href="mypage.action"><b>ë§ˆì´íŽ˜ì´ì§€</b></a></h4></td>
-			<td width=100 align="center"><h4><a href="selectMatch.action"><b> ë§¤ì¹˜</b></a></h4></td>
-			<td width=100 align="center"><h4><a href="TeamList.action"><b>íŒ€</b></a></h4></td>
-			<td width=100 align="center"><h4><a href="stadiumList.action"><b>ê²½ê¸°ìž¥</b></a></h4></td>
-			<td width=100 align="center"><h4><a href="QNAList.action"><b>ê³ ê°ì„¼í„°</b></a></h4></td>
+			<td width=100 align="center"><h4><a href="mypage.action"><b>¸¶ÀÌÆäÀÌÁö</b></a></h4></td>
+			<td width=100 align="center"><h4><a href="selectMatch.action"><b> ¸ÅÄ¡</b></a></h4></td>
+			<td width=100 align="center"><h4><a href="TeamList.action"><b>ÆÀ</b></a></h4></td>
+			<td width=100 align="center"><h4><a href="stadiumList.action"><b>°æ±âÀå</b></a></h4></td>
+			<td width=100 align="center"><h4><a href="QNAList.action"><b>°í°´¼¾ÅÍ</b></a></h4></td>
 			<td width=100 align="center"></td>
 		</tr>
 	</table> 
 </header>
 </center>
  <center>
-<div id="header_img" style="overflow:hidden;" align="center"><h1>ë§ˆì´íŽ˜ì´ì§€</h1></div>
+<div id="header_img" style="overflow:hidden;" align="center"><h1>¸¶ÀÌÆäÀÌÁö</h1></div>
 </center>
 </body>
 </html>

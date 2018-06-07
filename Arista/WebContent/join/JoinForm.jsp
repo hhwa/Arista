@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-<title>íšŒì›ê°€ìž…</title>
+<title>È¸¿ø°¡ÀÔ</title>
 <script src="./join/joinForm.js" type="text/javascript">
 </script>
 </head>
@@ -16,53 +16,53 @@
 	<table width="600" border="1" cellspacing="0" cellpadding="3" align="center">
 		<tr>
 			<td colspan="2" height="39" align="center" >
-				<font size="+1"><b>íšŒì›ê°€ìž…</b></font></td>
+				<font size="+1"><b>È¸¿ø°¡ÀÔ</b></font></td>
 		</tr>
 		<tr>
-			<td width="200"><b>ì•„ì´ë”” ìž…ë ¥</b></td>
+			<td width="200"><b>¾ÆÀÌµð ÀÔ·Â</b></td>
 			<td width="400"></td>
 		</tr>
 		<tr>
-			<td width="200"> ì‚¬ìš©ìž ID </td>
+			<td width="200"> »ç¿ëÀÚ ID </td>
 			<td width="400">
 				<input type="text" name="m_id" size="10" maxlength="12">
-				<input type="button" name="check_id" value="IDì¤‘ë³µí™•ì¸" OnClick="openConfirmid(this.form)">
+				<input type="button" name="check_id" value="IDÁßº¹È®ÀÎ" OnClick="openConfirmid(this.form)">
 		</tr>
 		<tr>
-			<td width="200">ë¹„ë°€ë²ˆí˜¸</td>
+			<td width="200">ºñ¹Ð¹øÈ£</td>
 			<td width="400">
 				<input type="password" name="m_passwd" size="20">
 			</td>
 		</tr>
 		<tr>
-			<td width="200">ë¹„ë°€ë²ˆí˜¸ í™•ì¸</td>
+			<td width="200">ºñ¹Ð¹øÈ£ È®ÀÎ</td>
 			<td width="400">
 				<input type="password" name="passwd2" size="20">
 			</td>
 		</tr>				
 		<tr>
-			<td width="200"><b>ê°œì¸ì •ë³´ ìž…ë ¥</b></td>
+			<td width="200"><b>°³ÀÎÁ¤º¸ ÀÔ·Â</b></td>
 			<td width="400"> </td>
 		</tr>
 		<tr>
-			<td width="200">ì´ë¦„</td>
+			<td width="200">ÀÌ¸§</td>
 			<td width="400">
 				<input type="text" name="m_name" size="15" maxlength="15">
 			</td>
 		</tr>
 		<tr>
-			<td width="200">ë‹‰ë„¤ìž„</td>
+			<td width="200">´Ð³×ÀÓ</td>
 			<td width="400">
 				<input type="text" name="m_nickname" size="15" maxlength="15">
-				<input type="button" name="check_nick" value="ë‹‰ë„¤ìž„ ì¤‘ë³µí™•ì¸" OnClick="openConfirmnick(this.form)">
+				<input type="button" name="check_nick" value="´Ð³×ÀÓ Áßº¹È®ÀÎ" OnClick="openConfirmnick(this.form)">
 			</td>
 		</tr>
 
 			<tr>
-			<td width="200">í¬ì§€ì…˜</td>
+			<td width="200">Æ÷Áö¼Ç</td>
 			<td width="400">
 			<select name="m_position">
-			<option selected="selected">ì„ íƒ</option> 
+			<option selected="selected">¼±ÅÃ</option> 
 			<option>LWF</option>
 			<option>ST</option>
 			<option>RWF</option>
@@ -77,50 +77,50 @@
 			<option>RWB</option>
 			<option>GK</option>
 			</select>
-			<font color="red" size="2">â€»í¬ì§€ì…˜ì„ ì„ íƒí•´ì£¼ì„¸ìš”.</font>
+			<font color="red" size="2">¡ØÆ÷Áö¼ÇÀ» ¼±ÅÃÇØÁÖ¼¼¿ä.</font>
 			</td>
 		</tr>
 		
 		<tr>
-			<td width="200">íœ´ëŒ€í° ë²ˆí˜¸</td>
+			<td width="200">ÈÞ´ëÆù ¹øÈ£</td>
 			<td width="400">
-				<input type="text" name="m_mobilephone" size="11"> <font size="2">ì˜ˆì‹œ)010-1111-1111</font>
+				<input type="text" name="m_mobilephone" size="11"> <font size="2">¿¹½Ã)010-1111-1111</font>
 				
 			</td>
 		</tr>				
 		<tr>
-			<td width="200">ì§€ì—­</td>
+			<td width="200">Áö¿ª</td>
 			<td width="400">
 				<!-- <input type="text" name="m_region" size="20"> -->
-				<select name="m_region"><option value="ì„ íƒ">ì„ íƒ</option>
-								<option value="ì„œìš¸">ì„œìš¸</option>
-								<option value="ê²½ê¸°ë„">ê²½ê¸°ë„</option>
-								<option value="ê°•ì›ë„">ê°•ì›ë„</option>
-								<option value="ì¶©ì²­ë„">ì¶©ì²­ë„</option>
-								<option value="ì „ë¼ë„">ì „ë¼ë„</option>
-								<option value="ê²½ìƒë„">ê²½ìƒë„</option>
-								<option value="ì œì£¼ë„">ì œì£¼ë„</option>
+				<select name="m_region"><option value="¼±ÅÃ">¼±ÅÃ</option>
+								<option value="¼­¿ï">¼­¿ï</option>
+								<option value="°æ±âµµ">°æ±âµµ</option>
+								<option value="°­¿øµµ">°­¿øµµ</option>
+								<option value="ÃæÃ»µµ">ÃæÃ»µµ</option>
+								<option value="Àü¶óµµ">Àü¶óµµ</option>
+								<option value="°æ»óµµ">°æ»óµµ</option>
+								<option value="Á¦ÁÖµµ">Á¦ÁÖµµ</option>
 							</select>
 			</td>
 		</tr>
 		<tr>
-			<td width="200">ì¶œìƒì—°ë„</td>
+			<td width="200">Ãâ»ý¿¬µµ</td>
 			<td width="400">
 				<input type="text" name="m_birthyear" size="10">
-			<font size="2">ì˜ˆì‹œ)1990</font></td>
+			<font size="2">¿¹½Ã)1990</font></td>
 		</tr>
 		<tr>
-			<td width="200">ì´ë©”ì¼</td>
+			<td width="200">ÀÌ¸ÞÀÏ</td>
 			<td width="400">
 				<input type="text" name="m_email" size="30">
-				<input type="button" name="email_nick" value="ì´ë©”ì¼ ì¤‘ë³µí™•ì¸" OnClick="openConfirmemail(this.form)">
+				<input type="button" name="email_nick" value="ÀÌ¸ÞÀÏ Áßº¹È®ÀÎ" OnClick="openConfirmemail(this.form)">
 				
 			</td>
 		</tr>
 		
 
 		<tr>
-			<td>í”„ë¡œí•„ì‚¬ì§„</td>
+			<td>ÇÁ·ÎÇÊ»çÁø</td>
 			<td>
 			<s:file name="upload" theme="simple"/>
 			
@@ -128,9 +128,9 @@
 		</tr>				
 		<tr>
 			<td colspan="2" align="center">
-				<input type="submit" name="confirm" value="ë“± ë¡">
-				<input type="reset" name="reset" value="ë‹¤ì‹œ ìž…ë ¥">
-				<input type="button" value="ì·¨ì†Œ" onclick="javascript:window.location='loginForm.action'">
+				<input type="submit" name="confirm" value="µî ·Ï">
+				<input type="reset" name="reset" value="´Ù½Ã ÀÔ·Â">
+				<input type="button" value="Ãë¼Ò" onclick="javascript:window.location='loginForm.action'">
 			</td>
 		</tr>			
 	</table>

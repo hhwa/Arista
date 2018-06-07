@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -40,17 +40,17 @@ $(document).ready(function(){
 <body>
 <footer class="text-center">
 <br>
-	<a class="up-arrow" href="#" data-toggle="tooltip" title="ë§¨ ìœ„ë¡œ">
+	<a class="up-arrow" href="#" data-toggle="tooltip" title="¸Ç À§·Î">
 		<span class="glyphicon glyphicon-chevron-up"></span>
 	</a>
 	<br>
 	<br>
 	
-	<a href="privacy.action"> ê°œì¸ì •ë³´ì²˜ë¦¬ë°©ì¹¨</a> &nbsp;
-	<a href="promiss.action"> ì´ìš©ì•½ê´€ </a> &nbsp;
-	<a href="emailx.action"> ì´ë©”ì¼ë¬´ë‹¨ìˆ˜ì§‘ê±°ë¶€ </a> &nbsp;
+	<a href="privacy.action"> °³ÀÎÁ¤º¸Ã³¸®¹æÄ§</a> &nbsp;
+	<a href="promiss.action"> ÀÌ¿ë¾à°ü </a> &nbsp;
+	<a href="emailx.action"> ÀÌ¸ŞÀÏ¹«´Ü¼öÁı°ÅºÎ </a> &nbsp;
 	
- <p><span class="glyphicon glyphicon-copyright-mark"></span>&nbsp;Copyrightâ“’ 2017 Off The Match. All rights reserved. e-mail : hyunhwa91@naver.com</p>
+ <p><span class="glyphicon glyphicon-copyright-mark"></span>&nbsp;Copyright¨Ï 2017 Off The Match. All rights reserved. e-mail : hyunhwa91@naver.com</p>
  <p><a href="#" onclick="return false;" data-toggle="tooltip" title="bboya & huna"><img src="/Arista/template/image/footer_logo.png" width="10%"/></a></p><br>
 </footer>
 </body>
