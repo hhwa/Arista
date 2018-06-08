@@ -27,7 +27,7 @@ height:8px;
 	</table>
 	
 	<table id="menu_list" align="center">
-		<tr><td align="left">내 정보</td></tr>
+		<tr><td align="left"><a href=myInfoView.action>내 정보</td></tr>
 		<tr><td align="left">팀 검색<td></tr>
 		<tr><td align="left">내가 쓴 매치글</td></tr>
 		<tr><td align="left">내가 신청한 매치글</td></tr>
@@ -47,7 +47,7 @@ height:8px;
 	</table>
 	
 	<table id="menu_list" align="center">
-		<tr><td align="left">마이팀</a></td></tr>
+		<tr><td align="left"><a href=MyTeam.action>마이팀</a></td></tr>
 		<tr><td align="left">팀 정보<td></tr>
 	</table><br><br>
 	

@@ -34,8 +34,8 @@
 		
 		<!-- 아이디 중복확인  -->
 		<select id="idcheck" resultMap="memRes" parameterClass="mem">
-			<include refid="select-all"/>
-			<include refid="where-id"/>
+		<include refid="select-all"/>
+		<include refid="where-id"/>
 		</select>
 		
 		<!-- 닉네임 중복확인  -->
@@ -51,9 +51,9 @@
 		</select>
 		
 		<!-- 로그인 처리 -->
-		<select id="loginPro" resultMap="memRes" parameterClass="String">
+		<select id="loginPro" resultMap="memRes" parameterClass="mem">
 			<include refid="select-all"/>
-			WHERE m_id=#m_id#
+			WHERE m_id=#m_id# AND M_PASSWD=#m_passwd#
 		</select>
 		
 		<!-- ID 찾기 -->
@@ -81,32 +81,26 @@
 		<include refid="select-all"/>
 		<include refid="where-id"/>
 		</select>
-		
-		<!-- 마이팀 찾기(멤버아이디로) -->
-		<select id="myTeam" resultClass="String" parameterClass="String">
-			select myteam from mem
-			where m_id=#m_id#
-		</select>
-		
-		<!-- 회원검색 -->
-		<!-- <select id="memSearch" resultMap="memRes" parameterClass="java.util.HashMap">
+	
+
+		<!-- 관리자 - 회원검색 -->
+		<select id="memSearch" resultMap="memRes" parameterClass="java.util.HashMap">
 			<include refid="select-all"/>
 			where $param1$ like #param2# order by m_joindate desc
 		</select>
 		
 		<select id="selectLastNo" resultClass="mem">
 			select max(no) as no from mem
-		</select> -->
-		
-		<!-- 회원비밀번호??????????????????????(비밀번호인증할때) -->
-		<!-- <select id="selectPassword" resultMap="boardRes" parameterClass="board">
+
+		</select> 
+
+		<!-- 회원 비밀번호 인증-->
+		<select id="selectPassword" resultMap="memRes" parameterClass="mem">
 			<include refid="select-all"/>
 			<include refid="where-id"/>
 			and m_passwd=#m_passwd#
 		</select>
-		 -->
-		 
-		 
+	
 		<!-- insert 쿼리문 정의 -->
 		
 		<!-- 회원 가입 -->
@@ -117,10 +111,18 @@
 		<!-- update 쿼리문 정의 -->
 		
 		<!-- 회원 정보수정 -->
-	<!-- 	<update id="updateMem" parameterClass="mem">
+
+		<select id="updateform" resultMap="memRes" parameterClass="mem">
+				<include refid="select-all"/>
+				<include refid="where-id"/>
+		</select>
+		
+		<update id="updateMem" parameterClass="mem">
 			update mem set m_passwd=#m_passwd#,m_mobilephone=#m_mobilephone#,m_region=#m_region#,m_position=#m_position#,m_nickname=#m_nickname#
 			<include refid="where-id"/>
-		</update> -->
+		</update>
+
+
 		
 		<!-- 프로필 이미지 설정 -->
 		<update id="updateProfile" parameterClass="mem">
@@ -129,9 +131,10 @@
 		</update>
 		
 		<!-- 관리자 설정 -->
-	<!-- 	<update id="updateAdminYN" parameterClass="mem">
+		<update id="updateAdminYN" parameterClass="mem">
 			update mem set admin_yn=#admin_yn#
-		</update> -->
+			<include refid="where-id"/>
+		</update> 
 		
 		<!-- delete 쿼리문 정의 -->
 		

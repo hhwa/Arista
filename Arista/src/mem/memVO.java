@@ -19,6 +19,7 @@ public class memVO {
 	private String prof_image_save;
 	private String myteam;
 	
+	
 	public String getMyteam() {
 		return myteam;
 	}

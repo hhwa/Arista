@@ -47,15 +47,15 @@
         		<td align="center"> &nbsp;<img width="60" height="60" src="<%= request.getContextPath()%>/teamimg/<s:property value="file_savname"/>"/>
         		</td>
         		<td align="left">
-        			<s:a href="%{viewURL}"><s:property value="team_id" /></s:a>
+        			<s:property value="team_id" />
         		</td>
-        		<td align="left">
+        		<td align="left" onclick="location.href='TeamView.action?team_no=<s:property value="team_no" />&currentPage=<s:property value="currentPage" />'">
         			<li>지역 : <s:property value="team_area" /></li>
         			<li>연령대 : <s:property value="team_age" /></li>
         			<li>실력 : <s:property value="team_skill" /></li>
         		</td>
         		
-        		<td align="left">
+        		<td align="left" onclick="location.href='TeamView.action?team_no=<s:property value="team_no" />&currentPage=<s:property value="currentPage" />'">
         			<li>소속유형 : <s:property value="team_type" /></li>
         			<li>팀원수 : <s:property value="team_count" /></li>
         			<li>경기유형 : <s:property value="team_fieldtype" /></li>
@@ -87,8 +87,8 @@
     	<tr align="center">
 		<td colspan="6">		
 			<form>
-				팀명:<input type="search" name="searchKeyword"/><input type="submit" value="검색"/>			
-				<input name="list" type="button" value="My Team" class="inputb" onClick="javascript:location.href='http://localhost:8080/Arista/team/myTeamView.jsp'"></td>
+				팀명 : <input type="search" name="searchKeyword"/><input type="submit" value="검색"/>			
+				<input name="list" type="button" value="My Team" class="inputb" onClick="javascript:location.href='MyTeam.action?currentPage=<s:property value="currentPage" />'""></td>
 			</form>
 		</td>
 	</tr>

@@ -78,7 +78,7 @@
 		<tr>
           <td width="100" bgcolor="#F4F4F4"><font color="#FF0000">*</font>  ÆÀ¸í</td>
           <td width="500" bgcolor="#FFFFFF">
-            <s:textfield name="team_id" theme="simple" value="%{resultClass.team_id}" cssStyle="width:370px" maxlength="50"/>
+            <s:textfield name="team_id" theme="simple" value="%{resultClass.team_id}" cssStyle="width:370px" maxlength="10"/>
           </td>
         </tr>
        
@@ -174,7 +174,7 @@
 		<tr>
           <td width="100" bgcolor="#F4F4F4"><font color="#FF0000">*</font>  ÆÀ ÀÎ¿ø</td>
           <td width="500" bgcolor="#FFFFFF">
-            <s:textfield name="team_count" theme="simple" value="%{resultClass.team_count}" cssStyle="width:370px" maxlength="50"/>
+            <s:textfield name="team_count" theme="simple" value="%{resultClass.team_count}" cssStyle="width:370px" maxlength="2"/>
           </td>
         </tr>         
         							

@@ -35,6 +35,7 @@ public class teamAction extends ActionSupport implements SessionAware{
    private teamVO paramClass = new teamVO();
    private teamVO resultClass =new teamVO();
    private memVO memParam = new memVO();
+   private memVO memResult = new memVO();
    private teamInfoVO teamInfoParam = new teamInfoVO();
 
    private int team_no;
@@ -123,7 +124,9 @@ public class teamAction extends ActionSupport implements SessionAware{
       list = list.subList(page.getStartCount(), lastCount);
       return SUCCESS;
    }
+   
    public String myTeam() throws Exception {
+	   
       memParam = (memVO) sqlMapper.queryForObject("memSQL.myTeam",session.get("session_id"));
       
       if(memParam.getMyteam()==null) {
@@ -133,6 +136,7 @@ public class teamAction extends ActionSupport implements SessionAware{
       paramClass = (teamVO) sqlMapper.queryForObject("teamSQL.myTeamView",memParam.getMyteam());
       return SUCCESS;
    }
+   
    public String view() throws Exception {
       /*paramClass = (teamVO) sqlMapper.queryForObject("teamSQL.teamView", getTeam_no());*/
       paramClass.setTeam_no(getTeam_no());
@@ -237,8 +241,7 @@ public class teamAction extends ActionSupport implements SessionAware{
    
    public String delete() throws Exception {
 	   
-	   paramClass =new teamVO();
-	   resultClass = new teamVO();
+
 	   
 	   resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.selectOne", getTeam_no());
 	   
@@ -355,8 +358,16 @@ public class teamAction extends ActionSupport implements SessionAware{
    public void setMemParam(memVO memParam) {
       this.memParam = memParam;
    }
+   
+   public memVO getMemResult() {
+	return memResult;
+}
 
-   public int getTeam_no() {
+public void setMemResult(memVO memResult) {
+	this.memResult = memResult;
+}
+
+public int getTeam_no() {
       return team_no;
    }
 
