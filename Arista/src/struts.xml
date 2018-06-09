@@ -25,11 +25,13 @@
 	 			<result name="login" type="tiles">loginForm</result>
 	 		</action>
 		</package>
+		<include file="struts/faq.xml"/>
 		<include file="struts/footer.xml"/>
 		<include file="struts/member.xml"/>
 		<include file="struts/match.xml"/>
 		<include file="struts/mypage.xml"/>
 		<include file="struts/qna.xml"/>
+		<include file="struts/notice.xml"/>
 		<include file="struts/stadium.xml"/>
 		<include file="struts/team.xml"/>
 

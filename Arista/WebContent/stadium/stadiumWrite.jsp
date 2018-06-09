@@ -1,31 +1,32 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
-   <%@ taglib prefix="s" uri="/struts-tags" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<%@ page contentType="text/html; charset=euc-kr" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
+<?xml version="1.0" encoding="EUC-KR" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>경기장 목록</title>
+<title>경기장 등록</title>
+<link rel="stylesheet" href="/css/css.css" type="text/css">
 </head>
 
 <body>
    <table width="600" border="0" cellspacing="0" cellpadding="2">
       <tr>
-         <td align="center"><h2>경기장 목록</h2></td>
+         <td align="center"><h2>경기장 등록</h2></td>
       </tr>
           
    </table>
    
      <s:if test="resultClass == NULL">
-        <form action="stadiumWrite.action" method="post" enctype="multipart/form-data">
+        <form action="StadiumWrite.action" method="post" enctype="multipart/form-data">
      </s:if>
      
      <s:else>
-       <form action="stadiumModify.action" method="post" enctype="multipart/form-data">
+       <form action="StadiumModify.action" method="post" enctype="multipart/form-data">
         <s:hidden name="stadium_no" value="%{resultClass.stadium_no}" />
         <s:hidden name="currentPage" value="%{currentPage}" />
         <s:hidden name="old_file" value="%{resultClass.stadium_main_img_save}" />
-     </s:else>
+        </s:else>
         
         <table width="600" border="0" cellspacing="0" cellpadding="0">
         <tr>
@@ -124,7 +125,7 @@
                  <tr>
                  <td align="right" colspan="2">
                    <input name="submit" type="submit" value="작성완료" class="inputb">
-                   <input name="stadiumlist" type="button" value="목록" class="inputb" onClick="javascript:location.href='stadiumList.action?currentPage=<s:property value="currentPage" />'">
+                   <input name="stadiumlist" type="button" value="목록" class="inputb" onClick="javascript:location.href='StadiumList.action?currentPage=<s:property value="currentPage" />'">
                  </td>
                  </tr>
             </table>

@@ -7,17 +7,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>ID 중복체크</title>
-<script type="text/javascript">
+<script language="javascript">
 
 function setid()
  {
-	opener.document.userinput.m_ID.value="<s:property value='m_id'/>";
+	opener.document.userinput.m_id.value="<s:property value='m_id'/>";
  	self.close();
+
  } 
+
 
 </script>
 </head>
 <body>
+
 
 <s:if test="idcheckresult == 0">
 <table width="270" border="0" cellspacing="0" cellpadding="5">

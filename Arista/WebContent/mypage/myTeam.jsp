@@ -8,5 +8,12 @@
 </head>
 <body>
 ∏∂¿Ã∆¿
+<s:if test="teamInfoParam.team_admin == 0">
+
+</s:if>
+<s:if test="teamInfoParam.team_admin == 1">
+</s:if>
+<s:if test="teamInfoParam.team_admin == 1">
+</s:if>
 </body>
 </html>

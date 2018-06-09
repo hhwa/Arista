@@ -84,7 +84,7 @@ public class soloMatchAction extends ActionSupport implements SessionAware{
 			searchMap.put("param2","%"+getSearch()+"%");
 			list = sqlMapper.queryForList("soloMatchSQL.soloMatchSearch",searchMap);
 			totalCount = list.size();//전체 글 갯수
-			page = new pagingAction(currentPage, totalCount,blockCount,blockPage,paging,getSearch());//pagingAction 객체 생성
+			page = new pagingAction(currentPage, totalCount,blockCount,blockPage,getTopic(),getSearch(),paging);//pagingAction 객체 생성
 		}
 		
 		pagingHtml = page.getPagingHtml().toString(); //페이지 HTML 생성.

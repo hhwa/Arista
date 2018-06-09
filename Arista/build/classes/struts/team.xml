@@ -20,6 +20,7 @@
 	 		<action name="MyTeam" class="team.teamAction" method="myTeam">
 	 			<result type="tiles">MyTeam</result>
 	 			<result name="noTeam" type="tiles">noTeam</result>
+	 			<result name="login" type="tiles">loginForm</result>
 	 		</action>
 	 		<action name="TeamList" class="team.teamAction" >
 	 			<result type="tiles">TeamList</result>

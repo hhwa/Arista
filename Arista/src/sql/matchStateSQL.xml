@@ -72,6 +72,12 @@
             order by m.match_no desc
         </select>
 		
+		<!-- 마이팀 등록한 매치 목록 -->
+		<select id="myteamMatchView" resultMap="matchStateRes" parameterClass="String">
+			select * from matchState
+			where team_id=#team_id#
+			order by game_no
+		</select>
 	<!-- insert 쿼리문 정의 -->
 		
 		<!-- 매치 정보입력 -->

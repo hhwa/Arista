@@ -28,8 +28,8 @@
 	 <sqlMap resource="sql/stadiumSQL.xml"/>
 	 <sqlMap resource="sql/memSQL.xml"/>
 	 <sqlMap resource="sql/qnaSQL.xml"/>
-	 <!-- <sqlMap resource="sql/faqSQL.xml"/>
-	 <sqlMap resource="sql/noticeSQL.xml"/> -->
+	 <sqlMap resource="sql/faqSQL.xml"/>
+	 <sqlMap resource="sql/noticeSQL.xml"/>
 	 
 	 
 </sqlMapConfig>

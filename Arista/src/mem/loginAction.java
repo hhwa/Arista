@@ -41,13 +41,14 @@ public class loginAction extends ActionSupport implements SessionAware{
 	private memVO memberResult;
 	
 	private Map session;
+	private String pageName;
 	
 	public loginAction() throws IOException {
 		// TODO Auto-generated constructor stub
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
-		
+		setPageName("로그인");
 	}
 	@Override
 	public String execute() throws Exception {
@@ -70,6 +71,7 @@ public class loginAction extends ActionSupport implements SessionAware{
 	public String logout() {
 		if(session.get("session_id")!=null) {
 			session.remove("session_id");
+			session.remove("session_adminYN");
 		}
 		return SUCCESS;
 	}
@@ -220,6 +222,13 @@ public class loginAction extends ActionSupport implements SessionAware{
 	public void setSession(Map session) {
 		this.session = session;
 	}
+	public String getPageName() {
+		return pageName;
+	}
+	public void setPageName(String pageName) {
+		this.pageName = pageName;
+	}
+	
 	
 	
 }

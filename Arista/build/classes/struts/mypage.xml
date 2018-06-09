@@ -11,12 +11,27 @@
 		<!-- 마이페이지 -->	
 		<package name="mypage" extends="struts-default,tiles-default">
 		 	<!-- 마이 페이지 -->
-	 		<action name="mypage" class="mypage.mypageAction" method="layout">
-	 			<result type="tiles">mypage</result>
-	 		</action>
-		 	<!-- 마이페이지 상세보기 -->
-		 	<action name="myInfoView" class="mypage.mypageAction" method="view" >
-		 		<result type="tiles">myInfoView</result>
-		 	</action>
+			<action name="mypage" method="layout" class="mypage.mypageAction">
+				<result type="tiles">mypage</result>
+				<result name="login" type="tiles">loginForm</result>
+			</action>
+
+			<!-- 마이페이지 상세보기 -->
+			<action name="myInfoView" method="view" class="mypage.mypageAction">
+				<result type="tiles">myInfoView</result>
+				<result name="error">/error/errorPage.jsp</result>
+			</action>
+
+			<!-- 내가 등록한 매치글 -->
+			<action name="teamMatchInfo" method="TeamMatchInfo" class="mypage.mypageAction">
+				<result type="tiles">teamMatchInfo</result>
+				<result name="login" type="tiles">loginForm</result>
+			</action>
+	
+			<!-- 내가 신청한 매치글 -->
+			<action name="myMatchInfo" method="myMatch" class="mypage.mypageAction">
+				<result type="tiles">myMatchInfo</result>
+				<result name="login" type="tiles">loginForm</result>
+			</action>
 		</package>
 	</struts>

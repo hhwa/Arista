@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.*;
 
 import java.net.URLEncoder;
-import team.pagingAction;
+import main.pagingAction;
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.interceptor.SessionAware;
 
@@ -29,8 +29,8 @@ public class teamAction extends ActionSupport implements SessionAware{
 	private Map session;
 	private List<teamVO> list = new ArrayList<teamVO>();
 
-	private String searchKeyword;
-	private int searchNum;
+	private String search;
+	private int topic;
 
 	private teamVO paramClass = new teamVO();
 	private teamVO resultClass;
@@ -75,22 +75,27 @@ public class teamAction extends ActionSupport implements SessionAware{
 	private String uploadContentType;
 	private String uploadFileName;
 
+	private String pageName;
+	
 	public teamAction() throws IOException {
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
+		
+		setPageName("TEAM");
 	}
 
 	public String execute() throws Exception {
 
-		if (getSearchKeyword() != null) {
+		if (getSearch() != null) {
 			return search();
 		}
 
 		list = sqlMapper.queryForList("teamSQL.teamList");
 
 		totalCount = list.size();
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, num, "");
+		String paging="TeamList";
+		page = new pagingAction(currentPage, totalCount,blockCount,blockPage,paging);//pagingAction 객체 생성
 		pagingHtml = page.getPagingHtml().toString();
 
 		int lastCount = totalCount;
@@ -107,12 +112,13 @@ public class teamAction extends ActionSupport implements SessionAware{
 		// searchKeyword = new String(searchKeyword.getBytes("iso-8859-1"),"euc-kr") ;
 		// System.out.println(searchKeyword);
 		// System.out.println(searchNum);
-		if (searchNum == 0) {
-			list = sqlMapper.queryForList("teamSQL.teamSearch", "%" + getSearchKeyword() + "%");
+		if (topic == 0) {
+			list = sqlMapper.queryForList("teamSQL.teamSearch", "%" + getSearch() + "%");
 		}
 
 		totalCount = list.size();
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, searchNum, getSearchKeyword());
+		String paging="TeamList";
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, topic, getSearch(),paging);
 		pagingHtml = page.getPagingHtml().toString();
 
 		int lastCount = totalCount;
@@ -125,15 +131,18 @@ public class teamAction extends ActionSupport implements SessionAware{
 	}
 	public String myTeam() throws Exception {
 		resultClass = new teamVO();
-		memParam = (memVO) sqlMapper.queryForObject("memSQL.myTeam",session.get("session_id"));
-		System.out.println(memParam.getM_id());
-		System.out.println("2"+memParam.getMyteam()+"1");
-		if(memParam.getMyteam()==null) {
-			return "noTeam";
+		if(session.get("session_id")!=null) {
+			memParam = (memVO) sqlMapper.queryForObject("memSQL.myTeam",session.get("session_id"));
+			if(memParam.getMyteam()==null) {
+				return "noTeam";
+			}
+			
+			resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.myTeamView",memParam.getMyteam());
+			teamInfoParam = (teamInfoVO) sqlMapper.queryForObject("teamSQL.teamMember",(String)session.get("session_id"));
+			return SUCCESS;
 		}
+		return LOGIN;
 		
-		resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.myTeamView",memParam.getMyteam());
-		return SUCCESS;
 	}
 	public String view() throws Exception {
 		resultClass = new teamVO();
@@ -236,21 +245,20 @@ public class teamAction extends ActionSupport implements SessionAware{
 	public void setList(List<teamVO> list) {
 		this.list = list;
 	}
-
-	public String getSearchKeyword() {
-		return searchKeyword;
+	public String getSearch() {
+		return search;
 	}
 
-	public void setSearchKeyword(String searchKeyword) {
-		this.searchKeyword = searchKeyword;
+	public void setSearch(String search) {
+		this.search = search;
 	}
 
-	public int getSearchNum() {
-		return searchNum;
+	public int getTopic() {
+		return topic;
 	}
 
-	public void setSearchNum(int searchNum) {
-		this.searchNum = searchNum;
+	public void setTopic(int topic) {
+		this.topic = topic;
 	}
 
 	public int getCurrentPage() {
@@ -527,6 +535,14 @@ public class teamAction extends ActionSupport implements SessionAware{
 
 	public void setTeamInfoParam(teamInfoVO teamInfoParam) {
 		this.teamInfoParam = teamInfoParam;
+	}
+
+	public String getPageName() {
+		return pageName;
+	}
+
+	public void setPageName(String pageName) {
+		this.pageName = pageName;
 	}
 	
 

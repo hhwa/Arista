@@ -14,6 +14,7 @@ public class pagingAction {
 	private int startPage;	//시작페이지
 	private int endPage;	//마지막 페이지
 	private String search; //검색
+	private int topic; 
 	
 	private StringBuffer pagingHtml;
 	
@@ -84,13 +85,14 @@ public class pagingAction {
 			pagingHtml.append("</a>");
 		}
 	}
-	public pagingAction(int currentPage,int totalCount,int blockCount,int blockPage,String paging,String search) {
+	public pagingAction(int currentPage,int totalCount,int blockCount,int blockPage,int topic,String search,String paging) {
 		
 		this.blockCount=blockCount;
 		this.blockPage=blockPage;
 		this.currentPage=currentPage;
 		this.totalCount=totalCount;
 		this.search=search;
+		this.topic=topic;
 		
 		//전체 페이지수
 		totalPage = (int)Math.ceil((double)totalCount/blockCount);
@@ -116,10 +118,10 @@ public class pagingAction {
 			endPage=totalPage;
 		}
 		
-		//이전 blcok 페이지
+		//이전 block 페이지
 		pagingHtml=new StringBuffer();
 		if(currentPage>blockPage) {
-			pagingHtml.append("<a href="+paging+".action?currentPage="+(startPage-1)+"&search="+getSearch()+">");
+			pagingHtml.append("<a href='"+paging+"List.action?currentPage=" + (startPage - 1) + "&search="+getSearch()+"&topic="+getTopic()+"'>");
 			pagingHtml.append("이전");
 			pagingHtml.append("</a>");
 		}
@@ -140,7 +142,7 @@ public class pagingAction {
 			}else {
 				pagingHtml.append("&nbsp;<a href='"+paging+".action?currentPage=");
 				pagingHtml.append(i);
-				pagingHtml.append("&search="+getSearch()+"'>");
+				pagingHtml.append("&search="+getSearch()+"&topic="+getTopic()+"'>");
 				pagingHtml.append(i);
 				pagingHtml.append("</a>");
 			}
@@ -148,7 +150,7 @@ public class pagingAction {
 		pagingHtml.append("&nbsp;&nbsp;|&nbsp;&nbsp;");
 		// 다음 block 페이지
 		if (totalPage - startPage >= blockPage) {
-			pagingHtml.append("<a href="+paging+".action?currentPage="+ (endPage + 1) +"&search="+getSearch()+">");
+			pagingHtml.append("<a href='"+paging+".action?currentPage="+ (endPage + 1) +"&search="+getSearch()+"&topic="+getTopic()+"'>");
 			pagingHtml.append("다음");
 			pagingHtml.append("</a>");
 		}
@@ -240,4 +242,12 @@ public class pagingAction {
 	public void setPagingHtml(StringBuffer pagingHtml) {
 		this.pagingHtml = pagingHtml;
 	}
+	public int getTopic() {
+		return topic;
+	}
+	public void setTopic(int topic) {
+		this.topic = topic;
+	}
+
+	
 }

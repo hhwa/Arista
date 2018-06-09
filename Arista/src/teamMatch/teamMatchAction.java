@@ -95,7 +95,7 @@ public class teamMatchAction extends ActionSupport implements SessionAware{
 			searchMap.put("param2","%"+getSearch()+"%");
 			list = sqlMapper.queryForList("teamMatchSQL.teamMatchSearch",searchMap);
 			totalCount = list.size();//전체 글 갯수
-			page = new pagingAction(currentPage, totalCount,blockCount,blockPage,paging,getSearch());//pagingAction 객체 생성
+			page = new pagingAction(currentPage, totalCount,blockCount,blockPage,getTopic(),getSearch(),paging);//pagingAction 객체 생성
 		}
 		memParam = (memVO) sqlMapper.queryForObject("memSQL.myTeam",(String)session.get("session_id"));
 		teamInfoParam = (teamInfoVO) sqlMapper.queryForObject("teamSQL.teamMember",(String)session.get("session_id"));

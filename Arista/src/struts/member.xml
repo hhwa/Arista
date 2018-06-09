@@ -10,16 +10,14 @@
 		<!-- 회원가입  -->	
 		<package name="member" extends="struts-default,tiles-default">
 	
-			<global-results>
-	 			<result name="gologin" type="tiles">loginForm</result>
-	 		</global-results>
-	
 			<action name="MemberJoinAction" class="mem.MemberJoinAction">
-				<result type="tiles">main</result>
+				<result type="redirect-action">
+					<param name="actionName">main</param>
+				</result>
 			</action>
 	
 			<action name="memberIdCheck" class="mem.MemberJoinAction" method="idcheck">
-				<result>/join/idCheck.jsp</result>	
+				<result>/join/idCheck.jsp</result>
 			</action>
 	
 			<action name="memberNickCheck" class="mem.MemberJoinAction" method="nickcheck">
@@ -34,6 +32,37 @@
 				<result type="tiles">JoinForm</result>
 			</action>
 
+			<!-- 회원정보 수정 -->
+
+			<action name="modiftyMemberForm" class="mem.MemberJoinAction" method="modifyMemForm">
+				<result type="tiles">memberModifyForm</result>
+			</action>
+
+			<action name="modiftyMemberPro" class="mem.MemberJoinAction" method="modifyMemPro">
+				<result type="redirect-action">
+					<param name="actionName">mypage</param>
+				</result>
+			</action>
+
+			<!-- 회원탈퇴 -->
+			<action name="deleteMemberPW" class="mem.MemberJoinAction" method="deleteMemPw">
+				<result>/join/mDeleteCheckPW.jsp</result>
+			</action>
+
+			<action name="deleteCheck" class="mem.MemberJoinAction" method="deleteCheck">
+				<result name="error">/error/loginError.jsp</result>
+				<result>/join/deleteMemberResult.jsp</result>
+			</action>
+			<action name="deleteMember" class="mem.MemberJoinAction" method="deleteMem">
+				<result type="redirect-action">
+					<param name="actionName">logout</param>
+				</result>
+			</action>
+
+			<action name="redirectPW">
+				<result type="chain">deletememberPW</result>
+			</action>
+			
 			<!-- 로그인&로그아웃  -->	
 			<action name="loginForm" class="mem.loginAction" method="form">
 				<result type="tiles">loginForm</result>
@@ -43,7 +72,6 @@
 				<result type="redirect-action">
 					<param name="actionName">main</param>
 				</result>
-				<!-- <result type="chain">main</result> -->
 				<result name="error">/error/loginError.jsp</result>
 			</action>
 	
@@ -80,6 +108,10 @@
 			<action name="adminMemView" class="admin.memberAction" method="memberView">
 				<result type="tiles">MemView</result>
 			</action>
-	
+			
+			<!-- 회원관리 - 권한수정 -->
+			<action name="adminRight" class="admin.memberAction" method="adminRightModi">
+				<result type="chain">adminMemView</result>
+			</action>
 		</package>
 	</struts>

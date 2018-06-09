@@ -1,31 +1,30 @@
 package admin;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.Preparable;
 
 import mem.memVO;
+import main.pagingAction;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 
 import java.util.*;
+
+import javax.servlet.http.HttpServletRequest;
+
 import java.io.Reader;
 import java.io.IOException;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStream;
-
-import org.apache.commons.io.FileUtils;
+import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
-
-public class memberAction extends ActionSupport implements SessionAware{
-	
-	private Map session;
+public class memberAction extends ActionSupport implements Preparable, ModelDriven<memVO>, ServletRequestAware {
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
-	
+
 	private String m_id;
 	private String m_passwd;
 	private String m_name;
@@ -35,19 +34,32 @@ public class memberAction extends ActionSupport implements SessionAware{
 	private String m_email;
 	private String m_nickname;
 	private int admin_yn;
-	private int genUser =0;
+	private int genUser = 0;
 	private int adminUser = 1;
 	private String m_position;
 	private Calendar m_joindate;
 	private String prof_image_org;
 	private String prof_image_save;
-	
-	//private String profpath;
+
+	private String profpath;
 	private memVO memberParam;
 	private memVO memberResult;
-	
 	private List<memVO> memlist = new ArrayList<memVO>();
-	
+
+	private HttpServletRequest request;
+
+	// 검색
+	private String search;
+	private int topic;
+	// 페이징
+	private int currentPage = 1;
+	private int totalCount;
+	private int blockCount = 5;
+	private int blockPage = 5;
+	private String pagingHtml;
+	private pagingAction page;
+	private String pageName;
+
 	public memberAction() throws IOException {
 		// TODO Auto-generated constructor stub
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
@@ -55,29 +67,66 @@ public class memberAction extends ActionSupport implements SessionAware{
 		reader.close();
 	}
 
-	public String memberList() throws Exception{
-		memlist = sqlMapper.queryForList("memSQL.memList");
+	@Override
+	public memVO getModel() {
+		// TODO Auto-generated method stub
+		return memberParam;
+	}
+
+	@Override
+	public void prepare() throws Exception {
+		// TODO Auto-generated method stub
+		memberParam = new memVO();
+	}
+
+	public String memberList() throws Exception {
+		setPageName("회원리스트 관리");
+		String paging = "adminMemList";
+		if (getSearch() == null || getSearch().equals("")) {
+			memlist = sqlMapper.queryForList("memSQL.memList");
+			totalCount = memlist.size();
+			page = new pagingAction(currentPage, totalCount, blockCount, blockPage, paging);// pagingAction 객체 생성
+
+		} else {
+			HashMap searchMap = new HashMap();
+			String topics[] = { "m_id", "m_name", "m_email" };
+			searchMap.put("param1", topics[getTopic()]);
+			searchMap.put("param2", "%" + getSearch() + "%");
+			memlist = sqlMapper.queryForList("memSQL.memSearch", searchMap);
+			totalCount = memlist.size();
+			page = new pagingAction(currentPage, totalCount, blockCount, blockPage, getTopic(), getSearch(),paging);// pagingAction
+																											// 객체 생성
+		}
+
+		pagingHtml = page.getPagingHtml().toString();
+
+		int lastCount = totalCount;
+
+		if (page.getEndCount() < totalCount)
+			lastCount = page.getEndCount() + 1;
+
+		memlist = memlist.subList(page.getStartCount(), lastCount);
+
 		return SUCCESS;
 	}
-	
+
 	public String memberView() throws Exception {
-		memberResult = new memVO();
-		memberResult = (memVO)sqlMapper.queryForObject("memSQL.memListView", memberParam);
-		
-		//profpath = ServletActionContext.getServletContext().getRealPath("/profUpload");
-		if(memberResult.getProf_image_save() != null) {
+		memberResult = (memVO) sqlMapper.queryForObject("memSQL.memListView", memberParam);
+
+		if (memberResult.getProf_image_save() != null) {
 			prof_image_save = memberResult.getProf_image_save();
 			prof_image_org = memberResult.getProf_image_org();
+			profpath = request.getContextPath() + "/profUpload/" + prof_image_save;
+
 		}
+
 		return SUCCESS;
 	}
 
-	public Map getSession() {
-		return session;
-	}
+	public String adminRightModi() throws Exception {
+		sqlMapper.update("memSQL.updateAdminYN", memberParam);
 
-	public void setSession(Map session) {
-		this.session = session;
+		return SUCCESS;
 	}
 
 	public String getM_id() {
@@ -200,6 +249,14 @@ public class memberAction extends ActionSupport implements SessionAware{
 		this.prof_image_save = prof_image_save;
 	}
 
+	public String getProfpath() {
+		return profpath;
+	}
+
+	public void setProfpath(String profpath) {
+		this.profpath = profpath;
+	}
+
 	public memVO getMemberParam() {
 		return memberParam;
 	}
@@ -223,6 +280,93 @@ public class memberAction extends ActionSupport implements SessionAware{
 	public void setMemlist(List<memVO> memlist) {
 		this.memlist = memlist;
 	}
- 
+
+	public HttpServletRequest getRequest() {
+		return request;
+	}
+
+	public void setRequest(HttpServletRequest request) {
+		this.request = request;
+	}
+
+	public String getSearch() {
+		return search;
+	}
+
+	public void setSearch(String search) {
+		this.search = search;
+	}
+
+	public int getTopic() {
+		return topic;
+	}
+
+	public void setTopic(int topic) {
+		this.topic = topic;
+	}
+
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	public int getTotalCount() {
+		return totalCount;
+	}
+
+	public void setTotalCount(int totalCount) {
+		this.totalCount = totalCount;
+	}
+
+	public int getBlockCount() {
+		return blockCount;
+	}
+
+	public void setBlockCount(int blockCount) {
+		this.blockCount = blockCount;
+	}
+
+	public int getBlockPage() {
+		return blockPage;
+	}
+
+	public void setBlockPage(int blockPage) {
+		this.blockPage = blockPage;
+	}
+
+	public String getPagingHtml() {
+		return pagingHtml;
+	}
+
+	public void setPagingHtml(String pagingHtml) {
+		this.pagingHtml = pagingHtml;
+	}
+
+	public pagingAction getPage() {
+		return page;
+	}
+
+	public void setPage(pagingAction page) {
+		this.page = page;
+	}
+
+	public String getPageName() {
+		return pageName;
+	}
+
+	public void setPageName(String pageName) {
+		this.pageName = pageName;
+	}
+
+	@Override
+	public void setServletRequest(HttpServletRequest arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
+
 }

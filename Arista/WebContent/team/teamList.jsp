@@ -42,11 +42,13 @@
 			</s:param>
 		</s:url>
 			
-     	      <tr bgcolor="#FFFFFF"  align="center">
+     	      <tr bgcolor="#FFFFFF"  align="center" onclick="location.href='TeamView.action?team_no=<s:property value="team_no" />&currentPage=<s:property value="currentPage" />'">
         		<td><s:property value="team_no" /></td>
-        		<td align="center"> &nbsp;<s:a href="%{viewURL}"><s:property value="team_id" /></s:a></td>
+        		<td align="center"> &nbsp;<s:property value="team_id" /></td>
         		<td align="center"><s:property value="team_intro" /></td>
-				<td><input name="submit" type="submit" value="신청" class="inputb"></td> 
+        		<s:if test="#session.session_id !=null">
+				<td><input name="submit" type="submit" value="신청" class="inputb"></td>
+				</s:if> 
       	      </tr>
       	      <tr bgcolor="#777777">
         		<td height="1" colspan="5"></td>

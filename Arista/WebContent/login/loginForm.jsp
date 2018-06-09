@@ -32,12 +32,10 @@
 	CookieBox cookieBox = new CookieBox(request);
 %>
  --%>
-<div style="margin-left:auto; margin-right:auto; margin-top:auto; margin-bottom:auto;">
-<br><br>
 <s:form name="myform" action="loginPro.action" method="post" onsubmit="return checkIt()">
 <table cellspacing=1 cellpadding=1 width="400" border=1 align="center">
 	<tr height="30">
-		<td colspan="3" align="center">
+		<td colspan="2" align="center">
 		<strong>회원로그인</strong>
 		</td>
 	</tr>
@@ -60,12 +58,11 @@
 		<input type="button" value="비밀번호 찾기" onclick="javascript:window.location.href='findPWForm.action'"></td>	
 	</tr>
 	<tr height="30">
-		<td colspan="3" align="center" >
+		<td colspan="2" align="center" >
 			<input type="submit" value="로그인">
 			<input type="button" value="회원가입" onclick="javascript:window.location.href='joinForm.action'"></td>
 	</tr>		
 </table>
 </s:form>
-</div>
 </body>
 </html>

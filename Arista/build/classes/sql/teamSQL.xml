@@ -56,13 +56,18 @@
 		<!-- team 검색 -->
 		<select id="teamSearch" resultMap="teamRes" parameterClass="String">
 			<include refid="select-all"/>
-			 WHERE team_id like #searchKeyword# ORDER BY team_no DESC
+			 WHERE team_id like #search# ORDER BY team_no DESC
 		</select>
 		
 		<!-- team 멤버 보기 -->
 		<select id="teamMember" resultClass="teamInfo" parameterClass="String">
 			select * from teamInfo
 			where mem_id=#mem_id#
+		</select>
+		<!-- team 멤버 리스트 -->
+		<select id="teamMemberList" resultClass="teamInfo" parameterClass="String">
+			select * from teamInfo
+			where team_id=#team_id#
 		</select>
 		
 		<select id="selectLastNo" resultClass="team">
@@ -90,6 +95,10 @@
 		<update id="updateTeam" parameterClass="team">
 			update team set team_id=#team_id#,team_area=#team_area#,team_fieldtype=#team_fieldtype#,team_age=#team_age#,team_skill=#team_skill#,team_count=#team_count#,team_intro=#team_intro#
 			<include refid="where-no"/>
+		</update>
+		
+		<update id="TeamAdmin" parameterClass="teamInfo">
+			update teamInfo team_id=#team_id#,team_admin=#team_admin#,mem_id=#mem_id#
 		</update>
 		
 		<!-- delete 쿼리문 정의 -->
