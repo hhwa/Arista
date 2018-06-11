@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+    
+	<struts>
+		<!-- 용량제한 100MB로 설정 -->
+		<constant name="struts.multipart.maxSize" value="104857600"/>
+
+		<!--  Main  -->	
+		<package name="main" extends="struts-default,tiles-default">
+	 		<!-- 글로벌 예외 처리 화면 설정 -->
+			<!-- 
+			<global-results>
+				<result name="error">/board/pageError.jsp</result>
+			</global-results>
+			<global-exception-mappings>
+				<exception-mapping result="error" exception="java.lang.Exception"/>
+			</global-exception-mappings>
+		 	-->
+	 	
+	 		<!-- 메인 페이지 -->
+	 		<action name="main" class="main.mainAction">
+	 			<result type="tiles">main</result>
+	 			<result name="login" type="tiles">loginForm</result>
+	 		</action>
+		</package>
+		<include file="struts/faq.xml"/>
+		<include file="struts/footer.xml"/>
+		<include file="struts/member.xml"/>
+		<include file="struts/match.xml"/>
+		<include file="struts/mypage.xml"/>
+		<include file="struts/qna.xml"/>
+		<include file="struts/notice.xml"/>
+		<include file="struts/stadium.xml"/>
+		<include file="struts/team.xml"/>
+
+	</struts>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="stadiumSQL">
+
+	<typeAlias alias="stadium" type="stadium.stadiumVO"/>
+	
+		<!-- 리절트 맵 정의 -->
+		<resultMap id="stadiumRes" class="stadium">
+			<result property="stadium_no" column="stadium_no"/>
+			<result property="stadium_name" column="stadium_name"/>
+			<result property="stadium_tel" column="stadium_tel"/>
+			<result property="stadium_zipcode" column="stadium_zipcode"/>
+			<result property="stadium_addr" column="stadium_addr"/>
+			<result property="stadium_day" column="stadium_day"/>
+			<result property="stadium_time" column="stadium_time"/>
+			<result property="stadium_main_img_org" column="stadium_main_img_org"/>
+			<result property="stadium_main_img_save" column="stadium_main_img_save"/>
+			<result property="stadium_regdate" column="stadium_regdate"/>
+		</resultMap>
+		
+		<!-- 공통으로 사용할 select 절 정의 -->
+		<sql id="select-all">
+			select * from stadium
+		</sql>
+		
+		<!-- 공통으로 사용할 where-no절 정의 -->
+		<sql id="where-no">
+			where stadium_no = #stadium_no#
+		</sql>
+		
+		<!-- select 쿼리문 정의 -->
+		
+		<!-- 특정 번호 경기장 한줄 가져오기  -->
+		 <select id="selectOne" resultMap="stadiumRes" parameterClass="int">
+		    <include refid="select-all" />
+		    <include refid="where-no" />             
+		 </select>
+		 
+		<!-- stadium 목록 -->
+		<select id="stadiumList" resultMap="stadiumRes">
+			<include refid="select-all"/>
+			order by stadium_no desc
+		</select>
+		
+		<!-- stadium 검색 -->
+		<select id="stadiumSearch" resultMap="stadiumRes" parameterClass="java.util.HashMap">
+			<include refid="select-all"/>
+			 where $param1$ like #param2# 
+		</select>
+		
+		<!-- stadium 상세보기 -->
+		<select id="stadiumView" resultMap="stadiumRes" parameterClass="int">
+			<include refid="select-all"/>
+			<include refid="where-no"/>
+		</select>
+		
+		<select id="selectLastNo" resultClass="stadium">
+			select max(stadium_no) as stadium_no from stadium
+		</select>
+		
+		<!-- insert 쿼리문 정의 -->
+		
+		<!-- stadium 추가 -->
+		<insert id="insertStadium" parameterClass="stadium">
+			insert into stadium (stadium_no,stadium_name,stadium_tel,stadium_zipcode,stadium_addr,stadium_day,stadium_time,stadium_regdate) values (stadium_no_seq.NEXTVAL,#stadium_name#,#stadium_tel#,#stadium_zipcode#,#stadium_addr#,#stadium_day#,#stadium_time#,#stadium_regdate#)
+		</insert>
+		
+		<!-- update 쿼리문 정의 -->
+		
+		<!-- stadium 수정 -->
+		<update id="updateStadium" parameterClass="stadium">
+			update stadium set stadium_name=#stadium_name#,stadium_tel=#stadium_tel#,stadium_zipcode=#stadium_zipcode#,stadium_addr=#stadium_addr#,stadium_day=#stadium_day#,stadium_time=#stadium_time#,stadium_regdate=#stadium_regdate#
+			<include refid="where-no"/>
+		</update>
+		
+		<update id="updateFile" parameterClass="stadium">
+			update stadium set stadium_main_img_org=#stadium_main_img_org#,stadium_main_img_save=#stadium_main_img_save#
+			<include refid="where-no"/>		
+		</update>
+		
+		
+		<!-- delete 쿼리문 정의 -->
+		<delete id="deleteStadium" parameterClass="stadium">
+			delete from stadium
+			<include refid="where-no"/>
+		</delete>
+		
+		
+</sqlMap>

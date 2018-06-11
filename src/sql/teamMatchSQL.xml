@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="teamMatchSQL">
+
+	<typeAlias alias="teamMatch" type="teamMatch.teamMatchVO"/>
+	
+		<!-- 리절트 맵 정의 -->
+		<resultMap id="teamMatchRes" class="teamMatch">
+			<result property="game_no" column="game_no"/>
+			<result property="team_id" column="team_id"/>
+			<result property="game_day" column="game_day"/>
+			<result property="game_type" column="game_type"/>
+			<result property="stadium" column="stadium"/>
+			<result property="fee" column="fee"/>
+			<result property="game_area" column="game_area"/>
+			<result property="uniform_color" column="uniform_color"/>
+			<result property="content" column="content"/>
+			<result property="match_type" column="match_type"/>
+			<result property="team2_id" column="team2_id"/>
+		</resultMap>
+		
+		<!-- 공통으로 사용할 select 절 정의 -->
+		<sql id="select-all">
+			select * from teamMatch
+		</sql>
+		
+		<!-- 공통으로 사용할 where-no절 정의 -->
+		<sql id="where-no">
+			where game_no = #game_no#
+		</sql>
+		
+		<!-- select 쿼리문 정의 -->
+		
+		<!-- 팀매치 목록 -->
+		<select id="teamMatchList" resultMap="teamMatchRes">
+			<include refid="select-all"/>
+			order by game_no
+		</select>
+		
+		<!-- 팀매치 검색 -->
+		<select id="teamMatchSearch" resultMap="teamMatchRes" parameterClass="java.util.HashMap">
+			<include refid="select-all"/>
+			where $param1$ like #param2# order by game_no
+		</select>
+		
+		<!-- 팀매치 상세보기 -->
+		<select id="teamMatchView" resultMap="teamMatchRes" parameterClass="int">
+			<include refid="select-all"/>
+			<include refid="where-no"/>
+		</select>
+		
+		<select id="selectLastNo" resultClass="teamMatch">
+			select max(game_no) as game_no from teamMatch
+		</select>
+		
+		<!-- insert 쿼리문 정의 -->
+		<!-- 팀매치생성 -->
+		<insert id="insertTeamMatch" parameterClass="teamMatch">
+			insert into teamMatch (game_no,team_id,game_day,game_type,match_type,stadium,fee,game_area,uniform_color,content) values (teammatch_no_seq.NEXTVAL,#team_id#,#game_day#,#game_type#,#match_type#,#stadium#,#fee#,#game_area#,#uniform_color#,#content#)
+		</insert>
+		
+		<!-- update 쿼리문 정의 -->
+		
+		<!-- 팀매치 수정 -->
+		<update id="updateTeamMatch" parameterClass="teamMatch">
+			update teamMatch set game_day=#game_day#,game_type=#game_type#,stadium=#stadium#,fee=#fee#,game_area=#game_area#,uniform_color=#uniform_color#,content=#content#
+			<include refid="where-no"/>
+		</update>
+		
+		<update id="joinTeamMatch" parameterClass="teamMatch">
+			update teamMatch set team2_id=#team2_id#
+			<include refid="where-no"/>
+		</update>
+		<update id="cancelTeamMatch">
+			update teamMatch set team2_id=''
+			<include refid="where-no"/>
+		</update>
+		
+		<!-- delete 쿼리문 정의 -->
+		<!-- 팀매치 삭제 -->
+		<delete id="deleteTeamMatch" parameterClass="int">
+			delete from teamMatch
+			<include refid="where-no"/>
+		</delete>
+</sqlMap>
