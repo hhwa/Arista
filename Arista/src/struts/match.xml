@@ -21,6 +21,7 @@
 				<result type="redirect-action">
 					<param name="actionName">main</param>
 				</result>
+				<result name="error">/error/teamMatchError.jsp</result>
 			</action>
 			<!-- 솔로매치 신청 -->
 			<action name="joinSoloMatch" class="soloMatch.soloMatchAction" method="join">
@@ -70,6 +71,7 @@
 				<result type="redirect-action">
 					<param name="actionName">TeamMatchList</param>
 				</result>
+				<result name="error">/error/teamMatchError.jsp</result>
 			</action>
 		 	<!-- 팀매치 생성폼 -->
 			<action name="CreateTeamMatchForm" class="teamMatch.teamMatchAction" method="form">

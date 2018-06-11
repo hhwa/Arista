@@ -4,30 +4,38 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
 import com.ibatis.sqlmap.client.SqlMapClientBuilder;
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import matchState.matchStateVO;
+import mem.memVO;
 
-public class mainAction extends ActionSupport{
+public class mainAction extends ActionSupport implements SessionAware{
 	
 	public static Reader reader; // 파일 스트림을 위한 reader.
 	public static SqlMapClient sqlMapper; // SqlMapClient API를 사용하기 위한 sqlMapper 객체
 
 	private List<matchStateVO> list = new ArrayList<matchStateVO>();
 	private matchStateVO paramClass = new matchStateVO();
+	private memVO memParam = new memVO();
 	
 	private int currentPage = 1; // 현재 페이지
 	private int totalCount; // 총 게시물의 수
-	private int blockCount = 10; // 한 페이지의 게시물의 수
+	private int blockCount = 5; // 한 페이지의 게시물의 수
 	private int blockPage = 5; // 한화면에 보여줄 페이지 수
 	private String pagingHtml; // 페이징을 구현한 HTML
 	private pagingAction page; // 페이징 클래스
+	private String mem_id;
+	private String pageName;
 	
-	
+	private Map session;
 	public mainAction() throws IOException {
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
@@ -35,10 +43,18 @@ public class mainAction extends ActionSupport{
 	}
 
 	public String execute() throws Exception{
+		setPageName("TOTAL MATCH");
+		memParam = new memVO();
 		
-		list = sqlMapper.queryForList("matchStateSQL.matchList");
+		if(session.get("session_id")==null) {
+			list = sqlMapper.queryForList("matchStateSQL.matchList");
+		}else {
+			list = sqlMapper.queryForList("matchStateSQL.matchList2",(String)session.get("session_id"));
+		}
+		memParam = (memVO) sqlMapper.queryForObject("memSQL.myTeam",(String)session.get("session_id"));
 		totalCount = list.size();// 전체 글 갯수
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage);// pagingAction 객체 생성
+		String paging = "main";
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, paging);// pagingAction 객체 생성
 
 		pagingHtml = page.getPagingHtml().toString(); // 페이지 HTML 생성.
 
@@ -49,11 +65,11 @@ public class mainAction extends ActionSupport{
 		// lastCount를 +1번호로 설정
 		if (page.getEndCount() < totalCount)
 			lastCount = page.getEndCount() + 1;
-
 		// 전체 리스트에서 현재 페이지 만큼의 리스트만 가져온다.
 		list = list.subList(page.getStartCount(), lastCount);
 		return SUCCESS;
 	}
+
 	public List<matchStateVO> getList() {
 		return list;
 	}
@@ -68,6 +84,14 @@ public class mainAction extends ActionSupport{
 
 	public void setParamClass(matchStateVO paramClass) {
 		this.paramClass = paramClass;
+	}
+
+	public memVO getMemParam() {
+		return memParam;
+	}
+
+	public void setMemParam(memVO memParam) {
+		this.memParam = memParam;
 	}
 
 	public int getCurrentPage() {
@@ -117,4 +141,29 @@ public class mainAction extends ActionSupport{
 	public void setPage(pagingAction page) {
 		this.page = page;
 	}
+
+	public String getMem_id() {
+		return mem_id;
+	}
+
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
+	}
+
+	public String getPageName() {
+		return pageName;
+	}
+
+	public void setPageName(String pageName) {
+		this.pageName = pageName;
+	}
+
+	public Map getSession() {
+		return session;
+	}
+
+	public void setSession(Map session) {
+		this.session = session;
+	}
+	
 }

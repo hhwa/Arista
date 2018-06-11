@@ -11,9 +11,6 @@
 <body>
 <table width="600" border="0" cellspacing="0" cellpadding="2" align="center">
 	<tr>
-		<td align="center"><h2>Solo Match</h2></td>
-	</tr>
-	<tr>
 		<td height="20"></td>
 	</tr>
 </table>
@@ -38,14 +35,28 @@
 	</tr>
 	
 	<s:iterator value="list" status="stat">
-		<s:url id="viewURL" action="matchState">
-			<s:param name="game_no">
-				<s:property value="game_no"/>
-			</s:param>
-			<s:param name="currentPage">
-				<s:property value="currentPage"/>			
-			</s:param>
-		</s:url>
+		<s:url id="joinURL" action="joinMatch">
+		<s:param name="match_no">
+			<s:property value="match_no"/>
+		</s:param>
+		<s:param name="mem_id">
+			<s:property value="#session.session_id"/>
+		</s:param>
+		<s:param name="currentPage">
+			<s:property value="currentPage"/>			
+		</s:param>
+	</s:url>
+	<s:url id="cancelURL" action="cancelMatch">
+		<s:param name="match_no">
+			<s:property value="match_no"/>
+		</s:param>
+		<s:param name="mem_id">
+			<s:property value="#session.session_id"/>
+		</s:param>
+		<s:param name="currentPage">
+			<s:property value="currentPage"/>			
+		</s:param>
+	</s:url>
 	<tr bgcolor="#FFFFFF" align="center">
 		<td align="center"><s:property value="game_no"/></td>
 		<td align="center"><s:property value="game_type"/></td>
@@ -57,7 +68,18 @@
 		<td align="center"><s:property value="uniform_color"/></td>
 		<td align="center"><s:property value="content"/></td>
 		<td align="center"><s:property value="team2_id"/></td>
-		<td align="center"><s:a href="%{viewURL}">신청</s:a></td>
+		<s:if test="#session.session_id != null">
+				<td align="center">
+					<s:if test="team2_id != null">
+						<s:if test="team2_id != memParam.myteam">마감</s:if>
+						<s:else><s:a href="%{cancelURL}">취소</s:a></s:else>
+					</s:if>
+					<s:else>
+						<s:if test="team_id == memParam.myteam"></s:if>
+						<s:else><s:a href="%{joinURL}">신청</s:a></s:else>
+					</s:else>
+				</td>
+			</s:if>
 	</tr>
 	<tr bgcolor="#777777">
 		<td height="1" colspan="11"></td>
@@ -77,15 +99,17 @@
 		<td colspan="11"><s:property value="pagingHtml" escape="false"/></td>
 	</tr>
 	
+	<s:if test="teamInfoParam.team_admin">
 	<tr align="right">
 		<td colspan="11">
 			<input type="button" value="글쓰기" class="inputb" onclick="javascript:location.href='CreateTeamMatchForm.action?currentPage=<s:property value="currentPage"/>';">
 		</td>
 	</tr>
+	</s:if>
 </table>
 </div>
 <br>
-<form action="TeamList.action" method="post">
+<form action="TeamMatchList.action" method="post">
 <table align="center">
 	<tr>
 		<td>

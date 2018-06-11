@@ -5,6 +5,9 @@ import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -15,23 +18,22 @@ import main.pagingAction;
 import matchState.joinSoloVO;
 import matchState.matchStateVO;
 
-public class soloMatchAction extends ActionSupport {
+public class soloMatchAction extends ActionSupport implements SessionAware{
 	
 	public static Reader reader; //파일 스트림을 위한 reader.
 	public static SqlMapClient sqlMapper; //SqlMapClient API를 사용하기 위한 sqlMapper 객체
 	
 	private List<soloMatchVO> list = new ArrayList<soloMatchVO>();
+	private Map session;
+	private soloMatchVO soloMatchParam = new soloMatchVO(); //파라미터를 저장할 객체
+	private matchStateVO matchStateParam = new matchStateVO();//쿼리 결과 값을 저장할 객체
+	private matchStateVO matchStateResult = new matchStateVO();
+	private joinSoloVO joinSoloParam = new joinSoloVO();
 	
-	private soloMatchVO paramClass; //파라미터를 저장할 객체
-	private matchStateVO resultClass;//쿼리 결과 값을 저장할 객체
-	private matchStateVO resultClass2;
-	private joinSoloVO joinSoloClass;
-	
-	private int currentPage; //현재 페이지
-	
+	private int currentPage=1; //현재 페이지
 
 	private int totalCount;	//총 게시물의 수
-	private int blockCount = 10;	//한 페이지의 게시물의 수
+	private int blockCount = 5;	//한 페이지의 게시물의 수
 	private int blockPage=5;	//한화면에 보여줄 페이지 수
 	private String pagingHtml;	//페이징을 구현한 HTML
 	private pagingAction page;	//페이징 클래스
@@ -53,36 +55,28 @@ public class soloMatchAction extends ActionSupport {
 	private String mem_id;
 	
 	private List<String> areaList = new ArrayList<String>();
+	private String pageName;
 
 	public soloMatchAction() throws IOException{
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
 		
-		areaList.add("인천");
-		areaList.add("서울");
-		areaList.add("경기");
-		areaList.add("강원");
-		areaList.add("충남");
-		areaList.add("충북");
-		areaList.add("세종");
-		areaList.add("대전");
-		areaList.add("전북");
-		areaList.add("전남");
-		areaList.add("광주");
-		areaList.add("경북");
-		areaList.add("경남");
-		areaList.add("대구");
-		areaList.add("울산");
-		areaList.add("부산");
+		areaList.add("인천");		areaList.add("서울");		areaList.add("경기");		areaList.add("강원");
+		areaList.add("충남");		areaList.add("충북");		areaList.add("세종");		areaList.add("대전");
+		areaList.add("전북");		areaList.add("전남");		areaList.add("광주");		areaList.add("경북");
+		areaList.add("경남");		areaList.add("대구");		areaList.add("울산");		areaList.add("부산");
 	}
 	
+	//soloMatchList
 	public String execute() throws Exception {
-		currentPage = 1;
+		setPageName("SOLO MATCH");
+		String paging="SoloMatchList";
 		if(getSearch()==null||getSearch().equals("")) {
 			list = sqlMapper.queryForList("soloMatchSQL.soloMatchList");
 			totalCount = list.size();//전체 글 갯수
-			page = new pagingAction(currentPage, totalCount,blockCount,blockPage);//pagingAction 객체 생성
+			
+			page = new pagingAction(currentPage, totalCount,blockCount,blockPage,paging);//pagingAction 객체 생성
 		}else {
 			HashMap searchMap = new HashMap();
 			String topics[]= {"subject","name","content"};
@@ -90,7 +84,7 @@ public class soloMatchAction extends ActionSupport {
 			searchMap.put("param2","%"+getSearch()+"%");
 			list = sqlMapper.queryForList("soloMatchSQL.soloMatchSearch",searchMap);
 			totalCount = list.size();//전체 글 갯수
-			page = new pagingAction(currentPage, totalCount,blockCount,blockPage,getSearch());//pagingAction 객체 생성
+			page = new pagingAction(currentPage, totalCount,blockCount,blockPage,getTopic(),getSearch(),paging);//pagingAction 객체 생성
 		}
 		
 		pagingHtml = page.getPagingHtml().toString(); //페이지 HTML 생성.
@@ -110,76 +104,88 @@ public class soloMatchAction extends ActionSupport {
 	
 	//솔로 매치 생성 폼 (관리자)
 	public String form() throws Exception {
+		setPageName("MAKE SOLO MATCH");
 		return SUCCESS;
 	}
 	//솔로 매치 생성
 	public String create() throws Exception {
-		paramClass = new soloMatchVO();
-		resultClass = new matchStateVO();
 		
-		paramClass.setGame_day(getGame_day());
-		paramClass.setGame_type(getGame_type());
-		paramClass.setMatch_type("Solo");
-		paramClass.setStadium(getStadium());
-		paramClass.setFee(getFee());
-		paramClass.setGame_area(getGame_area());
-		paramClass.setContent(getContent());
-		paramClass.setPeople_count(getPeople_count());
-		paramClass.setPeople_max(getPeople_max());
+		soloMatchParam = new soloMatchVO();
+		matchStateParam = new matchStateVO();
 		
-		sqlMapper.insert("soloMatchSQL.insertSoloMatch", paramClass);
+		soloMatchParam.setGame_day(getGame_day());
+		soloMatchParam.setGame_type(getGame_type());
+		soloMatchParam.setMatch_type("Solo");
+		soloMatchParam.setStadium(getStadium());
+		soloMatchParam.setFee(getFee());
+		soloMatchParam.setGame_area(getGame_area());
+		soloMatchParam.setContent(getContent());
+		soloMatchParam.setPeople_count(getPeople_count());
+		soloMatchParam.setPeople_max(getPeople_max());
 		
-		paramClass = (soloMatchVO) sqlMapper.queryForObject("soloMatchSQL.selectLastNo");
+		sqlMapper.insert("soloMatchSQL.insertSoloMatch", soloMatchParam);
 		
-		resultClass.setGame_no(paramClass.getGame_no());
-		resultClass.setGame_day(getGame_day());
-		resultClass.setGame_type(getGame_type());
-		resultClass.setMatch_type("Solo");
-		resultClass.setStadium(getStadium());
-		resultClass.setFee(getFee());
-		resultClass.setGame_area(getGame_area());
-		resultClass.setContent(getContent());
-		resultClass.setPeople_count(getPeople_count());
-		resultClass.setPeople_max(getPeople_max());
+		soloMatchParam = (soloMatchVO) sqlMapper.queryForObject("soloMatchSQL.selectLastNo");
+		
+		matchStateParam.setGame_no(soloMatchParam.getGame_no());
+		matchStateParam.setGame_day(getGame_day());
+		matchStateParam.setGame_type(getGame_type());
+		matchStateParam.setMatch_type("Solo");
+		matchStateParam.setStadium(getStadium());
+		matchStateParam.setFee(getFee());
+		matchStateParam.setGame_area(getGame_area());
+		matchStateParam.setContent(getContent());
+		matchStateParam.setPeople_count(getPeople_count());
+		matchStateParam.setPeople_max(getPeople_max());
 		
 		
-		sqlMapper.insert("matchStateSQL.insertMatch",resultClass);
+		sqlMapper.insert("matchStateSQL.insertMatch",matchStateParam);
 			
 		return SUCCESS;
 	}
 	//솔로매치 수정
 	public String modify() throws Exception {
-		paramClass = new soloMatchVO();
-		resultClass = new matchStateVO();
+		setPageName("솔로매치 수정");
+		soloMatchParam = new soloMatchVO();
+		matchStateParam = new matchStateVO();
 		
-		paramClass.setGame_day(getGame_day());
-		paramClass.setGame_type(getGame_type());
-		paramClass.setStadium(getStadium());
-		paramClass.setFee(getFee());
-		paramClass.setGame_area(getGame_area());
-		paramClass.setContent(getContent());
+		soloMatchParam.setGame_day(getGame_day());
+		soloMatchParam.setGame_type(getGame_type());
+		soloMatchParam.setStadium(getStadium());
+		soloMatchParam.setFee(getFee());
+		soloMatchParam.setGame_area(getGame_area());
+		soloMatchParam.setContent(getContent());
 		
-		sqlMapper.update("soloMatchSQL.updateSoloMatch",paramClass);
+		sqlMapper.update("soloMatchSQL.updateSoloMatch",soloMatchParam);
 		return SUCCESS;
 	}
 	//솔로매치 신청 처리
-	public String solo() throws Exception {
+	public String join() throws Exception {
 		
-		paramClass = (soloMatchVO) sqlMapper.queryForObject("soloMatchSQL.soloMatchView",getGame_no());
-		resultClass.setGame_no(paramClass.getGame_no());
-		resultClass.setGame_type(paramClass.getGame_type());
+		soloMatchParam = (soloMatchVO) sqlMapper.queryForObject("soloMatchSQL.soloMatchView",getGame_no());
+		matchStateParam.setGame_no(soloMatchParam.getGame_no());
+		matchStateParam.setGame_type(soloMatchParam.getGame_type());
 		
-		resultClass2 = (matchStateVO) sqlMapper.queryForObject("matchStateSQL.matchTypeView",resultClass);
-		joinSoloClass.setMatch_no(resultClass2.getMatch_no());
-		joinSoloClass.setMem_id(getMem_id());
+		matchStateResult = (matchStateVO) sqlMapper.queryForObject("matchStateSQL.matchTypeView",matchStateParam);
+		joinSoloParam.setMatch_no(matchStateResult.getMatch_no());
+		joinSoloParam.setMem_id((String)session.get("session_id"));
 		
-		sqlMapper.insert("joinSoloSQL.joinSoloMatch",joinSoloClass);
-		sqlMapper.update("soloMatchSQL.soloCount",paramClass.getGame_no());
-		sqlMapper.update("matchStateSQL.soloCount",resultClass2.getMatch_no());
+		sqlMapper.insert("joinSoloSQL.joinSoloMatch",joinSoloParam);
+		int count = (int) sqlMapper.queryForObject("joinSoloSQL.joinSoloMatchCount",getMatch_no());
+		matchStateResult.setPeople_count(count);
+		soloMatchParam.setPeople_count(count);
+		
+		sqlMapper.update("soloMatchSQL.soloCount",soloMatchParam);
+		sqlMapper.update("matchStateSQL.soloCount",matchStateResult);
 		
 		return SUCCESS;
 	}
-	
+	//솔로매치 취소
+	public String cancel() throws Exception{
+		
+		
+		return SUCCESS;
+	}
 
 	public List<soloMatchVO> getList() {
 		return list;
@@ -187,6 +193,46 @@ public class soloMatchAction extends ActionSupport {
 
 	public void setList(List<soloMatchVO> list) {
 		this.list = list;
+	}
+
+	public Map getSession() {
+		return session;
+	}
+
+	public void setSession(Map session) {
+		this.session = session;
+	}
+
+	public soloMatchVO getSoloMatchParam() {
+		return soloMatchParam;
+	}
+
+	public void setSoloMatchParam(soloMatchVO soloMatchParam) {
+		this.soloMatchParam = soloMatchParam;
+	}
+
+	public matchStateVO getMatchStateParam() {
+		return matchStateParam;
+	}
+
+	public void setMatchStateParam(matchStateVO matchStateParam) {
+		this.matchStateParam = matchStateParam;
+	}
+
+	public matchStateVO getMatchStateResult() {
+		return matchStateResult;
+	}
+
+	public void setMatchStateResult(matchStateVO matchStateResult) {
+		this.matchStateResult = matchStateResult;
+	}
+
+	public joinSoloVO getJoinSoloParam() {
+		return joinSoloParam;
+	}
+
+	public void setJoinSoloParam(joinSoloVO joinSoloParam) {
+		this.joinSoloParam = joinSoloParam;
 	}
 
 	public int getCurrentPage() {
@@ -251,21 +297,6 @@ public class soloMatchAction extends ActionSupport {
 
 	public void setTopic(int topic) {
 		this.topic = topic;
-	}
-	public soloMatchVO getParamClass() {
-		return paramClass;
-	}
-
-	public void setParamClass(soloMatchVO paramClass) {
-		this.paramClass = paramClass;
-	}
-
-	public matchStateVO getResultClass() {
-		return resultClass;
-	}
-
-	public void setResultClass(matchStateVO resultClass) {
-		this.resultClass = resultClass;
 	}
 
 	public int getGame_no() {
@@ -347,13 +378,6 @@ public class soloMatchAction extends ActionSupport {
 	public void setMatch_type(String match_type) {
 		this.match_type = match_type;
 	}
-	public List<String> getAreaList() {
-		return areaList;
-	}
-
-	public void setAreaList(List<String> areaList) {
-		this.areaList = areaList;
-	}
 
 	public int getMatch_no() {
 		return match_no;
@@ -363,22 +387,6 @@ public class soloMatchAction extends ActionSupport {
 		this.match_no = match_no;
 	}
 
-	public matchStateVO getResultClass2() {
-		return resultClass2;
-	}
-
-	public void setResultClass2(matchStateVO resultClass2) {
-		this.resultClass2 = resultClass2;
-	}
-
-	public joinSoloVO getJoinSoloClass() {
-		return joinSoloClass;
-	}
-
-	public void setJoinSoloClass(joinSoloVO joinSoloClass) {
-		this.joinSoloClass = joinSoloClass;
-	}
-
 	public String getMem_id() {
 		return mem_id;
 	}
@@ -386,5 +394,23 @@ public class soloMatchAction extends ActionSupport {
 	public void setMem_id(String mem_id) {
 		this.mem_id = mem_id;
 	}
+
+	public List<String> getAreaList() {
+		return areaList;
+	}
+
+	public void setAreaList(List<String> areaList) {
+		this.areaList = areaList;
+	}
+
+	public String getPageName() {
+		return pageName;
+	}
+
+	public void setPageName(String pageName) {
+		this.pageName = pageName;
+	}
+	
+
 	
 }

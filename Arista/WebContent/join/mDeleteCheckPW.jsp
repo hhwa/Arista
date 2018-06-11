@@ -12,7 +12,7 @@
  </head>
 <body>
 <h2>비밀번호 확인</h2>
-<s:form action="deletemember" method="post">
+<form action="deleteCheck.action" method="post">
 <s:hidden name="m_id" value="%{m_id}"/>
 
 <table width="250" border="0" cellspacing="0" cellpadding="0">
@@ -31,5 +31,6 @@
 	<td height="1" colspan="2"></td>
 	</tr>
 </table>
-</s:form></body>
+</form>
+</body>
 </html>

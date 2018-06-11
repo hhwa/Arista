@@ -10,8 +10,8 @@
 			<result property="team_no" column="team_no"/>
 			<result property="team_id" column="team_id"/>
 			<result property="team_area" column="team_area"/>
-			<result property="team_fieldtype" column="team_fieldtype"/>
 			<result property="team_type" column="team_type"/>
+			<result property="team_fieldtype" column="team_fieldtype"/>
 			<result property="team_age" column="team_age"/>
 			<result property="team_skill" column="team_skill"/>
 			<result property="team_count" column="team_count"/>
@@ -20,8 +20,6 @@
 			<result property="file_orgname" column="file_orgname"/> <!-- 0528-추가 -->
 			<result property="team_regdate" column="team_regdate"/>
 			<result property="team_master" column="team_master"/>
-         	
-			
 		</resultMap>
 		
 		<!-- 공통으로 사용할 select 절 정의 -->
@@ -45,8 +43,15 @@
 			<include refid="where-no" />      
 		</select>
 		
-		<select id="selectLastNo" resultClass="team">
-			SELECT max(team_no) as team_no FROM TEAM 
+		<!-- myTeam 보기 -->
+		<select id="myTeamView" resultMap="teamRes" parameterClass="String">
+			<include refid="select-all"/>
+			where team_id=#team_id#
+		</select>
+		<!-- team 상세보기 -->
+		<select id="teamView" resultMap="teamRes" parameterClass="int">
+			<include refid="select-all"/>
+			<include refid="where-no"/>
 		</select>
 		<!-- team 목록 -->
 		<select id="teamList" resultMap="teamRes">
@@ -55,23 +60,26 @@
 		</select>
 		
 		<!-- team 검색 -->
-		<select id="teamSearch" resultMap="teamRes" parameterClass="string">
+		<select id="teamSearch" resultMap="teamRes" parameterClass="String">
 			<include refid="select-all"/>
-			 WHERE team_id like #searchKeyword# ORDER BY team_no DESC
+			 WHERE team_id like #search# ORDER BY team_no DESC
 		</select>
 		
-	<!-- 	
-		<select id="qnaSearch" resultMap="qnaRes" parameterClass="java.util.HashMap">
-			<include refid="select-all"/>
-			where $param1$ like #param2# order by ref desc, re_step asc
-		</select> -->
-		
-		<!-- team 상세보기 -->
-		<select id="teamView" resultMap="teamRes" parameterClass="int">
-			<include refid="select-all"/>
-			<include refid="where-no"/>
+		<!-- team 멤버 보기 -->
+		<select id="teamMember" resultClass="teamInfo" parameterClass="String">
+			select * from teamInfo
+			where mem_id=#mem_id#
+		</select>
+		<!-- team 멤버 리스트 -->
+		<select id="teamMemberList" resultClass="teamInfo" parameterClass="String">
+			select * from teamInfo
+			where team_id=#team_id#
 		</select>
 		
+		<select id="selectLastNo" resultClass="team">
+			SELECT max(team_no) as team_no FROM TEAM 
+		</select>
+
 		<!-- insert 쿼리문 정의 -->
 		
 		<!-- team 추가 -->
@@ -80,8 +88,8 @@
 		</insert>
 		
 		<insert id="joinTeam" parameterClass="teamInfo">
-       	  insert into teamInfo (team_id,mem_id,team_admin) values (#team_id#,#mem_id#,#team_admin#)
-    	  </insert>
+			insert into teamInfo (team_id,mem_id,team_admin) values (#team_id#,#mem_id#,#team_admin#)
+		</insert>
 		
 		<!-- update 쿼리문 정의 -->
 		<update id="updateFile" parameterClass="team">
@@ -91,11 +99,16 @@
    		 </update>
 		<!-- team 수정 -->
 		<update id="updateTeam" parameterClass="team">
-			update team set team_id=#team_id#,team_area=#team_area#,team_type=#team_type#,team_fieldtype=#team_fieldtype#,team_age=#team_age#,team_skill=#team_skill#,team_count=#team_count#,team_intro=#team_intro#
+			update team set team_id=#team_id#,team_area=#team_area#,team_fieldtype=#team_fieldtype#,team_age=#team_age#,team_skill=#team_skill#,team_count=#team_count#,team_intro=#team_intro#
 			<include refid="where-no"/>
 		</update>
 		
+		<update id="TeamAdmin" parameterClass="teamInfo">
+			update teamInfo team_id=#team_id#,team_admin=#team_admin#,mem_id=#mem_id#
+		</update>
+		
 		<!-- delete 쿼리문 정의 -->
+		<!-- team 삭제 -->
 		<delete id="deleteTeam" parameterClass="team">
 			delete from team
 			<include refid="where-no"/>

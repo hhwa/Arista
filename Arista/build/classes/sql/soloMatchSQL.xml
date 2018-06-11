@@ -31,8 +31,10 @@
 		<!-- select 쿼리문 정의 -->
 		
 		<!-- 솔로매치 목록 -->
-		<select id="soloMatchList" resultMap="soloMatchRes">
-			<include refid="select-all"/>
+		<select id="soloMatchList" resultClass="soloMatch">
+			select s.game_no,game_day,game_type,stadium,fee,game_area,content,people_max,people_count,mem_id
+			from soloMatch s left outer join joinsolo j 
+			on j.game_no=s.game_no and mem_id='hh'
 			order by game_no desc
 		</select>
 		
@@ -68,8 +70,8 @@
 		</update>
 		
 		<!-- 개인매치 신청인원수 -->
-		<update id="soloCount" parameterClass="int">
-			update soloMatch set people_count=people_count+1
+		<update id="soloCount" parameterClass="soloMatch">
+			update soloMatch set people_count=#people_count#
 			<include refid="where-no"/>
 		</update>
 		<!-- delete 쿼리문 정의 -->

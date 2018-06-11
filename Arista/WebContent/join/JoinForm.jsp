@@ -6,9 +6,9 @@
 
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR"/>
 <title>회원가입</title>
-<script src="./join/joinForm.js" type="text/javascript">
+<script src="./join/joinForm.js" type="text/javascript" charset="EUC-KR">
 </script>
 </head>
 <body>

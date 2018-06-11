@@ -1,8 +1,7 @@
 package mem;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
-import com.opensymphony.xwork2.Preparable;
 
 import mem.memVO;
 
@@ -19,7 +18,8 @@ import org.apache.struts2.interceptor.SessionAware;
 import java.io.Reader;
 import java.io.IOException;
 
-public class loginAction extends ActionSupport implements Preparable, ModelDriven<memVO>, SessionAware{
+public class loginAction extends ActionSupport implements SessionAware{
+	
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	
@@ -40,86 +40,49 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 	private memVO memberParam;
 	private memVO memberResult;
 	
-	
-	private Map<String, String> sessionMap;
-	
+	private Map session;
+	private String pageName;
 	
 	public loginAction() throws IOException {
 		// TODO Auto-generated constructor stub
-	reader = Resources.getResourceAsReader("sqlMapConfig.xml");
-	//parsing configuration documents and building the SqlMapClient instance
-	sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
-	reader.close();
+		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
+		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
+		reader.close();
+		setPageName("로그인");
 	}
-	
-	@Override
-	public void prepare() throws Exception {
-		// TODO Auto-generated method stub
-		memberParam = new memVO();
-	}
-	
-	@Override
-	public memVO getModel() {
-		// TODO Auto-generated method stub
-		return memberParam;
-	}
-	
 	@Override
 	public String execute() throws Exception {
 		//사용자에게 입력 받은 정보와 같은 값이 DB 안에 존재하는지 확인한다.
-		memberResult = (memVO)sqlMapper.queryForObject("memSQL.loginPro", memberParam);
-		
+		memberResult = (memVO)sqlMapper.queryForObject("memSQL.loginPro",getM_id());
+		int adminYN = memberResult.getAdmin_yn();
 		if(memberResult != null) {
-		sessionMap.put("session_id", memberResult.getM_id());
-		sessionMap.put("session_admin_yn", String.valueOf(memberResult.getAdmin_yn()));
-		return SUCCESS;
+			if (memberResult.getM_passwd().equals(getM_passwd())) {
+				session.put("session_id", memberResult.getM_id());
+				session.put("session_adminYN", adminYN);
+				return SUCCESS;
+			}
 		}
 		return ERROR;
-	}
-
-
-	
-	public String joinform() {
 		
+	}
+	public String form() {
 		return SUCCESS;
 	}
-	
-	
-	public String loginForm() {
-		
-		return SUCCESS;
-	}
-	
-
 	public String logout() {
-		if(sessionMap.get("session_id")!=null) {
-		sessionMap.remove("session_id");
+		if(session.get("session_id")!=null) {
+			session.remove("session_id");
+			session.remove("session_adminYN");
 		}
 		return SUCCESS;
 	}
 	
-
-	public String findidform() {
-		
-		return SUCCESS;
-	}
-	
-
 	public String findId() throws Exception{
-		
-		memberResult = (memVO)sqlMapper.queryForObject("memSQL.findId", memberParam);
+		memberResult = (memVO)sqlMapper.queryForObject("memSQL.findId",memberParam);
 		return SUCCESS;
 	}
-	
-
-	public String findpwform() {
-		
-		return SUCCESS;
-	}
-	
 
 	public String findPw() throws Exception{
-		memberResult = (memVO)sqlMapper.queryForObject("memSQL.findPw", memberParam);
+		memberResult = (memVO)sqlMapper.queryForObject("memSQL.findPw",memberParam);
 
 		if(memberResult !=null) {
 		String subject = memberResult.getM_name()+"님, 비밀번호를 알려드립니다. -Arista";
@@ -131,23 +94,6 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 		return SUCCESS;
 	}
 	
-
-
-	public static Reader getReader() {
-		return reader;
-	}
-
-	public static void setReader(Reader reader) {
-		loginAction.reader = reader;
-	}
-
-	public static SqlMapClient getSqlMapper() {
-		return sqlMapper;
-	}
-
-	public static void setSqlMapper(SqlMapClient sqlMapper) {
-		loginAction.sqlMapper = sqlMapper;
-	}
 
 	public String getM_id() {
 		return m_id;
@@ -269,19 +215,20 @@ public class loginAction extends ActionSupport implements Preparable, ModelDrive
 		this.memberResult = memberResult;
 	}
 
-	@Override
+	public Map getSession() {
+		return session;
+	}
+
 	public void setSession(Map session) {
-		this.sessionMap = session;
-		// TODO Auto-generated method stub
-		
+		this.session = session;
 	}
-
-	public Map getSessionMap() {
-		return sessionMap;
+	public String getPageName() {
+		return pageName;
 	}
-
+	public void setPageName(String pageName) {
+		this.pageName = pageName;
+	}
 	
-
 	
 	
 }

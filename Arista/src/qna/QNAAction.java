@@ -2,7 +2,9 @@ package qna;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import main.pagingAction;
 import qna.qnaVO;
+import mem.memVO;
 
 import com.ibatis.common.resources.Resources;
 import com.ibatis.sqlmap.client.SqlMapClient;
@@ -11,17 +13,17 @@ import com.ibatis.sqlmap.client.SqlMapClientBuilder;
 import java.util.*;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.struts2.interceptor.SessionAware;
 
 import java.io.Reader;
-import java.io.File;
 import java.io.IOException;
 
-import qna.pagingAction;
 
-public class QNAAction extends ActionSupport {
+public class QNAAction extends ActionSupport implements SessionAware{
 	
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
+	private Map session;
 	
 	private List<qnaVO> list = new ArrayList<qnaVO>();
 	
@@ -39,42 +41,50 @@ public class QNAAction extends ActionSupport {
 	private qnaVO paramClass;
 	private qnaVO resultClass;
 	
+	private memVO resultMember;
+	private memVO paramMember;
 	
 	private int qna_no;
 	private String qna_subject;
 	private String qna_id;
 	private String qna_password;
 	private String qna_content;
-
+	private String adminYN;
 	
 	private int ref;
 	private int re_step;
 	private int re_level;
 	
+	private int writeCheck;
+	
 	boolean reply = false;
 	
 	Calendar today = Calendar.getInstance();
+	
+	private String PageName;
+	
 	
 	public QNAAction() throws IOException {
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
+		setPageName("QNA");
 	}
 	
 	public String execute() throws Exception {
-		
+		String paging="QNAList";
 		if(getSearch()==null||getSearch().equals("")) {
 			list = sqlMapper.queryForList("qnaSQL.qnaList");
 			totalCount = list.size();
-			page = new pagingAction(currentPage, totalCount, blockCount, blockPage, "", "");
+			page = new pagingAction(currentPage, totalCount,blockCount,blockPage,paging);//pagingAction 객체 생성
 		}else {
 			HashMap searchMap = new HashMap();
-			String topics[]= {"qna_subject","qna_name","qna_content"};
+			String topics[]= {"qna_subject","qna_id","qna_content"};
 			searchMap.put("param1",topics[getTopic()]);
 			searchMap.put("param2","%"+getSearch()+"%");
 			list = sqlMapper.queryForList("qnaSQL.qnaSearch",searchMap);
 			totalCount = list.size();
-			page = new pagingAction(currentPage, totalCount, blockCount, blockPage, getSearch(), "");
+			page = new pagingAction(currentPage, totalCount,blockCount,blockPage,getTopic(),getSearch(),paging);//pagingAction 객체 생성
 		}
 		
 		pagingHtml = page.getPagingHtml().toString(); 
@@ -96,8 +106,8 @@ public class QNAAction extends ActionSupport {
 	public String reply() throws Exception {
 		reply = true;
 		resultClass = new qnaVO();
-		resultClass = (qnaVO) sqlMapper.queryForObject("qnaSQL.selectOne", getQna_no());
-		resultClass.setQna_subject("[re]" + resultClass.getQna_subject());
+		resultClass = (qnaVO) sqlMapper.queryForObject("qnaSQL.qnaView", getQna_no());
+		resultClass.setQna_subject("" + resultClass.getQna_subject());
 		resultClass.setQna_password("");
 		resultClass.setQna_content("");
 
@@ -122,11 +132,11 @@ public class QNAAction extends ActionSupport {
 		}
 		
 		paramClass.setQna_subject(getQna_subject());
-		paramClass.setQna_id(getQna_id());
+		paramClass.setQna_id((String)session.get("session_id"));
 		paramClass.setQna_password(getQna_password());
 		paramClass.setQna_content(getQna_content());
 		paramClass.setQna_regdate(today.getTime());
-		
+				
 		if(ref == 0)
 			sqlMapper.insert("qnaSQL.insertQNA", paramClass);
 		else
@@ -153,16 +163,37 @@ public class QNAAction extends ActionSupport {
 	public String checkAction() throws Exception {
 		paramClass = new qnaVO();
 		resultClass = new qnaVO();
+		resultMember = new memVO();
+		paramMember = new memVO();
+		String sessionId = (String)session.get("session_id");
+		String adminYN = (String)session.get("session_adminYN");
 		
-		paramClass.setQna_no(getQna_no());
-		paramClass.setQna_password(getQna_password());
 		
-		resultClass = (qnaVO) sqlMapper.queryForObject("qnaSQL.selectPassword", paramClass);
+		if(adminYN.equals("0")){
+			System.out.println("test");
+			paramClass.setQna_no(getQna_no());
+			paramClass.setQna_password(getQna_password());
+			resultClass = (qnaVO) sqlMapper.queryForObject("qnaSQL.selectPassword", paramClass);
+			if(resultClass != null) {
+				return SUCCESS;
+			} 
+		}
+
 		
-		if(resultClass == null)
-			return ERROR;
+		if (adminYN.equals("1")) {
+			System.out.println("test2");
+			paramMember.setM_id((String)session.get("session_id"));
+     		paramMember.setM_passwd(getQna_password());
 		
-		return SUCCESS;
+			resultMember = (memVO)sqlMapper.queryForObject("memSQL.selectPassword", paramMember);
+		
+			if(resultMember != null) {
+				return SUCCESS;} 
+		}
+		
+		return ERROR;
+		
+		
 	}
 	
 	public String update() throws Exception {
@@ -196,6 +227,14 @@ public class QNAAction extends ActionSupport {
 	}	
 
 
+
+	public Map getSession() {
+		return session;
+	}
+
+	public void setSession(Map session) {
+		this.session = session;
+	}
 
 	public List<qnaVO> getList() {
 		return list;
@@ -245,6 +284,7 @@ public class QNAAction extends ActionSupport {
 		this.pagingHtml = pagingHtml;
 	}
 
+
 	public pagingAction getPage() {
 		return page;
 	}
@@ -255,6 +295,14 @@ public class QNAAction extends ActionSupport {
 
 	public String getSearch() {
 		return search;
+	}
+
+	public String getPageName() {
+		return PageName;
+	}
+
+	public void setPageName(String pageName) {
+		PageName = pageName;
 	}
 
 	public void setSearch(String search) {
@@ -367,5 +415,36 @@ public class QNAAction extends ActionSupport {
 	public void setQna_content(String qna_content) {
 		this.qna_content = qna_content;
 	}
-	
+
+	public String getAdminYN() {
+		return adminYN;
+	}
+
+	public void setAdminYN(String adminYN) {
+		this.adminYN = adminYN;
+	}
+
+	public memVO getResultMember() {
+		return resultMember;
+	}
+
+	public void setResultMember(memVO resultMember) {
+		this.resultMember = resultMember;
+	}
+
+	public memVO getParamMember() {
+		return paramMember;
+	}
+
+	public void setParamMember(memVO paramMember) {
+		this.paramMember = paramMember;
+	}
+
+	public int getWriteCheck() {
+		return writeCheck;
+	}
+
+	public void setWriteCheck(int writeCheck) {
+		this.writeCheck = writeCheck;
+	}
 }

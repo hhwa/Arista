@@ -34,8 +34,8 @@
 		
 		<!-- 아이디 중복확인  -->
 		<select id="idcheck" resultMap="memRes" parameterClass="mem">
-		<include refid="select-all"/>
-		<include refid="where-id"/>
+			<include refid="select-all"/>
+			<include refid="where-id"/>
 		</select>
 		
 		<!-- 닉네임 중복확인  -->
@@ -51,9 +51,9 @@
 		</select>
 		
 		<!-- 로그인 처리 -->
-		<select id="loginPro" resultMap="memRes" parameterClass="mem">
+		<select id="loginPro" resultMap="memRes" parameterClass="String">
 			<include refid="select-all"/>
-			WHERE m_id=#m_id# AND M_PASSWD=#m_passwd#
+			WHERE m_id=#m_id#
 		</select>
 		
 		<!-- ID 찾기 -->
@@ -68,8 +68,6 @@
 			WHERE M_NAME=#m_name# AND M_EMAIL=#m_email# AND m_id=#m_id#
 		</select>
 		
-		
-		
 		<!-- 관리자 - 회원 목록 -->
 		<select id="memList" resultMap="memRes">
 			<include refid="select-all"/>
@@ -81,57 +79,66 @@
 		<include refid="select-all"/>
 		<include refid="where-id"/>
 		</select>
-	
-
-		<!-- 관리자 - 회원검색 -->
-		<select id="memSearch" resultMap="memRes" parameterClass="java.util.HashMap">
+		
+		<!-- 내 정보 -->
+		<select id="memberView" resultMap="memRes" parameterClass="String">
+			<include refid="select-all"/>	
+			where m_id=#m_id#
+		</select>
+		<select id="memberCheck" resultMap="memRes" parameterClass="mem">
 			<include refid="select-all"/>
-			where $param1$ like #param2# order by m_joindate desc
+			where m_id=#m_id# and m_passwd=#m_passwd#
+		</select>
+		<!-- 마이팀 찾기(멤버아이디로) -->
+		<select id="myTeam" resultMap="memRes" parameterClass="String">
+			<include refid="select-all"/>	
+			where m_id=#m_id#
 		</select>
 		
-		<select id="selectLastNo" resultClass="mem">
-			select max(no) as no from mem
+		<!-- 관리자 - 회원검색 -->
 
-		</select> 
+		<select id="memSearch" parameterClass="java.util.HashMap" resultMap="memRes">
+			<include refid="select-all"/>
+			where $param1$ like #param2# order by m_joindate desc 
+		</select>
+
+		<select id="selectLastNo" resultClass="mem"> select max(no) as no from mem </select>
 
 		<!-- 회원 비밀번호 인증-->
-		<select id="selectPassword" resultMap="memRes" parameterClass="mem">
+		<select id="selectPassword" parameterClass="mem" resultMap="memRes">
 			<include refid="select-all"/>
 			<include refid="where-id"/>
-			and m_passwd=#m_passwd#
+			and m_passwd=#m_passwd# 
 		</select>
-	
+		 
+		 
 		<!-- insert 쿼리문 정의 -->
 		
 		<!-- 회원 가입 -->
 		<insert id="insertMem" parameterClass="mem">
-			insert into mem (m_id,m_passwd,m_name,m_mobilephone,m_birthyear,m_region,m_email,m_joindate,m_position,admin_yn,m_nickname,myteam) values (#m_id#,#m_passwd#,#m_name#,#m_mobilephone#,#m_birthyear#,#m_region#,#m_email#,#m_joindate#,#m_position#,#admin_yn#,#m_nickname#,#myteam#)
+			insert into mem (m_id,m_passwd,m_name,m_mobilephone,m_birthyear,m_region,m_email,m_joindate,m_position,admin_yn,m_nickname) values (#m_id#,#m_passwd#,#m_name#,#m_mobilephone#,#m_birthyear#,#m_region#,#m_email#,#m_joindate#,#m_position#,#admin_yn#,#m_nickname#)
 		</insert>
 		
 		<!-- update 쿼리문 정의 -->
 		
 		<!-- 회원 정보수정 -->
-
-		<select id="updateform" resultMap="memRes" parameterClass="mem">
-				<include refid="select-all"/>
-				<include refid="where-id"/>
-		</select>
-		
 		<update id="updateMem" parameterClass="mem">
 			update mem set m_passwd=#m_passwd#,m_mobilephone=#m_mobilephone#,m_region=#m_region#,m_position=#m_position#,m_nickname=#m_nickname#
 			<include refid="where-id"/>
 		</update>
-
-
 		
 		<!-- 프로필 이미지 설정 -->
 		<update id="updateProfile" parameterClass="mem">
 			update mem set prof_image_org=#prof_image_org#,prof_image_save=#prof_image_save#
 			<include refid="where-id"/>		
 		</update>
+		<!-- 팀 설정 -->
+		<update id="joinTeam" parameterClass="String">
+			update mem set myteam=#myteam#
+		</update>
 		
 		<!-- 관리자 설정 -->
-		<update id="updateAdminYN" parameterClass="mem">
+	 	<update id="updateAdminYN" parameterClass="mem">
 			update mem set admin_yn=#admin_yn#
 			<include refid="where-id"/>
 		</update> 

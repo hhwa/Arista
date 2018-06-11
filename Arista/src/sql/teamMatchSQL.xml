@@ -16,6 +16,7 @@
 			<result property="uniform_color" column="uniform_color"/>
 			<result property="content" column="content"/>
 			<result property="match_type" column="match_type"/>
+			<result property="team2_id" column="team2_id"/>
 		</resultMap>
 		
 		<!-- 공통으로 사용할 select 절 정의 -->
@@ -66,9 +67,18 @@
 			<include refid="where-no"/>
 		</update>
 		
+		<update id="joinTeamMatch" parameterClass="teamMatch">
+			update teamMatch set team2_id=#team2_id#
+			<include refid="where-no"/>
+		</update>
+		<update id="cancelTeamMatch">
+			update teamMatch set team2_id=''
+			<include refid="where-no"/>
+		</update>
+		
 		<!-- delete 쿼리문 정의 -->
 		<!-- 팀매치 삭제 -->
-		<delete id="deleteTeamMatch" parameterClass="teamMatch">
+		<delete id="deleteTeamMatch" parameterClass="int">
 			delete from teamMatch
 			<include refid="where-no"/>
 		</delete>

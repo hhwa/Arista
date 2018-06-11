@@ -1,11 +1,10 @@
 package team;
 
 public class teamInfoVO {
-	
+
 	private String team_id;
 	private String mem_id;
-	private int team_admin;
-	
+	private int team_admin; //0 회원,1매니저,2 마스터
 	public String getTeam_id() {
 		return team_id;
 	}
@@ -25,6 +24,4 @@ public class teamInfoVO {
 		this.team_admin = team_admin;
 	}
 	
-	
-
 }

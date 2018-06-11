@@ -14,6 +14,7 @@ public class qnaVO {
 	private int re_step;
 	private int re_level;
 	private int readhit;
+	private String adminYN;
 	
 	public int getQna_no() {
 		return qna_no;
@@ -75,5 +76,11 @@ public class qnaVO {
 	public void setReadhit(int readhit) {
 		this.readhit = readhit;
 	}
-	
+	public String getAdminYN() {
+		return adminYN;
+	}
+	public void setAdminYN(String adminYN) {
+		this.adminYN = adminYN;
+	}
+
 }

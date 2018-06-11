@@ -1,3 +1,9 @@
+﻿app.use(function (req, res, next) {
+  if (req.url && req.url.indexOf('.htm') > -1) {
+    res.header('Content-Type', 'text/html');
+  }
+  next();
+});
 function checkIt(){
 	 	var useinput = eval("document.userinput");
 	 	//아이디 유효성 검사 정규식
@@ -66,8 +72,6 @@ function checkIt(){
 		 
 		}
 	
-		
-	
 	 // 아이디 중복체크 창 오픈
 	function openConfirmid(userinput) {
 		var id = userinput.m_id.value
@@ -114,3 +118,4 @@ function checkIt(){
 	url = "memberEmailCheck.action?m_email="+m_email;
 	open(url, "confirm3", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
 	}
+	

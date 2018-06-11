@@ -8,7 +8,9 @@
 <title>회원목록</title>
 </head>
 <body>
-<center><b>회원목록(전체:)</b></center>
+<br>
+<center><b>회원목록(전체:<s:property value="totalCount"/>)</b></center>
+<br>
 <s:if test="memlist == NULL">
 <table width="700" border="1" cellpadding="0" cellspacing="0">
 <tr>
@@ -61,25 +63,25 @@
 </table>
 </s:elseif>
 <table align="center">
-<tr align="center">
-  <td colspan="5"><s:property value="pagingHtml" escape="false" /></td>
-</tr>
-<s:form method="post">
-<tr align="center">
-<td>
-<select name="topic">
-<option value="0">아이디</option>
-<option value="1">이름</option>
-<option value="2">이메일</option>
-</select>
-<input type="text" name="search" size="15">
-<s:submit action="adminMemList" method="memberList" value="검색"/>
-</td>
-<td>&nbsp;&nbsp;&nbsp;
-<input type="button" value="처음 목록으로" onclick="javascript:location.href='adminMemList.action'"/>
-</td>
-</tr>
-</s:form>
+	<tr align="center">
+  		<td colspan="5"><s:property value="pagingHtml" escape="false" /></td>
+	</tr>
+	<s:form method="post">
+	<tr align="center">
+		<td>
+			<select name="topic">
+				<option value="0">아이디</option>
+				<option value="1">이름</option>
+				<option value="2">이메일</option>
+			</select>
+			<input type="text" name="search" size="15">
+			<s:submit action="adminMemList" method="memberList" value="검색"/>
+		</td>
+		<td>&nbsp;&nbsp;&nbsp;
+			<input type="button" value="처음 목록으로" onclick="javascript:location.href='adminMemList.action'"/>
+		</td>
+	</tr>
+	</s:form>
 </table>
 </body>
 </html>

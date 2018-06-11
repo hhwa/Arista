@@ -59,6 +59,7 @@
         			<li>소속유형 : <s:property value="resultClass.team_type" /></li>
         			<li>팀원수 : <s:property value="resultClass.team_count" /></li>
         			<li>경기유형 : <s:property value="resultClass.team_fieldtype" /></li>
+        			<li></li>
         </td>
       </tr>
       
