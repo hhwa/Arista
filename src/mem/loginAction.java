@@ -104,6 +104,17 @@ public class loginAction extends ActionSupport implements SessionAware, ModelDri
 		memberParam.setM_name(getM_name());
 		memberParam.setM_email(getM_email());*/
 		memberResult = (memVO)sqlMapper.queryForObject("memSQL.findId",memberParam);
+		
+		if(memberResult != null) {
+		String findIdResult = memberResult.getM_id();
+		int idLength = findIdResult.length();
+		System.out.println(idLength);
+		if(5 < idLength) {
+			//m_id = findIdResult.substring(0,1) + "*" + findIdResult.substring(2,3) + "*" + findIdResult.substring(3,4) + "*" + findIdResult.substring(4,5);
+			m_id = findIdResult.substring(0,1) + "*" + findIdResult.substring(2,3) + "*" + findIdResult.substring(3,idLength);
+			memberResult.setM_id(m_id);
+			}
+		}
 		return SUCCESS;
 	}
 

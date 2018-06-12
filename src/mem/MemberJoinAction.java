@@ -34,8 +34,6 @@ public class MemberJoinAction extends ActionSupport implements Preparable, Model
 	private File Upload;
 	private String uploadContentType;
 	private String uploadFileName;
-//	private String fileUploadPath = "C:\\Users\\user1\\git\\Arista\\Arista\\WebContent\\profUpload\\";
-//	private String fileUploadPath = "C:\\Users\\user1\\Desktop\\upload\\";
 	private String fileUploadPath = System.getProperty("user.dir")+"\\upload\\";
 //	private String fileUploadPath= request.getContextPath()+"/profUpload/";
 	

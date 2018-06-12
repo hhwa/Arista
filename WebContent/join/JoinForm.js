@@ -128,4 +128,3 @@ function checkIt(){
 			return false;
 		} 
 	}
-	
