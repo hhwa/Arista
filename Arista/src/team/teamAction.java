@@ -34,7 +34,7 @@ public class teamAction extends ActionSupport implements SessionAware{
 
 	private teamVO paramClass = new teamVO();
 	private teamVO resultClass = new teamVO();
-	private teamVO memResult = new teamVO();
+	private memVO memResult = new memVO();
 	private memVO memParam = new memVO();
 	private teamInfoVO teamInfoParam = new teamInfoVO();
 
@@ -130,6 +130,7 @@ public class teamAction extends ActionSupport implements SessionAware{
 		list = list.subList(page.getStartCount(), lastCount);
 		return SUCCESS;
 	}
+	
 	public String myTeam() throws Exception {
 		resultClass = new teamVO();
 		if(session.get("session_id")!=null) {
@@ -138,7 +139,7 @@ public class teamAction extends ActionSupport implements SessionAware{
 				return "noTeam";
 			}
 			
-			resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.myTeamView",memParam.getMyteam());
+			resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.myTeamView", memParam.getMyteam());
 			teamInfoParam = (teamInfoVO) sqlMapper.queryForObject("teamSQL.teamMember",(String)session.get("session_id"));
 			return SUCCESS;
 		}
@@ -146,7 +147,7 @@ public class teamAction extends ActionSupport implements SessionAware{
 		
 	}
 	public String view() throws Exception {
-		resultClass = new teamVO();
+		
 		resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.teamView", getTeam_no());
 
 		return SUCCESS;
@@ -203,9 +204,33 @@ public class teamAction extends ActionSupport implements SessionAware{
 		
 		return SUCCESS;
 	}
+	
+	//비밀번호 체크 폼
+	public String checkForm() throws Exception {
+		
+		return SUCCESS;
+	}
+	
+	//비밀번호 체크 액션
+	public String ckeckAction() throws Exception {
+		
+		//비밀번호 입력 값 파라미터 설정.
+		paramClass.setTeam_no(getTeam_no());
+		
+		//
+		memParam.setM_id((String) session.get("session_id"));
+		/*memParam.setM_passwd(getM_passwd());*/
+		memParam = (memVO) sqlMapper.queryForObject("memSQL.selectPassword", memResult);
+		
+		//입력한 비밀번호가 틀리면 error리턴
+		if(memParam == null)
+			return ERROR;
+		
+		return SUCCESS;
+	}
 
 	public String modify() throws Exception {
-		resultClass = new teamVO();
+		
 		paramClass.setTeam_no(getTeam_no());
 		paramClass.setTeam_id(getTeam_id());
 		paramClass.setTeam_area(getTeam_area());
@@ -238,6 +263,24 @@ public class teamAction extends ActionSupport implements SessionAware{
 
 		resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.teamView", getTeam_no());
 
+		return SUCCESS;
+	}
+	
+	public String delete() throws Exception {
+		
+		//해당 번호의 글을 가져온다.
+		resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.selectOne", getTeam_no());
+		
+		//서버파일 삭제
+		File deleteFile = new File(fileUploadPath + resultClass.getFile_savname());
+		deleteFile.delete();
+		
+		//삭제할 항목 설정.
+		paramClass.setTeam_no(getTeam_no());
+		
+		//삭제 쿼리 수행
+		sqlMapper.update("teamSQL.deleteTeam", paramClass);
+		
 		return SUCCESS;
 	}
 
@@ -548,13 +591,15 @@ public class teamAction extends ActionSupport implements SessionAware{
 		this.pageName = pageName;
 	}
 
-	public teamVO getMemResult() {
+	public memVO getMemResult() {
 		return memResult;
 	}
 
-	public void setMemResult(teamVO memResult) {
+	public void setMemResult(memVO memResult) {
 		this.memResult = memResult;
 	}
+
+	
 	
 
 }

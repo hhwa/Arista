@@ -93,7 +93,7 @@
 	<definition name="TeamList" template="/template/layout.jsp" extends="mypage">
 		<put-attribute name="body" value="/team/teamList.jsp" />
 	</definition>
-	<definition name="TeamCreateForm" template="/template/layout.jsp" extends="mypage">
+	<definition name="TeamCreate" template="/template/layout.jsp" extends="mypage">
 		<put-attribute name="body" value="/team/makeTeam.jsp" />
 	</definition>
 	<definition name="TeamView" template="/template/layout.jsp" extends="mypage">
@@ -101,6 +101,9 @@
 	</definition>
 	<definition name="noTeam" template="/template/layout.jsp" extends="mypage">
 		<put-attribute name="body" value="/team/noTeam.jsp" />
+	</definition>
+	<definition name="myTeamView" template="/template/layout.jsp" extends="mypage">
+		<put-attribute name="body" value="/team/myTeamView.jsp" />
 	</definition>
 
 <!-- Match -->	

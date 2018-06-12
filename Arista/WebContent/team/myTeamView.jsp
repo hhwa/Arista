@@ -8,39 +8,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>My Team</title>
+<script type="text/javascript">
+		function open_win_noresizable (url, name) {
+			var oWin = window.open(url, name, "scrollbars=no,status=no,resizable=no,width=300,height=150");
+		}
+	</script>
 </head>
 <body>
-	<table align="center" width="600" border="0" cellspacing="0" cellpadding="2">
-  		<tr>
-  			<td><h2>My Team</h2></td>
-  		</tr>
-  		<tr>
-  			<td height="20"></td>
-  		</tr>
-  	</table>
-	
-	<s:if test="memParam.myteam == null">
-	<table align="center" width="600" border="0" cellspacing="0" cellpadding="2">
-  		<tr>
-  			<td><h3>My Team이 없습니다.</h3></td>
-  		</tr>
- 	</table>
- 	
- 	<table align="center" width="600" border="0" cellspacing="0" cellpadding="2">	
- 		<tr>
-  			<td><input name="list" type="button" value="팀 생성 하기" class="inputb" onClick="javascript:location.href='http://localhost:8080/Arista/team/makeTeam.jsp'"></td>
-  		</tr>
-  		
-  		<tr>
-  			<td height="20"></td>
-  		</tr>
-  		
-  		<tr>
-  			<td><input name="list" type="button" value="팀 신청 목록" class="inputb" onClick="javascript:location.href='teamlistAction.action?currentPage=<s:property value="currentPage" />'"></td>
-		</tr>
-	</table>
-	</s:if>
-	<s:elseif test="memParam.myteam !=null">
+
 		<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">     
  
 		<tr>				
@@ -90,7 +65,7 @@
 				
 			<input name="list" type="button" value="수정" class="inputb" onClick="javascript:location.href='TeamModifyForm.action?team_no=<s:property value="team_no"/>&currentPage=<s:property value="currentPage"/>'">
 					
-			<input name="list" type="button" value="삭제" class="inputb" onClick="javascript:open_win_noresizable('deleteForm.action?no=<s:property value="team_no" />&currentPage=<s:property value="currentPage" />')">			
+			<input name="list" type="button" value="삭제" class="inputb" onClick="javascript:open_win_noresizable('checkForm.action?team_no=<s:property value="resultClass.team_no" />&currentPage=<s:property value="currentPage" />','delete')">		
 
 			<input name="list" type="button" value="목록" class="inputb" onClick="javascript:location.href='TeamList.action?currentPage=<s:property value="currentPage" />'">
 
@@ -98,7 +73,6 @@
       </tr>
 
   </table>
-  </s:elseif>
   	
 </body>
 </html>

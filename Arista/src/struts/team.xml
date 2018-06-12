@@ -16,18 +16,22 @@
 				<exception-mapping result="error" exception="java.lang.Exception"/>
 			</global-exception-mappings>
 	 		-->
-	 		<!-- 팀 목록 액션 -->
+	 		<!-- 마이 팀 목록 액션 -->
 	 		<action name="MyTeam" class="team.teamAction" method="myTeam">
-	 			<result type="tiles">MyTeam</result>
+	 			<!-- <result type="tiles">MyTeam</result> -->
+	 			<result type="tiles">myTeamView</result>
 	 			<result name="noTeam" type="tiles">noTeam</result>
 	 			<result name="login" type="tiles">loginForm</result>
 	 		</action>
+	 		
+	 		<!-- 팀 목록 액션 -->
 	 		<action name="TeamList" class="team.teamAction" >
 	 			<result type="tiles">TeamList</result>
 	 		</action>
-	 	
+	 		
+	 		<!-- 팀 생성 액션 -->
 	 		<action name="TeamCreateForm" class="team.teamAction" method="form">
-	 			<result type="tiles">TeamCreateForm</result>
+	 			<result type="tiles">TeamCreate</result>
 	 		</action>
 	 	
 	 		<action name="TeamCreate" class="team.teamAction" method="create">
@@ -53,12 +57,27 @@
 			</action>
 	 	
 	 		<!-- 게시판 수정 액션. -->
-			<action name="TeamModifyForm" class="team.teamAction" method="form">
+			<action name="TeamModifyForm" class="team.teamAction" method="view">
 				<result type="chain">TeamCreateForm</result>
 			</action>
 		
 			<action name="TeamModify" class="team.teamAction" method="modify">
 				<result type="chain">TeamView</result>
 			</action>
+			
+			<!-- 비밀번호 체크 액션. -->
+			<action name="checkForm" class="team.teamAction" method="checkForm">
+				<result>/team/checkPassword.jsp</result>
+			</action>
+		
+			<action name="checkAction" class="team.teamAction" method="checkAction">
+				<result name="error">/team/checkError.jsp</result>
+				<result>/team/checkSuccess.jsp</result>
+			</action>
+			
+			<!-- 팀 삭제 -->
+			<action name="TeamDelete" class="team.teamAction" method="delete">
+	 			<result type="tiles">TeamList</result>
+	 		</action>
 	 	</package>
 	</struts>

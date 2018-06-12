@@ -6,11 +6,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<title>팀 상세보기</title>
-	<script type="text/javascript">
+<%-- 	<script type="text/javascript">
 		function open_win_noresizable (url, name) {
 			var oWin = window.open(url, name, "scrollbars=no,status=no,resizable=no,width=300,height=150");
 		}
-	</script>
+	</script> --%>
 </head>
   
   <body>
@@ -59,7 +59,7 @@
         			<li>소속유형 : <s:property value="resultClass.team_type" /></li>
         			<li>팀원수 : <s:property value="resultClass.team_count" /></li>
         			<li>경기유형 : <s:property value="resultClass.team_fieldtype" /></li>
-        			<li></li>
+        			<li>MASTER : <s:property value="resultClass.team_master" /></li>
         </td>
       </tr>
       

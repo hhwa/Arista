@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import = "java.util.HashMap" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,6 +14,10 @@
 			
 			if(frm.team_id.value == ""){
 				alert("팀명을 입력해주세요.");
+				return false;
+			}
+			else if(frm.team_area.value == "선택"){
+				alert("지역을 선택해 주세요.");
 				return false;
 			}
 			else if(frm.team_type.value == "선택"){
@@ -41,12 +46,13 @@
 			}
 			return true;
 		}
-	</SCRIPT>	
+	</SCRIPT>
+
 </head>
 <body>
-	<table width="600" border="0" cellspacing="0" cellpadding="2">
+	<table width="600" border="0" cellspacing="0" cellpadding="2" align="center">
 		<tr>
-			<td align="center"><h2>팀 생성</h2></td>
+			<td align="center"><h2>팀</h2></td>
 		</tr>
 	</table>
 	
@@ -55,13 +61,13 @@
 		</s:if>
 		
 		<s:else>
-			<form action="TeamModify.action" method="post" enctype="multpart/form-data"/>
+			<form action="TeamModify.action" method="post" enctype="multpart/form-data" onsubmit="return validation();"/>
 			<s:hidden name="team_no" value="%{resultClass.team_no}"/>
-			<s:hidden name="currenstPage" value="%{resultClass.currentPage}"/>
+			<s:hidden name="currentPage" value="%{currentPage}"/>
 			<s:hidden name="old_file" value="%{resultClass.file_savname}"/>
 		</s:else>
 		
-	<table width="600" border="0" cellspacing="0" cellpadding="0">
+	<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
 		<tr>
           <td align="right" colspan="2"><font color="#FF0000">*</font>는 필수 입력사항입니다.</td>
         </tr>
@@ -72,26 +78,27 @@
 		<tr>
           <td width="100" bgcolor="#F4F4F4"><font color="#FF0000">*</font>  팀명</td>
           <td width="500" bgcolor="#FFFFFF">
-            <s:textfield name="team_id" theme="simple" value="%{resultClass.team_id}" cssStyle="width:370px" maxlength="50"/>
+            <s:textfield name="team_id" theme="simple" value="%{resultClass.team_id}" cssStyle="width:370px" maxlength="10"/>
           </td>
         </tr>
-        
+       
         <tr bgcolor="#777777">
           <td height="1" colspan="2"></td>
         </tr>
 		<tr>
           <td width="100" bgcolor="#F4F4F4"><font color="#FF0000">*</font>  지역</td>
-          <td width="500" bgcolor="#FFFFFF">
-          	<select name="team_area">
-     	    	<option selected="selected">선택</option> 
-				<option>서울</option>
-         		<option>경기</option>
-         		<option>충북</option>
-         		<option>충남</option>
-         		<option>전라</option>
-         		<option>경기</option>
-         		<option>강원</option>
-         	</select>
+          <td width="500" bgcolor="#FFFFFF"> 
+          <select name="team_area">          	
+     	    	<option selected="selected">선택</option>     	    	
+				<option value="서울">서울</option>
+         		<option value="경기">경기</option>
+         		<option value="충북">충북</option>
+         		<option value="충남">충남</option>
+         		<option value="전라">전라</option>
+         		<option value="경기">경기</option>
+         		<option value="강원">강원</option>
+         		<option value="제주">제주</option>
+         </select>         		
           </td>
         </tr>
         
@@ -103,11 +110,11 @@
           <td width="250" bgcolor="#FFFFFF">
           	<select name="team_type">
      	    	<option selected="selected">선택</option> 
-				<option>청소년</option>
-         		<option>대학생</option>
-         		<option>직장인</option>
-         		<option>성인</option>
-         		<option>조기축구회</option>
+				<option value="청소년">청소년</option>
+         		<option value="대학생">대학생</option>
+         		<option value="직장인">직장인</option>
+         		<option value="성인">성인</option>
+         		<option value="조기축구회">조기축구회</option>
          	</select>
           </td>
         </tr>        
@@ -120,8 +127,8 @@
           <td width="250" bgcolor="#FFFFFF">
           	<select name="team_fieldtype">
      	    	<option selected="selected">선택</option> 
-				<option>축구</option>
-         		<option>풋살</option>
+				<option value="축구">축구</option>
+         		<option value="풋살">풋살</option>
          	</select>
           </td>
         </tr>         
@@ -134,11 +141,11 @@
           <td width="250" bgcolor="#FFFFFF">
           	<select name="team_age">
      	    	<option selected="selected">선택</option> 
-				<option>10대</option>
-         		<option>20대</option>
-         		<option>30대</option>
-         		<option>40대</option>
-         		<option>50대 이상</option>
+				<option value="10대">10대</option>
+         		<option value="20대">20대</option>
+         		<option value="30대">30대</option>
+         		<option value="40대">40대</option>
+         		<option value="50대 이상">50대 이상</option>
          	</select>
           </td>
         </tr>
@@ -151,9 +158,9 @@
           <td width="250" bgcolor="#FFFFFF">
           	<select name="team_skill">
      	    	<option selected="selected">선택</option> 
-				<option>상</option>
-         		<option>중</option>
-         		<option>하</option>
+				<option value="상">상</option>
+         		<option value="중">중</option>
+         		<option value="하">하</option>
          	</select>
           </td>
         </tr>   
@@ -164,7 +171,7 @@
 		<tr>
           <td width="100" bgcolor="#F4F4F4"><font color="#FF0000">*</font>  팀 인원</td>
           <td width="500" bgcolor="#FFFFFF">
-            <s:textfield name="team_count" theme="simple" value="%{resultClass.team_count}" cssStyle="width:370px" maxlength="50"/>
+            <s:textfield name="team_count" theme="simple" value="%{resultClass.team_count}" cssStyle="width:370px" maxlength="2"/>
           </td>
         </tr>         
         							
@@ -211,4 +218,6 @@
 
     </table>
 </body>
+
+
 </html>
