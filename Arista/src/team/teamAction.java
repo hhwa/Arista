@@ -39,6 +39,8 @@ public class teamAction extends ActionSupport implements SessionAware{
 	private teamInfoVO teamInfoParam = new teamInfoVO();
 
 	private int team_no;
+	private String m_passwd;
+	private String m_id;
 
 	private String fileUploadPath = "C:\\Users\\user1\\git\\Arista\\Arista\\WebContent\\teamimg\\";
 
@@ -148,6 +150,8 @@ public class teamAction extends ActionSupport implements SessionAware{
 	}
 	public String view() throws Exception {
 		
+		paramClass = new teamVO();
+		resultClass = new teamVO();
 		resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.teamView", getTeam_no());
 
 		return SUCCESS;
@@ -212,14 +216,13 @@ public class teamAction extends ActionSupport implements SessionAware{
 	}
 	
 	//비밀번호 체크 액션
-	public String ckeckAction() throws Exception {
+	public String checkAction() throws Exception {
 		
 		//비밀번호 입력 값 파라미터 설정.
-		paramClass.setTeam_no(getTeam_no());
+		memParam.setM_id(getM_id());
+		memParam.setM_passwd(getM_passwd());
 		
-		//
-		memParam.setM_id((String) session.get("session_id"));
-		/*memParam.setM_passwd(getM_passwd());*/
+		//id 비밀번호 가져오기.
 		memParam = (memVO) sqlMapper.queryForObject("memSQL.selectPassword", memResult);
 		
 		//입력한 비밀번호가 틀리면 error리턴
@@ -230,6 +233,8 @@ public class teamAction extends ActionSupport implements SessionAware{
 	}
 
 	public String modify() throws Exception {
+		
+		resultClass = new teamVO();
 		
 		paramClass.setTeam_no(getTeam_no());
 		paramClass.setTeam_id(getTeam_id());
@@ -599,6 +604,22 @@ public class teamAction extends ActionSupport implements SessionAware{
 		this.memResult = memResult;
 	}
 
+	public String getM_passwd() {
+		return m_passwd;
+	}
+
+	public void setM_passwd(String m_passwd) {
+		this.m_passwd = m_passwd;
+	}
+
+	public String getM_id() {
+		return m_id;
+	}
+
+	public void setM_id(String m_id) {
+		this.m_id = m_id;
+	}
+	
 	
 	
 

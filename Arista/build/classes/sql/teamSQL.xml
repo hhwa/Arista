@@ -99,7 +99,7 @@
    		 </update>
 		<!-- team 수정 -->
 		<update id="updateTeam" parameterClass="team">
-			update team set team_id=#team_id#,team_area=#team_area#,team_fieldtype=#team_fieldtype#,team_age=#team_age#,team_skill=#team_skill#,team_count=#team_count#,team_intro=#team_intro#
+			update team set team_id=#team_id#,team_area=#team_area#,team_type=#team_type#,team_fieldtype=#team_fieldtype#,team_age=#team_age#,team_skill=#team_skill#,team_count=#team_count#,team_intro=#team_intro#
 			<include refid="where-no"/>
 		</update>
 		

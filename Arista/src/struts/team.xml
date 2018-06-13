@@ -31,7 +31,7 @@
 	 		
 	 		<!-- 팀 생성 액션 -->
 	 		<action name="TeamCreateForm" class="team.teamAction" method="form">
-	 			<result type="tiles">TeamCreate</result>
+	 			<result type="tiles">TeamCreateForm</result>
 	 		</action>
 	 	
 	 		<action name="TeamCreate" class="team.teamAction" method="create">
@@ -57,7 +57,7 @@
 			</action>
 	 	
 	 		<!-- 게시판 수정 액션. -->
-			<action name="TeamModifyForm" class="team.teamAction" method="view">
+			<action name="TeamModifyForm" class="team.teamAction" method="form">
 				<result type="chain">TeamCreateForm</result>
 			</action>
 		
