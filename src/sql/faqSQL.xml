@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
+<sqlMap namespace="faqSQL">
+
+	<typeAlias alias="faq" type="faq.faqVO" />
+
+	<!-- 리절트 맵 정의 -->
+	<resultMap id="faqRes" class="faq">
+		<result property="faq_no" column="faq_no" />
+		<result property="faq_subject" column="faq_subject" />
+		<result property="faq_content" column="faq_content" />
+	</resultMap>
+
+	<!-- 공통으로 사용할 select 절 정의 -->
+	<sql id="select-all">
+		select * from faq
+	</sql>
+
+	<!-- 공통으로 사용할 where-no절 정의 -->
+	<sql id="where-no">
+		where faq_no = #faq_no#
+	</sql>
+
+	<!-- select 쿼리문 정의 -->
+
+	<!-- FAQ 목록 -->
+	<select id="FAQList" resultMap="faqRes">
+		<include refid="select-all" />
+		order by faq_no desc
+	</select>
+
+	<!-- FAQ 상세보기 -->
+	<select id="FAQView" resultMap="faqRes" parameterClass="int">
+		<include refid="select-all" />
+		<include refid="where-no" />
+	</select>
+
+	<!-- FAQ 검색 -->
+	<select id="FAQSearch" resultMap="faqRes" parameterClass="java.util.HashMap">
+		<include refid="select-all" />
+		where $param1$ like #param2# order by ref desc, re_step asc
+	</select>
+
+	<!-- insert 쿼리문 정의 -->
+
+	<!-- FAQ 쓰기 -->
+	<insert id="insertFAQ" parameterClass="faq">
+		insert into faq (faq_no,faq_subject,faq_content) values
+		(faq_no_seq.NEXTVAL,#faq_subject#,#faq_content#)
+	</insert>
+
+	<!-- update 쿼리문 정의 -->
+
+	<!-- FAQ 수정 -->
+	<update id="updateFAQ" parameterClass="faq">
+		update faq set faq_subject=#faq_subject#,faq_content=#faq_content#
+		<include refid="where-no" />
+	</update>
+
+	<!-- delete 쿼리문 정의 -->
+
+	<!-- FAQ 삭제 -->
+	<delete id="deleteFAQ" parameterClass="faq">
+		delete from faq
+		<include refid="where-no" />
+	</delete>
+</sqlMap>

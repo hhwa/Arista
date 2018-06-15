@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- 용량제한 100MB로 설정 -->
+	<constant name="struts.multipart.maxSize" value="104857600" />
+
+	<package name="qna" extends="struts-default,tiles-default">
+
+
+		<action name="QNAList" class="qna.QNAAction">
+			<result type="tiles">QNAList</result>
+		</action>
+
+		<action name="QNAWriteForm" class="qna.QNAAction" method="form">
+			<result type="tiles">QNAWrite</result>
+		</action>
+
+		<action name="QNAWrite" class="qna.QNAAction" method="write">
+			<result type="redirect-action">
+				<param name="actionName">QNAList</param>
+			</result>
+		</action>
+
+		<action name="QNAView" class="qna.QNAAction" method="view">
+			<result type="tiles">QNAView</result>
+		</action>
+
+		<action name="QNACheckForm" class="qna.QNAAction" method="checkForm">
+			<result>/QNA/QNACheckPassword.jsp</result>
+		</action>
+
+		<action name="QNACheckAction" class="qna.QNAAction" method="checkAction">
+			<result name="error">/QNA/QNACheckError.jsp</result>
+			<result>/QNA/QNACheckSuccess.jsp</result>
+		</action>
+
+		<action name="QNAUpdateForm" class="qna.QNAAction" method="view">
+			<result type="chain">QNAWriteForm</result>
+		</action>
+
+		<action name="QNAUpdate" class="qna.QNAAction" method="update">
+			<result type="chain">QNAView</result>
+		</action>
+
+		<action name="QNADelete" class="qna.QNAAction" method="delete">
+			<result type="chain">QNAList</result>
+		</action>
+
+
+
+		<action name="QNAReplyForm" class="qna.QNAAction" method="reply">
+			<result type="chain">QNAWriteForm</result>
+		</action>
+
+		<action name="QNAReply" class="qna.QNAAction" method="write">
+			<result type="redirect-action">
+				<param name="actionName">QNAList</param>
+			</result>
+		</action>
+
+
+	</package>
+</struts>

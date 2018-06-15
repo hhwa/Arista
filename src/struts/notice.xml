@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- 용량제한 100MB로 설정 -->
+	<constant name="struts.multipart.maxSize" value="104857600" />
+
+	<package name="notice" extends="struts-default,tiles-default">
+
+
+		<action name="noticeList" class="notice.noticeAction">
+			<result type="tiles">noticeList</result>
+		</action>
+
+		<action name="noticeView" class="notice.noticeAction" method="view">
+			<result type="tiles">noticeView</result>
+		</action>
+
+
+		<action name="noticeWriteForm" class="notice.noticeAction"
+			method="form">
+			<result type="tiles">noticeWrite</result>
+		</action>
+
+		<action name="noticeWrite" class="notice.noticeAction" method="write">
+			<result type="redirect-action">
+				<param name="actionName">noticeList</param>
+			</result>
+		</action>
+
+		<action name="noticeUpdateForm" class="notice.noticeAction"
+			method="view">
+			<result type="chain">noticeWriteForm</result>
+		</action>
+
+		<action name="noticeUpdate" class="notice.noticeAction" method="update">
+			<result type="chain">noticeView</result>
+		</action>
+
+		<action name="noticeDelete" class="notice.noticeAction" method="delete">
+			<result type="chain">noticeList</result>
+		</action>
+
+
+	</package>
+</struts>

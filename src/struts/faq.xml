@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- 용량제한 100MB로 설정 -->
+	<constant name="struts.multipart.maxSize" value="104857600" />
+
+	<package name="faq" extends="struts-default,tiles-default">
+
+
+		<action name="FAQList" class="faq.FAQAction">
+			<result type="tiles">FAQList</result>
+		</action>
+
+		<action name="FAQView" class="faq.FAQAction" method="view">
+			<result type="tiles">FAQView</result>
+		</action>
+
+		<action name="FAQWriteForm" class="faq.FAQAction" method="form">
+			<result type="tiles">FAQWrite</result>
+		</action>
+
+		<action name="FAQWrite" class="faq.FAQAction" method="write">
+			<result type="redirect-action">
+				<param name="actionName">FAQList</param>
+			</result>
+		</action>
+
+		<action name="FAQUpdateForm" class="faq.FAQAction" method="view">
+			<result type="chain">FAQWriteForm</result>
+		</action>
+
+		<action name="FAQUpdate" class="faq.FAQAction" method="update">
+			<result type="chain">FAQView</result>
+		</action>
+
+		<action name="FAQDelete" class="faq.FAQAction" method="delete">
+			<result type="chain">FAQList</result>
+		</action>
+
+
+	</package>
+</struts>

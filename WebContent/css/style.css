@@ -1,0 +1,197 @@
+@import url("font-awesome.min.css");
+
+@import
+	url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,900,300italic")
+	;
+
+
+td {
+	padding: 0px 10px 0px 10px;
+}
+
+img.matchBtn {
+	width: 100px;
+	height: 100px;
+	margin: auto;
+	left: 300px;
+	top: 50px;
+}
+
+input {
+	border: 0;
+	outline: 0;
+	background: transparent;
+}
+
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0 50px none inset;
+	-webkit-text-fill-color: #333;
+}
+
+input:-webkit-autofill:focus {
+	-webkit-box-shadow: /*your box-shadow*/ , 0 0 0 50px white inset;
+	-webkit-text-fill-color: #333;
+}
+
+
+
+
+header {
+	background-color: #2d2d30;
+	color: #f5f5f5;
+	padding: 6px;
+}
+
+a {
+	color: #000000;
+}
+
+a:link {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:honer {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:active {
+	color: #000000;
+	text-decoration: none;
+}
+
+/*footer*/
+footer {
+	background-color: #2d2d30;
+	color: #777;
+	padding: 32 px;
+}
+
+footer a {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+footer a:hover {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+footer a:action {
+	color: #777;
+	text-decoration: none;
+}
+
+footer a:link {
+	color: #777;
+	text-decoration: none;
+}
+
+/*login*/
+#bu {
+	background-color: #2d2d30;
+	padding: 0px 0px 2px 0px;
+}
+
+#bu_in {
+	padding: 0px 0px 3px 10px;
+	background-color: #ffffff;
+}
+
+#bu_1 {
+	background-color: #2d2d30;
+	color: #ffffff;
+}
+.bu_2{
+	background-color: #2d2d30;
+	color: #ffffff;
+	padding: 3px 8px 3px 8px;
+}
+.bu_2 a{
+	color:#ffffff;
+}
+.bu_2 a:hover {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+.bu_2 a:action {
+	color: #777;
+	text-decoration: none;
+}
+
+.bu_2 a:link {
+	color: #777;
+	text-decoration: none;
+}
+
+
+#bu_find {
+	font-size: 10px;
+}
+
+/* totalMatch */
+#total_m {
+	border: 1px;
+	background-color: #ffffff;
+	back
+}
+
+#under_line {
+	border: none;
+	border-right: 0px;
+	border-top: 0px;
+	boder-left: 0px;;
+	boder-bottom: 5px;
+}
+
+#menu_back {
+	width: 150px;
+	height: 6px;
+	padding: 2px 0px 0px 0px;
+}
+
+#menu_list {
+	width: 120px;
+	height: 8px;
+}
+
+.myTable {
+	width: 150px;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+
+.myTable td {
+	border-bottom: 2px solid #b1b1b1;
+	font-size: 18px;
+	font-weight: bold;
+	padding: 0px 0px 0px 18px;
+}
+
+.myTable_List {
+	width: 150px;
+	table-layout: fixed;
+	border-collapse: collapse;
+}
+
+.myTable_List td {
+	width: 150px;
+	font-size: 12px;
+	padding: 1px 0px 1px 20px;
+}
+
+.font_15 {
+   font-size: 15px;
+}
+.font_12{
+   font-size: 12px;
+}
+
+
