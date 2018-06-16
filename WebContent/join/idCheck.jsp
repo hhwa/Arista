@@ -7,11 +7,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>ID 중복체크</title>
-<script language="javascript">
+<script type="text/javascript">
 
 function setid()
  {
 	opener.document.userinput.m_id.value="<s:property value='m_id'/>";
+	opener.document.userinput.idchecked.value=1;
  	self.close();
 
  } 

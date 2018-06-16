@@ -7,11 +7,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>닉네임 중복체크</title>
-<script language="javascript" charset="EUC-KR">
+<script type="text/javascript" charset="EUC-KR">
 
 function setnick()
  {
 	opener.document.userinput.m_nickname.value="<s:property value='m_nickname'/>";
+	opener.document.userinput.nickchecked.value=1;
  	self.close();
  } 
 

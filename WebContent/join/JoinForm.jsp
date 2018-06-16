@@ -24,6 +24,9 @@ input.bottom {
 </head>
 <body>
 <s:form method="post" action="MemberJoinAction" name="userinput" enctype="multipart/form-data" onsubmit="return checkIt();">
+	<input type="hidden" name="idchecked" value="0"/>
+	<input type="hidden" name="nickchecked" value="0"/>
+	<input type="hidden" name="emailchecked" value="0"/>
 	<table align="center">
 	<tr height="50"><td></td></tr>
 		<tr><td colspan="11" class="font_12" align="right" style="padding:0px 50px"><font color="#FF0000">*</font> 필수항목</td></tr>
@@ -42,7 +45,7 @@ input.bottom {
 			<td width="70"></td>
 			<td><b>비밀번호 <font color="#FF0000">*</font></b></td>
 			<td>
-				<input class="bottom" id="bu_in" type="password" name="passwd" size="20">
+				<input class="bottom" id="bu_in" type="password" name="m_passwd" size="20">
 			</td>
 			<td class="font_12">
             &nbsp;&nbsp;<font color="#FF0000">※</font> 8자 이상이여야 하며 영문과 숫자를 반드시 포함해야 한다.
@@ -52,7 +55,7 @@ input.bottom {
         	<td width="70"></td>
          	<td><b>비밀번호 확인  <font color="#FF0000">*</font></b></td>
          	<td>
-            	<input class="bottom" id="bu_in" type="password" name="passwd2" size="20">
+            	<input class="bottom" id="bu_in" type="password" name="m_passwd2" size="20">
          	</td>
       	</tr> 		
 		<tr height="40">
@@ -104,7 +107,7 @@ input.bottom {
          	<td>
             	<input class="bottom" id="bu_in" type="text" name="m_mobilephone" size="11"> 
             </td>
-            <td class="font_12">&nbsp;&nbsp;ex)01011111111</td>
+            <td class="font_12">&nbsp;&nbsp;ex)010-1111-1111</td>
       	</tr>    			
 		<tr height="40">
         	<td width="70"></td>

@@ -7,11 +7,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>이메일 중복체크</title>
-<script language="javascript">
+<script type="text/javascript" charset="EUC-KR">
 
 function setemail()
  {
 	opener.document.userinput.m_email.value="<s:property value='m_email'/>";
+	opener.document.userinput.emailchecked.value=1;
  	self.close();
  } 
 
