@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -20,56 +20,169 @@ input.bottom {
 }
 </style>
 <link href="css/style.css" rel="stylesheet" type="text/css">
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Insert title here</title>
-<script src="./join/joinForm.js" type="text/javascript">
+<script type="text/javascript" charset="EUC-KR">
+function checkIt(){
+	var nickExp = /[~!@\#$%<>^&*\()\-=+_\¡¯]/gi;
+	var emailExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+	var phoneExp = /^(?:(010-\d{4})|(01[1|6|7|8|9]-\d{3,4}))-(\d{4})$/;
+		
+	var pw = userinput.m_passwd.value
+	var nick = document.userinput.m_nickname.value;
+	var nick2 = document.userinput.m_nickname2.value;
+	var mail = document.userinput.m_email.value; 
+	var mail2 = document.userinput.m_email2.value; 
+	
+	 if(pw.length<8||pw.length>20){
+		 alert("ºñ¹Ğ¹øÈ£´Â 8ÀÚ¸® ~20ÀÚ¸® ÀÌ³»·Î ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			  return false;
+	 }
+		 
+	 if(pw.search(/\s/) != -1){
+		  alert("ºñ¹Ğ¹øÈ£´Â °ø¹é ¾øÀÌ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			  return false;
+		 } 
+	 
+	 if(pw != userinput.m_passwd2.value){
+		 alert("ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.")
+		 return false;
+	 }
+	 
+	 
+	 if(nick == "" || nick==null) {
+			alert("´Ğ³×ÀÓÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+			return false;
+		}
+	 
+	 if(nick.search(/\s/) != -1) {
+			alert("´Ğ³×ÀÓ¿¡ °ø¹éÀ» »ç¿ëÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.")
+			return false;
+		}
+	 
+	 if(nickExp.test(nick)){
+		 alert("´Ğ³×ÀÓ¿¡ Æ¯¼ö¹®ÀÚ¸¦ »ç¿ëÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.")
+		 return false;
+	 }
+	
+		 
+	 if(!phoneExp.test(document.userinput.m_mobilephone.value)){
+		 alert("ÈŞ´ëÆù ¹øÈ£¸¦ Çü½Ä¿¡ ¸Â°Ô ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+		 return false;
+	 }
+	 
+	 if(document.userinput.m_region.value =="¼±ÅÃ"){
+		 alert("Áö¿ªÀ» ¼±ÅÃÇØÁÖ¼¼¿ä.");
+		 return false;
+	 }
+	 
+	 
+	 if(!emailExp.test(mail)){
+		 alert("ÀÌ¸ŞÀÏ Çü½Ä¿¡ ¸Â°Ô ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+		return false;
+	 }
+	
+	 
+	 if(userinput.nickchecked.value == 0 && nick != nick2){
+		 alert("´Ğ³×ÀÓ Áßº¹Ã¼Å©¸¦ ÇØÁÖ¼¼¿ä.");
+		 return false;
+	 } 
+	 
+	 if(userinput.emailchecked.value == 0 && email != email2){
+		 alert("ÀÌ¸ŞÀÏ Áßº¹Ã¼Å©¸¦ ÇØÁÖ¼¼¿ä.");
+		 return false;
+	 } 
+	 
+}
+function openConfirmnick(userinput) {
+	var regExp2 = /[~!@\#$%<>^&*\()\-=+_\¡¯]/gi;
+	var m_nickname = document.userinput.m_nickname.value;
+
+	if(m_nickname == "" || m_nickname==null){
+		alert("´Ğ³×ÀÓÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+		return false;
+	}
+	
+	if(m_nickname.search(/\s/) != -1) {
+		alert("´Ğ³×ÀÓ¿¡ °ø¹éÀ» »ç¿ëÇÏ½Ç ¼ö ¾ø½À´Ï´Ù.")
+		return false;
+	}
+	
+	if(regExp2.test(m_nickname)){
+		alert("´Ğ³×ÀÓ¿¡ Æ¯¼ö¹®ÀÚ¸¦ »ç¿ëÇÏ½Ç ¼ö ¾ø½À´Ï´Ù. (2ÀÚ ÀÌ»ó)")
+		return false;
+	}
+	
+
+url = "memberNickCheck.action?m_nickname="+m_nickname;
+open(url, "confirm2", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
+}
+
+function openConfirmemail(userinput) {
+	var regExp3 = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+	var m_email = userinput.m_email.value;
+
+	
+	if(!regExp3.test(m_email)){
+		alert("ÀÌ¸ŞÀÏ Çü½Ä¿¡ ¸Â°Ô ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+		return false;
+	}
+
+
+url = "memberEmailCheck.action?m_email="+m_email;
+open(url, "confirm3", "toolbar=no, location=no, status=no, menubar=no, scrollbars=no, resizable=no, width=300, height=200");
+}
+
+
+
 </script>
 </head>
 <body>
-<s:form method="post" action="modiftyMemberPro" name="userinput" enctype="multipart/form-data">
+<s:form method="post" action="modiftyMemberPro" name="userinput" enctype="multipart/form-data" onsubmit="return checkIt();">
 	<s:hidden name="prof_image_save" value="%{memberResult.prof_image_save}"/>
 	<s:hidden name="m_id" value="%{memberResult.m_id}"/>
-
+	<input type="hidden" name="nickchecked" value="0"/>
+	<input type="hidden" name="emailchecked" value="0"/>
+	<input type="hidden" name="m_email2" value="<s:property value="memberResult.m_email"/>"/>
+	<input type="hidden" name="m_nickname2" value="<s:property value="memberResult.m_nickname"/>"/>
+	
 	<table align="center">
    <tr height="50" ><td></td></tr>
       <tr height="40">
-         <td width="140"><b>ì•„ì´ë”” <font color="#FF0000">*</font></b></td>
+         <td width="140"><b>¾ÆÀÌµğ <font color="#FF0000">*</font></b></td>
          <td width="190" id="bu_in">
             <s:property value="memberResult.m_id"/>
          </td>
-         <td width="130" rowspan="4" align="center">
-            <img src="<s:property value='memberResult.prof_image_save'/>">
-      </td>
       </tr>
       <tr height="40">
-         <td><b>ë¹„ë°€ë²ˆí˜¸ <font color="#FF0000">*</font></b></td>
+         <td><b>ºñ¹Ğ¹øÈ£ <font color="#FF0000">*</font></b></td>
          <td>
-            <input class="bottom" id="bu_in" type="password" name="m_passwd" size="10" placeholder="â€» 8ì ì´ìƒ ì…ë ¥">
+            <input class="bottom" id="bu_in" type="password" name="m_passwd" size="20" placeholder="¡Ø 8ÀÚ ÀÌ»ó ÀÔ·Â">
             </td>
       </tr>
       <tr height="40">
-         <td><b>ë¹„ë°€ë²ˆí˜¸ í™•ì¸  <font color="#FF0000">*</font></b></td>
+         <td><b>ºñ¹Ğ¹øÈ£ È®ÀÎ  <font color="#FF0000">*</font></b></td>
          <td>
-            <input class="bottom" id="bu_in" type="password" name="passwd2" size="20">
+            <input class="bottom" id="bu_in" type="password" name="m_passwd2" size="20">
          </td>
       </tr>
       <tr height="40">
-         <td><b>ì´ë¦„  <font color="#FF0000">*</font></b></td>
+         <td><b>ÀÌ¸§  <font color="#FF0000">*</font></b></td>
          <td id="bu_in">
             <s:property value="memberResult.m_name"/>
          </td>
       </tr>
       <tr height="40">
-         <td><b>ë‹‰ë„¤ì„  <font color="#FF0000">*</font></b></td>
+         <td><b>´Ğ³×ÀÓ  <font color="#FF0000">*</font></b></td>
          <td>
-            <input class="bottom" id="bu_in" type="text" name="m_nickname" maxlength="15" size="20" placeholder="<s:property value="memberResult.m_nickname"/>" autocomplete="off">
+            <input class="bottom" id="bu_in" type="text" name="m_nickname" maxlength="15" size="20" value="<s:property value="memberResult.m_nickname"/>">
          </td>
          <td>
-            <input id="bu_1" type="button" name="check_nick" value="  ë‹‰ë„¤ì„ ì¤‘ë³µí™•ì¸  " OnClick="openConfirmnick(this.form)">
+            <input id="bu_1" type="button" name="check_nick" value="  ´Ğ³×ÀÓ Áßº¹È®ÀÎ  " OnClick="openConfirmnick(this.form)">
          </td>
       </tr>   
       <tr height="40">
-         <td><b>í¬ì§€ì…˜  <font color="#FF0000">*</font></b></td>
+         <td><b>Æ÷Áö¼Ç  <font color="#FF0000">*</font></b></td>
          <td>
          <s:property value="memberResult.m_position"/> &nbsp;>&nbsp;
          <s:if test="posiList != null">
@@ -82,15 +195,15 @@ input.bottom {
             </td>
       </tr>
       <tr height="40">
-         <td><b>íœ´ëŒ€í° ë²ˆí˜¸  <font color="#FF0000">*</font></b></td>
+         <td><b>ÈŞ´ëÆù ¹øÈ£  <font color="#FF0000">*</font></b></td>
          <td>
-            <input type="text" name="m_mobilephone" size="20" value="<s:property value="memberResult.m_mobilephone"/>"> 
+            <input type="text" name="m_mobilephone" size="20" maxlength="11" value="<s:property value="memberResult.m_mobilephone"/>"> 
          </td>
          
       </tr>      
                   
       <tr height="40">
-         <td><b>ì§€ì—­  <font color="#FF0000">*</font></b></td>
+         <td><b>Áö¿ª  <font color="#FF0000">*</font></b></td>
          <td>
             <s:if test="areaList != null">
                <select name="m_region">
@@ -102,38 +215,37 @@ input.bottom {
          </td>
       </tr>
       <tr height="40">
-         <td><b>ì¶œìƒì—°ë„  <font color="#FF0000">*</font></b></td>
+         <td><b>Ãâ»ı¿¬µµ  <font color="#FF0000">*</font></b></td>
          <td><s:property value="memberResult.m_birthyear"/></td>
       </tr>
       <tr height="40">
-      <td><b>ì´ë©”ì¼  <font color="#FF0000">*</font></b></td>
+      <td><b>ÀÌ¸ŞÀÏ  <font color="#FF0000">*</font></b></td>
          <td>
-            <input class="bottom" id="bu_in" type="text" name="m_email" maxlength="15" size="30" placeholder="<s:property value="memberResult.m_email"/>" autocomplete="off">
+            <input class="bottom" id="bu_in" type="text" name="m_email" size="30" value="<s:property value="memberResult.m_email"/>">
          </td>
          <td>
-            <input id="bu_1" type="button" name="email_nick" value="  ì´ë©”ì¼ ì¤‘ë³µí™•ì¸   " OnClick="openConfirmemail(this.form)">
+            <input id="bu_1" type="button" name="email_nick" value="  ÀÌ¸ŞÀÏ Áßº¹È®ÀÎ   " OnClick="openConfirmemail(this.form)">
          </td>
       </tr>
       
-      <tr height="40">
-         <td><b>ê¸°ì¡´ í”„ë¡œí•„ì‚¬ì§„</b></td>
-         <td>
-            <s:property value='memParam.prof_image_save'/>
-         </td>
+      <tr height="160">
+         <td><b>ÇÁ·ÎÇÊ»çÁø</b></td>
+            <td width="130" rowspan="4" align="center">
+            <img width="160" height="160" src="/Arista/profUpload/<s:property value='memberResult.prof_image_save'/>">
+            <%-- <img width="160" height="160" src="/Arista/admin/member/profUpload/<s:property value="memParam.prof_image_save"/>"> --%>
+      </td>
+   	</tr>
+   <tr>
+    <td colspan="2"><b>ÇÁ·ÎÇÊ»çÁø ¼öÁ¤</b>
+         <s:file name="upload" theme="simple"/></td>   
    </tr>
-
-      <tr height="40">
-         <td><b>í”„ë¡œí•„ì‚¬ì§„</b></td>
-         <td colspan="2"><s:file name="upload" theme="simple"/></td>   
-      </tr>      
-      
       </table>
       <table align="center">         
       <tr height="60">
          <td align="center">
-            <input id="bu_1" type="submit" name="confirm" value="        ë“± ë¡        " onclick="return checkIt()">&nbsp;&nbsp;&nbsp;
-            <input id="bu_1" type="button" value="     ë˜ëŒë¦¬ê¸°     " onclick="javascript:window.location='modiftyMemberForm.action?m_id=<s:property value="memberResult.m_id"/>'">&nbsp;&nbsp;&nbsp;
-            <input id="bu_1" type="button" value="        ì·¨  ì†Œ        " onclick="javascript:window.location='mypage.action'">
+            <input id="bu_1" type="submit" name="confirm" value="        µî ·Ï        ">&nbsp;&nbsp;&nbsp;
+            <input id="bu_1" type="button" value="     µÇµ¹¸®±â     " onclick="javascript:window.location='modiftyMemberForm.action?m_id=<s:property value="memberResult.m_id"/>'">&nbsp;&nbsp;&nbsp;
+            <input id="bu_1" type="button" value="        Ãë  ¼Ò        " onclick="javascript:window.location='mypage.action'">
          </td>
       </tr>   
       <tr height="40"><td></td></tr>      

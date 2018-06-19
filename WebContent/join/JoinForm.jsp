@@ -80,22 +80,13 @@ input.bottom {
 			<td width="70"></td>
          	<td><b>포지션  <font color="#FF0000">*</font></b></td>
 			<td>
-			<select name="m_position">
-				<option selected="selected">선택</option> 
-				<option>LWF</option>
-				<option>ST</option>
-				<option>RWF</option>
-				<option>LWM</option>
-				<option>CAM</option>
-				<option>CM</option>
-				<option>CDM</option>
-				<option>CB</option>
-				<option>LB</option>
-				<option>LWB</option>
-				<option>RB</option>
-				<option>RWB</option>
-				<option>GK</option>
-			</select>
+		<s:if test="posiList != null">
+               <select name="m_position">
+                  <s:iterator value="posiList">
+                     <option value="<s:property/>"><s:property/></option>
+                  </s:iterator>
+               </select>
+            </s:if>
 			</td>
 			<td class="font_12">&nbsp;&nbsp;<font color="#FF0000">※</font>포지션을 선택해주세요.
          	</td>
@@ -113,16 +104,13 @@ input.bottom {
         	<td width="70"></td>
          	<td><b>지역  <font color="#FF0000">*</font></b></td>
          	<td>
-            <!-- <input type="text" name="m_region" size="20"> -->
-            <select name="m_region"><option value="선택">선택</option>
-            	<option value="서울">서울</option>
-                <option value="경기도">경기도</option>
-                <option value="강원도">강원도</option>
-                <option value="충청도">충청도</option>
-                <option value="전라도">전라도</option>
-                <option value="경상도">경상도</option>
-                <option value="제주도">제주도</option>
-            </select>
+          <s:if test="areaList != null">
+               <select name="m_region">
+                  <s:iterator value="areaList">
+                     <option value="<s:property/>"><s:property/></option>
+                  </s:iterator>
+               </select>
+            </s:if>
          	</td>
       	</tr>
 		<tr height="40">

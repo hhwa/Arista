@@ -41,7 +41,7 @@
 			<a href="loginForm.action">Login</a></h6></td>
 			<td align="center"><h6>&nbsp;|&nbsp;</h6></td>
 			<td align="center" style="padding:0px 5px 0px 5px"><h6>
-			<a href="joinForm.action">Sign up</a></h6></td>
+			<a href="agreementForm.action">Sign up</a></h6></td>
 		</s:else>
 		<td width="120" align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 		

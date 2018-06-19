@@ -111,7 +111,7 @@ public class loginAction extends ActionSupport implements SessionAware, ModelDri
 		int idLength = findIdResult.length();
 		if(5 < idLength) {
 			//m_id = findIdResult.substring(0,1) + "*" + findIdResult.substring(2,3) + "*" + findIdResult.substring(3,4) + "*" + findIdResult.substring(4,5);
-			m_id = findIdResult.substring(0,1) + "*" + findIdResult.substring(2,3) + "*" + findIdResult.substring(3,idLength);
+			m_id = findIdResult.substring(0,1) + "*" + findIdResult.substring(2,3) + "*" + findIdResult.substring(4,idLength);
 			memberResult.setM_id(m_id);
 			}
 		}

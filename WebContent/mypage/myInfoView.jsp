@@ -40,7 +40,8 @@ function open_win_noresizable (url, name){
             <div id="noimage"/>
          </s:if>
          <s:else>
-         	<img width="160" height="160" src="/Arista/admin/member/profUpload/<s:property value="memParam.prof_image_save"/>">
+         	<%-- <img width="160" height="160" src="/Arista/admin/member/profUpload/<s:property value="memParam.prof_image_save"/>"> --%>
+         	<img width="160" height="160" src="/Arista/profUpload/<s:property value="memParam.prof_image_save"/>">
          </s:else>
       </td>
    </tr>

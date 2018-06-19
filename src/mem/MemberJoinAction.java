@@ -34,8 +34,12 @@ public class MemberJoinAction extends ActionSupport
 	private File Upload;
 	private String uploadContentType;
 	private String uploadFileName;
-//	private String fileUploadPath = System.getProperty("user.dir") + "\\upload\\";
-	private String fileUploadPath = "E:\\git\\Arista\\Arista\\WebContent\\admin\\member\\profUpload\\";
+	
+	//외부 경로: eclipse-jee-oxygen-2-win32-x86_64\\eclipse\\upload\\
+	private String fileUploadPath = System.getProperty("user.dir") + "\\upload\\";
+	
+	//프로젝트 내에서 profUpload 폴더의 속성의 경로를 기입
+	//private String fileUploadPath = "C:\\Users\\user1\\git\\Arista\\WebContent\\admin\\member\\profUpload\\";
 
 	// 회원가입 속성
 	private String m_id;
@@ -130,6 +134,8 @@ public class MemberJoinAction extends ActionSupport
 		memberParam.setM_joindate(m_joindate.getTime());
 		sqlMapper.insert("memSQL.insertMem", memberParam);
 
+		
+		
 		if (getUpload() != null) {
 			// 파일명 + ID
 			String file_name = "file_" + memberParam.getM_id();
@@ -138,7 +144,7 @@ public class MemberJoinAction extends ActionSupport
 					getUploadFileName().length());
 			// 파일의 경로와 이름을 file객체에 담는다
 			File destFile = new File(fileUploadPath + file_name + "." + file_ext);
-
+			System.out.println(destFile);
 			// 임시파일을 복사 후 설정한 이름과 경로(서버 컴퓨터)에 저장한다.원본이름을 그대로 저장하면 파일중복이 발생할 수 있다.
 			FileUtils.copyFile(getUpload(), destFile);
 
@@ -178,7 +184,7 @@ public class MemberJoinAction extends ActionSupport
 	}
 
 	public String joinform() throws Exception {
-
+		System.out.println(fileUploadPath);
 		return SUCCESS;
 	}
 
@@ -194,8 +200,7 @@ public class MemberJoinAction extends ActionSupport
 		if (memberResult.getProf_image_save() != null) {
 			prof_image_save = memberResult.getProf_image_save();
 			prof_image_org = memberResult.getProf_image_org();
-			profpath = request.getContextPath() + "/profUpload/" + prof_image_save;
-			// profpath =fileUploadPath + prof_image_save;
+			profpath = request.getContextPath() + "admin/member/profUpload/" + prof_image_save;
 		}
 		return SUCCESS;
 	}
@@ -440,14 +445,6 @@ public class MemberJoinAction extends ActionSupport
 		this.memberResult = memberResult;
 	}
 
-	public HttpServletRequest getRequest() {
-		return request;
-	}
-
-	public void setRequest(HttpServletRequest request) {
-		this.request = request;
-	}
-
 	public File getDeletefile() {
 		return deletefile;
 	}
@@ -518,4 +515,5 @@ public class MemberJoinAction extends ActionSupport
 		this.request = request;
 	}
 
+	
 }
