@@ -5,7 +5,7 @@
 
 <html>
 <head>
-<link rel="stylesheet" href="Arista1/css/style.css?ver=1" type="text/css">
+<link rel="stylesheet" href="/Arista/css/style.css?ver=1" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Header</title>
 <style>
@@ -41,7 +41,7 @@
 			<a href="loginForm.action">Login</a></h6></td>
 			<td align="center"><h6>&nbsp;|&nbsp;</h6></td>
 			<td align="center" style="padding:0px 5px 0px 5px"><h6>
-			<a href="joinForm.action">Sign up</a></h6></td>
+			<a href="agreementForm.action">Sign up</a></h6></td>
 		</s:else>
 		<td width="120" align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 		
@@ -63,7 +63,7 @@
 <!-- 메뉴     마이페이지  매치  팀  경기장  고객센터 -->
 	<br>
 
-<center>
+<%-- <center>
 
 	 <table border="0" width=1000 cellspacing="1" cellpadding="1">
 	 	<tr>
@@ -82,7 +82,55 @@
 		</tr>
 	</table> 
 
-</center>
+</center> --%>
+<div class="menubar" style="margin-left:20%; margin-right: 20%;">
+   <ul>
+      <s:if test="#session.session_adminYN==1">
+      <li><h4><a href="adminMemList.action"><b>ADMIN PAGE</b></a></h4>
+         <ul>
+            <li><a href="adminMemList.action">회원관리</a></li>
+            <li><a href="CreateSoloMatchForm.action">개인매치생성</a></li>
+         </ul>
+      </li>
+    </s:if>
+    <s:else>
+      <li style="width:100; align-content: center;"><h4><a href="mypage.action"><b>MY PAGE</b></a></h4>
+         <ul>
+            <li><a href="mypage.action">내 정보</a></li>
+               <li><a href="MyTeam.action">마이 팀</a></li>
+               <li><a href="teamMatchInfo.action">내 팀 매치글</a></li>
+               <li><a href="myMatchInfo.action">내가 신청한 매치글</a></li>
+         </ul>
+      </li>
+   </s:else>
+   
+   <li style="width:100; align-content: center;"><h4><a href="selectMatch.action"><b>MATCH</b></a></h4>
+      <ul>
+         <li><a href="SoloMatchList.action">솔로 매치</a></li>
+            <li><a href="TeamMatchList.action">팀 매치</a></li>
+      </ul>
+   </li>
+   <li style="width:100; align-content: center;"><h4><a href="MyTeam.action"><b>TEAM</b></a></h4>
+      <ul>
+         <li><a href="TeamList.action">팀 목록</a></li>
+      </ul>
+   </li>
+   
+   <li style="width:100; align-content: center;"><h4><a href="StadiumList.action"><b>STADIUM</b></a></h4>
+      <ul>
+         <li><a href="StadiumList.action">경기장 목록</a></li>
+      </ul>
+   </li>
+   <li style="width:100; align-content: center;"><h4><a href="FAQList.action"><b>ABOUT</b></a></h4>
+      <ul>
+         <li><a href="noticeList.action">공지사항</a></li>
+            <li><a href="QNAList.action">Q&A</a></li>
+            <li><a href="FAQList.action">FAQ</a></li>
+      </ul>
+   </li>
+ 
+   </ul>
+</div>
 <br>
  <center>
 <div id="header_img"  align="center">

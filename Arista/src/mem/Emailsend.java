@@ -16,59 +16,56 @@ import javax.swing.JOptionPane;
 //lib 폴더에 mail.jar 추가함
 
 public class Emailsend {
-    
-    //action
-    public void GmailSet(String user, String text, String content){
-    	System.out.println("메일 발송 과정을 시작합니다.");
-        Properties p = System.getProperties();
-        p.put("mail.smtp.starttls.enable", "true");    
-        p.put("mail.smtp.host", "smtp.gmail.com");      // smtp 서버 호스트
-        p.put("mail.smtp.auth","true");
-        p.put("mail.smtp.port", "587");                 // gmail 포트
-            
-        Authenticator auth = new MyAuthentication();    //구글 계정 인증
-          
-        //session 생성 및  MimeMessage생성
-        Session session = Session.getDefaultInstance(p, auth);
-        MimeMessage msg = new MimeMessage(session);
-        String fromName = "Arista관리자";
-        String charSet = "UTF-8";
-        System.out.println("session 생성 및  MimeMessage생성");
-        try{
-            // 편지보낸시간 설정
-            msg.setSentDate(new Date());
-              
-            // 송신자 설정
-            InternetAddress from = new InternetAddress() ;
-            from = new InternetAddress(new String(fromName.getBytes(charSet), "8859_1") + "<dlapdlfxptmxm123@gmail.com>");
-            msg.setFrom(from);
-              
-            // 수신자 설정
-            InternetAddress to = new InternetAddress(user);
-            msg.setRecipient(Message.RecipientType.TO, to);
-             
-            // 제목 설정
-            msg.setSubject(text, "UTF-8");
-             
-            msg.setText(content, "UTF-8");  //내용 설정
-             
-            // 메일 송신
-            Transport.send(msg);   
-             
-            System.out.println("메일 발송을 완료하였습니다.");
-        }catch (AddressException addr_e) {  //예외처리 주소를 입력하지 않을 경우
-            JOptionPane.showMessageDialog(null, "메일을 입력해주세요", "메일주소입력", JOptionPane.ERROR_MESSAGE);
-            addr_e.printStackTrace();
-        }catch (MessagingException msg_e) { //메시지에 이상이 있을 경우
-            JOptionPane.showMessageDialog(null, "메일을 제대로 입력해주세요.", "오류발생", JOptionPane.ERROR_MESSAGE);
-            msg_e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
+
+	// action
+	public void GmailSet(String user, String text, String content) {
+		System.out.println("메일 발송 과정을 시작합니다.");
+		Properties p = System.getProperties();
+		p.put("mail.smtp.starttls.enable", "true");
+		p.put("mail.smtp.host", "smtp.gmail.com"); // smtp 서버 호스트
+		p.put("mail.smtp.auth", "true");
+		p.put("mail.smtp.port", "587"); // gmail 포트
+
+		Authenticator auth = new MyAuthentication(); // 구글 계정 인증
+
+		// session 생성 및 MimeMessage생성
+		Session session = Session.getDefaultInstance(p, auth);
+		MimeMessage msg = new MimeMessage(session);
+		String fromName = "OFFTHEBALL 관리자";
+		String charSet = "UTF-8";
+		System.out.println("session 생성 및  MimeMessage생성");
+		try {
+			// 편지보낸시간 설정
+			msg.setSentDate(new Date());
+
+			// 송신자 설정
+			InternetAddress from = new InternetAddress();
+			from = new InternetAddress(
+					new String(fromName.getBytes(charSet), "8859_1") + "<admin@offtheball.co.kr>");
+			msg.setFrom(from);
+
+			// 수신자 설정
+			InternetAddress to = new InternetAddress(user);
+			msg.setRecipient(Message.RecipientType.TO, to);
+
+			// 제목 설정
+			msg.setSubject(text, "UTF-8");
+
+			msg.setText(content, "UTF-8"); // 내용 설정
+
+			// 메일 송신
+			Transport.send(msg);
+
+			System.out.println("메일 발송을 완료하였습니다.");
+		} catch (AddressException addr_e) { // 예외처리 주소를 입력하지 않을 경우
+			JOptionPane.showMessageDialog(null, "메일을 입력해주세요", "메일주소입력", JOptionPane.ERROR_MESSAGE);
+			addr_e.printStackTrace();
+		} catch (MessagingException msg_e) { // 메시지에 이상이 있을 경우
+			JOptionPane.showMessageDialog(null, "메일을 제대로 입력해주세요.", "오류발생", JOptionPane.ERROR_MESSAGE);
+			msg_e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
-
-
-
-

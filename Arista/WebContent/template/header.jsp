@@ -5,7 +5,7 @@
 
 <html>
 <head>
-<link rel="stylesheet" href="/Arista/css/style.css" type="text/css">
+<link rel="stylesheet" href="/Arista/css/style.css?ver=1" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>Header</title>
 <style>
@@ -35,7 +35,7 @@
          <td align="center"><h6>&nbsp;|&nbsp;</h6></td>
          <td align="center" style="padding:0px 5px 0px 5px"><h6><a href="loginForm.action">Login</a></h6></td>
          <td align="center"><h6>&nbsp;|&nbsp;</h6></td>
-         <td align="center" style="padding:0px 5px 0px 5px"><h6><a href="joinForm.action">Sign up</a></h6></td>
+         <td align="center" style="padding:0px 5px 0px 5px"><h6><a href="agreementForm.action">Sign up</a></h6></td>
       </s:else>
       <td width="120" align="center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
       
@@ -49,7 +49,7 @@
 <br>
 <table align="center">
    <tr align="center">
-      <td align=center><a href="main.action"><h1><b>OFF THE BALL</b></h1></a>
+      <td align=center><h1><a href="main.action"><b>OFF THE BALL</b></a></h1>
       <!-- <td align="center"><a href="main.action"><img src="/Arista/template/image/logo.jpg" width="300" height="120"/></a></td> -->
    </tr>
 </table>
@@ -57,7 +57,7 @@
 
 <!-- 메뉴     마이페이지  매치  팀  경기장  고객센터 -->
 	<br>
-<center>
+<%-- <center>
 
 	 <table border="0" width="1000" cellspacing="1" cellpadding="1">
 	 	<tr>
@@ -75,7 +75,55 @@
 			<td width=100 align="center"></td>
 		</tr>
 	</table> 
-</center>
+</center> --%>
+<div class="menubar" style="margin-left:20%; margin-right: 20%;">
+   <ul>
+      <s:if test="#session.session_adminYN==1">
+      <li><h4><a href="adminMemList.action"><b>ADMIN PAGE</b></a></h4>
+         <ul>
+            <li><a href="adminMemList.action"><b>회원관리</b></a></li>
+            <li><a href="CreateSoloMatchForm.action"><b>개인매치생성</b></a></li>
+         </ul>
+      </li>
+    </s:if>
+    <s:else>
+      <li style="width:100; align-content: center;"><h4><a href="mypage.action"><b>MY PAGE</b></a></h4>
+         <ul>
+            <li><a href="mypage.action"><b>내 정보</b></a></li>
+               <li><a href="MyTeam.action"><b>마이 팀</b></a></li>
+               <li><a href="teamMatchInfo.action"><b>내 팀 매치글</b></a></li>
+               <li><a href="myMatchInfo.action"><b>내가 신청한 매치글</b></a></li>
+         </ul>
+      </li>
+   </s:else>
+   
+   <li style="width:100; align-content: center;"><h4><a href="selectMatch.action"><b>MATCH</b></a></h4>
+      <ul>
+         <li><a href="SoloMatchList.action"><b>솔로 매치</b></a></li>
+            <li><a href="TeamMatchList.action"><b>팀 매치</b></a></li>
+      </ul>
+   </li>
+   <li style="width:100; align-content: center;"><h4><a href="MyTeam.action"><b>TEAM</b></a></h4>
+      <ul>
+         <li><a href="TeamList.action"><b>팀 목록</b></a></li>
+      </ul>
+   </li>
+   
+   <li style="width:100; align-content: center;"><h4><a href="StadiumList.action"><b>STADIUM</b></a></h4>
+      <ul>
+         <li><a href="StadiumList.action"><b>경기장 목록</b></a></li>
+      </ul>
+   </li>
+   <li style="width:100; align-content: center;"><h4><a href="FAQList.action"><b>ABOUT</b></a></h4>
+      <ul>
+         <li><a href="noticeList.action"><b>공지사항</b></a></li>
+            <li><a href="QNAList.action"><b>Q&A</b></a></li>
+            <li><a href="FAQList.action"><b>FAQ</b></a></li>
+      </ul>
+   </li>
+ 
+   </ul>
+</div>
 <br>
  <center>
 <div id="header_img" style="overflow:hidden;" align="center"><h1><s:property value="PageName"/></h1></div>

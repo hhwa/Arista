@@ -6,7 +6,7 @@
 <tiles-definitions>
 
 	<!-- 메인페이지 -->
-	<definition name="main" template="/template/layout_main.jsp">
+	<definition name="main" template="/template/layout.jsp">
 		<put-attribute name="title" value="OFF THE BALL" />
 		<put-attribute name="header" value="/template/mainheader.jsp" />
 		<put-attribute name="body" value="/match/totalMatch.jsp" />
@@ -16,44 +16,39 @@
 <!-- Member -->
 	<!-- 로그인폼 -->
 	
-	<definition name="loginForm" template="/template/layout_main.jsp" extends="main">
+	<definition name="loginForm" template="/template/layout.jsp" extends="main">
 		<put-attribute name="header" value="/template/header.jsp" />
-		<put-attribute name="body" value="/login/loginForm.jsp"></put-attribute>
+		<put-attribute name="body" value="/login/loginForm.jsp"/>
 	</definition>
-	<definition name="loginResult" template="/template/layout_main.jsp" extends="loginForm">
+	<definition name="loginResult" template="/template/layout.jsp" extends="loginForm">
 		<put-attribute name="body" value="/login/loginResult.jsp"/>
 	</definition>
-	<!-- ID 찾기 폼 -->
-	<definition name="findIDForm" template="/template/layout_main.jsp" extends="loginForm">
-		<put-attribute name="body" value="/login/findIDForm.jsp"></put-attribute>
-	</definition>
-	<!-- PW 찾기 폼 -->
-	<definition name="findPWForm" template="/template/layout_main.jsp" extends="loginForm">
-		<put-attribute name="body" value="/login/findPWForm.jsp"></put-attribute>
+	<!-- 회원가입 동의 폼 -->
+	<definition name="AgreeForm" template="/template/layout.jsp" extends="loginForm">
+		<put-attribute name="body" value="/join/joinAgreement.jsp"></put-attribute>
 	</definition>
 	<!-- 회원가입 폼 -->
-	<definition name="JoinForm" template="/template/layout_main.jsp" extends="loginForm">
+	<definition name="JoinForm" template="/template/layout.jsp" extends="loginForm">
 		<put-attribute name="body" value="/join/JoinForm.jsp"></put-attribute>
 	</definition>
 	<!-- 가입정보수정 -->
-	<definition name="memberModifyForm" template="/template/layout_main.jsp" extends="loginForm">
+	<definition name="memberModifyForm" template="/template/layout.jsp" extends="loginForm">
 		<put-attribute name="body" value="/mypage/myInfoUpdateForm.jsp"/>
 	</definition>
 	<!-- 회원 목록(관리자) -->
-	<definition name="MemList" template="/template/layout.jsp" extends="loginForm">
-		<put-attribute name="body" value="/admin/member/memberList.jsp"></put-attribute>
-		<put-attribute name="menu" value="/template/menu.jsp" />
+	<definition name="MemList" template="/template/layout.jsp" extends="main">
+		<put-attribute name="header" value="/template/header.jsp" />
+		<put-attribute name="body" value="/admin/member/memberList.jsp"/>
 	</definition>
 	<!-- 회원 정보보기(관리자) -->
 	<definition name="MemView" template="/template/layout.jsp" extends="MemList">
-		<put-attribute name="body" value="/admin/member/memberView.jsp"></put-attribute>
+		<put-attribute name="body" value="/admin/member/memberView.jsp"/>
 	</definition>
 	
 	
 <!-- MyPage -->
 	<definition name="mypage" template="/template/layout.jsp" extends="main">
 		<put-attribute name="header" value="/template/header.jsp" />
-		<put-attribute name="menu" value="/template/menu.jsp" />
 		<put-attribute name="body" value="/mypage/mypage.jsp" />
 	</definition>
 	
@@ -107,7 +102,6 @@
 	<!-- 매치선택 -->
 	<definition name="selectMatch" template="/template/layout.jsp" extends="main">
 		<put-attribute name="header" value="/template/header.jsp"/>
-		<put-attribute name="menu" value="/template/menu.jsp"/>
 		<put-attribute name="body" value="/match/selectMatch.jsp"/>
 	</definition>
 	
@@ -193,13 +187,13 @@
 		<put-attribute name="body" value="/FAQ/FAQWrite.jsp"/>
 	</definition>
 <!-- footer -->
-	<definition name="privacy" template="/template/layout_main.jsp" extends="main">
+	<definition name="privacy" template="/template/layout.jsp" extends="mypage">
 		<put-attribute name="body" value="/footer/privacyView.jsp" />
 	</definition>
-	<definition name="promise" template="/template/layout_main.jsp" extends="main">
+	<definition name="promise" template="/template/layout.jsp" extends="mypage">
 		<put-attribute name="body" value="/footer/promiseView.jsp" />
 	</definition>
-	<definition name="emailx" template="/template/layout_main.jsp" extends="main">
+	<definition name="emailx" template="/template/layout.jsp" extends="mypage">
 		<put-attribute name="body" value="/footer/emailXView.jsp" />
 	</definition>
 

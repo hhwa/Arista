@@ -14,54 +14,50 @@
 		<action name="StadiumList" class="stadium.StadiumAction">
 			<result type="tiles">StadiumList</result>
 		</action>
-
+		
 		<!-- 경기장 등록/수정 액션 -->
-		<action name="StadiumForm" class="stadium.StadiumAction"
-			method="form">
+		<action name="StadiumForm" class="stadium.StadiumAction" method="form">
 			<result type="tiles">StadiumWriteForm</result>
 		</action>
 
-		<action name="StadiumWrite" class="stadium.StadiumAction"
-			method="write">
+		<action name="StadiumWrite" class="stadium.StadiumAction" method="write">
 			<result type="redirect-action">
 				<param name="actionName">StadiumList</param>
 			</result>
 		</action>
 
 		<!-- 경기장 상세보기 액션 -->
-		<action name="StadiumView" class="stadium.StadiumAction"
-			method="view">
+		<action name="StadiumView" class="stadium.StadiumAction" method="view">
 			<result type="tiles">StadiumView</result>
 		</action>
 
 		<!-- 경기장 수정 액션 -->
-		<action name="StadiumModifyForm" class="stadium.StadiumAction"
-			method="view">
+		<action name="StadiumModifyForm" class="stadium.StadiumAction" method="view">
 			<result type="chain">StadiumForm</result>
 		</action>
 
-		<action name="StadiumModify" class="stadium.StadiumAction"
-			method="modify">
+		<action name="StadiumModify" class="stadium.StadiumAction" method="modify">
 			<result type="chain">StadiumView</result>
 		</action>
 
 		<!-- 경기장 삭제하기액션 -->
-		<action name="StadiumDelete" class="stadium.StadiumAction"
-			method="delete">
+		<action name="StadiumDelete" class="stadium.StadiumAction" method="delete">
 			<result type="chain">StadiumList</result>
 		</action>
 
 		<!-- 경기장 신청하기 -->
-		<action name="StadiumApplyForm" class="stadium.StadiumAction"
-			method="form2">
+		<action name="StadiumApplyForm" class="stadium.StadiumAction" method="form2">
 			<result type="tiles">StadiumApplyForm</result>
 		</action>
 
-		<action name="StadiumApply" class="stadium.StadiumAction"
-			method="apply">
+		<action name="StadiumApply" class="stadium.StadiumAction" method="apply">
 			<result type="redirect-action">
 				<param name="actionName">StadiumList</param>
 			</result>
+		</action>
+		<!-- 경기장 검색(매치 신청에서) -->
+		<action name="OpenStadiumList" class="stadium.StadiumAction" method="openlist">
+			<result>/match/selectStadium.jsp</result>
 		</action>
 	</package>
 </struts>

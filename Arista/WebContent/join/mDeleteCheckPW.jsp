@@ -7,30 +7,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>비밀번호 확인</title>
-<!-- <link rel="stylesheet" href="/Struts2_board/board/common/css.css" type="text/css">
- -->
+<link href="css/style.css" rel="stylesheet" type="text/css">
  </head>
 <body>
-<h2>비밀번호 확인</h2>
 <form action="deleteCheck.action" method="post">
 <s:hidden name="m_id" value="%{m_id}"/>
 
-<table width="250" border="0" cellspacing="0" cellpadding="0">
-<tr bgcolor="#777777">
-	<td height="1" colspan="2"></td>
-</tr>
-<tr>
-	<td width="100" bgcolor="#F4F4F4">비밀번호 입력</td>
-	<td width="150" bgcolor="#FFFFFF">
-	&nbsp;&nbsp;<s:textfield name="m_passwd" theme="simple" cssStyle="width:100px" maxlength="20"/>
-	&nbsp;&nbsp;<input name="submit" type="submit" value="확인">
-	</td>
-	</tr>		
-
-	<tr bgcolor="#777777">
-	<td height="1" colspan="2"></td>
-	</tr>
-</table>
+<table width="200" align="center">
+   <tr><td align="center"><h2>비밀번호 확인</h2></td></tr>
+   <tr height="21">
+      <td align="center" colspan="0"><input class="bottom" type="password" name="m_passwd" size="24" maxlength="20" placeholder="PW" autocomplete="off"></td>
+   </tr>
+   <tr height="13"><td></td></tr>
+   <tr height="30"><td align="center" id="bu_1"><input id="bu_1" name="submit" type="submit" value="확  인"></td></tr>
+   </table>
 </form>
 </body>
 </html>

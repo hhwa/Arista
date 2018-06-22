@@ -2,116 +2,124 @@
 <!DOCTYPE struts PUBLIC
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
-	
-	<struts>
-		<!-- 용량제한 100MB로 설정 -->
-		<constant name="struts.multipart.maxSize" value="104857600"/>
-	
-		<!-- 회원가입  -->	
-		<package name="member" extends="struts-default,tiles-default">
-	
-			<action name="MemberJoinAction" class="mem.MemberJoinAction">
-				<result type="redirect-action">
-					<param name="actionName">main</param>
-				</result>
-			</action>
-	
-			<action name="memberIdCheck" class="mem.MemberJoinAction" method="idcheck">
-				<result>/join/idCheck.jsp</result>
-			</action>
-	
-			<action name="memberNickCheck" class="mem.MemberJoinAction" method="nickcheck">
-				<result>/join/nickCheck.jsp</result>	
-			</action>
-	
-			<action name="memberEmailCheck" class="mem.MemberJoinAction" method="emailcheck">
-				<result>/join/emailCheck.jsp</result>	
-			</action>
-	
-			<action name="joinForm" class="mem.MemberJoinAction" method="joinform">
-				<result type="tiles">JoinForm</result>
-			</action>
 
-			<!-- 회원정보 수정 -->
+<struts>
+	<!-- 용량제한 100MB로 설정 -->
+	<constant name="struts.multipart.maxSize" value="104857600" />
 
-			<action name="modiftyMemberForm" class="mem.MemberJoinAction" method="modifyMemForm">
-				<result type="tiles">memberModifyForm</result>
-			</action>
+	<!-- 회원가입 -->
+	<package name="member" extends="struts-default,tiles-default">
 
-			<action name="modiftyMemberPro" class="mem.MemberJoinAction" method="modifyMemPro">
-				<result type="redirect-action">
-					<param name="actionName">mypage</param>
-				</result>
-			</action>
+		<action name="MemberJoinAction" class="mem.MemberJoinAction">
+			<result type="redirect-action">
+				<param name="actionName">main</param>
+			</result>
+		</action>
 
-			<!-- 회원탈퇴 -->
-			<action name="deleteMemberPW" class="mem.MemberJoinAction" method="deleteMemPw">
-				<result>/join/mDeleteCheckPW.jsp</result>
-			</action>
+		<action name="memberIdCheck" class="mem.MemberJoinAction" method="idcheck">
+			<result>/join/idCheck.jsp</result>
+		</action>
 
-			<action name="deleteCheck" class="mem.MemberJoinAction" method="deleteCheck">
-				<result name="error">/error/loginError.jsp</result>
-				<result>/join/deleteMemberResult.jsp</result>
-			</action>
-			<action name="deleteMember" class="mem.MemberJoinAction" method="deleteMem">
-				<result type="redirect-action">
-					<param name="actionName">logout</param>
-				</result>
-			</action>
+		<action name="memberNickCheck" class="mem.MemberJoinAction"	method="nickcheck">
+			<result>/join/nickCheck.jsp</result>
+		</action>
 
-			<action name="redirectPW">
-				<result type="chain">deletememberPW</result>
-			</action>
-			
-			<!-- 로그인&로그아웃  -->	
-			<action name="loginForm" class="mem.loginAction" method="form">
-				<result type="tiles">loginForm</result>
-			</action>
+		<action name="memberEmailCheck" class="mem.MemberJoinAction" method="emailcheck">
+			<result>/join/emailCheck.jsp</result>
+		</action>
 
-			<action name="loginPro" class="mem.loginAction">
-				<result type="redirect-action">
-					<param name="actionName">main</param>
-				</result>
-				<result name="error">/error/loginError.jsp</result>
-			</action>
-	
-			<action name="logout" class="mem.loginAction" method="logout">
-				<result type="redirect-action">
-					<param name="actionName">main</param>
-				</result>
-			</action>
+		<action name="joinForm" class="mem.MemberJoinAction" method="joinform">
+			<result type="tiles">JoinForm</result>
+		</action>
 
-			<!-- 아이디 찾기 -->	
-			<action name="findIDForm" class="mem.loginAction" method="form">
-				<result type="tiles">findIDForm</result>
-				
-			</action>
+		<action name="agreementForm" class="mem.MemberJoinAction" method="agree">
+			<result type="tiles">AgreeForm</result>
+		</action>
+		<!-- 회원정보 수정 -->
 
-			<action name="findIDPro" class="mem.loginAction" method="findId">
-				<result>/login/findIDresult.jsp</result>
-			</action>	
+		<action name="modiftyMemberForm" class="mem.MemberJoinAction" method="modifyMemForm">
+			<result type="tiles">memberModifyForm</result>
+		</action>
 
-			<!-- 비밀번호 찾기 -->	
-			<action name="findPWForm" class="mem.loginAction" method="form">
-				<result type="tiles">findPWForm</result>
-			</action>
+		<action name="modiftyMemberPro" class="mem.MemberJoinAction" method="modifyMemPro">
+			<result type="redirect-action">           
+				<param name="actionName">mypage</param>
+			</result>
+		</action>
 
-			<action name="findPWPro" class="mem.loginAction" method="findPw">
-				<result>/login/findPWresult.jsp</result>
-			</action>
-	
-			<!-- 회원관리 -->	
-			<action name="adminMemList" class="admin.memberAction" method="memberList">
-				<result type="tiles">MemList</result>
-			</action>
-	
-			<action name="adminMemView" class="admin.memberAction" method="memberView">
-				<result type="tiles">MemView</result>
-			</action>
-			
-			<!-- 회원관리 - 권한수정 -->
-			<action name="adminRight" class="admin.memberAction" method="adminRightModi">
-				<result type="chain">adminMemView</result>
-			</action>
-		</package>
-	</struts>
+		<!-- 회원탈퇴 -->
+		<action name="deleteMemberPW" class="mem.MemberJoinAction" method="deleteMemPw">
+			<result>/join/mDeleteCheckPW.jsp</result>
+		</action>
+
+		<action name="deleteCheck" class="mem.MemberJoinAction" method="deleteCheck">
+			<result name="error">/error/loginError.jsp</result>
+			<result>/join/deleteMemberResult.jsp</result>
+		</action>
+		<action name="deleteMember" class="mem.MemberJoinAction" method="deleteMem">
+			<result name="error">/error/deleteMemError.jsp</result>
+			<result type="redirect-action">
+				<param name="actionName">logout</param>
+			</result>
+		</action>
+
+		<action name="redirectPW">
+			<result type="chain">deletememberPW</result>
+		</action>
+
+		<!-- 로그인&로그아웃 -->
+		<action name="loginForm" class="mem.loginAction" method="form">
+			<result type="tiles">loginForm</result>
+		</action>
+
+		<action name="loginPro" class="mem.loginAction">
+			<result type="redirect-action">
+				<param name="actionName">main</param>
+			</result>
+			<result name="error">/error/loginError.jsp</result>
+		</action>
+
+		<action name="logout" class="mem.loginAction" method="logout">
+			<result type="redirect-action">
+				<param name="actionName">main</param>
+			</result>
+		</action>
+
+		<!-- 아이디 찾기 -->
+		<action name="findIDForm" class="mem.loginAction" method="form">
+			<result>/login/findIDForm.jsp</result>
+
+		</action>
+
+		<action name="findIDPro" class="mem.loginAction" method="findId">
+			<result>/login/findIDresult.jsp</result>
+		</action>
+
+		<!-- 비밀번호 찾기 -->
+		<action name="findPWForm" class="mem.loginAction" method="form">
+			<result>/login/findPWForm.jsp</result>
+		</action>
+
+		<action name="findPWPro" class="mem.loginAction" method="findPw">
+			<result>/login/findPWresult.jsp</result>
+		</action>
+
+		<!-- 회원관리 -->
+		<action name="adminMemList" class="admin.memberAction" method="memberList">
+			<result type="tiles">MemList</result>
+			<result name="login" type="tiles">loginForm</result>
+			<result name="error">/error/adminError.jsp</result>
+		</action>
+
+		<action name="adminMemView" class="admin.memberAction" method="memberView">
+			<result type="tiles">MemView</result>
+			<result name="login" type="tiles">loginForm</result>
+			<result name="error">/error/adminError.jsp</result>
+		</action>
+
+		<!-- 회원관리 - 권한수정 -->
+		<action name="adminRight" class="admin.memberAction" method="adminRightModi">
+			<result type="chain">adminMemView</result>
+		</action>
+	</package>
+</struts>

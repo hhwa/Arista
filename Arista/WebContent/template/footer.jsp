@@ -7,23 +7,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-<style>
-/* Add a dark background color to the footer */
-footer {
-    background-color: #2d2d30;
-    color: #f5f5f5;
-    padding: 32	px;
-}
 
-footer a {
-    color: #f5f5f5;
-}
-
-footer a:hover {
-    color: #777;
-    text-decoration: none;
-}
-</style>
  <script>
 $(document).ready(function(){
     // Initialize Tooltip
@@ -46,12 +30,12 @@ $(document).ready(function(){
 	<br>
 	<br>
 	
-	<a href="privacy.action"> 개인정보처리방침</a> &nbsp;
-	<a href="promise.action"> 이용약관 </a> &nbsp;
-	<a href="emailx.action"> 이메일무단수집거부 </a> &nbsp;
+	<a class="bu_2" href="privacy.action" style="color:#FFFFFF;"> 개인정보처리방침</a> &nbsp;
+	<a href="promise.action" style="color:#FFFFFF;"> 이용약관 </a> &nbsp;
+	<a href="emailx.action" style="color:#FFFFFF;"> 이메일무단수집거부 </a> &nbsp;
 	
- <p><span class="glyphicon glyphicon-copyright-mark"></span>&nbsp;Copyrightⓒ 2017 Off The Match. All rights reserved. e-mail : hyunhwa91@naver.com</p>
- <p><a href="#" onclick="return false;" data-toggle="tooltip" title="bboya & huna"><img src="/Arista/template/image/footer_logo.png" width="10%"/></a></p><br>
+ <p><span class="glyphicon glyphicon-copyright-mark"></span>&nbsp;Copyrightⓒ 2018 Off The Match. All rights reserved. e-mail : hyunhwa91@naver.com</p>
+ <p><a href="#" onclick="return false;" data-toggle="tooltip" title="OFF_THE_BALL"><!-- <img src="/Arista/template/image/footer_logo.png" width="10%"/> --></a></p><br>
 </footer>
 </body>
 </html>

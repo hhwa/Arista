@@ -21,9 +21,11 @@ import java.io.IOException;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
-public class memberAction extends ActionSupport implements Preparable, ModelDriven<memVO>, ServletRequestAware {
+public class memberAction extends ActionSupport implements SessionAware,Preparable, ModelDriven<memVO>, ServletRequestAware {
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
+	
+	private Map session;
 
 	private String m_id;
 	private String m_passwd;
@@ -80,7 +82,14 @@ public class memberAction extends ActionSupport implements Preparable, ModelDriv
 	}
 
 	public String memberList() throws Exception {
-		setPageName("회원리스트 관리");
+		memberParam = (memVO) sqlMapper.queryForObject("memSQL.memberView", (String) session.get("session_id"));
+		if(memberParam == null) {
+			return LOGIN;
+		}
+		if(memberParam.getAdmin_yn()!=1) {
+			return ERROR;
+		}
+		setPageName("MEMBER LIST");
 		String paging = "adminMemList";
 		if (getSearch() == null || getSearch().equals("")) {
 			memlist = sqlMapper.queryForList("memSQL.memList");
@@ -108,15 +117,22 @@ public class memberAction extends ActionSupport implements Preparable, ModelDriv
 		memlist = memlist.subList(page.getStartCount(), lastCount);
 
 		return SUCCESS;
+		
 	}
 
 	public String memberView() throws Exception {
+		if(session.get("session_id") == null) {
+			return LOGIN;
+		}
+		if((int)session.get("session_adminYN")!=1) {
+			return ERROR;
+		}
 		memberResult = (memVO) sqlMapper.queryForObject("memSQL.memListView", memberParam);
-
 		if (memberResult.getProf_image_save() != null) {
 			prof_image_save = memberResult.getProf_image_save();
 			prof_image_org = memberResult.getProf_image_org();
-			profpath = request.getContextPath() + "/profUpload/" + prof_image_save;
+			//이클립스 내에 profUpload 경로
+			profpath = request.getContextPath() + "/admin/member/profUpload/" + prof_image_save;
 
 		}
 
@@ -285,9 +301,6 @@ public class memberAction extends ActionSupport implements Preparable, ModelDriv
 		return request;
 	}
 
-	public void setRequest(HttpServletRequest request) {
-		this.request = request;
-	}
 
 	public String getSearch() {
 		return search;
@@ -361,10 +374,18 @@ public class memberAction extends ActionSupport implements Preparable, ModelDriv
 		this.pageName = pageName;
 	}
 
+	public Map getSession() {
+		return session;
+	}
+
+	public void setSession(Map session) {
+		this.session = session;
+	}
+
 	@Override
-	public void setServletRequest(HttpServletRequest arg0) {
+	public void setServletRequest(HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		
+		this.request = request;
 	}
 
 	

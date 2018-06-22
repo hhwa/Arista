@@ -10,11 +10,16 @@
 <body>
 
 <s:if test="memberResult != null">
-<h2>메일 전송 완료</h2>
+<script type="text/javascript">
+alert("비밀번호 전송완료. 회원님의 이메일을 확인해주세요.");
+window.close();
+</script>
 </s:if>
 <s:elseif test = "memberResult ==null">
-<h2>입력하신 정보의 결과가 존재하지 않습니다.</h2>
+<script type="text/javascript">
+alert("입력하신 정보의 결과가 존재하지 않습니다.");
+history.go(-1);
+</script>
 </s:elseif>
-
 </body>
 </html>

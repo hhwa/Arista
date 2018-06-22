@@ -1,7 +1,9 @@
-package mem;
+﻿package mem;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.Preparable;
 
 import mem.memVO;
 
@@ -18,7 +20,7 @@ import org.apache.struts2.interceptor.SessionAware;
 import java.io.Reader;
 import java.io.IOException;
 
-public class loginAction extends ActionSupport implements SessionAware{
+public class loginAction extends ActionSupport implements SessionAware, ModelDriven<memVO>, Preparable{
 	
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
@@ -50,17 +52,38 @@ public class loginAction extends ActionSupport implements SessionAware{
 		reader.close();
 		setPageName("로그인");
 	}
+	
+	
+	
+	@Override
+	public void prepare() throws Exception {
+		// TODO Auto-generated method stub
+		memberParam = new memVO();
+	}
+
+
+
+	@Override
+	public memVO getModel() {
+		// TODO Auto-generated method stub
+		return memberParam;
+	}
+
+
+
 	@Override
 	public String execute() throws Exception {
-		//사용자에게 입력 받은 정보와 같은 값이 DB 안에 존재하는지 확인한다.
-		memberResult = (memVO)sqlMapper.queryForObject("memSQL.loginPro",getM_id());
-		int adminYN = memberResult.getAdmin_yn();
+		/*memberParam = new memVO();
+		memberParam.setM_id(getM_name());
+		memberParam.setM_passwd(getM_passwd());*/
+		memberResult = (memVO)sqlMapper.queryForObject("memSQL.loginPro",memberParam);
 		if(memberResult != null) {
-			if (memberResult.getM_passwd().equals(getM_passwd())) {
+			int adminYN = memberResult.getAdmin_yn();
+			/*if (memberResult.getM_passwd().equals(getM_passwd())) {*/
 				session.put("session_id", memberResult.getM_id());
 				session.put("session_adminYN", adminYN);
 				return SUCCESS;
-			}
+			
 		}
 		return ERROR;
 		
@@ -77,18 +100,49 @@ public class loginAction extends ActionSupport implements SessionAware{
 	}
 	
 	public String findId() throws Exception{
+/*		memberParam = new memVO();
+		memberParam.setM_name(getM_name());
+		memberParam.setM_email(getM_email());*/
 		memberResult = (memVO)sqlMapper.queryForObject("memSQL.findId",memberParam);
+		
+		if(memberResult != null) {
+		String findIdResult = memberResult.getM_id();
+		int idLength = findIdResult.length();
+		if(5 < idLength) {
+			//m_id = findIdResult.substring(0,1) + "*" + findIdResult.substring(2,3) + "*" + findIdResult.substring(3,4) + "*" + findIdResult.substring(4,5);
+			m_id = findIdResult.substring(0,1) + "*" + findIdResult.substring(2,3) + "*" + findIdResult.substring(4,idLength);
+			memberResult.setM_id(m_id);
+			}
+		}
 		return SUCCESS;
 	}
 
 	public String findPw() throws Exception{
+		/*memberParam = new memVO();
+		memberParam.setM_name(getM_name());
+		memberParam.setM_id(getM_id());
+		memberParam.setM_email(getM_email());*/
 		memberResult = (memVO)sqlMapper.queryForObject("memSQL.findPw",memberParam);
 
 		if(memberResult !=null) {
-		String subject = memberResult.getM_name()+"님, 비밀번호를 알려드립니다. -Arista";
+/*		String subject = memberResult.getM_name()+"님, 비밀번호를 알려드립니다. -Arista";
 		String content = "고객님의 아이디: " + memberResult.getM_id() + " 비밀번호: " + memberResult.getM_passwd();
 		Emailsend mail = new Emailsend();
+		mail.GmailSet(memberResult.getM_email(), subject, content);*/
+		String line = System.getProperty("line.separator");
+		String subject = memberResult.getM_name()+"님, 비밀번호를 알려드립니다. -OFFTHEBALL";
+		String content =
+			      "안녕하세요. OFF THE BALL 관리자 입니다." + line
+			    + memberResult.getM_name() + "님, 고객님 비밀번호는 " + memberResult.getM_passwd() +" 입니다." + line + line
+			    +"저희 OFF THE BALL은 비밀번호 찾기 결과를 가입하신 이메일로 보내드리고 있습니다." + line
+			    + "비밀번호 찾기를 요청하신 적이 없거나 다른 문의사항이 있으시면 아래 메일로 문의해주시기 바랍니다." + line + line
+			    + "about.offtheball@gmail.co.kr" + line + line + line
+			    + "※주의: 저희는 고객님의 개인정보를 묻지 않습니다. 관리자 사칭에 주의하시기 바랍니다." + line;
+			  
+		
+		Emailsend mail = new Emailsend();
 		mail.GmailSet(memberResult.getM_email(), subject, content);
+		
 		}
 		
 		return SUCCESS;

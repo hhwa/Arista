@@ -1,145 +1,106 @@
-<%@ page contentType="text/html; charset=utf-8" %>
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-	<title>íŒ€ ìƒì„¸ë³´ê¸°</title>
-	
+<title>ÆÀ »ó¼¼º¸±â</title>
+<link rel="stylesheet" href="/Arista/css/style.css" type="text/css">
+<script type="text/javascript">
+function aboutTeam(url,msg){
+	if (confirm(msg+" ÇÏ½Ã°Ú½À´Ï±î?") == true){    //È®ÀÎ
+		location.href=url;
+	}else{   //Ãë¼Ò
+	    return;
+	}
+
+}
+function locationURL(){
+	if(window.name == 'team')
+		window.close();
+    else {
+		location.href='TeamList.action?currentPage=<s:property value="currentPage" />';
+	}
+}
+</script>
 </head>
+<body>
   
-  <body>
-  
-  	<table width="600" border="0" cellspacing="0" cellpadding="2">
-  		<tr>
-  			<td align="center"><h2>íŒ€ ìƒì„¸ë³´ê¸°</h2></td>
-  		</tr>
-  		<tr>
-  			<td height="20"></td>
-  		</tr>
-  	</table>
-  	
-  <%-- 	<table class="type01">
-   	<tr>
-        <th scope="row">íŒ€ëª…</th>
-        <td>&nbsp;&nbsp;<s:property value="resultClass.team_id" /></td>
-    </tr>
+<table width="600" border="0" cellspacing="0" cellpadding="2">
+  	<tr>
+  		<td height="80"></td>
+  	</tr>
+</table>
+
+	<table align="center">
+		<tr>
+			<td height="200" colspan="3" align="center"><img class="team_img" width="230" height="230" src="/Arista/team/teamIMG/<s:property value="resultClass.file_savname" />"/></td>
+		</tr>
+		<tr height="20"><td></td></tr>
+		<tr>
+			<td class="border_side_bu" align="center" colspan="3"><b><s:property value="resultClass.team_id"/></b></td>
+		</tr>
+		<tr>
+			<td class="border_left" height="8" width="120"></td>
+			<td width="50"></td>
+			<td class="border_right" width="150"></td>
+		</tr>
+		<tr>
+			<td height="10" class="cont_si_left"></td>
+			<td colspan="2"  class="cont_si_right"></td>
+		</tr>
+		<tr>
+			<td height="25" width="100" class="cont_si_left" style="padding:0px 0px 0px 40px;"><font color="#FF0000">*</font> Áö¿ª</td>
+			<td colspan="2"  class="cont_si_right"><s:property value="resultClass.team_area"/></td>
+		</tr>
+		<tr>
+			<td height="25" width="100" class="cont_si_left" style="padding:0px 0px 0px 40px;"><font color="#FF0000">*</font> ¼Ò¼ÓÀ¯Çü</td>
+			<td colspan="2"  class="cont_si_right"><s:property value="resultClass.team_type"/></td>
+		</tr>
+		<tr>
+			<td height="25" width="100" class="cont_si_left" style="padding:0px 0px 0px 40px;"><font color="#FF0000">*</font> Á¾¸ñÀ¯Çü</td>
+			<td colspan="2"  class="cont_si_right"><s:property value="resultClass.team_fieldtype"/></td>
+		</tr>
+		<tr>
+			<td height="25" width="100" class="cont_si_left" style="padding:0px 0px 0px 40px;"><font color="#FF0000">*</font> ¿¬·É´ë</td>
+			<td colspan="2"  class="cont_si_right"><s:property value="resultClass.team_age"/></td>
+		</tr>
+		<tr>
+			<td height="25" width="100" class="cont_si_left" style="padding:0px 0px 0px 40px;"><font color="#FF0000">*</font> ½Ç·Â</td>
+			<td colspan="2"  class="cont_si_right"><s:property value="resultClass.team_skill"/></td>
+		</tr><tr>
+			<td height="25" width="100" class="cont_si_left" style="padding:0px 0px 0px 40px;"><font color="#FF0000">*</font> ÆÀ ÀÎ¿ø</td>
+			<td colspan="2"  class="cont_si_right"><s:property value="resultClass.team_count"/>¸í</td>
+		</tr><tr>
+			<td height="25" width="100" class="cont_si_left" style="padding:0px 0px 0px 40px;"><font color="#FF0000">*</font> °£·«ÇÑ ¼Ò°³</td>
+			<td colspan="2"  class="cont_si_right"><s:property value="resultClass.team_intro"/></td>
+		</tr>
+		<tr>
+			<td height="10" class="cont_si_left"></td>
+			<td colspan="2"  class="cont_si_right"></td>
+		</tr>
+		
+	<tr class="border_top">
+		<td height="5" colspan="3"></td>
+	</tr>
+
     <tr>
-    	<th scope="row">ì§€ì—­</th>
-        <td>&nbsp;&nbsp;<s:property value="resultClass.team_area" /></td>
-    </tr>
-	</table> --%>
-<table width="600" border="0" cellspacing="0" cellpadding="0">     
-     
-    <%--  <tr>
-     	<td>
-     		<img src="<%= request.getContextPath() %>/teamimg/ë ˆì•Œ.jpg"/>
-     	</td>
-     </tr> --%>
-     
-     <tr bgcolor="#777777">
-        <td height="1" colspan="2"></td>
-      </tr>
-			
-      <tr>
-        <td bgcolor="#F4F4F4">  íŒ€ëª… </td>
-        <td bgcolor="#FFFFFF">
-          &nbsp;&nbsp;<s:property value="resultClass.team_id" />
-        </td>
-      </tr>
-      
-      <tr bgcolor="#777777">
-        <td height="1" colspan="2"></td>
-      </tr>
-			
-      <tr>
-        <td bgcolor="#F4F4F4">  ì§€ì—­ </td>
-        <td bgcolor="#FFFFFF">
-          &nbsp;&nbsp;<s:property value="resultClass.team_area" />
-        </td>
-      </tr>
-      
-      <tr bgcolor="#777777">
-        <td height="1" colspan="2"></td>
-      </tr>
-			
-      <tr>
-        <td bgcolor="#F4F4F4">  ì†Œì†ìœ í˜• </td>
-        <td bgcolor="#FFFFFF">
-          &nbsp;&nbsp;<s:property value="resultClass.team_type" />
-        </td>
-      </tr>
-      
-      <tr bgcolor="#777777">
-        <td height="1" colspan="2"></td>
-      </tr>
-			
-      <tr>
-        <td bgcolor="#F4F4F4">  ì¢…ëª©ìœ í˜• </td>
-        <td bgcolor="#FFFFFF">
-          &nbsp;&nbsp;<s:property value="resultClass.team_fieldtype" />
-        </td>
-      </tr>
-      
-      <tr bgcolor="#777777">
-        <td height="1" colspan="2"></td>
-      </tr>
-			
-      <tr>
-        <td bgcolor="#F4F4F4">  ì—°ë ¹ëŒ€ </td>
-        <td bgcolor="#FFFFFF">
-          &nbsp;&nbsp;<s:property value="resultClass.team_age" />
-        </td>
-      </tr>
-      
-      <tr bgcolor="#777777">
-        <td height="1" colspan="2"></td>
-      </tr>
-			
-      <tr>
-        <td bgcolor="#F4F4F4">  ì‹¤ë ¥ </td>
-        <td bgcolor="#FFFFFF">
-          &nbsp;&nbsp;<s:property value="resultClass.team_skill" />
-        </td>
-      </tr>
-      
-      <tr>
-        <td bgcolor="#F4F4F4">  íŒ€ ì¸ì› </td>
-        <td bgcolor="#FFFFFF">
-          &nbsp;&nbsp;<s:property value="resultClass.team_count" />
-        </td>
-      </tr>
-      
-      <tr>
-        <td bgcolor="#F4F4F4">  ê°„ëµí•œ ì†Œê°œ </td>
-        <td bgcolor="#FFFFFF">
-          &nbsp;&nbsp;<s:property value="resultClass.team_intro" />
-        </td>
-      </tr>
-      
-          <tr>
-        <td align="right" colspan="2">
-        
-	        <s:url id="modifyURL" action="modifyForm" >
-				<s:param name="team_no">
-					<s:property value="team_no" />
-				</s:param>
-	        </s:url>
-					
-	        <s:url id="deleteURL" action="deleteAction" >
-				<s:param name="no">
-					<s:property value="no" />
-				</s:param>
-	        </s:url>
-				
-	<input name="list" type="button" value="ìˆ˜ì •" class="inputb" onClick="javascript:location.href='TeamModifyForm.action?team_no=<s:property value="team_no"/>&currentPage=<s:property value="currentPage"/>'">
-	<input name="list" type="button" value="ì‚­ì œ" class="inputb" onClick="javascript:location.href='TeamDeleteForm.action?team_no=<s:property value="team_no"/>&currentPage=<s:property value="currentPage"/>'">
-	<input name="list" type="button" value="ëª©ë¡" class="inputb" onClick="javascript:location.href='TeamList.action?currentPage=<s:property value="currentPage" />'">
+        <td align="center" colspan="3" class="border_side_bu" width="400">
+        	<s:if test="#session.session_id !=null">
+        		<s:if test="memParam.myteam == null">
+        			<s:if test="teamInfoParam.mem_id != null"></s:if>
+        			<s:else>
+					<input type="button" value="½ÅÃ»" class="bu_2" onclick="aboutTeam('joinTeam.action?team_id=<s:property value="resultClass.team_id"/>','½ÅÃ»')"/>&nbsp;/&nbsp;
+					</s:else>
+				</s:if>
+			</s:if>
+			<%-- <input name="list" type="button" value="¸ñ·Ï" class="bu_2" onclick="javascript:location.href='TeamList.action?currentPage=<s:property value="currentPage" />'"/> --%>
+			<input name="list" type="button" value="¸ñ·Ï" class="bu_2" onclick="javascript:locationURL();"/>
 
         </td>
       </tr>
-
+      <tr height="100"><td></td></tr>
   </table>
  </body>
 </html>

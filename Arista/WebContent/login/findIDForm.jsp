@@ -4,6 +4,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link href="css/style.css?ver=1" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <script language="javascript">
 function begin() {
@@ -28,26 +29,30 @@ function checkIt() {
 </head>
 <body onload="begin()">
 <s:form name="findid" action="findIDPro" method="post" onsubmit="return checkIt();">
-<table width="400" border=1 align="center">
+<table width="400" align="center">
+	<tr height="50"></tr>
 	<tr height="30">
-		<td colspan="2" align="center">
+		<td colspan="2" align="center" class="bu_2">
 		<strong>아이디 찾기</strong>
 		</td>
 	</tr>
+	<tr height="20"></tr>
 	<tr height="30">
-		<td width="110" align=center>이름</td>
-		<td width="150" align=center>
+		<td width="110" class="under"><b>이름</b></td>
+		<td width="150" class="under">
 			<input type="text" name="m_name" size="15" maxlength="12" ></td>
 	</tr>
+	<tr height="20"></tr>
 	<tr height="30">
-		<td width="110" align="center">이메일주소</td>
-		<td width="150" align="center">
+		<td width="110" class="under"><b>이메일주소</b></td>
+		<td width="150" class="under">
 			<input type="text" name="m_email" size="30" maxlength="30"></td>
 	</tr>		
+	<tr height="20"></tr>
 	<tr height="30">
 		<td colspan="2" align="center" >
-			<input type="submit" value="찾기">
-			<input type="button" value="취소" onClick="window.close();">
+			<input type="submit" id="bu_1" style="width:125px; height:25px;" value="ID 찾기">&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button" id="bu_1" style="width:125px; height:25px;" value="취 소" onClick="window.close();">
 </td>
 </tr>
 </table>

@@ -18,17 +18,22 @@ import java.util.*;
 
 import java.net.URLEncoder;
 import main.pagingAction;
+import matchState.matchStateVO;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.interceptor.SessionAware;
 
-public class teamAction extends ActionSupport implements SessionAware{
+public class teamAction extends ActionSupport implements SessionAware {
 
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 
 	private Map session;
 	private List<teamVO> list = new ArrayList<teamVO>();
-
+	private List<teamInfoVO> teamMemberList = new ArrayList<teamInfoVO>();
+	private List<teamInfoVO> teamJoinList = new ArrayList<teamInfoVO>();
+	private Map<Integer,String> imgMap = new HashMap();
+	
 	private String search;
 	private int topic;
 
@@ -36,10 +41,11 @@ public class teamAction extends ActionSupport implements SessionAware{
 	private teamVO resultClass;
 	private memVO memParam = new memVO();
 	private teamInfoVO teamInfoParam = new teamInfoVO();
+	private teamInfoVO teamInfoParam2 = new teamInfoVO();
 
 	private int team_no;
 
-	private String fileUploadPath = "C:\\Users\\user1\\git\\Arista\\Arista\\WebContent\\teamimg\\";
+	private String fileUploadPath = "E:\\git\\Arista\\Arista\\WebContent\\team\\teamIMG\\";
 
 	private InputStream inputStream;
 	private String contentDisposition;
@@ -50,12 +56,14 @@ public class teamAction extends ActionSupport implements SessionAware{
 
 	private int currentPage = 1;
 	private int totalCount;
-	private int blockCount = 5;
+	private int blockCount = 9;
 	private int blockPage = 2;
 	private String pagingHtml;
 	private pagingAction page;
 	private int num = 0;
 
+	private int idcheckresult = 0;
+	
 	private String team_id;
 	private String team_area;
 	private String team_type;
@@ -66,7 +74,7 @@ public class teamAction extends ActionSupport implements SessionAware{
 	private String team_intro;
 	private String team_master;
 	private int team_admin;
-	
+
 	Calendar team_regdate = Calendar.getInstance();
 
 	private String old_file;
@@ -76,17 +84,20 @@ public class teamAction extends ActionSupport implements SessionAware{
 	private String uploadFileName;
 
 	private String pageName;
-	
+	private String mem_id;
+	private File deleteFile;
+
 	public teamAction() throws IOException {
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
-		
+
 		setPageName("TEAM");
 	}
 
+	// 팀목록
 	public String execute() throws Exception {
-
+		memParam = (memVO) sqlMapper.queryForObject("memSQL.myTeam", session.get("session_id"));
 		if (getSearch() != null) {
 			return search();
 		}
@@ -94,8 +105,8 @@ public class teamAction extends ActionSupport implements SessionAware{
 		list = sqlMapper.queryForList("teamSQL.teamList");
 
 		totalCount = list.size();
-		String paging="TeamList";
-		page = new pagingAction(currentPage, totalCount,blockCount,blockPage,paging);//pagingAction 객체 생성
+		String paging = "TeamList";
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, paging);// pagingAction 객체 생성
 		pagingHtml = page.getPagingHtml().toString();
 
 		int lastCount = totalCount;
@@ -104,21 +115,31 @@ public class teamAction extends ActionSupport implements SessionAware{
 			lastCount = page.getEndCount() + 1;
 
 		list = list.subList(page.getStartCount(), lastCount);
+		for(int i=0; i<list.size(); i++) {
+			List<teamVO> listMap = list;
+			team_id=listMap.get(i).getTeam_id();
+			String team_img = (String) sqlMapper.queryForObject("teamSQL.teamIMGView",team_id);
+			if(team_img == null) {
+				team_img = "noImage.jpg";
+			}
+			imgMap.put(i, team_img);
+		}
 		return SUCCESS;
 	}
 
+	// 팀목록(검색)
 	public String search() throws Exception {
-
-		// searchKeyword = new String(searchKeyword.getBytes("iso-8859-1"),"euc-kr") ;
-		// System.out.println(searchKeyword);
-		// System.out.println(searchNum);
-		if (topic == 0) {
-			list = sqlMapper.queryForList("teamSQL.teamSearch", "%" + getSearch() + "%");
-		}
+		memParam = (memVO) sqlMapper.queryForObject("memSQL.myTeam", session.get("session_id"));
+		HashMap searchMap = new HashMap();
+		String topics[] = { "team_id", "team_area", "team_age" };
+		searchMap.put("param1", topics[getTopic()]);
+		searchMap.put("param2", "%" + getSearch() + "%");
+		
+		list = sqlMapper.queryForList("teamSQL.teamSearch", searchMap);
 
 		totalCount = list.size();
-		String paging="TeamList";
-		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, topic, getSearch(),paging);
+		String paging = "TeamList";
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, topic, getSearch(), paging);
 		pagingHtml = page.getPagingHtml().toString();
 
 		int lastCount = totalCount;
@@ -127,30 +148,52 @@ public class teamAction extends ActionSupport implements SessionAware{
 			lastCount = page.getEndCount() + 1;
 
 		list = list.subList(page.getStartCount(), lastCount);
+		
+		for(int i=0; i<list.size(); i++) {
+			List<teamVO> listMap = list;
+			team_id=listMap.get(i).getTeam_id();
+			String team_img = (String) sqlMapper.queryForObject("teamSQL.teamIMGView",team_id);
+			if(team_img == null) {
+				team_img = "noImage.jpg";
+			}
+			imgMap.put(i, team_img);
+		}
 		return SUCCESS;
 	}
+
+	// 마이팀
 	public String myTeam() throws Exception {
+		setPageName("MY TEAM");
 		resultClass = new teamVO();
-		if(session.get("session_id")!=null) {
-			memParam = (memVO) sqlMapper.queryForObject("memSQL.myTeam",session.get("session_id"));
-			if(memParam.getMyteam()==null) {
+		if (session.get("session_id") != null) {
+			memParam = (memVO) sqlMapper.queryForObject("memSQL.myTeam", session.get("session_id"));
+			teamInfoParam = (teamInfoVO) sqlMapper.queryForObject("teamSQL.teamMember1",
+					(String) session.get("session_id"));
+			if (memParam.getMyteam() == null) {
 				return "noTeam";
 			}
-			
-			resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.myTeamView",memParam.getMyteam());
-			teamInfoParam = (teamInfoVO) sqlMapper.queryForObject("teamSQL.teamMember",(String)session.get("session_id"));
+
+			resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.myTeamView", memParam.getMyteam());
+			teamMemberList = sqlMapper.queryForList("teamSQL.teamMemberList", memParam.getMyteam());
+			teamJoinList = sqlMapper.queryForList("teamSQL.teamJoinWait", memParam.getMyteam());
 			return SUCCESS;
 		}
 		return LOGIN;
-		
+
 	}
+
+	// 팀 상세보기
 	public String view() throws Exception {
 		resultClass = new teamVO();
 		resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.teamView", getTeam_no());
+		teamInfoParam = (teamInfoVO) sqlMapper.queryForObject("teamSQL.teamMember1",(String) session.get("session_id"));
+
+		memParam = (memVO) sqlMapper.queryForObject("memSQL.myTeam", session.get("session_id"));
 
 		return SUCCESS;
 	}
 
+	// 다운로드?
 	public String download() throws Exception {
 
 		resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.selectOne", getTeam_no());
@@ -164,8 +207,10 @@ public class teamAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 
+	// 팀생성
 	public String create() throws Exception {
 
+		setPageName("TEAM 생성");
 		paramClass.setTeam_id(getTeam_id());
 		paramClass.setTeam_area(getTeam_area());
 		paramClass.setTeam_type(getTeam_type());
@@ -175,24 +220,69 @@ public class teamAction extends ActionSupport implements SessionAware{
 		paramClass.setTeam_count(getTeam_count());
 		paramClass.setTeam_intro(getTeam_intro());
 		paramClass.setTeam_regdate(team_regdate.getTime());
-		paramClass.setTeam_master((String)session.get("session_id"));
-		
-		sqlMapper.insert("teamSQL.insertTeam", paramClass);
-		
-		teamInfoParam.setTeam_id(getTeam_id());
-		teamInfoParam.setMem_id((String)session.get("session_id"));
-		teamInfoParam.setTeam_admin(2);
-		
-		sqlMapper.insert("teamSQL.joinTeam",teamInfoParam);
-		
-		sqlMapper.update("memSQL.joinTeam",getTeam_id());
+		paramClass.setTeam_master((String) session.get("session_id"));
 
+		sqlMapper.insert("teamSQL.insertTeam", paramClass);
+
+		teamInfoParam.setTeam_id(getTeam_id());
+		teamInfoParam.setMem_id((String) session.get("session_id"));
+		teamInfoParam.setTeam_admin(2);
+
+		sqlMapper.insert("teamSQL.joinTeam", teamInfoParam);
+
+		memParam.setMyteam(getTeam_id());
+		memParam.setM_id((String)session.get("session_id"));
+		sqlMapper.update("memSQL.agreeJoinTeam", memParam);
+		
+		setTeam_no((int) sqlMapper.queryForObject("teamSQL.selectLastNo"));
+
+		if (getUpload() != null) {
+
+			String file_name = "file_" + getTeam_id();
+			String file_ext = getUploadFileName().substring(getUploadFileName().lastIndexOf('.') + 1,
+					getUploadFileName().length());
+			File destFile = new File(fileUploadPath + file_name + "." + file_ext);
+			FileUtils.copyFile(getUpload(), destFile);
+
+			paramClass.setTeam_no(getTeam_no());
+			paramClass.setFile_orgname(getUploadFileName());
+			paramClass.setFile_savname(file_name + "." + file_ext);
+
+			sqlMapper.update("teamSQL.updateFile", paramClass);
+		}else {
+			String file_name = "noImage.jpg";
+
+			paramClass.setTeam_no(getTeam_no());
+			paramClass.setFile_orgname(file_name);
+			paramClass.setFile_savname(file_name);
+			
+			sqlMapper.update("teamSQL.updateFile",paramClass);
+		}
 		return SUCCESS;
 
 	}
-	private String joinTeam() throws Exception {
+	// 팀 생성 id중복 check
+	public String idcheck() throws Exception {
+		paramClass = new teamVO();
+		resultClass = new teamVO();
+		paramClass.setTeam_id(getTeam_id());
 		
-		teamInfoParam.setTeam_id(team_id);
+		// 사용자가 입력한 id값을 받는다. select where조건 쿼리문으로 DB에서 같은 값을 찾는다. 결과값에 따라서 값을 준다.
+	
+		resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.idcheck", paramClass);
+		if (resultClass == null)
+			idcheckresult = 1;
+		return SUCCESS;
+	}
+
+	// 팀가입
+	public String joinTeam() throws Exception {
+		teamInfoParam.setMem_id((String) session.get("session_id"));
+		teamInfoParam.setTeam_id(getTeam_id());
+		teamInfoParam.setTeam_admin(3);
+
+		sqlMapper.insert("teamSQL.joinTeam", teamInfoParam);
+
 		return SUCCESS;
 	}
 
@@ -201,8 +291,9 @@ public class teamAction extends ActionSupport implements SessionAware{
 		return SUCCESS;
 	}
 
+	// 팀정보수정
 	public String modify() throws Exception {
-		resultClass = new teamVO();
+
 		paramClass.setTeam_no(getTeam_no());
 		paramClass.setTeam_id(getTeam_id());
 		paramClass.setTeam_area(getTeam_area());
@@ -213,28 +304,104 @@ public class teamAction extends ActionSupport implements SessionAware{
 		paramClass.setTeam_count(getTeam_count());
 		paramClass.setTeam_intro(getTeam_intro());
 		
+		System.out.println(getOld_file());
 		sqlMapper.update("teamSQL.updateTeam", paramClass);
-
 		if (getUpload() != null) {
+			if(!getOld_file().equals("noImage.jpg")) {
+				deleteFile = new File(fileUploadPath + getOld_file());
 
-			String file_name = "file_" + getTeam_no();
+				if (deleteFile.isFile())
+					FileUtils.forceDelete(deleteFile);
+			}
+
+			String file_name = "file_" + getTeam_id();
 			String file_ext = getUploadFileName().substring(getUploadFileName().lastIndexOf('.') + 1,
 					getUploadFileName().length());
-
-			File deleteFile = new File(fileUploadPath + getOld_file());
-			deleteFile.delete();
-
 			File destFile = new File(fileUploadPath + file_name + "." + file_ext);
+
 			FileUtils.copyFile(getUpload(), destFile);
 
+			paramClass.setTeam_no(getTeam_no());
 			paramClass.setFile_orgname(getUploadFileName());
 			paramClass.setFile_savname(file_name + "." + file_ext);
 
-			sqlMapper.update("updateFile", paramClass);
+			sqlMapper.update("teamSQL.updateFile", paramClass);
 		}
 
 		resultClass = (teamVO) sqlMapper.queryForObject("teamSQL.teamView", getTeam_no());
 
+		return SUCCESS;
+	}
+
+	// 팀 멤버등급관리
+	public String changeAdmin() throws Exception {
+		
+		teamInfoParam.setTeam_id(getTeam_id());
+		teamInfoParam.setMem_id(getMem_id());
+		teamInfoParam.setTeam_admin(getTeam_admin());
+
+		sqlMapper.update("teamSQL.TeamAdmin", teamInfoParam);
+		if(getTeam_admin()==2) {
+			teamInfoParam.setMem_id((String)session.get("session_id"));
+			teamInfoParam.setTeam_admin(0);
+		
+			paramClass.setTeam_id(getTeam_id());
+			paramClass.setTeam_master(getMem_id());
+			
+			sqlMapper.update("teamSQL.TeamAdmin", teamInfoParam);
+			
+			sqlMapper.update("teamSQL.ChangeTeamMaster",paramClass);
+		}
+		return SUCCESS;
+	}
+
+	// 팀 가입 승인
+	public String agree() throws Exception {
+		teamInfoParam.setTeam_id(getTeam_id());
+		teamInfoParam.setMem_id(getMem_id());
+		teamInfoParam.setTeam_admin(0);
+		sqlMapper.update("teamSQL.TeamAdmin", teamInfoParam);
+		memParam.setM_id(getMem_id());
+		memParam.setMyteam(getTeam_id());
+		sqlMapper.update("memSQL.agreeJoinTeam", memParam);
+
+		return SUCCESS;
+	}
+
+	// 팀 제명/탈퇴/가입거절
+	public String withdraw() throws Exception {
+		if (getMem_id().equals((String) session.get("session_id"))) {
+			memParam = (memVO) sqlMapper.queryForObject("memSQL.myTeam", (String) session.get("session_id"));
+			teamInfoParam = (teamInfoVO) sqlMapper.queryForObject("teamSQL.teamMember1",(String) session.get("session_id"));
+		} else {
+			memParam = (memVO) sqlMapper.queryForObject("memSQL.myTeam", getMem_id());
+			teamInfoParam = (teamInfoVO) sqlMapper.queryForObject("teamSQL.teamMember1", getMem_id());
+		}
+		if (memParam.getMyteam() == null) { // 가입 취소/거절
+			sqlMapper.delete("teamSQL.withdrawTeam", teamInfoParam);
+		} else { // 팀 탈퇴
+			sqlMapper.delete("teamSQL.withdrawTeam", teamInfoParam);
+			memParam.setMyteam("");
+			memParam.setM_id(getMem_id());
+			sqlMapper.update("memSQL.agreeJoinTeam", memParam);
+		}
+		return SUCCESS;
+	}
+	public String delete() throws Exception {
+
+		teamMemberList = sqlMapper.queryForList("teamSQL.teamMemberList",getTeam_id());
+		
+		for(int i=0; i<teamMemberList.size(); i++) {
+			memParam=new memVO();
+			memParam.setMyteam("");
+			memParam.setM_id(teamMemberList.get(i).getMem_id());
+			sqlMapper.update("memSQL.agreeJoinTeam",memParam);
+		}
+		
+		sqlMapper.delete("teamSQL.deleteTeam",getTeam_id());
+		sqlMapper.delete("teamSQL.deleteTeam1",getTeam_id());
+		
+		
 		return SUCCESS;
 	}
 
@@ -245,6 +412,7 @@ public class teamAction extends ActionSupport implements SessionAware{
 	public void setList(List<teamVO> list) {
 		this.list = list;
 	}
+
 	public String getSearch() {
 		return search;
 	}
@@ -508,15 +676,19 @@ public class teamAction extends ActionSupport implements SessionAware{
 	public void setOld_file(String old_file) {
 		this.old_file = old_file;
 	}
+
 	public String getTeam_master() {
 		return team_master;
 	}
+
 	public void setTeam_master(String team_master) {
 		this.team_master = team_master;
 	}
+
 	public int getTeam_admin() {
 		return team_admin;
 	}
+
 	public void setTeam_admin(int team_admin) {
 		this.team_admin = team_admin;
 	}
@@ -537,6 +709,14 @@ public class teamAction extends ActionSupport implements SessionAware{
 		this.teamInfoParam = teamInfoParam;
 	}
 
+	public teamInfoVO getTeamInfoParam2() {
+		return teamInfoParam2;
+	}
+
+	public void setTeamInfoParam2(teamInfoVO teamInfoParam2) {
+		this.teamInfoParam2 = teamInfoParam2;
+	}
+
 	public String getPageName() {
 		return pageName;
 	}
@@ -544,6 +724,55 @@ public class teamAction extends ActionSupport implements SessionAware{
 	public void setPageName(String pageName) {
 		this.pageName = pageName;
 	}
+
+	public List<teamInfoVO> getTeamMemberList() {
+		return teamMemberList;
+	}
+
+	public void setTeamMemberList(List<teamInfoVO> teamMemberList) {
+		this.teamMemberList = teamMemberList;
+	}
+
+	public List<teamInfoVO> getTeamJoinList() {
+		return teamJoinList;
+	}
+
+	public void setTeamJoinList(List<teamInfoVO> teamJoinList) {
+		this.teamJoinList = teamJoinList;
+	}
+
+	public String getMem_id() {
+		return mem_id;
+	}
+
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
+	}
+
+	public File getDeleteFile() {
+		return deleteFile;
+	}
+
+	public void setDeleteFile(File deleteFile) {
+		this.deleteFile = deleteFile;
+	}
+
+	public Map<Integer, String> getImgMap() {
+		return imgMap;
+	}
+
+	public void setImgMap(Map<Integer, String> imgMap) {
+		this.imgMap = imgMap;
+	}
+
+	public int getIdcheckresult() {
+		return idcheckresult;
+	}
+
+	public void setIdcheckresult(int idcheckresult) {
+		this.idcheckresult = idcheckresult;
+	}
+	
 	
 
 }

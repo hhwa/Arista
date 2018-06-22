@@ -32,9 +32,10 @@ public class mypageAction extends ActionSupport implements SessionAware {
 	public static Reader reader; // 파일 스트림을 위한 reader.
 	public static SqlMapClient sqlMapper; // SqlMapClient API를 사용하기 위한 sqlMapper 객체
 
-	private List<teamMatchVO> list = new ArrayList<teamMatchVO>();
+	private List<matchStateVO> list = new ArrayList<matchStateVO>();
 	private List<String> areaList = new ArrayList<String>();
 	private List<String> posiList = new ArrayList<String>();
+	private Map<Integer,String> imgMap = new HashMap();
 
 	private memVO memParam = new memVO();
 	private memVO memResult = new memVO();
@@ -45,12 +46,12 @@ public class mypageAction extends ActionSupport implements SessionAware {
 
 	// private String fileUploadPath =
 	// "E:\\git\\Arista\\Arista\\WebContent\\mypage\\image";
-	private String fileUploadPath = System.getProperty("user.dir") + "\\upload\\";
-	// private String fileUploadPath= this.getClass().getResource("").getPath();
+//	private String fileUploadPath = System.getProperty("user.dir") + "\\upload\\";
+	private String fileUploadPath = "E:\\git\\Arista\\Arista\\WebContent\\admin\\member\\profUpload\\";
 
 	private int currentPage; // 현재 페이지
 	private int totalCount; // 총 게시물의 수
-	private int blockCount = 10; // 한 페이지의 게시물의 수
+	private int blockCount = 6; // 한 페이지의 게시물의 수
 	private int blockPage = 5; // 한화면에 보여줄 페이지 수
 	private String pagingHtml; // 페이징을 구현한 HTML
 	private pagingAction page; // 페이징 클래스
@@ -84,13 +85,14 @@ public class mypageAction extends ActionSupport implements SessionAware {
 	private String uniform_color;
 	private String content;
 	private String match_type;
+	private String team2_id;
 
 	// 조인정보
 	private int match_no;
 	private String mem_id;
 
 	private String pageName;
-	
+
 	public mypageAction() throws IOException {
 
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
@@ -128,6 +130,7 @@ public class mypageAction extends ActionSupport implements SessionAware {
 		posiList.add("RWB");
 		posiList.add("GK");
 
+		setPageName("MY PAGE");
 	}
 
 	public String layout() throws Exception {
@@ -150,15 +153,10 @@ public class mypageAction extends ActionSupport implements SessionAware {
 	// 내정보 상세보기
 	public String view() throws Exception {
 
-		setPageName("MY PAGE");
 		memParam = (memVO) sqlMapper.queryForObject("memSQL.memberView", session.get("session_id"));
 
 		if (memParam != null) {
 			if (memParam.getM_passwd().equals(getM_passwd())) {
-				if (memParam.getProf_image_save() != null) {
-					memParam.setProf_image_save(fileUploadPath + memParam.getProf_image_save());
-					System.out.println(memParam.getProf_image_save());
-				}
 				return SUCCESS;
 			}
 		}
@@ -191,6 +189,22 @@ public class mypageAction extends ActionSupport implements SessionAware {
 
 			// 전체 리스트에서 현재 페이지 만큼의 리스트만 가져온다.
 			list = list.subList(page.getStartCount(), lastCount);
+			
+			for(int i=0; i<list.size(); i++) {
+				List<matchStateVO> listMap = list;
+				team_id=listMap.get(i).getTeam_id();
+				team2_id=listMap.get(i).getTeam2_id();
+				String team_img = (String) sqlMapper.queryForObject("teamSQL.teamIMGView",team_id);
+				if(team_img == null) {
+					team_img = "noImage.jpg";
+				}
+				imgMap.put(i, team_img);
+				team_img = (String) sqlMapper.queryForObject("teamSQL.teamIMGView",team2_id);
+				if(team_img==null) {
+					team_img = "noImage.jpg";
+				}
+				imgMap.put(i+10, team_img);
+			}
 			return SUCCESS;
 		}
 		return LOGIN;
@@ -227,12 +241,11 @@ public class mypageAction extends ActionSupport implements SessionAware {
 	public void setSession(Map session) {
 		this.session = session;
 	}
-
-	public List<teamMatchVO> getList() {
+	public List<matchStateVO> getList() {
 		return list;
 	}
 
-	public void setList(List<teamMatchVO> list) {
+	public void setList(List<matchStateVO> list) {
 		this.list = list;
 	}
 
@@ -587,5 +600,22 @@ public class mypageAction extends ActionSupport implements SessionAware {
 	public void setPageName(String pageName) {
 		this.pageName = pageName;
 	}
+
+	public Map<Integer, String> getImgMap() {
+		return imgMap;
+	}
+
+	public void setImgMap(Map<Integer, String> imgMap) {
+		this.imgMap = imgMap;
+	}
+
+	public String getTeam2_id() {
+		return team2_id;
+	}
+
+	public void setTeam2_id(String team2_id) {
+		this.team2_id = team2_id;
+	}
+	
 
 }

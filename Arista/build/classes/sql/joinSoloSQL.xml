@@ -2,40 +2,51 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="joinSoloSQL">
 
-	<typeAlias alias="joinSolo" type="matchState.joinSoloVO"/>
+	<typeAlias alias="joinSolo" type="matchState.joinSoloVO" />
+
+	<!-- 리절트 맵 정의 -->
+	<resultMap id="joinSoloRes" class="joinSolo">
+		<result property="match_no" column="match_no" />
+		<result property="mem_id" column="mem_id" />
+	</resultMap>
+
+	<!-- 공통으로 사용할 select 절 정의 -->
+	<sql id="select-all">
+		select * from joinSolo
+	</sql>
+
+	<!-- 솔로매치 신청자 목록 -->
+	<select id="joinSoloMatchList" resultMap="joinSoloRes" parameterClass="joinSolo">
+		<include refid="select-all" />
+		where match_no=#match_no#
+	</select>
+	<!-- 솔로매치 신청자 수 -->
+	<select id="joinSoloMatchCount" resultClass="int" parameterClass="int">
+		select count(*) as mem_idCount from joinSolo where match_no=#match_no#
+	</select>
+	<!-- 솔로매치 신청여부 -->
+	<select id="isJoinSoloMatch" resultClass="int" parameterClass="int">
+		select count(*) as isJoinSoloMatch from joinSolo where
+		match_no=#match_no# and mem_id=#mem_id#
+	</select>
 	
-		<!-- 리절트 맵 정의 -->
-		<resultMap id="joinSoloRes" class="joinSolo">
-			<result property="match_no" column="match_no"/>
-			<result property="mem_id" column="mem_id"/>
-		</resultMap>
-		
-		<!-- 공통으로 사용할 select 절 정의 -->
-		<sql id="select-all">
-			select * from joinSolo
-		</sql>
-		
-		<!-- 솔로매치 신청자 목록 -->
-		<select id="joinSoloMatchList" resultMap="joinSoloRes" parameterClass="joinSolo">
-			<include refid="select-all"/>
-			where match_no=#match_no#
-		</select>
-		<!-- 솔로매치 신청자 수 -->
-		<select id="joinSoloMatchCount" resultClass="int" parameterClass="int">
-			select count(*) as mem_idCount from joinSolo where match_no=#match_no#
-		</select>
-		<!-- 솔로매치 신청여부 -->
-		<select id="isJoinSoloMatch" resultClass="int" parameterClass="int">
-			select count(*) as isJoinSoloMatch from joinSolo where match_no=#match_no# and mem_id=#mem_id#
-		</select>
-		<!-- 솔로매치 신청 -->
-		<insert id="joinSoloMatch" parameterClass="joinSolo">
-			insert into joinSolo (match_no,mem_id) values (#match_no#,#mem_id#)
-		</insert>
-		
-		
-		<!-- 솔로매치 신청 취소 -->
-		<delete id="cancelSoloMatch" parameterClass="joinSolo">
-			delete from joinSolo where match_no=#match_no# and mem_id=#mem_id#
-		</delete>
+	<!-- 내 솔로매치 신청목록 -->
+	<select id="mySoloMatchList" resultMap="joinSoloRes" parameterClass="String">
+		select * from joinSolo where mem_id=#mem_id#
+	</select>
+	
+	<!-- 솔로매치 신청 -->
+	<insert id="joinSoloMatch" parameterClass="joinSolo">
+		insert into joinSolo (match_no,mem_id,game_no) values (#match_no#,#mem_id#,#game_no#)
+	</insert>
+
+	<!-- 솔로매치 신청 취소 -->
+	<delete id="cancelSoloMatch" parameterClass="joinSolo">
+		delete from joinSolo where match_no=#match_no# and mem_id=#mem_id#
+	</delete>
+	
+	<!-- 솔로매치 삭제 -->
+	<delete id="deleteSoloMatch" parameterClass="int">
+		delete from joinSolo where match_no=#match_no#
+	</delete>
 </sqlMap>

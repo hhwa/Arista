@@ -2,109 +2,160 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="teamSQL">
 
-	<typeAlias alias="team" type="team.teamVO"/>
-	<typeAlias alias="teamInfo" type="team.teamInfoVO"/>
-	
-		<!-- 리절트 맵 정의 -->
-		<resultMap id="teamRes" class="team">
-			<result property="team_no" column="team_no"/>
-			<result property="team_id" column="team_id"/>
-			<result property="team_area" column="team_area"/>
-			<result property="team_fieldtype" column="team_fieldtype"/>
-			<result property="team_age" column="team_age"/>
-			<result property="team_skill" column="team_skill"/>
-			<result property="team_count" column="team_count"/>
-			<result property="team_intro" column="team_intro"/>
-			<result property="file_savname" column="file_savname"/> <!-- 0528-추가 -->
-			<result property="file_orgname" column="file_orgname"/> <!-- 0528-추가 -->
-			<result property="team_regdate" column="team_regdate"/>
-			<result property="team_master" column="team_master"/>
-		</resultMap>
-		
-		<!-- 공통으로 사용할 select 절 정의 -->
-		<sql id="select-all">
-			select * from team
-		</sql>
-		
-		<!-- 공통으로 사용할 where-no절 정의 -->
-		<sql id="where-no">
-			where team_no = #team_no#
-		</sql>
-		
-		<select id="selectAll" resultMap="teamRes">
-			<include refid="select-all" />
-			ORDER BY team_no DESC
-		</select>
-		
-		<!-- select 쿼리문 정의 -->
-		<!-- myTeam 보기 -->
-		<select id="myTeamView" resultMap="teamRes" parameterClass="String">
-			<include refid="select-all"/>
-			where team_id=#team_id#
-		</select>
-		<!-- team 상세보기 -->
-		<select id="teamView" resultMap="teamRes" parameterClass="int">
-			<include refid="select-all"/>
-			<include refid="where-no"/>
-		</select>
-		<!-- team 목록 -->
-		<select id="teamList" resultMap="teamRes">
-			<include refid="select-all"/>
-			order by team_no desc
-		</select>
-		
-		<!-- team 검색 -->
-		<select id="teamSearch" resultMap="teamRes" parameterClass="String">
-			<include refid="select-all"/>
-			 WHERE team_id like #search# ORDER BY team_no DESC
-		</select>
-		
-		<!-- team 멤버 보기 -->
-		<select id="teamMember" resultClass="teamInfo" parameterClass="String">
-			select * from teamInfo
-			where mem_id=#mem_id#
-		</select>
-		<!-- team 멤버 리스트 -->
-		<select id="teamMemberList" resultClass="teamInfo" parameterClass="String">
-			select * from teamInfo
-			where team_id=#team_id#
-		</select>
-		
-		<select id="selectLastNo" resultClass="team">
-			SELECT max(team_no) as team_no FROM TEAM 
-		</select>
+	<typeAlias alias="team" type="team.teamVO" />
+	<typeAlias alias="teamInfo" type="team.teamInfoVO" />
 
-		<!-- insert 쿼리문 정의 -->
-		
-		<!-- team 추가 -->
-		<insert id="insertTeam" parameterClass="team">
-			insert into team (team_no,team_id,team_area,team_type,team_fieldtype,team_age,team_skill,team_count,team_intro,team_regdate,team_master) values (team_no_seq.NEXTVAL,#team_id#,#team_area#,#team_type#,#team_fieldtype#,#team_age#,#team_skill#,#team_count#,#team_intro#,#team_regdate#,#team_master#)
-		</insert>
-		
-		<insert id="joinTeam" parameterClass="teamInfo">
-			insert into teamInfo (team_id,mem_id,team_admin) values (#team_id#,#mem_id#,#team_admin#)
-		</insert>
-		
-		<!-- update 쿼리문 정의 -->
-		<update id="updateFile" parameterClass="team">
-    			UPDATE TEAM SET FILE_ORGNAME = #file_orgname#
-    		    		,FILE_SAVNAME = #file_savname#
-			<include refid="where-no" />
-   		 </update>
-		<!-- team 수정 -->
-		<update id="updateTeam" parameterClass="team">
-			update team set team_id=#team_id#,team_area=#team_area#,team_fieldtype=#team_fieldtype#,team_age=#team_age#,team_skill=#team_skill#,team_count=#team_count#,team_intro=#team_intro#
-			<include refid="where-no"/>
-		</update>
-		
-		<update id="TeamAdmin" parameterClass="teamInfo">
-			update teamInfo team_id=#team_id#,team_admin=#team_admin#,mem_id=#mem_id#
-		</update>
-		
-		<!-- delete 쿼리문 정의 -->
-		<!-- team 삭제 -->
-		<delete id="deleteTeam" parameterClass="team">
-			delete from team
-			<include refid="where-no"/>
-		</delete>
+	<!-- 리절트 맵 정의 -->
+	<resultMap id="teamRes" class="team">
+		<result property="team_no" column="team_no" />
+		<result property="team_id" column="team_id" />
+		<result property="team_area" column="team_area" />
+		<result property="team_type" column="team_type" />
+		<result property="team_fieldtype" column="team_fieldtype" />
+		<result property="team_age" column="team_age" />
+		<result property="team_skill" column="team_skill" />
+		<result property="team_count" column="team_count" />
+		<result property="team_intro" column="team_intro" />
+		<result property="file_savname" column="file_savname" /> <!-- 0528-추가 -->
+		<result property="file_orgname" column="file_orgname" /> <!-- 0528-추가 -->
+		<result property="team_regdate" column="team_regdate" />
+		<result property="team_master" column="team_master" />
+	</resultMap>
+
+	<!-- 공통으로 사용할 select 절 정의 -->
+	<sql id="select-all">
+		select * from team
+	</sql>
+
+	<!-- 공통으로 사용할 where-no절 정의 -->
+	<sql id="where-no">
+		where team_no = #team_no#
+	</sql>
+
+	<select id="selectAll" resultMap="teamRes">
+		<include refid="select-all" />
+		ORDER BY team_no DESC
+	</select>
+
+	<!-- select 쿼리문 정의 -->
+	<!-- 아이디 중복확인 -->
+	<select id="idcheck" resultMap="teamRes" parameterClass="team">
+		<include refid="select-all" />
+		where team_id=#team_id#             
+	</select>
+	<!-- myTeam 보기 -->
+	<select id="myTeamView" resultMap="teamRes" parameterClass="String">
+		<include refid="select-all" />
+		where team_id=#team_id#
+	</select>
+	<!-- team IMG 보기 -->
+	<select id="teamIMGView" resultClass="String" parameterClass="String">
+		select file_savname from team
+		where team_id=#team_id#
+	</select>
+	<!-- team 상세보기 -->
+	<select id="teamView" resultMap="teamRes" parameterClass="int">
+		<include refid="select-all" />
+		<include refid="where-no" />
+	</select>
+	<!-- team 목록 -->
+	<select id="teamList" resultMap="teamRes">
+		<include refid="select-all" />
+		order by team_no desc
+	</select>
+
+	<!-- team 검색 -->
+	<select id="teamSearch" resultMap="teamRes" parameterClass="java.util.HashMap">
+		<include refid="select-all" />
+		WHERE $param1$ like #param2# ORDER BY team_no DESC
+	</select>
+	<select id="teamMember1" resultClass="teamInfo" parameterClass="String">
+		select * from teamInfo
+		where mem_id=#mem_id#
+	</select>
+	<!-- team 멤버 보기 -->
+	<select id="teamMember" resultClass="teamInfo" parameterClass="teamInfo">
+		select * from teamInfo
+		where mem_id=#mem_id# and team_id=#team_id#
+	</select>
+	<!-- team 멤버 리스트 -->
+	<select id="teamMemberList" resultClass="teamInfo"
+		parameterClass="String">
+		select t.mem_id,m.m_name,m.m_position,team_admin
+		from teamInfo t,mem m
+		where t.mem_id=m.m_id and t.team_id=#team_id# and team_admin between 0 and
+		2
+		order by team_admin desc
+	</select>
+	<!-- team 가입 대기자 목록 -->
+	<select id="teamJoinWait" resultClass="teamInfo" parameterClass="String">
+		select t.mem_id,m.m_name,m.m_position,t.team_admin
+		from mem m,teamInfo t
+		where t.mem_id=m.m_id and t.team_id=#team_id# and team_admin=3
+	</select>
+
+	<select id="selectLastNo" resultClass="int">
+		SELECT max(team_no) as team_no FROM TEAM
+	</select>
+
+	<!-- insert 쿼리문 정의 -->
+
+	<!-- team 추가 -->
+	<insert id="insertTeam" parameterClass="team">
+		insert into team
+		(team_no,team_id,team_area,team_type,team_fieldtype,team_age,team_skill,team_count,team_intro,team_regdate,team_master)
+		values
+		(team_no_seq.NEXTVAL,#team_id#,#team_area#,#team_type#,#team_fieldtype#,#team_age#,#team_skill#,#team_count#,#team_intro#,#team_regdate#,#team_master#)
+	</insert>
+
+	<!-- team 가입신청 -->
+	<insert id="joinTeam" parameterClass="teamInfo">
+		insert into teamInfo (team_id,mem_id,team_admin) values	(#team_id#,#mem_id#,#team_admin#)
+	</insert>
+
+	<!-- update 쿼리문 정의 -->
+	
+	<!-- 팀이미지 -->
+	<update id="updateFile" parameterClass="team">
+		UPDATE TEAM SET FILE_ORGNAME = #file_orgname#
+		,FILE_SAVNAME = #file_savname#
+		<include refid="where-no" />
+	</update>
+
+	<!-- team 수정 -->
+	<update id="updateTeam" parameterClass="team">
+		update team set
+		team_id=#team_id#,team_area=#team_area#,team_type=#team_type#,team_fieldtype=#team_fieldtype#,team_age=#team_age#,team_skill=#team_skill#,team_count=#team_count#,team_intro=#team_intro#
+		<include refid="where-no" />
+	</update>
+	<!-- team 등급 설정 -->
+	<update id="TeamAdmin" parameterClass="teamInfo">
+		update teamInfo set team_admin=#team_admin#
+		where team_id=#team_id# and mem_id=#mem_id#
+	</update>
+	<update id="ChangeTeamMaster" parameterClass="team">
+		update team set team_master=#team_master#
+		where team_id=#team_id#
+	</update>
+	<!-- team 가입 승인 -->
+	<update id="agreeJoinTeam" parameterClass="teamInfo">
+		update teamInfo set team_admin=0
+		where team_id=#team_id# and mem_id=#mem_id#
+	</update>
+
+	<!-- delete 쿼리문 정의 -->
+	<!-- team 가입거절 / team 탈퇴 -->
+	<delete id="withdrawTeam" parameterClass="teamInfo">
+		delete from teamInfo
+		where team_id=#team_id# and mem_id=#mem_id#
+	</delete>
+	<!-- team 삭제 -->
+	<delete id="deleteTeam" parameterClass="String">
+		delete from team
+		where team_id=#team_id#
+	</delete>
+	<delete id="deleteTeam1" parameterClass="String">
+		delete from teamInfo
+		where team_id=#team_id#
+	</delete>
 </sqlMap>

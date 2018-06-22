@@ -6,27 +6,26 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link href="/Arista/css/style.css" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>공지사항</title>
 </head>
 <body>
-
-<table width="600" border="0" cellspacing="0" cellpadding="0">
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
   <tr>
-    <td align="center"><h2>공지사항</h2></td>
+    <td align="center"></td>
   </tr>
   <tr>
-    <td height="20"></td>
+    <td height="100"></td>
   </tr>
 </table>
-
-<table width="600" border="1" cellspacing="0" cellpadding="0">
-  <tr align="center">
-    <td width="50">NO</td>
-    <td align="left" width="350">&nbsp;제목</td>
-    <td width="70">작성자</td>
-    <td width="80">등록일</td>
-    <td width="60">조회수</td>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr align="center" class="bu_2">
+    <td height="25" width="70">NO</td>
+    <td align="center">제목</td>
+    <td width="80">작성자</td>
+    <td width="100">작성일</td>
+    <td width="70">조회수</td>
   </tr>
   
 <s:iterator value="list" status="stat">
@@ -40,17 +39,21 @@
       <s:property value="currentPage"/>
     </s:param>
     
-  </s:url>  
+  </s:url> 
+<tr>
+  <td height="5"></td>
+</tr> 
 <tr align="center">
-  <td><s:property value="notice_no"/></td>
-  <td><s:a href="%{viewURL}"><s:property value="notice_subject" /></s:a></td>
+  <td height="25"><s:property value="notice_no"/></td>
+  <td align="left" style="padding:0px 0px 0px 25px;"><s:a href="%{viewURL}"><s:property value="notice_subject" /></s:a></td>
   <td align="center"><s:property value="notice_id" /></td>
   <td align="center"><s:property value="notice_regdate" /></td>
   <td><s:property value="readhit" /></td>
 </tr>  
 <tr>
-  <td height="1" colspan="5"></td>
+  <td height="5"></td>
 </tr>
+<tr style="background-color: #2d2d30;"><td height="1" colspan="5"></td></tr>
   
 </s:iterator>  
   
@@ -63,25 +66,21 @@
 </s:if>  
 </table>
 
-<table width="600" border="0" cellspacing="0" cellpadding="0">
-<tr align="center">
-  <td colspan="5"><s:property value="pagingHtml" escape="false" /></td>
-</tr>
-
-<tr>
-  <td colspan="5">
-  </td>
-</tr>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td height="50"></td></tr>
 
 
 <tr align="right">
   <td colspan="5">
   <s:if test="#session.session_adminYN eq 1">
-  <input type="button" value="글쓰기" onClick="javascript:location.href='noticeWriteForm.action?currentPage=<s:property value="currentPage" />';">
+  <input class="bu_2" type="button" style="width:125px; height:25px;" value="  글쓰기  " onClick="javascript:location.href='noticeWriteForm.action?currentPage=<s:property value="currentPage" />';">
   </s:if>
   </td>
 </tr>
-
+<tr align="center" height="50">
+  <td colspan="5"><s:property value="pagingHtml" escape="false" /></td>
+</tr>
+<tr height="100"></tr>
 </table>
 </body>
 </html>

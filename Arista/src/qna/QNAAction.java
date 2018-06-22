@@ -18,215 +18,208 @@ import org.apache.struts2.interceptor.SessionAware;
 import java.io.Reader;
 import java.io.IOException;
 
+public class QNAAction extends ActionSupport implements SessionAware {
 
-public class QNAAction extends ActionSupport implements SessionAware{
-	
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
 	private Map session;
-	
+
 	private List<qnaVO> list = new ArrayList<qnaVO>();
-	
+
 	private int currentPage = 1;
 	private int totalCount;
 	private int blockCount = 5;
 	private int blockPage = 5;
 	private String pagingHtml;
 	private pagingAction page;
-	
+
 	private String search;
-	private int topic;  
-	
-	//write
+	private int topic;
+
+	// write
 	private qnaVO paramClass;
 	private qnaVO resultClass;
-	
+
 	private memVO resultMember;
 	private memVO paramMember;
-	
+
 	private int qna_no;
 	private String qna_subject;
 	private String qna_id;
 	private String qna_password;
 	private String qna_content;
 	private String adminYN;
-	
+
 	private int ref;
 	private int re_step;
 	private int re_level;
-	
+
 	private int writeCheck;
-	
+
 	boolean reply = false;
-	
+
 	Calendar today = Calendar.getInstance();
-	
+
 	private String PageName;
-	
-	
+
 	public QNAAction() throws IOException {
 		reader = Resources.getResourceAsReader("sqlMapConfig.xml");
 		sqlMapper = SqlMapClientBuilder.buildSqlMapClient(reader);
 		reader.close();
 		setPageName("QNA");
 	}
-	
+
 	public String execute() throws Exception {
-		String paging="QNAList";
-		if(getSearch()==null||getSearch().equals("")) {
+		String paging = "QNAList";
+		if (getSearch() == null || getSearch().equals("")) {
 			list = sqlMapper.queryForList("qnaSQL.qnaList");
 			totalCount = list.size();
-			page = new pagingAction(currentPage, totalCount,blockCount,blockPage,paging);//pagingAction 객체 생성
-		}else {
+			page = new pagingAction(currentPage, totalCount, blockCount, blockPage, paging);// pagingAction 객체 생성
+		} else {
 			HashMap searchMap = new HashMap();
-			String topics[]= {"qna_subject","qna_id","qna_content"};
-			searchMap.put("param1",topics[getTopic()]);
-			searchMap.put("param2","%"+getSearch()+"%");
-			list = sqlMapper.queryForList("qnaSQL.qnaSearch",searchMap);
+			String topics[] = { "qna_subject", "qna_id", "qna_content" };
+			searchMap.put("param1", topics[getTopic()]);
+			searchMap.put("param2", "%" + getSearch() + "%");
+			list = sqlMapper.queryForList("qnaSQL.qnaSearch", searchMap);
 			totalCount = list.size();
-			page = new pagingAction(currentPage, totalCount,blockCount,blockPage,getTopic(),getSearch(),paging);//pagingAction 객체 생성
+			page = new pagingAction(currentPage, totalCount, blockCount, blockPage, getTopic(), getSearch(), paging);// pagingAction
+																														// 객체
+																														// 생성
 		}
-		
-		pagingHtml = page.getPagingHtml().toString(); 
-		
+
+		pagingHtml = page.getPagingHtml().toString();
+
 		int lastCount = totalCount;
-		
-		if(page.getEndCount()<totalCount)
-			lastCount=page.getEndCount() + 1;
-		
+
+		if (page.getEndCount() < totalCount)
+			lastCount = page.getEndCount() + 1;
+
 		list = list.subList(page.getStartCount(), lastCount);
-		
+
 		return SUCCESS;
 	}
-	
+
 	public String form() throws Exception {
 		return SUCCESS;
-	}	
-	
+	}
+
 	public String reply() throws Exception {
 		reply = true;
 		resultClass = new qnaVO();
 		resultClass = (qnaVO) sqlMapper.queryForObject("qnaSQL.qnaView", getQna_no());
-		resultClass.setQna_subject("" + resultClass.getQna_subject());
-		resultClass.setQna_password("");
+		resultClass.setQna_subject("[답변완료] " + resultClass.getQna_subject());
 		resultClass.setQna_content("");
 
 		return SUCCESS;
 	}
-	
+
 	public String write() throws Exception {
 		paramClass = new qnaVO();
 		resultClass = new qnaVO();
-		
-		if(ref == 0) {
+
+		if (ref == 0) {
 			paramClass.setRe_step(0);
 			paramClass.setRe_level(0);
+			paramClass.setQna_password(getQna_password());
 		} else {
 			paramClass.setRef(getRef());
 			paramClass.setRe_step(getRe_step());
 			sqlMapper.update("qnaSQL.updateReplyStep", paramClass);
-			
+
 			paramClass.setRe_step(getRe_step() + 1);
 			paramClass.setRe_level(getRe_level() + 1);
 			paramClass.setRef(getRef());
+			paramClass.setQna_password(" ");
 		}
-		
+
 		paramClass.setQna_subject(getQna_subject());
-		paramClass.setQna_id((String)session.get("session_id"));
-		paramClass.setQna_password(getQna_password());
-		paramClass.setQna_content(getQna_content());
+		paramClass.setQna_id((String) session.get("session_id"));
+				paramClass.setQna_content(getQna_content());
 		paramClass.setQna_regdate(today.getTime());
-				
-		if(ref == 0)
+
+		if (ref == 0)
 			sqlMapper.insert("qnaSQL.insertQNA", paramClass);
 		else
 			sqlMapper.insert("qnaSQL.insertQNAReply", paramClass);
 
-		
 		return SUCCESS;
 	}
-	
+
 	public String view() throws Exception {
 		paramClass = new qnaVO();
 		resultClass = new qnaVO();
-		
+
 		paramClass.setQna_no(getQna_no());
 		sqlMapper.update("qnaSQL.updateReadHit", paramClass);
 		resultClass = (qnaVO) sqlMapper.queryForObject("qnaSQL.qnaView", getQna_no());
 		return SUCCESS;
 	}
-	
+
 	public String checkForm() throws Exception {
 		return SUCCESS;
 	}
-	
+
 	public String checkAction() throws Exception {
 		paramClass = new qnaVO();
 		resultClass = new qnaVO();
 		resultMember = new memVO();
 		paramMember = new memVO();
-		String sessionId = (String)session.get("session_id");
-		String adminYN = (String)session.get("session_adminYN");
-		
-		
-		if(adminYN.equals("0")){
-			System.out.println("test");
+		String sessionId = (String) session.get("session_id");
+		int adminYN = (int) session.get("session_adminYN");
+
+		if (adminYN == 0) {
 			paramClass.setQna_no(getQna_no());
 			paramClass.setQna_password(getQna_password());
 			resultClass = (qnaVO) sqlMapper.queryForObject("qnaSQL.selectPassword", paramClass);
-			if(resultClass != null) {
+			if (resultClass != null) {
 				return SUCCESS;
-			} 
+			}
 		}
 
-		
-		if (adminYN.equals("1")) {
-			System.out.println("test2");
-			paramMember.setM_id((String)session.get("session_id"));
-     		paramMember.setM_passwd(getQna_password());
-		
-			resultMember = (memVO)sqlMapper.queryForObject("memSQL.selectPassword", paramMember);
-		
-			if(resultMember != null) {
-				return SUCCESS;} 
+		if (adminYN == 1) {
+			paramMember.setM_id((String) session.get("session_id"));
+			paramMember.setM_passwd(getQna_password());
+
+			resultMember = (memVO) sqlMapper.queryForObject("memSQL.selectPassword", paramMember);
+
+			if (resultMember != null) {
+				return SUCCESS;
+			}
 		}
-		
+
 		return ERROR;
-		
-		
+
 	}
-	
+
 	public String update() throws Exception {
 		paramClass = new qnaVO();
-		resultClass = new qnaVO();		
-		
+		resultClass = new qnaVO();
+
 		paramClass.setQna_no(getQna_no());
 		paramClass.setQna_subject(getQna_subject());
 		paramClass.setQna_id(getQna_id());
-		paramClass.setQna_password(getQna_password());
+		paramClass.setQna_password(""); 
 		paramClass.setQna_content(getQna_content());
-		
+
 		sqlMapper.update("qnaSQL.updateQNA", paramClass);
-		
+
 		resultClass = (qnaVO) sqlMapper.queryForObject("qnaSQL.qnaView", getQna_no());
-		
+
 		return SUCCESS;
 	}
-	
+
 	public String delete() throws Exception {
 		paramClass = new qnaVO();
 		resultClass = new qnaVO();
-		
+
 		resultClass = (qnaVO) sqlMapper.queryForObject("qnaSQL.qnaView", getQna_no());
-		
+
 		paramClass.setQna_no(getQna_no());
-		
+
 		sqlMapper.update("qnaSQL.deleteQNA", paramClass);
-		
+
 		return SUCCESS;
-	}	
-
-
+	}
 
 	public Map getSession() {
 		return session;
@@ -284,7 +277,6 @@ public class QNAAction extends ActionSupport implements SessionAware{
 		this.pagingHtml = pagingHtml;
 	}
 
-
 	public pagingAction getPage() {
 		return page;
 	}
@@ -316,7 +308,7 @@ public class QNAAction extends ActionSupport implements SessionAware{
 	public void setTopic(int topic) {
 		this.topic = topic;
 	}
-	//write
+	// write
 
 	public qnaVO getParamClass() {
 		return paramClass;
@@ -333,8 +325,6 @@ public class QNAAction extends ActionSupport implements SessionAware{
 	public void setResultClass(qnaVO resultClass) {
 		this.resultClass = resultClass;
 	}
-
-
 
 	public int getRef() {
 		return ref;

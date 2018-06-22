@@ -5,10 +5,16 @@
 
 <html>
 <head>
+<style>
+.font_15 {
+   font-size: 15px;
+}
+</style>
+<link href="css/style.css?ver=1" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 <title>로그인</title>
-<link href="style.css" rel="stylesheet" type="text/css">
-<script language="javascript">
+
+<script type="text/javascript">
 	
 	function begin() {
 		document.myform.m_id.focus();
@@ -25,6 +31,10 @@
 			return false;
 		}
 	}
+	function open_win_noresizable (url, name){
+		var oWin = window.open(url, name, 
+				"scrollbars=no,status=no,resizable=no,width=530,height=300");
+	}
 </script>
 </head>
 <body onload="begin()">
@@ -32,37 +42,47 @@
 	CookieBox cookieBox = new CookieBox(request);
 %>
  --%>
-<s:form name="myform" action="loginPro.action" method="post" onsubmit="return checkIt()">
-<table cellspacing=1 cellpadding=1 width="400" border=1 align="center">
-	<tr height="30">
-		<td colspan="2" align="center">
-		<strong>회원로그인</strong>
-		</td>
+<div style="margin-left:auto; margin-right:auto; margin-top:auto; margin-bottom:auto;">
+<br><br><br><br><br><br>
+	<s:form name="myform" action="loginPro.action" method="post" onsubmit="return checkIt()">
+	
+	<table width="200" align="center">
+
+	<tr height="21">
+		<td align="center" colspan="0" id="bu"><input id="bu_in" type="text" name="m_id" size="24" maxlength="12" placeholder="ID" autocomplete="off"></td>
 	</tr>
-	
-	<%-- <% if(cookieBox.exists("ID")) %> --%>
-	
-	<tr height="30">
-		<td width="110" align=center>아이디</td>
-		<td width="150" align=center>
-			<input type="text" name="m_id" size="15" maxlength="12" <%-- value="<%=cookieBox.getValue("ID") %>" --%>></td>
-		<td width= "90"  align=center>
-			<input type="button" value="아이디 찾기" onclick="javascript:window.location.href='findIDForm.action'"></td>
+	<tr height="15"><td></td></tr>
+	<tr height="21">
+		<td align="center" colspan="0" id="bu"><input id="bu_in" type="password" name="m_passwd" size="24" maxlength="12" placeholder="PW"></td>
+	</tr>
+	<tr height="13"><td></td></tr>
+	</table>
+	<table align="center" id="bu_find">
+		<tr>
+			<td style="padding:0px 0px 0px 200px; ">
 			
+				<input type="button" value="아이디 찾기" onclick="javascript:open_win_noresizable('findIDForm.action','findID')">
+			</td>
+			<td>|</td>				
+			<td>
+				<input type="button" value="비밀번호 찾기" onclick="javascript:open_win_noresizable('findPWForm.action','findPW')">
+			</td>
 		</tr>
-	<tr height="30">
-		<td width="110" align="center">비밀번호</td>
-		<td width="150" align="center">
-			<input type="password" name="m_passwd" size="15" maxlength="12"></td>
-		<td width= "90" align=center>
-		<input type="button" value="비밀번호 찾기" onclick="javascript:window.location.href='findPWForm.action'"></td>	
-	</tr>
-	<tr height="30">
-		<td colspan="2" align="center" >
-			<input type="submit" value="로그인">
-			<input type="button" value="회원가입" onclick="javascript:window.location.href='joinForm.action'"></td>
-	</tr>		
-</table>
+		<tr height="13"><td></td></tr>
+	</table>
+	
+	<table align="center" width="210">
+      <tr height="23">
+         <td align="center" id="bu_1"><b><input type="submit" value="LOGIN"></b></td>
+      </tr>
+      <tr height="2"><td></td></tr>
+      <tr>
+         <td align="center" class="font_12">Not a member? <b><input class="font_12" type="button" value="Sign up now" onclick="javascript:window.location.href='agreementForm.action'"></b></td>
+      </tr>
+   </table>
 </s:form>
+</div>
+
+
 </body>
 </html>

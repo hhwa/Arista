@@ -7,23 +7,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<link href="/Arista/css/style.css" rel="stylesheet" type="text/css">
 <title>FAQ</title>
 </head>
 <body>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td align="center"></td>
+  </tr>
+  <tr>
+    <td height="100"></td>
+  </tr>
 
-<table width="600" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td align="center"><h2>FAQ</h2></td>
-  </tr>
-  <tr>
-    <td height="20"></td>
-  </tr>
 </table>
-
-<table width="600" border="1" cellspacing="0" cellpadding="0">
+<table width="600" cellspacing="0" cellpadding="0" align="center">
   <tr align="center">
-    <td width="50">NO</td>
-    <td align="left" width="350">&nbsp;제목</td>
+    <td height="25" width="70" class="bu_2">NO</td>
+    <td width="3"></td>
+    <td align="center" class="bu_2">제목</td>
   </tr>
   
 <s:iterator value="list" status="stat">
@@ -37,14 +38,19 @@
       <s:property value="currentPage"/>
     </s:param>
     
-  </s:url>  
-<tr align="center">
-  <td><s:property value="faq_no"/></td>
-  <td align="left">&nbsp;<s:a href="%{viewURL}"><s:property value="faq_subject" /></s:a></td>
-</tr>  
-<tr>
-  <td height="1" colspan="5"></td>
-</tr>
+  </s:url> 
+  	<tr>
+  		<td height="5"></td>
+	</tr> 
+	<tr align="center">
+  		<td height="25"><s:property value="faq_no"/></td>
+  		<td width="3"></td>
+  		<td align="left" style="padding:0px 0px 0px 25px;"><s:a href="%{viewURL}"><s:property value="faq_subject" /></s:a></td>
+	</tr>  
+	<tr>
+  		<td height="1" colspan="3"></td>
+	</tr>
+	<tr style="background-color: #2d2d30;"><td height="1" colspan="3"></td></tr>
   
 </s:iterator>  
   
@@ -57,23 +63,23 @@
 </s:if>  
 </table>
 
-<table width="600" border="0" cellspacing="0" cellpadding="0">
-<tr align="center">
-  <td colspan="5"><s:property value="pagingHtml" escape="false" /></td>
-</tr>
-
-<tr>
-  <td colspan="5">
-  </td>
-</tr>
-<s:if test="#session.session_adminYN eq 1">
-<tr align="right">
-  <td colspan="5">
-  <input type="button" value="글쓰기" onClick="javascript:location.href='FAQWriteForm.action?currentPage=<s:property value="currentPage" />';">
-  </td>
-</tr>
-</s:if>
-
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+	<tr><td height="20"></td></tr>
+	
+	<s:if test="#session.session_adminYN eq 1">
+	<tr>
+		<td colspan="2" ></td>
+		<td class="bu_2"  align="center" width="100" height="25">
+  			<input type="button" style="width:125px; height:25px;" value="글쓰기" onClick="javascript:location.href='FAQWriteForm.action?currentPage=<s:property value="currentPage" />';">
+  		</td>
+	</tr>
+	</s:if>
+	<tr align="center">
+  		<td width="100"></td>
+  		<td><s:property value="pagingHtml" escape="false" /></td>
+  		<td width="100"></td>
+	</tr>
+	<tr height="100"></tr>
 </table>
 </body>
 </html>

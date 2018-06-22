@@ -9,10 +9,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-<br><br>
-<center><h1>내가 신청한 매치글</h1></center>
-<br><br>
-<table>
+<table width="600" border="0" cellspacing="0" cellpadding="2" align="center">
+	<tr>
+		<td height="40"></td>
+	</tr>
+</table>
 <s:iterator value="list" status="stat">
 		<s:url id="viewURL" action="matchState">
 			<s:param name="game_no">
@@ -22,41 +23,72 @@
 				<s:property value="currentPage"/>			
 			</s:param>
 		</s:url>
-		
-			<tr bgcolor="#FFFFFF" align="center">
-			<td align="center"><s:property value="game_day"/></td>
-			<td width=150 align="left" style="padding:0px 0px 0px 10px">
-						        유형 : <s:property value="game_type"/><br>
-						        지역 : <s:property value="game_area"/><br>
-						        장소 : <s:property value="stadium"/><br>
-						        비용 : <s:property value="fee"/><br>
-						       최대 인원: <s:property value="people_max"/> </td>
-			<td align="center"><s:property value="content"/></td>
-			<s:if test="people_count < people_max">
-			<td align=center>대기중</td>
-			</s:if>
-			<s:else>
-			<td align="center">매치 생성</td>
-			</s:else>
-		</tr>
-		<tr bgcolor="#777777">
-			<td height="1" colspan="11"></td>
-		</tr>
-	</s:iterator>
+<div style="margin-left:20%; margin-right:20%;">
+	<table align="center" style="width:30%; float:left; margin-left:10px; margin-right:10px;" >
+	<tr><td style="border-left: 2px solid #2d2d30;border-right: 2px solid #2d2d30;" class="bu_2" colspan="3" width="300">NO. <s:property value="game_no"/></td><tr>
+	<tr height="150">
+		<td colspan="2" align="center"><div id="Solo_border"><s:property value="people_max"/></div></td>
+		<td width="150" align="center"><div id="Solo_border"><s:property value="people_count"/></div></td>
+	</tr>
+	<tr>
+		<td class="border_side_bu" align="center" colspan="2"><b>최대인원</b></td>
+		<td class="border_side_bu" align="center">신청인원<td>
+	</tr>
+	<tr>
+		<td class="border_left" height="8" width="100"></td>
+		<td width="50"></td>
+		<td class="border_right" width="150"></td>
+	</tr>
+	<tr height="150">
+		<td width="100" class="cont_si_left">
+			<font color="#FF0000">*</font> 경기종류<br>
+			<font color="#FF0000">*</font> 경기일<br>
+			<font color="#FF0000">*</font> 경기시간<br>
+			<font color="#FF0000">*</font> 경기장<br>
+			<font color="#FF0000">*</font> 지역<br>
+			<font color="#FF0000">*</font> 비용<br>
+			<font color="#FF0000">*</font> 내용<br>
+		</td>
+		<td colspan="2"  class="cont_si_right">
+		<s:property value="game_type"/><br>
+		<s:property value="game_day"/><br>
+		<s:property value="game_time"/><br>
+		<s:property value="stadium"/><br>
+		<s:property value="game_area"/><br>
+		<s:property value="fee"/><br>
+		<s:property value="content"/><br>
+		</td>
+	</tr>
 	
+	<tr class="border_top">
+		<td height="5" colspan="3"></td>
+	</tr>
+	<tr>
+		<td height="25" colspan="3"></td>
+	</tr>	
+</table>
+</div>
+</s:iterator>
 	
-	<s:if test="list.size() <= 0">
-	
+<s:if test="list.size() <= 0">
+<table align="center">
+	<tr height="100"></tr>	
 	<tr bgcolor="#FFFFFF" align="center">
-		<td colspan="11">등록한 매치글이 없습니다.</td>			
+		<td colspan="11">등록된 게시물이 없습니다.</td>			
 	</tr>
 	<tr bgcolor="#777777">
 		<td height="1" colspan="11"></td>
 	</tr>
-	</s:if>
+	
+	</table>
+</s:if>	
+
+<table align="center" width="90%">
+<tr height="100"></tr>
 	<tr align="center">
 		<td colspan="11"><s:property value="pagingHtml" escape="false"/></td>
 	</tr>
+	<tr height="100"></tr>
 </table>
 </body>
 </html>

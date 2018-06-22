@@ -2,122 +2,134 @@
 <!DOCTYPE sqlMap PUBLIC '-//ibatis.apache.org//DTD Sql Map 2.0//EN' 'http://ibatis.apache.org/dtd/sql-map-2.dtd'>
 <sqlMap namespace="matchStateSQL">
 
-	<typeAlias alias="matchState" type="matchState.matchStateVO"/>
-	
-		<!-- 리절트 맵 정의 -->
-		<resultMap id="matchStateRes" class="matchState">
-			<result property="match_no" column="match_no"/>
-			<result property="game_no" column="game_no"/>
-			<result property="match_type" column="match_type"/>
-			<result property="team_id" column="team_id"/>
-			<result property="team2_id" column="team2_id"/>
-			<result property="game_day" column="game_day"/>
-			<result property="game_type" column="game_type"/>
-			<result property="stadium" column="stadium"/>
-			<result property="fee" column="fee"/>
-			<result property="game_area" column="game_area"/>
-			<result property="uniform_color" column="uniform_color"/>
-			<result property="content" column="content"/>
-			<result property="people_max" column="people_max"/>
-			<result property="people_count" column="people_count"/>
-		</resultMap>
-		
-		<!-- 공통으로 사용할 select 절 정의 -->
-		<sql id="select-all">
-			select * from matchState
-		</sql>
-		
-		<!-- 공통으로 사용할 where-no절 정의 -->
-		<sql id="where-no">
-			where match_no = #match_no#
-		</sql>
-		
+	<typeAlias alias="matchState" type="matchState.matchStateVO" />
+
+	<!-- 리절트 맵 정의 -->
+	<resultMap id="matchStateRes" class="matchState">
+		<result property="match_no" column="match_no" />
+		<result property="game_no" column="game_no" />
+		<result property="match_type" column="match_type" />
+		<result property="team_id" column="team_id" />
+		<result property="team2_id" column="team2_id" />
+		<result property="game_day" column="game_day" />
+		<result property="game_time" column="game_time" />
+		<result property="game_type" column="game_type" />
+		<result property="stadium" column="stadium" />
+		<result property="fee" column="fee" />
+		<result property="game_area" column="game_area" />
+		<result property="uniform_color" column="uniform_color" />
+		<result property="content" column="content" />
+		<result property="people_max" column="people_max" />
+		<result property="people_count" column="people_count" />
+	</resultMap>
+
+	<!-- 공통으로 사용할 select 절 정의 -->
+	<sql id="select-all">
+		select * from matchState
+	</sql>
+
+	<!-- 공통으로 사용할 where-no절 정의 -->
+	<sql id="where-no">
+		where match_no = #match_no#
+	</sql>
+
 	<!-- select 쿼리문 정의 -->
-		
-		<!-- 매치목록 (비 로그인 시)-->
-		<select id="matchList" resultMap="matchStateRes">
-			<include refid="select-all"/>
-			order by match_no desc
-		</select>
-		<!-- 매치목록 (로그인 시)-->
-		<select id="matchList2" resultClass="matchState" parameterClass="String">
-			select m.match_no,m.game_no,match_type,team_id,team2_id,game_day,game_type,stadium,fee,game_area,uniform_color,content,people_max,people_count,mem_id
-			from matchState m left outer join joinsolo j 
-			on j.match_no=m.match_no and j.game_no=m.game_no and j.mem_id=#mem_id#
-			order by m.match_no desc
-		</select>
-		
-		<!-- 매치검색 -->
-		<select id="matchSearch" resultMap="matchStateRes" parameterClass="java.util.HashMap">
-			<include refid="select-all"/>
-			where $param1$ like #param2# order by match_no desc
-		</select>
-		
-		<!-- 매치상세보기 -->
-		<select id="matchView" resultMap="matchStateRes" parameterClass="int">
-			<include refid="select-all"/>
-			<include refid="where-no"/>
-		</select>
-		
-		<!-- 매치타입 불러오기 -->
-		<select id="matchTypeView" resultMap="matchStateRes" parameterClass="matchState">
-			<include refid="select-all"/>
-			where game_type=#game_type# and game_no=#game_no#
-		</select>
-		
-		<!-- 내가 신청한 매치 -->
-      	<select id="myMatchView" resultMap="matchStateRes" parameterClass="String">
-            select * from matchState m,joinsolo j
-            where j.mem_id=#mem_id# and j.match_no=m.match_no
-            order by m.match_no desc
-        </select>
-		
-		<!-- 마이팀 등록한 매치 목록 -->
-		<select id="myteamMatchView" resultMap="matchStateRes" parameterClass="String">
-			select * from matchState
-			where team_id=#team_id#
-			order by game_no
-		</select>
+
+	<!-- 매치목록 (비 로그인 시) -->
+	<select id="matchList" resultMap="matchStateRes">
+		<include refid="select-all" />
+		order by match_no desc
+	</select>
+	<!-- 매치목록 (로그인 시) -->
+	<select id="matchList2" resultClass="matchState" parameterClass="String">
+		select
+		m.match_no,m.game_no,match_type,team_id,team2_id,game_day,game_type,stadium,fee,game_area,uniform_color,content,people_max,people_count,mem_id,game_time
+		from matchState m left outer join joinsolo j
+		on j.match_no=m.match_no and j.game_no=m.game_no and j.mem_id=#mem_id#
+		order by m.match_no desc
+	</select>
+
+	<!-- 매치검색 -->
+	<select id="matchSearch" resultMap="matchStateRes"
+		parameterClass="java.util.HashMap">
+		<include refid="select-all" />
+		where $param1$ like #param2# order by match_no desc
+	</select>
+
+	<!-- 매치상세보기 -->
+	<select id="matchView" resultMap="matchStateRes" parameterClass="int">
+		<include refid="select-all" />
+		<include refid="where-no" />
+	</select>
+
+	<!-- 매치타입 불러오기 -->
+	<select id="matchTypeView" resultMap="matchStateRes" parameterClass="matchState">
+		<include refid="select-all" />
+		where match_type=#match_type# and game_no=#game_no#
+	</select>
+
+	<!-- 내가 신청한 매치 -->
+	<select id="myMatchView" resultMap="matchStateRes" parameterClass="String">
+		select * from matchState m,joinsolo j
+		where j.mem_id=#mem_id# and j.match_no=m.match_no
+		order by m.match_no desc
+	</select>
+
+	<!-- 마이팀 등록한 매치 목록 -->
+	<select id="myteamMatchView" resultMap="matchStateRes" parameterClass="String">
+		select * from matchState
+		where team_id=#team_id#
+		order by game_no
+	</select>
 	<!-- insert 쿼리문 정의 -->
-		
-		<!-- 매치 정보입력 -->
-		<insert id="insertMatch" parameterClass="matchState">
-			insert into matchState (match_no,game_no,match_type,team_id,game_day,game_type,stadium,fee,game_area,uniform_color,content,people_max,people_count) values (matchstate_no_seq.NEXTVAL,#game_no#,#match_type#,#team_id#,#game_day#,#game_type#,#stadium#,#fee#,#game_area#,#uniform_color#,#content#,#people_max#,#people_count#)
-		</insert>
-		
+
+	<!-- 매치 정보입력 -->
+	<insert id="insertMatch" parameterClass="matchState">
+		insert into matchState
+		(match_no,game_no,match_type,team_id,game_day,game_type,stadium,fee,game_area,uniform_color,content,people_max,people_count,game_time)
+		values
+		(matchstate_no_seq.NEXTVAL,#game_no#,#match_type#,#team_id#,#game_day#,#game_type#,#stadium#,#fee#,#game_area#,#uniform_color#,#content#,#people_max#,#people_count#,#game_time#)
+	</insert>
+
 	<!-- update 쿼리문 정의 -->
-		
-		<!-- 매치 타입 설정 -->
-		<update id="updateMatchType" parameterClass="matchState">
-			update matchState set match_type=#match_type#
-			<include refid="where-no"/>
-		</update>
-		<!-- 매치 상대팀 설정 -->
-		<update id="MatchUp" parameterClass="matchState">
-			update matchState set team2_id=#team2_id#
-			<include refid="where-no"/>
-		</update>
-		
-		<!-- 매치정보 수정 -->
-		<update id="updateMatch" parameterClass="matchState">
-			update matchState set game_day=#game_day#,game_type=#game_type#,stadium=#stadium#,fee=#fee#,game_area=#game_area#,uniform_color=#uniform_color#,content=#content#,people_max=#people_max#,people_count=#people_count#
-			<include refid="where-no"/>
-		</update>
-		
-		<!-- 개인매치 신청인원수 -->
-		<update id="soloCount" parameterClass="matchState">
-			update matchState set people_count=#people_count#
-			<include refid="where-no"/>
-		</update>
-		<!-- 매치 취소 -->
-		<update id="cancelMatch" parameterClass="int">
-			update matchState set team2_id=''
-			<include refid="where-no"/>
-		</update>		
+
+	<!-- 매치 타입 설정 -->
+	<update id="updateMatchType" parameterClass="matchState">
+		update matchState set match_type=#match_type#
+		<include refid="where-no" />
+	</update>
+	<!-- 매치 상대팀 설정 -->
+	<update id="MatchUp" parameterClass="matchState">
+		update matchState set team2_id=#team2_id#
+		<include refid="where-no" />
+	</update>
+
+	<!-- 매치정보 수정 -->
+	<update id="updateSoloMatch" parameterClass="matchState">
+		update matchState set
+		game_type=#game_type#,stadium=#stadium#,fee=#fee#,game_area=#game_area#,uniform_color=#uniform_color#,content=#content#,people_max=#people_max#,game_time=#game_time#
+		where game_no=#game_no# and match_type=#match_type#
+	</update>
+	<update id="updateTeamMatch" parameterClass="matchState">
+		update matchState set
+		game_type=#game_type#,stadium=#stadium#,fee=#fee#,game_area=#game_area#,uniform_color=#uniform_color#,content=#content#,game_time=#game_time#
+		where game_no=#game_no# and match_type=#match_type#
+	</update>
+
+	<!-- 개인매치 신청인원수 -->
+	<update id="soloCount" parameterClass="matchState">
+		update matchState set people_count=#people_count#
+		<include refid="where-no" />
+	</update>
+	<!-- 매치 취소 -->
+	<update id="cancelMatch" parameterClass="matchState">
+		update matchState set team2_id=#team2_id#
+		<include refid="where-no" />
+	</update>
 	<!-- delete 쿼리문 정의 -->
-		<!-- 매치 삭제 -->
-		<delete id="deleteMatch" parameterClass="matchState">
-			delete from matchState
-			<include refid="where-no"/>
-		</delete>
+	<!-- 매치 삭제 -->
+	<delete id="deleteMatch" parameterClass="int">
+		delete from matchState
+		<include refid="where-no" />
+	</delete>
 </sqlMap>

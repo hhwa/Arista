@@ -9,17 +9,17 @@
 </head>
 <body>
 
-<table width="100%" height="800" border="1" cellpadding="0" cellspacing="0">
-<tr>
+<table width="100%" height="800" border="0" cellpadding="0" cellspacing="0">
+<tr height="20%">
 	<td height="100"colspan="2" >
 	<tiles:insertAttribute name="header"/>
 	</td>
 </tr>
-<tr>
-	<td valign="top" width="18%" ><tiles:insertAttribute name="menu"/></td>
+<tr height="72%">
+	
 	<td valign="top" width="80%" ><tiles:insertAttribute name="body"/></td>
 </tr>
-<tr>
+<tr height="8%">
 	<td height="100" colspan="2" >
 	<tiles:insertAttribute name="footer"/>
 	</td>

@@ -17,24 +17,23 @@ import java.io.Reader;
 import java.io.File;
 import java.io.IOException;
 
-
 public class FAQAction extends ActionSupport {
-	
+
 	public static Reader reader;
 	public static SqlMapClient sqlMapper;
-	
+
 	private List<faqVO> list = new ArrayList<faqVO>();
-	
+
 	private int currentPage = 1;
 	private int totalCount;
 	private int blockCount = 10;
 	private int blockPage = 5;
 	private String pagingHtml;
 	private pagingAction page;
-	
+
 	private faqVO paramClass;
 	private faqVO resultClass;
-	
+
 	private int faq_no = 0;
 	private String faq_content;
 	private String faq_subject;
@@ -46,79 +45,79 @@ public class FAQAction extends ActionSupport {
 		reader.close();
 		setPageName("자주 묻는 질문");
 	}
-	
+
 	public String execute() throws Exception {
-		
+
 		list = sqlMapper.queryForList("faqSQL.FAQList");
-		
+
 		totalCount = list.size();
-		String paging="FAQList";
-		page = new pagingAction(currentPage, totalCount,blockCount,blockPage,paging);//pagingAction 객체 생성
+		String paging = "FAQList";
+		page = new pagingAction(currentPage, totalCount, blockCount, blockPage, paging);// pagingAction 객체 생성
 		pagingHtml = page.getPagingHtml().toString();
-		
+
 		int lastCount = totalCount;
-		
-		if(page.getEndCount() < totalCount)
+
+		if (page.getEndCount() < totalCount)
 			lastCount = page.getEndCount() + 1;
-		
+
 		list = list.subList(page.getStartCount(), lastCount);
-		
+
 		return SUCCESS;
 	}
-	
+
 	public String form() throws Exception {
 		return SUCCESS;
 	}
-	
+
 	public String write() throws Exception {
 		paramClass = new faqVO();
 		resultClass = new faqVO();
-		
+
 		paramClass.setFaq_subject(getFaq_subject());
 		paramClass.setFaq_content(getFaq_content());
-		
+
 		sqlMapper.insert("faqSQL.insertFAQ", paramClass);
-		
+
 		return SUCCESS;
 	}
-	
+
 	public String view() throws Exception {
 		paramClass = new faqVO();
 		resultClass = new faqVO();
-		
+
 		paramClass.setFaq_no(getFaq_no());
 		resultClass = (faqVO) sqlMapper.queryForObject("faqSQL.FAQView", getFaq_no());
 		return SUCCESS;
 	}
-	
+
 	public String update() throws Exception {
 		paramClass = new faqVO();
-		resultClass = new faqVO();		
-		
+		resultClass = new faqVO();
+
 		paramClass.setFaq_no(getFaq_no());
 		paramClass.setFaq_subject(getFaq_subject());
 		paramClass.setFaq_content(getFaq_content());
-		
+
 		sqlMapper.update("faqSQL.updateFAQ", paramClass);
-		
+
 		resultClass = (faqVO) sqlMapper.queryForObject("faqSQL.FAQView", getFaq_no());
-		
+
 		return SUCCESS;
 	}
-	
+
 	public String delete() throws Exception {
 		paramClass = new faqVO();
 		resultClass = new faqVO();
-		
+
 		resultClass = (faqVO) sqlMapper.queryForObject("faqSQL.FAQView", getFaq_no());
-		
+
 		paramClass.setFaq_no(getFaq_no());
-		
+
 		sqlMapper.update("faqSQL.deleteFAQ", paramClass);
-		
+
 		return SUCCESS;
 	}
-	
+
 	public List<faqVO> getList() {
 		return list;
 	}
@@ -166,7 +165,6 @@ public class FAQAction extends ActionSupport {
 	public void setPagingHtml(String pagingHtml) {
 		this.pagingHtml = pagingHtml;
 	}
-
 
 	public pagingAction getPage() {
 		return page;
@@ -222,5 +220,5 @@ public class FAQAction extends ActionSupport {
 
 	public void setPageName(String pageName) {
 		PageName = pageName;
-	}	
+	}
 }

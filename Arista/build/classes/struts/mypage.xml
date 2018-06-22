@@ -3,35 +3,35 @@
     "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
     "http://struts.apache.org/dtds/struts-2.0.dtd">
 
-	<struts>
+<struts>
 
-		<!-- 용량제한 100MB로 설정 -->
-		<constant name="struts.multipart.maxSize" value="104857600"/>
+	<!-- 용량제한 100MB로 설정 -->
+	<constant name="struts.multipart.maxSize" value="104857600" />
 
-		<!-- 마이페이지 -->	
-		<package name="mypage" extends="struts-default,tiles-default">
-		 	<!-- 마이 페이지 -->
-			<action name="mypage" method="layout" class="mypage.mypageAction">
-				<result type="tiles">mypage</result>
-				<result name="login" type="tiles">loginForm</result>
-			</action>
+	<!-- 마이페이지 -->
+	<package name="mypage" extends="struts-default,tiles-default">
+		<!-- 마이 페이지 -->
+		<action name="mypage" method="layout" class="mypage.mypageAction">
+			<result type="tiles">mypage</result>
+			<result name="login" type="tiles">loginForm</result>
+		</action>
 
-			<!-- 마이페이지 상세보기 -->
-			<action name="myInfoView" method="view" class="mypage.mypageAction">
-				<result type="tiles">myInfoView</result>
-				<result name="error">/error/errorPage.jsp</result>
-			</action>
+		<!-- 마이페이지 상세보기 -->
+		<action name="myInfoView" method="view" class="mypage.mypageAction">
+			<result type="tiles">myInfoView</result>
+			<result name="error">/error/loginError.jsp</result>
+		</action>
 
-			<!-- 내가 등록한 매치글 -->
-			<action name="teamMatchInfo" method="TeamMatchInfo" class="mypage.mypageAction">
-				<result type="tiles">teamMatchInfo</result>
-				<result name="login" type="tiles">loginForm</result>
-			</action>
-	
-			<!-- 내가 신청한 매치글 -->
-			<action name="myMatchInfo" method="myMatch" class="mypage.mypageAction">
-				<result type="tiles">myMatchInfo</result>
-				<result name="login" type="tiles">loginForm</result>
-			</action>
-		</package>
-	</struts>
+		<!-- 내가 등록한 매치글 -->
+		<action name="teamMatchInfo" method="TeamMatchInfo" class="mypage.mypageAction">
+			<result type="tiles">teamMatchInfo</result>
+			<result name="login" type="tiles">loginForm</result>
+		</action>
+
+		<!-- 내가 신청한 매치글 -->
+		<action name="myMatchInfo" method="myMatch" class="mypage.mypageAction">
+			<result type="tiles">myMatchInfo</result>
+			<result name="login" type="tiles">loginForm</result>
+		</action>
+	</package>
+</struts>

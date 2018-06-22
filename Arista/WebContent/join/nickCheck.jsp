@@ -1,17 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="UTF-8"%>
+    pageEncoding="EUC-KR"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<link href="css/style.css" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-<title>К▀┴К└╓Л·└ Л╓▒КЁ╣Л╡╢М│╛</title>
+<title>╢пЁвюс аъ╨╧ц╪е╘</title>
 <script language="javascript" charset="EUC-KR">
 
 function setnick()
  {
 	opener.document.userinput.m_nickname.value="<s:property value='m_nickname'/>";
+	opener.document.userinput.nickcheckresult.value="<s:property value='nickcheckresult'/>";
  	self.close();
  } 
 
@@ -22,18 +24,24 @@ function setnick()
 
 
 <s:if test="nickcheckresult == 0">
-<table width="270" border="0" cellspacing="0" cellpadding="5">
+<table width="500" align="center">
+	<tr height="10"><td></td></tr>
 	<tr>
-		<td height="39"><s:property value="%{memberResult.m_nickname}"/>К┼■ Л²╢К╞╦ Л┌╛Л ╘Л╓▒Л²╦ К▀┴К└╓Л·└Л·┘К▀┬К▀╓.</td>
+		<td align="center"><s:property value="%{memberResult.m_nickname}"/>╢б юл╧л ╩Г©Каъюн ╢пЁвюсют╢о╢ы.</td>
 	</tr>	
+	<tr height="10"><td></td></tr>	
 </table>
 <s:form name="checkForm" method="post" action="memberNickCheck.action">
-<table width="200" border="0" cellspacing="0" cellpadding="5">
+<table width="500" border="0" cellspacing="0" cellpadding="5">
 	<tr>
 		<td align="center">
-		К▀╓К╔╦ К▀┴К└╓Л·└Л²└ Л·┘К═╔М∙≤Л└╦Л ■.<p>
-		<input type="text" size="20" name="m_nickname">
-		<input type="submit" value="К▀┴К└╓Л·└ Л╓▒КЁ╣М≥∙Л²╦">
+		╢ы╦╔ ╢пЁвюсю╩ ют╥бго╪╪©Д.<p>
+		<input type="text" size="20" name="m_nickname" class="bottom" autocomplete="off">
+		</td>
+	</tr>
+	<tr>
+		<td align="center">
+		<input type="submit" value="╢пЁвюс аъ╨╧х╝юн" id="bu_1">
 		</td>
 	</tr>	
 </table>
@@ -41,11 +49,11 @@ function setnick()
 </s:if>
 <s:elseif test="nickcheckresult == 1">
 
-<table width="270" border="0" cellspacing="0" cellpadding="5">
+<table width="500" border="0" cellspacing="0" cellpadding="5">
 	<tr>
 		<td align="center">
-			<p>Л·┘К═╔М∙≤Л▀═ [<s:property value="m_nickname"/>]К┼■ Л┌╛Л ╘М∙≤Л▀╓ Л┬≤ Л·┬К┼■ К▀┴К└╓Л·└Л·┘К▀┬К▀╓ </p>
-			<input type="button" value="К▀╚Й╦╟" onclick="setnick()">
+			<p>ют╥бго╫е [<s:property value="m_nickname"/>]╢б ╩Г©Кго╫г ╪Ж юж╢б ╢пЁвюсют╢о╢ы </p>
+			<input type="button" value="╢щ╠Б" onclick="setnick()" id="bu_1">
 		</td>
 	</tr>
 </table>
